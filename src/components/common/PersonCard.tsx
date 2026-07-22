@@ -5,6 +5,10 @@ interface PersonCardProps {
   person: ResolvedPerson;
   /** Color of the academic-profile link (defaults to the teal accent). */
   profileColor?: string;
+  /** Disable reveal-on-scroll animation for immediate display contexts. */
+  instant?: boolean;
+  /** Hide role badge for simplified cards. */
+  hideRole?: boolean;
 }
 
 const mix = (color: string, pct: number, base = 'transparent') =>
@@ -14,6 +18,8 @@ const mix = (color: string, pct: number, base = 'transparent') =>
 export function PersonCard({
   person,
   profileColor = 'var(--teal-700)',
+  instant = false,
+  hideRole = false,
 }: PersonCardProps) {
   const [hover, setHover] = useState(false);
   const [imgFailed, setImgFailed] = useState(false);
@@ -22,7 +28,7 @@ export function PersonCard({
 
   return (
     <div
-      data-reveal=""
+      {...(!instant ? { 'data-reveal': '' } : {})}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
       style={{
@@ -124,31 +130,35 @@ export function PersonCard({
       >
         {person.sub}
       </div>
-      <div
-        style={{
-          marginTop: 4,
-          padding: '3px 13px',
-          borderRadius: 999,
-          fontSize: 12,
-          fontWeight: 600,
-          color: accent,
-          background: mix(accent, 13),
-          border: `1px solid ${mix(accent, 30)}`,
-        }}
-      >
-        {person.role}
-      </div>
-      <div
-        style={{
-          fontSize: 12.5,
-          color: 'var(--muted)',
-          lineHeight: 1.45,
-          marginTop: 2,
-          whiteSpace: 'pre-line',
-        }}
-      >
-        {person.dept}
-      </div>
+      {!hideRole && (
+        <div
+          style={{
+            marginTop: 4,
+            padding: '3px 13px',
+            borderRadius: 999,
+            fontSize: 12,
+            fontWeight: 600,
+            color: accent,
+            background: mix(accent, 13),
+            border: `1px solid ${mix(accent, 30)}`,
+          }}
+        >
+          {person.role}
+        </div>
+      )}
+      {person.dept && (
+        <div
+          style={{
+            fontSize: 12.5,
+            color: 'var(--muted)',
+            lineHeight: 1.45,
+            marginTop: 2,
+            whiteSpace: 'pre-line',
+          }}
+        >
+          {person.dept}
+        </div>
+      )}
       {person.duty && (
         <div
           style={{

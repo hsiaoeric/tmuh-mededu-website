@@ -32,15 +32,15 @@ interface KpiCenterLink {
 
 const KPI_MEMBER_GROUPS: Record<string, RawPerson[]> = {
   'Teaching Attendings': [
-    person('邱欣怡', 'Hsin-Yi Chiu', 'lead', '教學型主治醫師', 'Teaching Attending', 'hsin-yi-chiu', 'hsin-yi-chiu'),
-    person('吳政誠', 'Jeng-Cheng Wu', 'lead', '教學型主治醫師', 'Teaching Attending', 'jeng-cheng-wu', 'jeng-cheng-wu'),
-    person('吳人傑', 'Jen-Chieh Wu', 'lead', '教學型主治醫師', 'Teaching Attending', 'jen-chieh-wu', 'jen-chieh-wu'),
+    person('邱欣怡', 'Hsin-Yi Chiu', 'lead', '', '', 'hsin-yi-chiu', 'hsin-yi-chiu'),
+    person('吳政誠', 'Jeng-Cheng Wu', 'lead', '', '', 'jeng-cheng-wu', 'jeng-cheng-wu'),
+    person('吳人傑', 'Jen-Chieh Wu', 'lead', '', '', 'jen-chieh-wu', 'jen-chieh-wu'),
   ],
   'Teaching Allied Health': [
-    person('王莉萱', 'Li-Hsuan Wang', 'lead', '職類教學型醫事人員', 'Teaching Allied Health', 'li-hsuan-wang'),
-    person('范芳郡', 'Fang-Chun Fan', 'lead', '職類教學型醫事人員', 'Teaching Allied Health', 'fang-chun-fan'),
-    person('向慧芬', 'Hui-Fen Hsiang', 'lead', '職類教學型醫事人員', 'Teaching Allied Health'),
-    person('鄭憲霖', 'Hsien-Lin Cheng', 'lead', '職類教學型醫事人員', 'Teaching Allied Health'),
+    person('王莉萱', 'Li-Hsuan Wang', 'lead', '', '', 'li-hsuan-wang'),
+    person('范芳郡', 'Fang-Chun Fan', 'lead', '', '', 'fang-chun-fan'),
+    person('向慧芬', 'Hui-Fen Hsiang', 'lead', '', ''),
+    person('鄭憲霖', 'Hsien-Lin Cheng', 'lead', '', ''),
   ],
 };
 
@@ -357,7 +357,7 @@ export function DeptView() {
             ))}
           </div>
           {activeKpiGroup && activeKpiPeople.length > 0 && (
-            <Reveal
+            <div
               style={{
                 marginTop: 18,
                 padding: '18px 18px 20px',
@@ -390,13 +390,13 @@ export function DeptView() {
                 }}
               >
                 {activeKpiPeople.map((p, idx) => (
-                  <PersonCard key={`${p.fullname}-${idx}`} person={p} />
+                  <PersonCard key={`${p.fullname}-${idx}`} person={p} instant hideRole />
                 ))}
               </div>
-            </Reveal>
+            </div>
           )}
           {activeKpiGroup === 'Education Centers' && activeKpiCenters.length > 0 && (
-            <Reveal
+            <div
               style={{
                 marginTop: 18,
                 padding: '18px 18px 20px',
@@ -483,7 +483,7 @@ export function DeptView() {
                   );
                 })}
               </div>
-            </Reveal>
+            </div>
           )}
         </section>
         <div id="impact-awards">
