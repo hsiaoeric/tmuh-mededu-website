@@ -12,36 +12,70 @@ const VB_W = 100;
 const VB_H = 70;
 const HUB_X = 50;
 const HUB_Y = 35;
-const BRANCH_DIST = 13;
-const BRANCH_SPREAD = 0.85;
+const BRANCH_SPACING = 12.5;
+const BRANCH_ROW_GAP = 10;
+const VIEW_MARGIN = 7;
 
-interface HubOrgChartProps {
-  activeId: CenterId | null;
-  activeBranchId: string | null;
-  onSelectCenter: (id: CenterId) => void;
-  onSelectBranch: (centerId: CenterId, branchId: string) => void;
-}
-
+/** Place branches on perpendicular row(s) from the hub→center axis to avoid overlap. */
 function branchCoords(
   cx: number,
   cy: number,
   count: number,
   index: number,
 ): { x: number; y: number } {
-  const baseAngle = Math.atan2(cy - HUB_Y, cx - HUB_X);
-  if (count <= 1) {
-    return {
-      x: cx + Math.cos(baseAngle) * BRANCH_DIST,
-      y: cy + Math.sin(baseAngle) * BRANCH_DIST,
-    };
+  const dx = cx - HUB_X;
+  const dy = cy - HUB_Y;
+  const hubDist = Math.hypot(dx, dy) || 1;
+  const ux = dx / hubDist;
+  const uy = dy / hubDist;
+  const px = -uy;
+  const py = ux;
+
+  const useTwoRows = count >= 4;
+  let row = 0;
+  let col = index;
+  let colsInRow = count;
+
+  if (useTwoRows) {
+    const topRowCount = Math.ceil(count / 2);
+    row = index < topRowCount ? 0 : 1;
+    col = index < topRowCount ? index : index - topRowCount;
+    colsInRow = row === 0 ? topRowCount : count - topRowCount;
   }
-  const spread = BRANCH_SPREAD;
-  const start = baseAngle - spread / 2;
-  const step = spread / (count - 1);
-  const angle = start + step * index;
+
+  const colMid = (colsInRow - 1) / 2;
+  const perpOffset = (col - colMid) * BRANCH_SPACING;
+  const rowOffset = row * BRANCH_ROW_GAP;
+
+  const nearTop = cy < 16;
+  const nearBottom = cy > 54;
+  const nearLeft = cx < 22;
+  const nearRight = cx > 78;
+
+  let along = 15 + rowOffset;
+  if (nearTop || nearBottom) along = 12 + rowOffset;
+  if (nearLeft || nearRight) along = 13 + rowOffset;
+
+  let x = cx + ux * along + px * perpOffset;
+  let y = cy + uy * along + py * perpOffset;
+
+  if (nearTop) {
+    x = cx + px * perpOffset;
+    y = cy + 11 + row * BRANCH_ROW_GAP;
+  } else if (nearBottom) {
+    x = cx + px * perpOffset;
+    y = cy - 11 - row * BRANCH_ROW_GAP;
+  } else if (nearRight) {
+    x = cx + ux * (9 + rowOffset) + px * perpOffset;
+    y = cy + py * perpOffset;
+  } else if (nearLeft) {
+    x = cx + ux * (9 + rowOffset) + px * perpOffset;
+    y = cy + py * perpOffset;
+  }
+
   return {
-    x: cx + Math.cos(angle) * BRANCH_DIST,
-    y: cy + Math.sin(angle) * BRANCH_DIST,
+    x: Math.min(VB_W - VIEW_MARGIN, Math.max(VIEW_MARGIN, x)),
+    y: Math.min(VB_H - VIEW_MARGIN, Math.max(VIEW_MARGIN, y)),
   };
 }
 
@@ -226,6 +260,13 @@ function CenterNode({
   );
 }
 
+interface HubOrgChartProps {
+  activeId: CenterId | null;
+  activeBranchId: string | null;
+  onSelectCenter: (id: CenterId) => void;
+  onSelectBranch: (centerId: CenterId, branchId: string) => void;
+}
+
 export function HubOrgChart({
   activeId,
   activeBranchId,
@@ -253,7 +294,8 @@ export function HubOrgChart({
         width: '100%',
         maxWidth: 920,
         margin: '0 auto',
-        aspectRatio: '1.35 / 1',
+        aspectRatio: '1.45 / 1',
+        padding: '12px 0 28px',
         overflow: 'visible',
       }}
     >

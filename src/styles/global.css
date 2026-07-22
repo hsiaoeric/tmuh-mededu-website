@@ -125,8 +125,9 @@ body {
 }
 
 .hub-branch-node {
-  min-width: 74px;
-  padding: 8px 9px;
+  min-width: 68px;
+  max-width: 88px;
+  padding: 7px 8px;
   border-radius: 11px;
   border: 1px solid var(--border);
   background: var(--surface);
