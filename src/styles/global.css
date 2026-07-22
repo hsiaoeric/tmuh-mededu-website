@@ -161,6 +161,24 @@ body {
   pointer-events: none;
 }
 
+.hub-branch-tooltip[data-side='top'] {
+  top: auto;
+  bottom: calc(100% + 8px);
+}
+
+.hub-branch-tooltip[data-side='right'] {
+  left: calc(100% + 8px);
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.hub-branch-tooltip[data-side='left'] {
+  left: auto;
+  right: calc(100% + 8px);
+  top: 50%;
+  transform: translateY(-50%);
+}
+
 .hub-line--active {
   filter: drop-shadow(0 0 3px color-mix(in srgb, var(--teal) 40%, transparent));
 }

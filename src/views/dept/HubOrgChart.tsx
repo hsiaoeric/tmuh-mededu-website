@@ -15,67 +15,56 @@ const HUB_Y = 35;
 const BRANCH_SPACING = 12.5;
 const BRANCH_ROW_GAP = 10;
 const VIEW_MARGIN = 7;
+const BRANCHS_PER_LINE = 3;
 
-/** Place branches on perpendicular row(s) from the hub→center axis to avoid overlap. */
+type BranchSide = 'top' | 'bottom' | 'left' | 'right';
+
+function sideForCenter(centerId: CenterId): BranchSide {
+  if (centerId === 'faculty_dev') return 'bottom';
+  if (centerId === 'holistic') return 'top';
+  if (centerId === 'clinical_skills' || centerId === 'ebm') return 'right';
+  return 'left';
+}
+
+/**
+ * Place branches into multi-line slots on a fixed outer side per center so
+ * branch cards and tooltips do not sit on top of other center nodes.
+ */
 function branchCoords(
+  centerId: CenterId,
   cx: number,
   cy: number,
   count: number,
   index: number,
-): { x: number; y: number } {
-  const dx = cx - HUB_X;
-  const dy = cy - HUB_Y;
-  const hubDist = Math.hypot(dx, dy) || 1;
-  const ux = dx / hubDist;
-  const uy = dy / hubDist;
-  const px = -uy;
-  const py = ux;
+): { x: number; y: number; side: BranchSide } {
+  const side = sideForCenter(centerId);
+  const line = Math.floor(index / BRANCHS_PER_LINE);
+  const col = index % BRANCHS_PER_LINE;
+  const colMid = (Math.min(BRANCHS_PER_LINE, count - line * BRANCHS_PER_LINE) - 1) / 2;
+  const colOffset = (col - colMid) * BRANCH_SPACING;
+  const lineOffset = line * BRANCH_ROW_GAP;
 
-  const useTwoRows = count >= 4;
-  let row = 0;
-  let col = index;
-  let colsInRow = count;
+  let x = cx;
+  let y = cy;
 
-  if (useTwoRows) {
-    const topRowCount = Math.ceil(count / 2);
-    row = index < topRowCount ? 0 : 1;
-    col = index < topRowCount ? index : index - topRowCount;
-    colsInRow = row === 0 ? topRowCount : count - topRowCount;
-  }
-
-  const colMid = (colsInRow - 1) / 2;
-  const perpOffset = (col - colMid) * BRANCH_SPACING;
-  const rowOffset = row * BRANCH_ROW_GAP;
-
-  const nearTop = cy < 16;
-  const nearBottom = cy > 54;
-  const nearLeft = cx < 22;
-  const nearRight = cx > 78;
-
-  let along = 15 + rowOffset;
-  if (nearTop || nearBottom) along = 12 + rowOffset;
-  if (nearLeft || nearRight) along = 13 + rowOffset;
-
-  let x = cx + ux * along + px * perpOffset;
-  let y = cy + uy * along + py * perpOffset;
-
-  if (nearTop) {
-    x = cx + px * perpOffset;
-    y = cy + 11 + row * BRANCH_ROW_GAP;
-  } else if (nearBottom) {
-    x = cx + px * perpOffset;
-    y = cy - 11 - row * BRANCH_ROW_GAP;
-  } else if (nearRight) {
-    x = cx + ux * (9 + rowOffset) + px * perpOffset;
-    y = cy + py * perpOffset;
-  } else if (nearLeft) {
-    x = cx + ux * (9 + rowOffset) + px * perpOffset;
-    y = cy + py * perpOffset;
+  if (side === 'bottom') {
+    x = cx + colOffset;
+    y = cy + 12 + lineOffset;
+  } else if (side === 'top') {
+    x = cx + colOffset;
+    y = cy - 12 - lineOffset;
+  } else if (side === 'right') {
+    x = cx + 13 + lineOffset;
+    y = cy + colOffset;
+  } else {
+    x = cx - 13 - lineOffset;
+    y = cy + colOffset;
   }
 
   return {
     x: Math.min(VB_W - VIEW_MARGIN, Math.max(VIEW_MARGIN, x)),
     y: Math.min(VB_H - VIEW_MARGIN, Math.max(VIEW_MARGIN, y)),
+    side,
   };
 }
 
@@ -92,6 +81,7 @@ function BranchNode({
   color,
   x,
   y,
+  side,
   delay,
   active,
   onSelect,
@@ -100,6 +90,7 @@ function BranchNode({
   color: string;
   x: number;
   y: number;
+  side: BranchSide;
   delay: number;
   active: boolean;
   onSelect: () => void;
@@ -172,6 +163,7 @@ function BranchNode({
       {hover && (
         <div
           className="hub-branch-tooltip"
+          data-side={side}
           style={{
             borderColor: `color-mix(in srgb,${color} 35%,var(--border))`,
           }}
@@ -281,8 +273,8 @@ export function HubOrgChart({
     const center = CENTERS.find((c) => c.id === activeId)!;
     const branches = CENTER_BRANCHES[activeId];
     return branches.map((branch, i) => {
-      const { x, y } = branchCoords(center.hx, center.hy, branches.length, i);
-      return { branch, x, y, i };
+      const { x, y, side } = branchCoords(activeId, center.hx, center.hy, branches.length, i);
+      return { branch, x, y, side, i };
     });
   }, [activeId]);
 
@@ -421,13 +413,14 @@ export function HubOrgChart({
       ))}
 
       {activeId &&
-        branchLines.map(({ branch, x, y, i }) => (
+        branchLines.map(({ branch, x, y, side, i }) => (
           <BranchNode
             key={branch.id}
             branch={branch}
             color={CENTERS.find((c) => c.id === activeId)!.color}
             x={x}
             y={y}
+            side={side}
             delay={i * 55}
             active={activeBranchId === branch.id}
             onSelect={() => onSelectBranch(activeId, branch.id)}
