@@ -11,11 +11,9 @@ export interface Kpi {
 }
 
 const DEPT_KPIS: Array<[number, string, string, string, string]> = [
-  [5, '', '教育中心', 'Education Centers', '#4f8c7d'],
-  [102, '', '種子教師', 'Seed Teachers', '#A87A6B'],
-  [13, '', '專業職類', 'Disciplines', '#5E7A8C'],
-  [4, '', '教學型主治', 'Teaching Attendings', '#B69B66'],
+  [3, '', '教學型主治', 'Teaching Attendings', '#B69B66'],
   [4, '', '職類教學型醫事人員', 'Teaching Allied Health', '#7A95A8'],
+  [5, '', '教育中心', 'Education Centers', '#4f8c7d'],
 ];
 
 export function deptKpis(lang: Lang): Kpi[] {

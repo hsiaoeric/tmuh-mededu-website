@@ -12,16 +12,32 @@ import { Icon, type IconName } from '@/components/common/Icon';
 import { Reveal } from '@/components/common/Reveal';
 import { Eyebrow } from '@/components/common/Eyebrow';
 import { KpiCard } from '@/components/common/KpiCard';
+import { PersonCard } from '@/components/common/PersonCard';
 import { SectionHeading } from '@/components/common/SectionHeading';
 import { formatPhoneExt } from '@/utils/phone';
 import { scrollToId } from '@/utils/scroll';
 import { HeroImage } from '@/components/common/HeroImage';
+import { person, resolvePerson, type RawPerson } from '@/data/people';
 import { OrgChart } from './dept/OrgChart';
 import { CenterDetailPanel } from './dept/CenterDetailPanel';
 import { DeptAwardsSection } from './dept/DeptAwardsSection';
 import { DeptNewsSection } from './dept/DeptNewsSection';
 import { DeptAboutSection } from './dept/DeptAboutSection';
 import { DeptCentersSection } from './dept/DeptCentersSection';
+
+const KPI_MEMBER_GROUPS: Record<string, RawPerson[]> = {
+  'Teaching Attendings': [
+    person('邱欣怡', 'Hsin-Yi Chiu', 'lead', '教學型主治醫師', 'Teaching Attending', 'hsin-yi-chiu', 'hsin-yi-chiu'),
+    person('吳政誠', 'Jeng-Cheng Wu', 'lead', '教學型主治醫師', 'Teaching Attending', 'jeng-cheng-wu', 'jeng-cheng-wu'),
+    person('吳人傑', 'Jen-Chieh Wu', 'lead', '教學型主治醫師', 'Teaching Attending', 'jen-chieh-wu', 'jen-chieh-wu'),
+  ],
+  'Teaching Allied Health': [
+    person('王莉萱', 'Li-Hsuan Wang', 'lead', '職類教學型醫事人員', 'Teaching Allied Health', 'li-hsuan-wang'),
+    person('范芳郡', 'Fang-Chun Fan', 'lead', '職類教學型醫事人員', 'Teaching Allied Health', 'fang-chun-fan'),
+    person('向慧芬', 'Hui-Fen Hsiang', 'lead', '職類教學型醫事人員', 'Teaching Allied Health'),
+    person('鄭憲霖', 'Hsien-Lin Cheng', 'lead', '職類教學型醫事人員', 'Teaching Allied Health'),
+  ],
+};
 
 function OrgToggle({
   variant,
@@ -108,8 +124,14 @@ export function DeptView() {
   const [orgVariant, setOrgVariant] = useState<'A' | 'B'>('A');
   const [active, setActive] = useState<CenterId | null>('admin');
   const [activeBranchId, setActiveBranchId] = useState<string | null>(null);
+  const [activeKpiGroup, setActiveKpiGroup] = useState<string | null>(null);
   const kpis = deptKpis(isZh ? 'zh' : 'en');
   const activeCenter = active ? centerById(active) : undefined;
+  const activeKpiPeople = activeKpiGroup
+    ? (KPI_MEMBER_GROUPS[activeKpiGroup] ?? []).map((p) =>
+        resolvePerson(p, activeKpiGroup === 'Teaching Attendings' ? '#B69B66' : '#7A95A8', lang),
+      )
+    : [];
 
   const handleSelectCenter = (id: CenterId) => {
     setActive((cur) => {
@@ -302,9 +324,57 @@ export function DeptView() {
                 caption={k.en}
                 color={k.color}
                 delay={k.delay}
+                onClick={
+                  KPI_MEMBER_GROUPS[k.en]
+                    ? () =>
+                        setActiveKpiGroup((cur) =>
+                          cur === k.en ? null : k.en,
+                        )
+                    : undefined
+                }
+                active={activeKpiGroup === k.en}
               />
             ))}
           </div>
+          {activeKpiGroup && activeKpiPeople.length > 0 && (
+            <Reveal
+              style={{
+                marginTop: 18,
+                padding: '18px 18px 20px',
+                borderRadius: 16,
+                border: '1px solid var(--border)',
+                background: 'var(--surface)',
+                boxShadow: 'var(--shadow-card)',
+              }}
+            >
+              <div
+                style={{
+                  fontFamily: "'Noto Sans TC', sans-serif",
+                  fontSize: 15,
+                  fontWeight: 700,
+                  color: 'var(--text)',
+                  marginBottom: 14,
+                }}
+              >
+                {isZh
+                  ? activeKpiGroup === 'Teaching Attendings'
+                    ? '教學型主治成員'
+                    : '職類教學型醫事人員成員'
+                  : activeKpiGroup}
+              </div>
+              <div
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(auto-fit,minmax(200px,1fr))',
+                  gap: 14,
+                }}
+              >
+                {activeKpiPeople.map((p, idx) => (
+                  <PersonCard key={`${p.fullname}-${idx}`} person={p} />
+                ))}
+              </div>
+            </Reveal>
+          )}
         </section>
         <div id="impact-awards">
           <DeptAwardsSection />
