@@ -1,34 +1,15 @@
 import { useSite } from '@/context/SiteContext';
 import { type Center, CENTER_ICON } from '@/data/centers';
-import { resolvePerson, type RoleKey } from '@/data/people';
+import { resolvePerson } from '@/data/people';
 import { Icon, type IconName } from '@/components/common/Icon';
 import { PersonCard } from '@/components/common/PersonCard';
 import { formatPhoneExt } from '@/utils/phone';
+import { AdminTeamTree } from './AdminTeamTree';
 
 interface Props {
   center: Center;
   onClose: () => void;
 }
-
-const Divider = () => (
-  <div style={{ width: 2, height: 30, background: 'var(--border)' }} />
-);
-
-const Caption = ({ text, color }: { text: string; color: string }) => (
-  <div
-    style={{
-      fontFamily: "'IBM Plex Sans', sans-serif",
-      fontSize: 10.5,
-      letterSpacing: '.14em',
-      textTransform: 'uppercase',
-      color,
-      fontWeight: 600,
-      marginBottom: 10,
-    }}
-  >
-    {text}
-  </div>
-);
 
 export function CenterDetailPanel({ center, onClose }: Props) {
   const { isZh, lang, t } = useSite();
@@ -37,25 +18,6 @@ export function CenterDetailPanel({ center, onClose }: Props) {
   const contactLine = center.ext
     ? `${isZh ? center.contactZh : center.contactEn} · ${formatPhoneExt(center.ext, lang)}`
     : '';
-
-  const byRole = (role: RoleKey) =>
-    center.people
-      .filter((p) => p.role === role)
-      .map((p) => resolvePerson(p, center.color, lang));
-
-  const adminL1 = byRole('vp');
-  const adminL2 = byRole('ddir');
-  const adminL3 = byRole('ddep');
-  const adminL4 = byRole('head');
-  const adminL5 = byRole('spec');
-
-  const caps = {
-    c1: isZh ? '教學副院長' : 'VP · Medical Education',
-    c2: isZh ? '教學部主任' : 'Department Director',
-    c3: isZh ? '教學部副主任' : 'Deputy Directors',
-    c4: isZh ? '教學部組長' : 'Section Head',
-    c5: isZh ? '行政專員 · 業務分工' : 'Administrative Specialists · Duties',
-  };
 
   return (
     <div
@@ -195,67 +157,7 @@ export function CenterDetailPanel({ center, onClose }: Props) {
           </>
         )}
 
-        {isAdmin && (
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <Caption text={caps.c1} color={center.color} />
-            <div style={{ width: 250 }}>
-              {adminL1.map((p, i) => (
-                <PersonCard key={i} person={p} />
-              ))}
-            </div>
-            <Divider />
-            <Caption text={caps.c2} color={center.color} />
-            <div style={{ width: 250 }}>
-              {adminL2.map((p, i) => (
-                <PersonCard key={i} person={p} />
-              ))}
-            </div>
-            <Divider />
-            <Caption text={caps.c3} color={center.color} />
-            <div style={{ display: 'flex', gap: 18, flexWrap: 'wrap', justifyContent: 'center' }}>
-              {adminL3.map((p, i) => (
-                <div key={i} style={{ width: 230 }}>
-                  <PersonCard person={p} />
-                </div>
-              ))}
-            </div>
-            <Divider />
-            <Caption text={caps.c4} color={center.color} />
-            <div style={{ width: 250 }}>
-              {adminL4.map((p, i) => (
-                <PersonCard key={i} person={p} />
-              ))}
-            </div>
-            <Divider />
-            <div
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: 10,
-                alignSelf: 'stretch',
-                marginBottom: 16,
-              }}
-            >
-              <span style={{ width: 5, height: 20, borderRadius: 9, background: center.color }} />
-              <span style={{ fontFamily: "'Noto Sans TC', sans-serif", fontWeight: 700, fontSize: 15, color: 'var(--text)' }}>
-                {caps.c5}
-              </span>
-              <span style={{ flex: 1, height: 1, background: 'var(--border)' }} />
-            </div>
-            <div
-              style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fill,minmax(206px,1fr))',
-                gap: 16,
-                width: '100%',
-              }}
-            >
-              {adminL5.map((p, i) => (
-                <PersonCard key={i} person={p} />
-              ))}
-            </div>
-          </div>
-        )}
+        {isAdmin && <AdminTeamTree center={center} />}
 
         {people.length === 0 && (
           <div

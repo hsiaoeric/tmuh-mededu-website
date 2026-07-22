@@ -31,6 +31,51 @@ export const CENTER_ICON: Record<CenterId, string> = {
   admin: 'admin',
 };
 
+export const CENTER_BRANCHES: Record<
+  CenterId,
+  Array<{ zh: string; en: string }>
+> = {
+  faculty_dev: [
+    { zh: '簡介', en: 'About' },
+    { zh: '核心業務', en: 'Services' },
+    { zh: '培育小組', en: 'Groups' },
+    { zh: '最新公告', en: 'News' },
+    { zh: '聯絡', en: 'Contact' },
+  ],
+  clinical_skills: [
+    { zh: '簡介', en: 'About' },
+    { zh: 'OSCE', en: 'OSCE' },
+    { zh: '團隊', en: 'Team' },
+    { zh: '聯絡', en: 'Contact' },
+  ],
+  ebm: [
+    { zh: '簡介', en: 'About' },
+    { zh: '核心任務', en: 'Missions' },
+    { zh: '訓練課程', en: 'Courses' },
+    { zh: '競賽成就', en: 'Awards' },
+    { zh: '聯絡', en: 'Contact' },
+  ],
+  holistic: [
+    { zh: '簡介', en: 'About' },
+    { zh: 'MHFA', en: 'MHFA' },
+    { zh: '種子教師', en: 'Seed Teachers' },
+    { zh: '推動計畫', en: 'Programs' },
+    { zh: '聯絡', en: 'Contact' },
+  ],
+  med_edu_research: [
+    { zh: '簡介', en: 'About' },
+    { zh: '研究任務', en: 'Research' },
+    { zh: '教學評量', en: 'Assessment' },
+    { zh: '研究成果', en: 'Outcomes' },
+    { zh: '聯絡', en: 'Contact' },
+  ],
+  admin: [
+    { zh: '領導團隊', en: 'Leadership' },
+    { zh: '業務分工', en: 'Duties' },
+    { zh: '分機資訊', en: 'Extensions' },
+  ],
+};
+
 export const CENTERS: Center[] = [
   {
     id: 'faculty_dev',
@@ -165,18 +210,18 @@ export const CENTERS: Center[] = [
       person('葉篤學', 'Tu-Hsueh Yeh', 'ddir', '西醫 · 副教授', 'Physician · Assoc. Prof.', 'tu-hsueh-yeh', 'tu-hsueh-yeh'),
       person('張瓈方', 'Li-Fang Chang', 'ddep', '護理 · 助理教授', 'Nursing · Asst. Prof.', 'li-fang-chang', 'li-fang-chang'),
       person('郭淑柳', 'Shu-Liu Guo', 'ddep', '護理 · 助理教授', 'Nursing · Asst. Prof.', 'shu-liu-guo', 'shu-liu-guo'),
-      person('王怡文', 'Yi-Wen Wang', 'head', '行政', 'Administration'),
-      person('楊明芳', 'Ming-Fang Yang', 'spec', '行政', 'Administration', '', '', 'TMS相關業務、新人訓', 'TMS operations, new staff training'),
-      person('羅翊芳', 'Yi-Fang Lo', 'spec', '行政', 'Administration', '', '', '職類相關業務、教學門診', 'Profession-track operations, teaching clinics'),
-      person('曾牧雲', 'Mu-Yun Tseng', 'spec', '行政', 'Administration', '', '', '實習醫學生相關業務', 'Clerkship medical student operations'),
-      person('李珮暄', 'Pei-Hsuan Lee', 'spec', '行政', 'Administration', '', '', '住院醫師相關業務、PEC、CCC', 'Resident operations, PEC, CCC'),
-      person('張筱雯', 'Hsiao-Wen Chang', 'spec', '行政', 'Administration', '', '', 'PGY相關業務', 'PGY operations'),
-      person('陳均茹', 'Chun-Ju Chen', 'spec', '行政', 'Administration', '', '', '教發中心、大人提、教職相關業務', 'Faculty Development Center, grants & academic appointments'),
-      person('江明憲', 'Ming-Hsien Chiang', 'spec', '行政', 'Administration', '', '', '實證中心、全人中心、BI相關業務、EP系統相關業務', 'EBM & Holistic Centers, BI operations, e-Portfolio system'),
-      person('賴哲民', 'Che-Min Lai', 'spec', '行政', 'Administration', '', '', '臨技中心、OSCE相關業務', 'Clinical Skills Center, OSCE operations'),
-      person('張家銘', 'Chia-Ming Chang', 'spec', '行政', 'Administration', '', '', '臨技中心、OSCE相關業務', 'Clinical Skills Center, OSCE operations'),
-      person('張淑慧', 'Shu-Hui Chang', 'spec', '美術設計', 'Graphic Design', '', '', '美術設計、平面設計', 'Art & graphic design'),
-      person('高偉劭', 'Wei-Shao Kao', 'spec', '影音', 'Audiovisual', '', '', '影音相關業務', 'Audiovisual production'),
+      person('王怡文', 'Yi-Wen Wang', 'head', '教學部綜整', 'Department Coordination'),
+      person('楊明芳', 'Ming-Fang Yang', 'spec', 'TMS、新人訓', 'TMS · Orientation', '', '', 'TMS・新人訓', 'TMS · Orientation'),
+      person('羅翊芳', 'Yi-Fang Lo', 'spec', '職類、教學門診', 'Professions · Teaching Clinics', '', '', '職類・教學門診', 'Professions · Teaching Clinics'),
+      person('曾牧雲', 'Mu-Yun Tseng', 'spec', '實習醫學生', 'Clerkships', '', '', '實習醫學生', 'Clerkships'),
+      person('李珮暄', 'Pei-Hsuan Lee', 'spec', '住院醫師、PEC、CCC', 'Residents · PEC · CCC', '', '', '住院醫師・PEC・CCC', 'Residents · PEC · CCC'),
+      person('張筱雯', 'Hsiao-Wen Chang', 'spec', 'PGY', 'PGY', '', '', 'PGY', 'PGY'),
+      person('陳均茹', 'Chun-Ju Chen', 'spec', '教發、大人提、教職', 'Faculty Dev. · Grants · Appointments', '', '', '教發・大人提・教職', 'Faculty Dev. · Grants · Appointments'),
+      person('江明憲', 'Ming-Hsien Chiang', 'spec', '實證、全人、BI、EP', 'EBM · Holistic · BI · EP', '', '', '實證・全人・BI・EP', 'EBM · Holistic · BI · EP'),
+      person('賴哲民', 'Che-Min Lai', 'spec', '臨技、OSCE', 'Clinical Skills · OSCE', '', '', '臨技・OSCE', 'Clinical Skills · OSCE'),
+      person('張家銘', 'Chia-Ming Chang', 'spec', '臨技、OSCE', 'Clinical Skills · OSCE', '', '', '臨技・OSCE', 'Clinical Skills · OSCE'),
+      person('張淑慧', 'Shu-Hui Chang', 'spec', '美術、平面設計', 'Art · Graphic Design', '', '', '美術・平面設計', 'Art · Graphic Design'),
+      person('高偉劭', 'Wei-Shao Kao', 'spec', '影音', 'Audiovisual', '', '', '影音', 'Audiovisual'),
     ],
   },
 ];

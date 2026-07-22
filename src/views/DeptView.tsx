@@ -18,6 +18,9 @@ import { HeroImage } from '@/components/common/HeroImage';
 import { OrgChart } from './dept/OrgChart';
 import { CenterDetailPanel } from './dept/CenterDetailPanel';
 import { DeptAwardsSection } from './dept/DeptAwardsSection';
+import { DeptNewsSection } from './dept/DeptNewsSection';
+import { DeptAboutSection } from './dept/DeptAboutSection';
+import { DeptCentersSection } from './dept/DeptCentersSection';
 
 function OrgToggle({
   variant,
@@ -121,11 +124,6 @@ export function DeptView() {
     })),
   ];
 
-  const placeholders = [
-    { zh: t.newsZh, en: t.newsEn, desc: t.newsDesc, iconId: 'bell' as IconName, color: '#A87A6B', delay: 0 },
-    { zh: t.eventsZh, en: t.eventsEn, desc: t.eventsDesc, iconId: 'calendar' as IconName, color: '#5E7A8C', delay: 100 },
-  ];
-
   return (
     <div style={{ position: 'relative', zIndex: 1 }}>
       {/* HERO (full-bleed banner) */}
@@ -216,139 +214,71 @@ export function DeptView() {
         </Reveal>
       </section>
 
-      {/* KPI DASHBOARD */}
-      <section style={{ maxWidth: 1240, margin: '0 auto', padding: '34px 28px' }}>
-        <Reveal
-          style={{
-            display: 'flex',
-            alignItems: 'flex-end',
-            justifyContent: 'space-between',
-            gap: 16,
-            marginBottom: 24,
-            flexWrap: 'wrap',
-          }}
-        >
-          <div>
-            <Eyebrow>{t.kpiEyebrow}</Eyebrow>
-            <h2 style={{ fontFamily: "'Noto Sans TC', sans-serif", fontWeight: 900, fontSize: 30, color: 'var(--text)' }}>
-              {t.kpiTitle}
-            </h2>
-          </div>
-        </Reveal>
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit,minmax(186px,1fr))',
-            gap: 18,
-          }}
-        >
-          {kpis.map((k, i) => (
-            <KpiCard
-              key={i}
-              num={k.num}
-              suffix={k.suffix}
-              label={k.label}
-              caption={k.en}
-              color={k.color}
-              delay={k.delay}
-            />
-          ))}
-        </div>
-      </section>
-
-      <DeptAwardsSection />
+      <DeptNewsSection />
+      <DeptAboutSection />
+      <DeptCentersSection />
 
       {/* ORG CHART */}
       <section id="org" style={{ maxWidth: 1240, margin: '0 auto', padding: '46px 28px' }}>
         <SectionHeading eyebrow="Organizational Structure" title={t.orgTitle} desc={t.orgDesc} />
         <OrgToggle variant={orgVariant} onSet={setOrgVariant} />
-        <OrgChart
-          variant={orgVariant}
-          activeId={active}
-          onSelect={(id) => setActive((cur) => (cur === id ? null : id))}
-        />
-        {activeCenter && (
-          <CenterDetailPanel center={activeCenter} onClose={() => setActive(null)} />
-        )}
-      </section>
-
-      {/* NEWS & EVENTS placeholders */}
-      <section id="news" style={{ maxWidth: 1240, margin: '0 auto', padding: '30px 28px 46px' }}>
-        <div className="grid grid-split" style={{ gap: 22 }}>
-          {placeholders.map((b, i) => (
-            <Reveal
-              key={i}
-              delay={b.delay}
-              style={{
-                position: 'relative',
-                padding: '30px 28px',
-                borderRadius: 18,
-                border: '1.5px dashed var(--border)',
-                background: 'var(--surface-2)',
-                overflow: 'hidden',
-              }}
-            >
-              <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 14 }}>
-                <span
-                  style={{
-                    width: 40,
-                    height: 40,
-                    borderRadius: 11,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    background: `color-mix(in srgb,${b.color} 15%,transparent)`,
-                    color: b.color,
-                  }}
-                >
-                  <Icon name={b.iconId} />
-                </span>
-                <div>
-                  <div
-                    style={{
-                      fontFamily: "'IBM Plex Sans', sans-serif",
-                      fontSize: 11,
-                      letterSpacing: '.16em',
-                      textTransform: 'uppercase',
-                      color: 'var(--muted)',
-                    }}
-                  >
-                    {b.en}
-                  </div>
-                  <div style={{ fontFamily: "'Noto Sans TC', sans-serif", fontWeight: 800, fontSize: 20, color: 'var(--text)' }}>
-                    {b.zh}
-                  </div>
-                </div>
-              </div>
-              <p style={{ fontSize: 14.5, lineHeight: 1.75, color: 'var(--muted)' }}>{b.desc}</p>
-              <div
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: 8,
-                  marginTop: 18,
-                  padding: '6px 14px',
-                  borderRadius: 999,
-                  background: 'color-mix(in srgb,var(--teal) 14%,transparent)',
-                }}
-              >
-                <span
-                  style={{
-                    width: 7,
-                    height: 7,
-                    borderRadius: '50%',
-                    background: 'var(--teal)',
-                    animation: 'blink 1.8s ease-in-out infinite',
-                  }}
-                />
-                <span style={{ fontFamily: "'Noto Sans TC', sans-serif", fontSize: 12.5, fontWeight: 600, color: 'var(--teal-700)' }}>
-                  {t.comingSoon}
-                </span>
-              </div>
-            </Reveal>
-          ))}
+        <div id="org-chart">
+          <OrgChart
+            variant={orgVariant}
+            activeId={active}
+            onSelect={(id) => setActive((cur) => (cur === id ? null : id))}
+          />
+        </div>
+        <div id="org-leadership">
+          {activeCenter && (
+            <CenterDetailPanel center={activeCenter} onClose={() => setActive(null)} />
+          )}
         </div>
       </section>
+
+      <div id="impact">
+        <section id="impact-kpi" style={{ maxWidth: 1240, margin: '0 auto', padding: '34px 28px' }}>
+          <Reveal
+            style={{
+              display: 'flex',
+              alignItems: 'flex-end',
+              justifyContent: 'space-between',
+              gap: 16,
+              marginBottom: 24,
+              flexWrap: 'wrap',
+            }}
+          >
+            <div>
+              <Eyebrow>{t.kpiEyebrow}</Eyebrow>
+              <h2 style={{ fontFamily: "'Noto Sans TC', sans-serif", fontWeight: 900, fontSize: 30, color: 'var(--text)' }}>
+                {t.kpiTitle}
+              </h2>
+            </div>
+          </Reveal>
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit,minmax(186px,1fr))',
+              gap: 18,
+            }}
+          >
+            {kpis.map((k, i) => (
+              <KpiCard
+                key={i}
+                num={k.num}
+                suffix={k.suffix}
+                label={k.label}
+                caption={k.en}
+                color={k.color}
+                delay={k.delay}
+              />
+            ))}
+          </div>
+        </section>
+        <div id="impact-awards">
+          <DeptAwardsSection />
+        </div>
+      </div>
 
       {/* CONTACT */}
       <section id="contact" style={{ maxWidth: 1240, margin: '0 auto', padding: '20px 28px 60px' }}>

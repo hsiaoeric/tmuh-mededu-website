@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useState, type CSSProperties } from 'react';
 import { useSite, type CenterId } from '@/context/SiteContext';
-import { CENTERS, CENTER_ICON } from '@/data/centers';
+import { CENTERS, CENTER_BRANCHES, CENTER_ICON } from '@/data/centers';
 import { Icon, type IconName } from '@/components/common/Icon';
 
 interface OrgChartProps {
@@ -99,9 +99,19 @@ function CenterNode({
   }
 
   // hub node
+  const branchPlacement: Record<CenterId, CSSProperties> = {
+    faculty_dev: { top: 'calc(100% + 9px)', left: '50%', transform: 'translateX(-50%)' },
+    clinical_skills: { left: 'calc(100% + 9px)', top: '50%', transform: 'translateY(-50%)' },
+    ebm: { left: 'calc(100% + 9px)', top: '50%', transform: 'translateY(-50%)' },
+    holistic: { bottom: 'calc(100% + 9px)', left: '50%', transform: 'translateX(-50%)' },
+    med_edu_research: { right: 'calc(100% + 9px)', top: '50%', transform: 'translateY(-50%)' },
+    admin: { right: 'calc(100% + 9px)', top: '50%', transform: 'translateY(-50%)' },
+  };
+
   return (
     <button
       onClick={() => onSelect(id)}
+      aria-expanded={active}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
       style={{
@@ -150,6 +160,44 @@ function CenterNode({
       >
         {isZh ? center.zh : center.en}
       </span>
+      {active && (
+        <span
+          aria-label={isZh ? `${center.zh}相關分支` : `${center.en} branches`}
+          style={{
+            position: 'absolute',
+            width: 176,
+            padding: 8,
+            borderRadius: 12,
+            border: `1px solid color-mix(in srgb,${center.color} 30%,var(--border))`,
+            background: 'color-mix(in srgb,var(--surface) 94%,transparent)',
+            boxShadow: 'var(--shadow-lift)',
+            display: 'flex',
+            flexWrap: 'wrap',
+            justifyContent: 'center',
+            gap: 5,
+            pointerEvents: 'none',
+            animation: 'branch-pop .22s ease-out',
+            ...branchPlacement[id],
+          }}
+        >
+          {CENTER_BRANCHES[id].map((branch) => (
+            <span
+              key={branch.zh}
+              style={{
+                padding: '3px 7px',
+                borderRadius: 999,
+                background: `color-mix(in srgb,${center.color} 12%,var(--surface))`,
+                color: 'var(--body)',
+                fontSize: 10.5,
+                lineHeight: 1.3,
+                whiteSpace: 'nowrap',
+              }}
+            >
+              {isZh ? branch.zh : branch.en}
+            </span>
+          ))}
+        </span>
+      )}
     </button>
   );
 }
@@ -215,9 +263,9 @@ export function OrgChart({ variant, activeId, onSelect }: OrgChartProps) {
         </div>
         <div style={{ width: 2, height: 26, background: 'var(--border)' }} />
         <div
+          className="org-center-grid"
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(6,1fr)',
             gap: 14,
             width: '100%',
           }}
