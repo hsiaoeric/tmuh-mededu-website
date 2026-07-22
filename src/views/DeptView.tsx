@@ -25,6 +25,11 @@ import { DeptNewsSection } from './dept/DeptNewsSection';
 import { DeptAboutSection } from './dept/DeptAboutSection';
 import { DeptCentersSection } from './dept/DeptCentersSection';
 
+interface KpiCenterLink {
+  id: CenterId;
+  url: string;
+}
+
 const KPI_MEMBER_GROUPS: Record<string, RawPerson[]> = {
   'Teaching Attendings': [
     person('邱欣怡', 'Hsin-Yi Chiu', 'lead', '教學型主治醫師', 'Teaching Attending', 'hsin-yi-chiu', 'hsin-yi-chiu'),
@@ -38,6 +43,14 @@ const KPI_MEMBER_GROUPS: Record<string, RawPerson[]> = {
     person('鄭憲霖', 'Hsien-Lin Cheng', 'lead', '職類教學型醫事人員', 'Teaching Allied Health'),
   ],
 };
+
+const KPI_CENTER_LINKS: KpiCenterLink[] = [
+  { id: 'faculty_dev', url: '/facdev' },
+  { id: 'clinical_skills', url: '/center/clinical_skills' },
+  { id: 'ebm', url: '/ebm' },
+  { id: 'holistic', url: '/holistic' },
+  { id: 'med_edu_research', url: '/center/med_edu_research' },
+];
 
 function OrgToggle({
   variant,
@@ -132,6 +145,13 @@ export function DeptView() {
         resolvePerson(p, activeKpiGroup === 'Teaching Attendings' ? '#B69B66' : '#7A95A8', lang),
       )
     : [];
+  const activeKpiCenters =
+    activeKpiGroup === 'Education Centers'
+      ? KPI_CENTER_LINKS.map((item) => ({
+          ...item,
+          center: centerById(item.id),
+        })).filter((item) => !!item.center)
+      : [];
 
   const handleSelectCenter = (id: CenterId) => {
     setActive((cur) => {
@@ -325,7 +345,7 @@ export function DeptView() {
                 color={k.color}
                 delay={k.delay}
                 onClick={
-                  KPI_MEMBER_GROUPS[k.en]
+                  KPI_MEMBER_GROUPS[k.en] || k.en === 'Education Centers'
                     ? () =>
                         setActiveKpiGroup((cur) =>
                           cur === k.en ? null : k.en,
@@ -372,6 +392,96 @@ export function DeptView() {
                 {activeKpiPeople.map((p, idx) => (
                   <PersonCard key={`${p.fullname}-${idx}`} person={p} />
                 ))}
+              </div>
+            </Reveal>
+          )}
+          {activeKpiGroup === 'Education Centers' && activeKpiCenters.length > 0 && (
+            <Reveal
+              style={{
+                marginTop: 18,
+                padding: '18px 18px 20px',
+                borderRadius: 16,
+                border: '1px solid var(--border)',
+                background: 'var(--surface)',
+                boxShadow: 'var(--shadow-card)',
+              }}
+            >
+              <div
+                style={{
+                  fontFamily: "'Noto Sans TC', sans-serif",
+                  fontSize: 15,
+                  fontWeight: 700,
+                  color: 'var(--text)',
+                  marginBottom: 14,
+                }}
+              >
+                {isZh ? '五中心官網入口' : 'Five Center Websites'}
+              </div>
+              <div
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(auto-fit,minmax(210px,1fr))',
+                  gap: 14,
+                }}
+              >
+                {activeKpiCenters.map((item) => {
+                  const center = item.center!;
+                  return (
+                    <div
+                      key={center.id}
+                      style={{
+                        border: '1px solid var(--border)',
+                        borderRadius: 14,
+                        padding: '16px 14px',
+                        background: 'var(--surface-2)',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: 10,
+                      }}
+                    >
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 9 }}>
+                        <span
+                          style={{
+                            width: 30,
+                            height: 30,
+                            borderRadius: 8,
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            color: center.color,
+                            background: `color-mix(in srgb,${center.color} 14%,transparent)`,
+                          }}
+                        >
+                          <Icon name={CENTER_ICON[center.id] as IconName} />
+                        </span>
+                        <span
+                          style={{
+                            fontFamily: "'Noto Sans TC', sans-serif",
+                            fontWeight: 700,
+                            fontSize: 14,
+                            color: 'var(--text)',
+                            lineHeight: 1.4,
+                          }}
+                        >
+                          {isZh ? center.zh : center.en}
+                        </span>
+                      </div>
+                      <a
+                        href={item.url}
+                        style={{
+                          marginTop: 'auto',
+                          color: center.color,
+                          fontFamily: "'Noto Sans TC', sans-serif",
+                          fontSize: 12.5,
+                          fontWeight: 700,
+                          textDecoration: 'none',
+                        }}
+                      >
+                        {isZh ? '前往官網 ↗' : 'Visit website ↗'}
+                      </a>
+                    </div>
+                  );
+                })}
               </div>
             </Reveal>
           )}
