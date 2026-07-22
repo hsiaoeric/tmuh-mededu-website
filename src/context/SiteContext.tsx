@@ -4,11 +4,13 @@ import {
   useContext,
   useEffect,
   useMemo,
+  useRef,
   useState,
   type ReactNode,
 } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { strings, type Lang, type Strings } from '@/i18n';
+import { scrollToId } from '@/utils/scroll';
 
 export type Theme = 'light' | 'dark';
 export type ViewId = 'dept' | 'holistic' | 'ebm' | 'facdev' | 'building';
@@ -68,7 +70,7 @@ interface SiteContextValue {
   toggleLang: () => void;
   toggleTheme: () => void;
   setView: (view: ViewId) => void;
-  enterCenter: (id: CenterId) => void;
+  enterCenter: (id: CenterId, sectionId?: string) => void;
   goHome: () => void;
 }
 
@@ -91,6 +93,7 @@ export function SiteProvider({
   const location = useLocation();
   const navigate = useNavigate();
   const { view, buildingId } = parsePath(location.pathname);
+  const pendingSectionRef = useRef<string | null>(null);
 
   const toggleLang = useCallback(
     () => setLang((l) => (l === 'zh' ? 'en' : 'zh')),
@@ -109,7 +112,8 @@ export function SiteProvider({
   );
 
   const enterCenter = useCallback(
-    (id: CenterId) => {
+    (id: CenterId, sectionId?: string) => {
+      if (sectionId) pendingSectionRef.current = sectionId;
       navigate(CENTER_ROUTE[id] ?? `/center/${id}`);
     },
     [navigate],
@@ -117,8 +121,14 @@ export function SiteProvider({
 
   const goHome = useCallback(() => navigate('/'), [navigate]);
 
-  // Scroll to top whenever the route (page) changes.
+  // Scroll to top on route change, unless a section anchor is pending.
   useEffect(() => {
+    const pending = pendingSectionRef.current;
+    if (pending) {
+      pendingSectionRef.current = null;
+      const timer = window.setTimeout(() => scrollToId(pending), 80);
+      return () => window.clearTimeout(timer);
+    }
     window.scrollTo({ top: 0, behavior: 'auto' });
   }, [location.pathname]);
 

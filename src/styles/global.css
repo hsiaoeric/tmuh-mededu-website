@@ -75,6 +75,104 @@ body {
   }
 }
 
+@keyframes line-flow {
+  from {
+    stroke-dashoffset: 12;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes hub-glow {
+  0%,
+  100% {
+    box-shadow: 0 14px 32px var(--teal-glow);
+  }
+  50% {
+    box-shadow: 0 14px 42px color-mix(in srgb, var(--teal) 55%, transparent);
+  }
+}
+
+.hub-org-chart {
+  overflow: visible;
+}
+
+.hub-core-disc {
+  animation: hub-glow 3.2s ease-in-out infinite;
+}
+
+.hub-core-ring {
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 1px solid color-mix(in srgb, var(--teal) 35%, transparent);
+  animation: pulsering 2.8s ease-out infinite;
+}
+
+.hub-core-ring--2 {
+  inset: -14px;
+  animation-delay: 0.9s;
+}
+
+.hub-center-node--active {
+  animation: hub-glow 2.4s ease-in-out infinite;
+}
+
+.hub-dimmed {
+  opacity: 0.32;
+  pointer-events: auto;
+}
+
+.hub-branch-node {
+  min-width: 74px;
+  padding: 8px 9px;
+  border-radius: 11px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  cursor: pointer;
+  text-align: center;
+  transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+}
+
+.hub-branch-node:hover,
+.hub-branch-node--active {
+  transform: translateY(-2px);
+}
+
+.hub-branch-tooltip {
+  position: absolute;
+  left: 50%;
+  top: calc(100% + 8px);
+  transform: translateX(-50%);
+  width: max-content;
+  max-width: 200px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: color-mix(in srgb, var(--surface) 96%, transparent);
+  box-shadow: var(--shadow-lift);
+  font-family: 'Noto Sans TC', sans-serif;
+  font-size: 11px;
+  line-height: 1.45;
+  color: var(--body);
+  z-index: 20;
+  pointer-events: none;
+}
+
+.hub-line--active {
+  filter: drop-shadow(0 0 3px color-mix(in srgb, var(--teal) 40%, transparent));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hub-core-disc,
+  .hub-core-ring,
+  .hub-center-node--active,
+  .hub-line--active {
+    animation: none !important;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   * {
     animation: none !important;

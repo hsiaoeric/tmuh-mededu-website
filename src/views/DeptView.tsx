@@ -14,6 +14,7 @@ import { Eyebrow } from '@/components/common/Eyebrow';
 import { KpiCard } from '@/components/common/KpiCard';
 import { SectionHeading } from '@/components/common/SectionHeading';
 import { formatPhoneExt } from '@/utils/phone';
+import { scrollToId } from '@/utils/scroll';
 import { HeroImage } from '@/components/common/HeroImage';
 import { OrgChart } from './dept/OrgChart';
 import { CenterDetailPanel } from './dept/CenterDetailPanel';
@@ -106,8 +107,31 @@ export function DeptView() {
   const { t, isZh, lang } = useSite();
   const [orgVariant, setOrgVariant] = useState<'A' | 'B'>('A');
   const [active, setActive] = useState<CenterId | null>('admin');
+  const [activeBranchId, setActiveBranchId] = useState<string | null>(null);
   const kpis = deptKpis(isZh ? 'zh' : 'en');
   const activeCenter = active ? centerById(active) : undefined;
+
+  const handleSelectCenter = (id: CenterId) => {
+    setActive((cur) => {
+      if (cur === id) {
+        setActiveBranchId(null);
+        return null;
+      }
+      setActiveBranchId(null);
+      return id;
+    });
+  };
+
+  const handleSelectBranch = (centerId: CenterId, branchId: string) => {
+    setActive(centerId);
+    setActiveBranchId(branchId);
+    scrollToId('org-leadership');
+  };
+
+  const handleClosePanel = () => {
+    setActive(null);
+    setActiveBranchId(null);
+  };
 
   const contacts = [
     {
@@ -226,12 +250,19 @@ export function DeptView() {
           <OrgChart
             variant={orgVariant}
             activeId={active}
-            onSelect={(id) => setActive((cur) => (cur === id ? null : id))}
+            activeBranchId={activeBranchId}
+            onSelect={handleSelectCenter}
+            onSelectBranch={handleSelectBranch}
           />
         </div>
         <div id="org-leadership">
           {activeCenter && (
-            <CenterDetailPanel center={activeCenter} onClose={() => setActive(null)} />
+            <CenterDetailPanel
+              center={activeCenter}
+              activeBranchId={activeBranchId}
+              onBranchSelect={setActiveBranchId}
+              onClose={handleClosePanel}
+            />
           )}
         </div>
       </section>
