@@ -9,13 +9,21 @@ import {
 import { Icon, type IconName } from '@/components/common/Icon';
 import { scrollToId } from '@/utils/scroll';
 
+interface NavDropdownProps {
+  /** Button label (defaults to org nav string). */
+  label?: string;
+  /** Section id to scroll to when the label is clicked. */
+  scrollTarget?: string;
+}
+
 /**
- * "組織架構" nav entry with a hover/click dropdown listing the five centers.
+ * Nav entry with a hover/click dropdown listing the five centers.
  * Desktop opens on hover; mobile (and any click) toggles it. Clicking the
- * label still scrolls to the org section, preserving the original behaviour.
+ * label still scrolls to the linked section.
  */
-export function NavDropdown() {
+export function NavDropdown({ label, scrollTarget = 'org' }: NavDropdownProps) {
   const { t, isZh, view, enterCenter } = useSite();
+  const buttonLabel = label ?? t.navOrg;
   const [open, setOpen] = useState(false);
   const [hover, setHover] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -81,7 +89,7 @@ export function NavDropdown() {
     >
       <button
         onClick={() => {
-          scrollToId('org');
+          scrollToId(scrollTarget);
           setOpen((o) => !o);
         }}
         aria-haspopup="menu"
@@ -102,7 +110,7 @@ export function NavDropdown() {
           transition: 'color .2s,background .2s',
         }}
       >
-        {t.navOrg}
+        {buttonLabel}
         <svg
           viewBox="0 0 24 24"
           fill="none"

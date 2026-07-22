@@ -3,6 +3,7 @@ import { useSite } from '@/context/SiteContext';
 import { Icon } from '@/components/common/Icon';
 import { scrollToId } from '@/utils/scroll';
 import { NavButton } from './NavButton';
+import { NavDropdown } from './NavDropdown';
 
 interface NavItem {
   label: string;
@@ -59,7 +60,15 @@ export function Header() {
       navItems = [
         { label: t.navNews, onClick: go('news') },
         { label: t.navAbout, onClick: go('about') },
-        { label: isZh ? '五大中心' : 'Centers', onClick: go('centers') },
+        {
+          label: isZh ? '五大中心' : 'Centers',
+          custom: (
+            <NavDropdown
+              label={isZh ? '五大中心' : 'Centers'}
+              scrollTarget="centers"
+            />
+          ),
+        },
         { label: t.navOrg, onClick: go('org') },
         { label: isZh ? '品質與成果' : 'Impact', onClick: go('impact') },
         { label: t.navContact, onClick: go('contact') },
