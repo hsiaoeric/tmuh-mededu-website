@@ -14,6 +14,8 @@ interface NavDropdownProps {
   label?: string;
   /** Section id to scroll to when the label is clicked. */
   scrollTarget?: string;
+  /** Optional callback fired when navigating via dropdown. */
+  onNavigate?: () => void;
 }
 
 /**
@@ -21,7 +23,7 @@ interface NavDropdownProps {
  * Desktop opens on hover; mobile (and any click) toggles it. Clicking the
  * label still scrolls to the linked section.
  */
-export function NavDropdown({ label, scrollTarget = 'org' }: NavDropdownProps) {
+export function NavDropdown({ label, scrollTarget = 'org', onNavigate }: NavDropdownProps) {
   const { t, isZh, view, enterCenter } = useSite();
   const buttonLabel = label ?? t.navOrg;
   const [open, setOpen] = useState(false);
@@ -78,14 +80,19 @@ export function NavDropdown({ label, scrollTarget = 'org' }: NavDropdownProps) {
     cancelClose();
     enterCenter(id);
     setOpen(false);
+    onNavigate?.();
   };
 
   return (
     <div
       ref={ref}
-      style={{ position: 'relative', display: 'inline-flex' }}
-      onMouseEnter={openNow}
-      onMouseLeave={scheduleClose}
+      style={{ display: 'flex', flexDirection: 'column', width: '100%' }}
+      onPointerEnter={(e) => {
+        if (e.pointerType === 'mouse') openNow();
+      }}
+      onPointerLeave={(e) => {
+        if (e.pointerType === 'mouse') scheduleClose();
+      }}
     >
       <button
         onClick={() => {
@@ -95,10 +102,12 @@ export function NavDropdown({ label, scrollTarget = 'org' }: NavDropdownProps) {
         aria-haspopup="menu"
         aria-expanded={open}
         style={{
-          display: 'inline-flex',
+          display: 'flex',
           alignItems: 'center',
+          justifyContent: 'space-between',
           gap: 5,
-          padding: '8px 14px',
+          width: '100%',
+          padding: '10px 12px',
           border: 'none',
           background: hover || open ? 'var(--teal-50)' : 'none',
           cursor: 'pointer',
@@ -108,6 +117,7 @@ export function NavDropdown({ label, scrollTarget = 'org' }: NavDropdownProps) {
           color: hover || open ? 'var(--teal)' : 'var(--body)',
           borderRadius: 8,
           transition: 'color .2s,background .2s',
+          whiteSpace: 'nowrap',
         }}
       >
         {buttonLabel}
@@ -131,51 +141,46 @@ export function NavDropdown({ label, scrollTarget = 'org' }: NavDropdownProps) {
 
       {open && (
         <div
-          // Transparent bridge: starts flush against the button so the cursor
-          // never crosses a dead zone on the way down (A). paddingTop keeps the
-          // visible 8px gap above the menu card.
           style={{
-            position: 'absolute',
-            top: '100%',
-            left: 0,
-            paddingTop: 8,
-            zIndex: 60,
+            width: '100%',
+            paddingTop: 4,
           }}
         >
-        <div
-          role="menu"
-          style={{
-            minWidth: 232,
-            padding: 8,
-            borderRadius: 14,
-            background: 'var(--surface)',
-            border: '1px solid var(--border)',
-            boxShadow: 'var(--shadow-lift)',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: 2,
-          }}
-        >
-          {links.map((c) => (
-            <DropdownItem
-              key={c.id}
-              name={c.name}
-              iconId={c.iconId}
-              statusLabel={
-                c.ready
-                  ? isZh
-                    ? '進入專頁'
-                    : 'Enter page'
-                  : isZh
-                    ? '建置中'
-                    : 'In progress'
-              }
-              ready={c.ready}
-              active={view === c.id}
-              onClick={() => handleSelect(c.id)}
-            />
-          ))}
-        </div>
+          <div
+            role="menu"
+            style={{
+              width: '100%',
+              padding: 8,
+              borderRadius: 14,
+              background: 'var(--surface)',
+              border: '1px solid var(--border)',
+              boxShadow: 'var(--shadow-lift)',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 2,
+              boxSizing: 'border-box',
+            }}
+          >
+            {links.map((c) => (
+              <DropdownItem
+                key={c.id}
+                name={c.name}
+                iconId={c.iconId}
+                statusLabel={
+                  c.ready
+                    ? isZh
+                      ? '進入專頁'
+                      : 'Enter page'
+                    : isZh
+                      ? '建置中'
+                      : 'In progress'
+                }
+                ready={c.ready}
+                active={view === c.id}
+                onClick={() => handleSelect(c.id)}
+              />
+            ))}
+          </div>
         </div>
       )}
     </div>
