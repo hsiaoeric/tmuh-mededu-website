@@ -94,25 +94,91 @@ body {
   }
 }
 
+/* The hub chart places nodes at percentage offsets inside a fixed-aspect box,
+   so every size below is expressed in `cqw` (percent of the chart's own
+   width). That keeps the diagram self-similar as it scales: the clearances
+   between center cards and their branch chips were tuned against a 920px
+   chart and hold at any width. Sizes in px would break those clearances.
+   Divide a target px value by 9.2 to get its cqw equivalent. */
+/* Labels are sized proportionally, so they fall below ~11px once the chart is
+   narrower than 860px. Rather than shrink past legibility, pin the chart at
+   that width and let narrow viewports pan across it. */
+.hub-org-scroll {
+  max-width: 920px;
+  margin: 0 auto;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
 .hub-org-chart {
+  container-type: inline-size;
+  position: relative;
+  width: 100%;
+  min-width: 860px;
+  aspect-ratio: 1.45 / 1;
+  padding: 12px 0 28px;
   overflow: visible;
+}
+
+.hub-core {
+  width: 14.35cqw;
+  height: 14.35cqw;
 }
 
 .hub-core-disc {
   animation: hub-glow 3.2s ease-in-out infinite;
 }
 
+.hub-core-disc__title {
+  font-family: 'Noto Sans TC', sans-serif;
+  font-weight: 800;
+  font-size: 1.96cqw;
+}
+
+.hub-core-disc__sub {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 1.03cqw;
+  letter-spacing: 0.1em;
+  opacity: 0.9;
+  margin-top: 0.22cqw;
+}
+
 .hub-core-ring {
   position: absolute;
-  inset: -6px;
+  inset: -0.65cqw;
   border-radius: 50%;
   border: 1px solid color-mix(in srgb, var(--teal) 35%, transparent);
   animation: pulsering 2.8s ease-out infinite;
 }
 
 .hub-core-ring--2 {
-  inset: -14px;
+  inset: -1.52cqw;
   animation-delay: 0.9s;
+}
+
+.hub-center-node {
+  width: 12.83cqw;
+  padding: 1.52cqw 1.09cqw;
+  border-radius: 1.52cqw;
+}
+
+.hub-center-node__icon {
+  display: flex;
+  width: 3.26cqw;
+  height: 3.26cqw;
+  margin: 0 auto 0.76cqw;
+  border-radius: 0.98cqw;
+  align-items: center;
+  justify-content: center;
+}
+
+.hub-center-node__label {
+  display: block;
+  font-family: 'Noto Sans TC', sans-serif;
+  font-weight: 700;
+  font-size: 1.36cqw;
+  line-height: 1.25;
+  color: var(--text);
 }
 
 .hub-center-node--active {
@@ -125,15 +191,33 @@ body {
 }
 
 .hub-branch-node {
-  min-width: 68px;
-  max-width: 88px;
-  padding: 7px 8px;
-  border-radius: 11px;
+  min-width: 7.39cqw;
+  max-width: 9.57cqw;
+  padding: 0.76cqw 0.87cqw;
+  border-radius: 1.2cqw;
   border: 1px solid var(--border);
   background: var(--surface);
   cursor: pointer;
   text-align: center;
   transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+}
+
+.hub-branch-node__icon {
+  display: flex;
+  width: 2.39cqw;
+  height: 2.39cqw;
+  margin: 0 auto 0.54cqw;
+  border-radius: 0.76cqw;
+  align-items: center;
+  justify-content: center;
+}
+
+.hub-branch-node__label {
+  display: block;
+  font-family: 'Noto Sans TC', sans-serif;
+  font-weight: 700;
+  font-size: 1.14cqw;
+  line-height: 1.25;
 }
 
 .hub-branch-node:hover,
@@ -166,13 +250,17 @@ body {
   bottom: calc(100% + 8px);
 }
 
-.hub-branch-tooltip[data-side='right'] {
+/* Side-mounted chips sit close to the chart's left/right edges, so their
+   tooltips open inward toward the hub. Opening outward would push them past
+   the edge, where the scroll container would clip them. */
+.hub-branch-tooltip[data-side='left'] {
   left: calc(100% + 8px);
+  right: auto;
   top: 50%;
   transform: translateY(-50%);
 }
 
-.hub-branch-tooltip[data-side='left'] {
+.hub-branch-tooltip[data-side='right'] {
   left: auto;
   right: calc(100% + 8px);
   top: 50%;

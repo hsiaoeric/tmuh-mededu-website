@@ -23,7 +23,6 @@ import { CenterDetailPanel } from './dept/CenterDetailPanel';
 import { DeptAwardsSection } from './dept/DeptAwardsSection';
 import { DeptNewsSection } from './dept/DeptNewsSection';
 import { DeptAboutSection } from './dept/DeptAboutSection';
-import { DeptCentersSection } from './dept/DeptCentersSection';
 
 interface KpiCenterLink {
   id: CenterId;
@@ -282,7 +281,6 @@ export function DeptView() {
 
       <DeptNewsSection />
       <DeptAboutSection />
-      <DeptCentersSection />
 
       {/* ORG CHART */}
       <section id="org" style={{ maxWidth: 1240, margin: '0 auto', padding: '46px 28px' }}>

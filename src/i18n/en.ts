@@ -34,7 +34,7 @@ export const en: Strings = {
 
   orgTitle: 'Organizational Structure',
   orgDesc:
-    'Six functional units working in concert. Tap any center to view its team and contact.',
+    'Six functional units working in concert. Tap any center to view its services and contact.',
   layoutTree: 'Tree',
   layoutHub: 'Hub',
 

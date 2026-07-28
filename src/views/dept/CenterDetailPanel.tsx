@@ -6,9 +6,7 @@ import {
   CENTER_ICON,
   READY_CENTER_PAGES,
 } from '@/data/centers';
-import { resolvePerson } from '@/data/people';
 import { Icon, type IconName } from '@/components/common/Icon';
-import { PersonCard } from '@/components/common/PersonCard';
 import { formatPhoneExt } from '@/utils/phone';
 import { AdminTeamTree } from './AdminTeamTree';
 
@@ -32,12 +30,11 @@ export function CenterDetailPanel({
   onBranchSelect,
   onClose,
 }: Props) {
-  const { isZh, lang, t, enterCenter } = useSite();
+  const { isZh, lang, enterCenter } = useSite();
   const bodyRef = useRef<HTMLDivElement>(null);
   const branches = CENTER_BRANCHES[center.id];
   const resolvedBranchId = activeBranchId ?? branches[0]?.id ?? null;
   const activeBranch = branches.find((b) => b.id === resolvedBranchId) ?? branches[0];
-  const people = center.people.map((p) => resolvePerson(p, center.color, lang));
   const isAdmin = center.id === 'admin';
   const hasPage = READY_CENTER_PAGES.includes(center.id);
   const contactLine = center.ext
@@ -77,25 +74,7 @@ export function CenterDetailPanel({
           </p>
         );
       case 'team':
-        if (isAdmin) return <AdminTeamTree center={center} />;
-        return (
-          <>
-            <p style={{ fontSize: 14.5, lineHeight: 1.75, color: 'var(--muted)', marginBottom: 16 }}>
-              {desc}
-            </p>
-            <div
-              style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fill,minmax(216px,1fr))',
-                gap: 16,
-              }}
-            >
-              {people.map((p, i) => (
-                <PersonCard key={i} person={p} />
-              ))}
-            </div>
-          </>
-        );
+        return <AdminTeamTree center={center} />;
       case 'contact':
         if (isAdmin && activeBranch.id === 'extensions') {
           return (
@@ -325,21 +304,6 @@ export function CenterDetailPanel({
                 </span>
               </button>
             )}
-          </div>
-        )}
-
-        {!isAdmin && people.length === 0 && activeBranch?.panelSection === 'team' && (
-          <div
-            style={{
-              textAlign: 'center',
-              padding: 36,
-              border: '1.5px dashed var(--border)',
-              borderRadius: 14,
-              color: 'var(--muted)',
-              fontFamily: "'Noto Sans TC', sans-serif",
-            }}
-          >
-            {t.formingTeam}
           </div>
         )}
       </div>

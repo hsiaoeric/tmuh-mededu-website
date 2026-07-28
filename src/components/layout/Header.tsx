@@ -100,7 +100,7 @@ export function Header() {
           custom: (
             <NavDropdown
               label={isZh ? '五大中心' : 'Centers'}
-              scrollTarget="centers"
+              scrollTarget="org"
               onNavigate={() => closeMenu(true)}
             />
           ),

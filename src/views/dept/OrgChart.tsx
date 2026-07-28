@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useSite, type CenterId } from '@/context/SiteContext';
 import { CENTERS, CENTER_ICON } from '@/data/centers';
 import { Icon, type IconName } from '@/components/common/Icon';
@@ -17,7 +17,6 @@ function TreeCenterButton({
   active,
   onSelect,
   name,
-  count,
   color,
   iconId,
 }: {
@@ -25,7 +24,6 @@ function TreeCenterButton({
   active: boolean;
   onSelect: (id: CenterId) => void;
   name: string;
-  count: string;
   color: string;
   iconId: IconName;
 }) {
@@ -79,17 +77,6 @@ function TreeCenterButton({
       >
         {name}
       </span>
-      <span
-        style={{
-          display: 'block',
-          fontFamily: "'IBM Plex Sans', sans-serif",
-          fontSize: 10.5,
-          color: 'var(--muted)',
-          marginTop: 4,
-        }}
-      >
-        {count}
-      </span>
     </button>
   );
 }
@@ -105,11 +92,6 @@ function CenterNode({
 }) {
   const { isZh } = useSite();
   const center = CENTERS.find((c) => c.id === id)!;
-  const count = center.people.length
-    ? `${center.people.length}${isZh ? ' 位' : ''}`
-    : isZh
-      ? '籌備中'
-      : '—';
 
   return (
     <TreeCenterButton
@@ -117,7 +99,6 @@ function CenterNode({
       active={active}
       onSelect={onSelect}
       name={isZh ? center.zh : center.en}
-      count={count}
       color={center.color}
       iconId={CENTER_ICON[id] as IconName}
     />
@@ -132,6 +113,15 @@ export function OrgChart({
   onSelectBranch,
 }: OrgChartProps) {
   const { t } = useSite();
+  const hubScrollRef = useRef<HTMLDivElement>(null);
+
+  // The hub diagram is pinned to a legible minimum width, so it overflows on
+  // narrow viewports. Open it centred on the hub instead of at its left edge.
+  useEffect(() => {
+    const el = hubScrollRef.current;
+    if (!el) return;
+    el.scrollLeft = (el.scrollWidth - el.clientWidth) / 2;
+  }, [variant]);
 
   if (variant === 'A') {
     return (
@@ -212,11 +202,13 @@ export function OrgChart({
   }
 
   return (
-    <HubOrgChart
-      activeId={activeId}
-      activeBranchId={activeBranchId}
-      onSelectCenter={onSelect}
-      onSelectBranch={onSelectBranch ?? (() => {})}
-    />
+    <div ref={hubScrollRef} className="hub-org-scroll">
+      <HubOrgChart
+        activeId={activeId}
+        activeBranchId={activeBranchId}
+        onSelectCenter={onSelect}
+        onSelectBranch={onSelectBranch ?? (() => {})}
+      />
+    </div>
   );
 }

@@ -12,7 +12,7 @@ const VB_W = 100;
 const VB_H = 70;
 const HUB_X = 50;
 const HUB_Y = 35;
-const BRANCH_SPACING = 12.5;
+const BRANCH_SPACING = 11;
 const BRANCH_ROW_GAP = 10;
 const VIEW_MARGIN = 7;
 const BRANCHS_PER_LINE = 3;
@@ -132,30 +132,18 @@ function BranchNode({
       >
         {branch.icon && (
           <span
+            className="hub-branch-node__icon"
             style={{
-              width: 22,
-              height: 22,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              borderRadius: 7,
               background: `color-mix(in srgb,${color} 16%,transparent)`,
               color,
-              margin: '0 auto 5px',
             }}
           >
             <Icon name={branch.icon} />
           </span>
         )}
         <span
-          style={{
-            display: 'block',
-            fontFamily: "'Noto Sans TC', sans-serif",
-            fontWeight: 700,
-            fontSize: 10.5,
-            lineHeight: 1.25,
-            color: active ? color : 'var(--text)',
-          }}
+          className="hub-branch-node__label"
+          style={{ color: active ? color : 'var(--text)' }}
         >
           {label}
         </span>
@@ -201,12 +189,9 @@ function CenterNode({
       aria-expanded={active}
       style={{
         position: 'absolute',
-        left: center.hleft,
-        top: center.htop,
+        left: pctX(center.hx),
+        top: pctY(center.hy),
         transform: `translate(-50%,-50%) scale(${lifted ? 1.08 : 1})`,
-        width: 118,
-        padding: '14px 10px',
-        borderRadius: 14,
         cursor: 'pointer',
         border: `1.5px solid ${lifted ? center.color : 'var(--border)'}`,
         background: active
@@ -222,32 +207,15 @@ function CenterNode({
       } as CSSProperties}
     >
       <span
+        className="hub-center-node__icon"
         style={{
-          display: 'flex',
-          width: 30,
-          height: 30,
-          margin: '0 auto 7px',
-          borderRadius: 9,
-          alignItems: 'center',
-          justifyContent: 'center',
           background: `color-mix(in srgb,${center.color} 16%,transparent)`,
           color: center.color,
         }}
       >
         <Icon name={CENTER_ICON[id] as IconName} />
       </span>
-      <span
-        style={{
-          display: 'block',
-          fontFamily: "'Noto Sans TC', sans-serif",
-          fontWeight: 700,
-          fontSize: 12.5,
-          color: 'var(--text)',
-          lineHeight: 1.25,
-        }}
-      >
-        {isZh ? center.zh : center.en}
-      </span>
+      <span className="hub-center-node__label">{isZh ? center.zh : center.en}</span>
     </button>
   );
 }
@@ -279,18 +247,7 @@ export function HubOrgChart({
   }, [activeId]);
 
   return (
-    <div
-      className="hub-org-chart"
-      style={{
-        position: 'relative',
-        width: '100%',
-        maxWidth: 920,
-        margin: '0 auto',
-        aspectRatio: '1.45 / 1',
-        padding: '12px 0 28px',
-        overflow: 'visible',
-      }}
-    >
+    <div className="hub-org-chart">
       <svg
         viewBox={`0 0 ${VB_W} ${VB_H}`}
         preserveAspectRatio="xMidYMid meet"
@@ -360,8 +317,6 @@ export function HubOrgChart({
           left: '50%',
           top: '50%',
           transform: 'translate(-50%,-50%)',
-          width: 132,
-          height: 132,
           zIndex: 4,
         }}
       >
@@ -383,18 +338,8 @@ export function HubOrgChart({
             boxShadow: '0 14px 32px var(--teal-glow)',
           }}
         >
-          <div style={{ fontFamily: "'Noto Sans TC', sans-serif", fontWeight: 800, fontSize: 18 }}>
-            {t.deptShort}
-          </div>
-          <div
-            style={{
-              fontFamily: "'IBM Plex Sans', sans-serif",
-              fontSize: 9.5,
-              letterSpacing: '.1em',
-              opacity: 0.9,
-              marginTop: 2,
-            }}
-          >
+          <div className="hub-core-disc__title">{t.deptShort}</div>
+          <div className="hub-core-disc__sub">
             DEPT. OF
             <br />
             MED. EDUCATION

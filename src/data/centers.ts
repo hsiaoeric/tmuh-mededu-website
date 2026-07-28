@@ -20,11 +20,9 @@ export interface Center {
   zh: string;
   en: string;
   color: string;
-  /** Hub-layout geometry. */
+  /** Position on the hub-layout ring, in the chart's 100x70 viewBox units. */
   hx: number;
   hy: number;
-  hleft: string;
-  htop: string;
   introZh: string;
   introEn: string;
   contactZh: string;
@@ -68,26 +66,6 @@ export const CENTER_BRANCHES: Record<CenterId, CenterBranch[]> = {
       panelSection: 'detail',
     },
     {
-      id: 'groups',
-      zh: '培育小組',
-      en: 'Groups',
-      descZh: '六大培育小組協作，支援不同職類教師成長路徑。',
-      descEn: 'Six collaborating groups supporting growth paths for every profession.',
-      icon: 'team',
-      pageSection: 'fd-groups',
-      panelSection: 'detail',
-    },
-    {
-      id: 'news',
-      zh: '最新公告',
-      en: 'News',
-      descZh: '教師發展相關公告、活動與重要時程。',
-      descEn: 'Announcements, events, and key dates for faculty development.',
-      icon: 'bell',
-      pageSection: 'fd-news',
-      panelSection: 'detail',
-    },
-    {
       id: 'contact',
       zh: '聯絡',
       en: 'Contact',
@@ -109,22 +87,13 @@ export const CENTER_BRANCHES: Record<CenterId, CenterBranch[]> = {
       panelSection: 'intro',
     },
     {
-      id: 'osce',
-      zh: 'OSCE',
-      en: 'OSCE',
-      descZh: '客觀結構式臨床測驗的規劃、執行與評量。',
-      descEn: 'Planning, delivery, and assessment of OSCE.',
+      id: 'services',
+      zh: '核心業務',
+      en: 'Services',
+      descZh: '客觀結構式臨床測驗（OSCE）與模擬訓練的規劃、執行與評量。',
+      descEn: 'Planning, delivery, and assessment of OSCE and simulation-based training.',
       icon: 'clipboard',
       panelSection: 'detail',
-    },
-    {
-      id: 'team',
-      zh: '團隊',
-      en: 'Team',
-      descZh: '中心主任、副主任與 OSCE 行政秘書。',
-      descEn: 'Director, deputies, and OSCE administrators.',
-      icon: 'team',
-      panelSection: 'team',
     },
     {
       id: 'contact',
@@ -148,33 +117,13 @@ export const CENTER_BRANCHES: Record<CenterId, CenterBranch[]> = {
       panelSection: 'intro',
     },
     {
-      id: 'missions',
-      zh: '核心任務',
-      en: 'Missions',
-      descZh: '教育培訓、品質改善與實證文化推動。',
-      descEn: 'Training, quality improvement, and an evidence-based culture.',
+      id: 'services',
+      zh: '核心業務',
+      en: 'Services',
+      descZh: '教育培訓、實證課程與品質改善，推動全院實證文化。',
+      descEn: 'Training, EBM courses, and quality improvement fostering an evidence-based culture.',
       icon: 'bulb',
       pageSection: 'ebm-missions',
-      panelSection: 'detail',
-    },
-    {
-      id: 'courses',
-      zh: '訓練課程',
-      en: 'Courses',
-      descZh: 'EBM 核心課程與臨床應用訓練。',
-      descEn: 'Core EBM courses and clinical application training.',
-      icon: 'book',
-      pageSection: 'ebm-courses',
-      panelSection: 'detail',
-    },
-    {
-      id: 'awards',
-      zh: '競賽成就',
-      en: 'Awards',
-      descZh: '國內外實證醫學競賽與品質改善成果。',
-      descEn: 'Domestic and international EBM contest achievements.',
-      icon: 'award',
-      pageSection: 'ebm-awards',
       panelSection: 'detail',
     },
     {
@@ -200,33 +149,13 @@ export const CENTER_BRANCHES: Record<CenterId, CenterBranch[]> = {
       panelSection: 'intro',
     },
     {
-      id: 'mhfa',
-      zh: 'MHFA',
-      en: 'MHFA',
-      descZh: '心理健康急救（MHFA）種子培育與推廣。',
-      descEn: 'Mental Health First Aid seed training and outreach.',
+      id: 'services',
+      zh: '核心業務',
+      en: 'Services',
+      descZh: '心理健康急救（MHFA）推廣、跨領域種子教師培育與全人照護推動計畫。',
+      descEn: 'Mental Health First Aid outreach, interdisciplinary seed-teacher training, and holistic-care programs.',
       icon: 'heart',
       pageSection: 'mhfa',
-      panelSection: 'detail',
-    },
-    {
-      id: 'seed',
-      zh: '種子教師',
-      en: 'Seed Teachers',
-      descZh: '跨領域種子教師培育，擴散全人照護教學。',
-      descEn: 'Interdisciplinary seed teachers spreading holistic-care teaching.',
-      icon: 'sprout',
-      pageSection: 'seed',
-      panelSection: 'detail',
-    },
-    {
-      id: 'programs',
-      zh: '推動計畫',
-      en: 'Programs',
-      descZh: '健康台灣深耕計畫與 AI 全人照護教育生態系。',
-      descEn: 'Healthy Taiwan initiative and AI holistic-care education ecosystem.',
-      icon: 'network',
-      pageSection: 'scope2',
       panelSection: 'detail',
     },
     {
@@ -251,31 +180,13 @@ export const CENTER_BRANCHES: Record<CenterId, CenterBranch[]> = {
       panelSection: 'intro',
     },
     {
-      id: 'research',
-      zh: '研究任務',
-      en: 'Research',
-      descZh: '教學成效分析、評量工具開發與課程回饋。',
-      descEn: 'Outcomes analysis, assessment tools, and curriculum feedback.',
+      id: 'services',
+      zh: '核心業務',
+      en: 'Services',
+      descZh: '教學成效分析、評量工具開發與課程回饋，支持教師與課程精進。',
+      descEn: 'Outcomes analysis, assessment-tool development, and curriculum feedback.',
       icon: 'chart',
       panelSection: 'detail',
-    },
-    {
-      id: 'assessment',
-      zh: '教學評量',
-      en: 'Assessment',
-      descZh: '發展教學評量工具，支持教師與課程精進。',
-      descEn: 'Developing assessment instruments for teaching improvement.',
-      icon: 'clipboard',
-      panelSection: 'detail',
-    },
-    {
-      id: 'team',
-      zh: '團隊',
-      en: 'Team',
-      descZh: '中心主任、副主任與行政專員。',
-      descEn: 'Director, deputies, and center administrator.',
-      icon: 'team',
-      panelSection: 'team',
     },
     {
       id: 'contact',
@@ -326,8 +237,6 @@ export const CENTERS: Center[] = [
     color: '#A87A6B',
     hx: 50,
     hy: 6,
-    hleft: '50%',
-    htop: '9%',
     introZh:
       '全院臨床教師培育，並協助學校教職相關事務，提升整體教學品質與師資專業發展。',
     introEn:
@@ -346,10 +255,8 @@ export const CENTERS: Center[] = [
     zh: '臨床技能中心',
     en: 'Clinical Skills Center',
     color: '#5E7A8C',
-    hx: 84,
+    hx: 74,
     hy: 21,
-    hleft: '85%',
-    htop: '30%',
     introZh:
       '規劃並執行醫學生客觀結構式臨床測驗（OSCE）與各式模擬訓練，培養紮實的臨床技能。',
     introEn:
@@ -369,10 +276,8 @@ export const CENTERS: Center[] = [
     zh: '實證醫學中心',
     en: 'Evidence-Based Medicine Center',
     color: '#B69B66',
-    hx: 84,
+    hx: 74,
     hy: 49,
-    hleft: '85%',
-    htop: '71%',
     introZh:
       '推動實證醫學（EBM），將實證精神落實於醫療品質，提升臨床決策與照護成效。',
     introEn:
@@ -393,8 +298,6 @@ export const CENTERS: Center[] = [
     color: '#4f8c7d',
     hx: 50,
     hy: 64,
-    hleft: '50%',
-    htop: '91%',
     introZh:
       '以人為本，照顧每一個完整的人。結合醫療、心理與關懷的力量，推動「心理健康急救 MHFA」，培育跨領域種子教師。',
     introEn:
@@ -414,10 +317,8 @@ export const CENTERS: Center[] = [
     zh: '醫學教育研究中心',
     en: 'Medical Education Research Center',
     color: '#6E8A77',
-    hx: 16,
+    hx: 26,
     hy: 49,
-    hleft: '15%',
-    htop: '71%',
     introZh:
       '以實證與資料驅動的方法研究醫學教育，發展教學評量工具與成效分析，將研究成果回饋至課程設計與教師發展。',
     introEn:
@@ -436,10 +337,8 @@ export const CENTERS: Center[] = [
     zh: '行政團隊',
     en: 'Administrative Team',
     color: '#8a8076',
-    hx: 16,
+    hx: 26,
     hy: 21,
-    hleft: '15%',
-    htop: '30%',
     introZh:
       '依職責與分工協同運作，從教學副院長、教學部主任、副主任、組長到各行政專員，支援教學部各項業務的推動。',
     introEn:

@@ -31,7 +31,7 @@ export const zh = {
   dataSource: '資料來源：教學部 績效管理組 BI 團隊 · AY114',
 
   orgTitle: '教學部組織架構',
-  orgDesc: '六大功能單位協同運作，點擊任一中心查看團隊組成與聯絡窗口。',
+  orgDesc: '六大功能單位協同運作，點擊任一中心查看核心業務與聯絡窗口。',
   layoutTree: '組織樹',
   layoutHub: '中樞圖',
 
