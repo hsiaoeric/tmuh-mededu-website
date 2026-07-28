@@ -158,10 +158,7 @@ export function Header() {
             overflow: 'hidden',
           }}
         >
-          <TmuhLogo
-            size={36}
-            style={{ filter: 'drop-shadow(0 3px 8px var(--teal-glow))', flexShrink: 0 }}
-          />
+          <TmuhLogo size={36} />
           <div
             style={{
               display: 'flex',

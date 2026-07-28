@@ -1,5 +1,6 @@
 import { useSite } from '@/context/SiteContext';
 import { Icon } from '@/components/common/Icon';
+import { TmuhLogo } from '@/components/common/TmuhLogo';
 
 export function Footer() {
   const { t } = useSite();
@@ -25,21 +26,7 @@ export function Footer() {
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: 13 }}>
-          <div
-            style={{
-              width: 40,
-              height: 40,
-              borderRadius: 11,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              background: 'linear-gradient(140deg,var(--teal),var(--teal-700))',
-            }}
-          >
-            <span style={{ display: 'block', width: 21, height: 21, color: '#fff' }}>
-              <Icon name="heart" />
-            </span>
-          </div>
+          <TmuhLogo size={40} />
           <div style={{ lineHeight: 1.4 }}>
             <div
               style={{
