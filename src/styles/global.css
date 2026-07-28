@@ -110,12 +110,14 @@ body {
   overflow-y: hidden;
 }
 
+/* The aspect-ratio must equal the SVG viewBox's, or `xMidYMid meet` letterboxes
+   the viewBox and the connector lines drift off the cards. See HUB_WIDE. */
 .hub-org-chart {
   container-type: inline-size;
   position: relative;
   width: 100%;
   min-width: 860px;
-  aspect-ratio: 1.45 / 1;
+  aspect-ratio: 100 / 70;
   padding: 12px 0 28px;
   overflow: visible;
 }
@@ -265,6 +267,62 @@ body {
   right: calc(100% + 8px);
   top: 50%;
   transform: translateY(-50%);
+}
+
+/* Compact hub: the square HUB_COMPACT ring. Keep this breakpoint in sync with
+   HUB_COMPACT_MAX_WIDTH, which decides the matching coordinates in JS. Without
+   branch chips the ring can sit tight against the hub, so the cards grow to
+   about twice their share of the chart width and the whole diagram fits on a
+   phone without panning. */
+@media (max-width: 920px) {
+  .hub-org-chart {
+    min-width: 340px;
+    /* A square box would grow as tall as it is wide, so stop enlarging once the
+       labels are comfortable and centre it in the leftover space instead. */
+    max-width: 520px;
+    margin: 0 auto;
+    aspect-ratio: 1 / 1;
+  }
+
+  .hub-core {
+    width: 30cqw;
+    height: 30cqw;
+  }
+
+  .hub-core-disc__title {
+    font-size: 5cqw;
+  }
+
+  /* Too small to read in a 30cqw disc, and the page header already spells the
+     department out in full. */
+  .hub-core-disc__sub {
+    display: none;
+  }
+
+  .hub-core-ring {
+    inset: -1.4cqw;
+  }
+
+  .hub-core-ring--2 {
+    inset: -3.2cqw;
+  }
+
+  .hub-center-node {
+    width: 25cqw;
+    padding: 2.9cqw 2.1cqw;
+    border-radius: 2.9cqw;
+  }
+
+  .hub-center-node__icon {
+    width: 6.4cqw;
+    height: 6.4cqw;
+    margin: 0 auto 1.5cqw;
+    border-radius: 1.9cqw;
+  }
+
+  .hub-center-node__label {
+    font-size: 3.2cqw;
+  }
 }
 
 .hub-line--active {

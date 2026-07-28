@@ -7,15 +7,73 @@ import {
   type CenterBranch,
 } from '@/data/centers';
 import { Icon, type IconName } from '@/components/common/Icon';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 
 const VB_W = 100;
-const VB_H = 70;
 const HUB_X = 50;
-const HUB_Y = 35;
 const BRANCH_SPACING = 11;
 const BRANCH_ROW_GAP = 10;
-const VIEW_MARGIN = 7;
 const BRANCHS_PER_LINE = 3;
+
+/**
+ * Below this width the chart switches to the compact layout. Keep in sync with
+ * the `.hub-org-chart` media query in global.css, which supplies the matching
+ * card sizes and box aspect-ratio.
+ *
+ * The threshold is the narrowest viewport where the wide layout's 860px still
+ * fits inside the section's padding, so neither layout ever has to be panned.
+ */
+export const HUB_COMPACT_MAX_WIDTH = 920;
+
+interface HubLayout {
+  /**
+   * Height of the SVG viewBox; the width is always VB_W. The box's CSS
+   * aspect-ratio must equal VB_W / vbH, otherwise `xMidYMid meet` letterboxes
+   * the viewBox and the connector lines drift away from the cards, which are
+   * positioned as percentages of the box.
+   */
+  vbH: number;
+  /** Ring positions in viewBox units, keyed by center. */
+  pos: Record<CenterId, readonly [number, number]>;
+  /**
+   * Branch chips fly outward from their center, which costs roughly 40% of the
+   * chart width in empty margin. The compact layout spends that width on the
+   * ring instead and relies on the detail panel's tabs to reach the branches.
+   */
+  branches: boolean;
+}
+
+/** Landscape ring, wide enough to fan branch chips outward. */
+const HUB_WIDE: HubLayout = {
+  vbH: 70,
+  pos: {
+    faculty_dev: [50, 6],
+    clinical_skills: [74, 21],
+    ebm: [74, 49],
+    holistic: [50, 64],
+    med_edu_research: [26, 49],
+    admin: [26, 21],
+  },
+  branches: true,
+};
+
+/**
+ * Square ring for phones: the same clock positions pulled in against the hub
+ * and spread further apart vertically, so all six cards fit on screen at once
+ * without panning.
+ */
+const HUB_COMPACT: HubLayout = {
+  vbH: 100,
+  pos: {
+    faculty_dev: [50, 16],
+    clinical_skills: [83, 32],
+    ebm: [83, 68],
+    holistic: [50, 84],
+    med_edu_research: [17, 68],
+    admin: [17, 32],
+  },
+  branches: false,
+};
 
 type BranchSide = 'top' | 'bottom' | 'left' | 'right';
 
@@ -26,9 +84,14 @@ function sideForCenter(centerId: CenterId): BranchSide {
   return 'left';
 }
 
+/** Smallest gap, in viewBox units, kept between a branch chip and the chart edge. */
+const VIEW_MARGIN = 7;
+
 /**
  * Place branches into multi-line slots on a fixed outer side per center so
  * branch cards and tooltips do not sit on top of other center nodes.
+ *
+ * Only used by the wide layout, so it clamps against that layout's height.
  */
 function branchCoords(
   centerId: CenterId,
@@ -63,7 +126,7 @@ function branchCoords(
 
   return {
     x: Math.min(VB_W - VIEW_MARGIN, Math.max(VIEW_MARGIN, x)),
-    y: Math.min(VB_H - VIEW_MARGIN, Math.max(VIEW_MARGIN, y)),
+    y: Math.min(HUB_WIDE.vbH - VIEW_MARGIN, Math.max(VIEW_MARGIN, y)),
     side,
   };
 }
@@ -72,8 +135,8 @@ function pctX(x: number) {
   return `${(x / VB_W) * 100}%`;
 }
 
-function pctY(y: number) {
-  return `${(y / VB_H) * 100}%`;
+function pctY(y: number, vbH: number) {
+  return `${(y / vbH) * 100}%`;
 }
 
 function BranchNode({
@@ -81,6 +144,7 @@ function BranchNode({
   color,
   x,
   y,
+  vbH,
   side,
   delay,
   active,
@@ -90,6 +154,7 @@ function BranchNode({
   color: string;
   x: number;
   y: number;
+  vbH: number;
   side: BranchSide;
   delay: number;
   active: boolean;
@@ -106,7 +171,7 @@ function BranchNode({
       style={{
         position: 'absolute',
         left: pctX(x),
-        top: pctY(y),
+        top: pctY(y, vbH),
         transform: 'translate(-50%, -50%)',
         zIndex: active ? 8 : 6,
         animation: `branch-pop 0.28s ease-out ${delay}ms both`,
@@ -165,11 +230,13 @@ function BranchNode({
 
 function CenterNode({
   id,
+  layout,
   active,
   dimmed,
   onSelect,
 }: {
   id: CenterId;
+  layout: HubLayout;
   active: boolean;
   dimmed: boolean;
   onSelect: (id: CenterId) => void;
@@ -178,6 +245,7 @@ function CenterNode({
   const [hover, setHover] = useState(false);
   const center = CENTERS.find((c) => c.id === id)!;
   const lifted = hover || active;
+  const [x, y] = layout.pos[id];
 
   return (
     <button
@@ -189,8 +257,8 @@ function CenterNode({
       aria-expanded={active}
       style={{
         position: 'absolute',
-        left: pctX(center.hx),
-        top: pctY(center.hy),
+        left: pctX(x),
+        top: pctY(y, layout.vbH),
         transform: `translate(-50%,-50%) scale(${lifted ? 1.08 : 1})`,
         cursor: 'pointer',
         border: `1.5px solid ${lifted ? center.color : 'var(--border)'}`,
@@ -235,21 +303,23 @@ export function HubOrgChart({
 }: HubOrgChartProps) {
   const { t } = useSite();
   const hasFocus = activeId !== null;
+  const compact = useMediaQuery(`(max-width: ${HUB_COMPACT_MAX_WIDTH}px)`);
+  const layout = compact ? HUB_COMPACT : HUB_WIDE;
 
   const branchLines = useMemo(() => {
-    if (!activeId) return [];
-    const center = CENTERS.find((c) => c.id === activeId)!;
+    if (!activeId || !layout.branches) return [];
+    const [cx, cy] = layout.pos[activeId];
     const branches = CENTER_BRANCHES[activeId];
     return branches.map((branch, i) => {
-      const { x, y, side } = branchCoords(activeId, center.hx, center.hy, branches.length, i);
+      const { x, y, side } = branchCoords(activeId, cx, cy, branches.length, i);
       return { branch, x, y, side, i };
     });
-  }, [activeId]);
+  }, [activeId, layout]);
 
   return (
     <div className="hub-org-chart">
       <svg
-        viewBox={`0 0 ${VB_W} ${VB_H}`}
+        viewBox={`0 0 ${VB_W} ${layout.vbH}`}
         preserveAspectRatio="xMidYMid meet"
         className="hub-org-svg"
         style={{
@@ -264,13 +334,14 @@ export function HubOrgChart({
         {CENTERS.map((c) => {
           const isActive = activeId === c.id;
           const isDimmed = hasFocus && !isActive;
+          const [cx, cy] = layout.pos[c.id];
           return (
             <line
               key={c.id}
               x1={HUB_X}
-              y1={HUB_Y}
-              x2={c.hx}
-              y2={c.hy}
+              y1={layout.vbH / 2}
+              x2={cx}
+              y2={cy}
               stroke={c.color}
               strokeWidth={isActive ? 0.75 : 0.4}
               strokeDasharray={isActive ? '4 2' : '60'}
@@ -290,11 +361,12 @@ export function HubOrgChart({
           branchLines.map(({ branch, x, y, i }) => {
             const center = CENTERS.find((c) => c.id === activeId)!;
             const isBranchActive = activeBranchId === branch.id;
+            const [cx, cy] = layout.pos[activeId];
             return (
               <g key={branch.id}>
                 <line
-                  x1={center.hx}
-                  y1={center.hy}
+                  x1={cx}
+                  y1={cy}
                   x2={x}
                   y2={y}
                   stroke={center.color}
@@ -351,6 +423,7 @@ export function HubOrgChart({
         <CenterNode
           key={c.id}
           id={c.id}
+          layout={layout}
           active={activeId === c.id}
           dimmed={hasFocus && activeId !== c.id}
           onSelect={onSelectCenter}
@@ -365,6 +438,7 @@ export function HubOrgChart({
             color={CENTERS.find((c) => c.id === activeId)!.color}
             x={x}
             y={y}
+            vbH={layout.vbH}
             side={side}
             delay={i * 55}
             active={activeBranchId === branch.id}
