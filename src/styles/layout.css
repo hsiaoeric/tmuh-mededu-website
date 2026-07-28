@@ -6,6 +6,23 @@
  * grids were missing (A1). Editing spacing/columns here updates the whole site.
  */
 
+/* Responsive brand title helpers for English header */
+.tmuh-full-title {
+  display: inline;
+}
+.tmuh-short-title {
+  display: none;
+}
+
+@media (max-width: 580px) {
+  .tmuh-full-title {
+    display: none !important;
+  }
+  .tmuh-short-title {
+    display: inline !important;
+  }
+}
+
 /* Eyebrow: the small uppercase label above section titles. Colour is set by
    the caller (via inline `color`) so it can adapt per center / on dark heros. */
 .eyebrow {
