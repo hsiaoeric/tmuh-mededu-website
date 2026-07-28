@@ -1,6 +1,8 @@
+import { useRef } from 'react';
 import { useSite } from '@/context/SiteContext';
 import type { Center } from '@/data/centers';
 import { resolvePerson, type RawPerson, type RoleKey } from '@/data/people';
+import { useCenteredScroll } from '@/hooks/useCenteredScroll';
 
 const KNOWN_EXTENSIONS: Record<string, string> = {
   王怡文: '3752',
@@ -92,6 +94,8 @@ function Connector() {
 
 export function AdminTeamTree({ center }: { center: Center }) {
   const { isZh } = useSite();
+  const scrollRef = useRef<HTMLDivElement>(null);
+  useCenteredScroll(scrollRef, [center.id, isZh]);
   const byRole = (role: RoleKey) => center.people.filter((person) => person.role === role);
   const singleLevels = [byRole('vp'), byRole('ddir')];
   const deputies = byRole('ddep');
@@ -118,7 +122,7 @@ export function AdminTeamTree({ center }: { center: Center }) {
         </div>
       </div>
 
-      <div className="admin-tree-scroll">
+      <div ref={scrollRef} className="admin-tree-scroll">
         <div className="admin-tree-canvas">
           {singleLevels.map((level, levelIndex) => (
             <div key={levelIndex} style={{ display: 'contents' }}>

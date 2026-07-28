@@ -1,7 +1,8 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { useSite, type CenterId } from '@/context/SiteContext';
 import { CENTERS, CENTER_ICON } from '@/data/centers';
 import { Icon, type IconName } from '@/components/common/Icon';
+import { useCenteredScroll } from '@/hooks/useCenteredScroll';
 import { HubOrgChart } from './HubOrgChart';
 
 interface OrgChartProps {
@@ -114,14 +115,7 @@ export function OrgChart({
 }: OrgChartProps) {
   const { t } = useSite();
   const hubScrollRef = useRef<HTMLDivElement>(null);
-
-  // The hub diagram is pinned to a legible minimum width, so it overflows on
-  // narrow viewports. Open it centred on the hub instead of at its left edge.
-  useEffect(() => {
-    const el = hubScrollRef.current;
-    if (!el) return;
-    el.scrollLeft = (el.scrollWidth - el.clientWidth) / 2;
-  }, [variant]);
+  useCenteredScroll(hubScrollRef, [variant]);
 
   if (variant === 'A') {
     return (
