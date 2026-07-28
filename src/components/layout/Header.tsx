@@ -4,23 +4,28 @@ import { Icon } from '@/components/common/Icon';
 import { TmuhLogo } from '@/components/common/TmuhLogo';
 import { scrollToId } from '@/utils/scroll';
 import { NavDropdown } from './NavDropdown';
+import { NavMenuGroup, NavMenuLink, type NavMenuTarget } from './NavMenu';
 
-interface NavItem {
-  label: string;
-  onClick?: () => void;
-  /** When set, renders this node instead of a plain button. */
-  custom?: ReactNode;
-}
+/**
+ * A row in the header menu: a destination, a heading that expands to reveal
+ * several destinations, or a bespoke node such as the centers dropdown.
+ */
+type NavEntry =
+  | ({ kind: 'link'; dividerBefore?: boolean } & NavMenuTarget)
+  | { kind: 'group'; label: string; items: NavMenuTarget[] }
+  | { kind: 'custom'; node: ReactNode };
 
 export function Header() {
   const { t, isZh, view, theme, toggleLang, toggleTheme, goHome, setView } =
     useSite();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [openGroup, setOpenGroup] = useState<string | null>(null);
   const headerRef = useRef<HTMLElement>(null);
   const toggleRef = useRef<HTMLButtonElement>(null);
 
   const closeMenu = (restoreFocus = false) => {
     setMenuOpen(false);
+    setOpenGroup(null);
     if (restoreFocus) toggleRef.current?.focus();
   };
 
@@ -28,8 +33,22 @@ export function Header() {
     closeMenu(true);
     scrollToId(id);
   };
-  const back: NavItem = {
+  /** Destination row scrolling to a section on the current page. */
+  const link = (label: string, id: string): NavEntry => ({
+    kind: 'link',
+    label,
+    onClick: go(id),
+  });
+  /** Heading row; `sections` are [label, section id] pairs. */
+  const group = (label: string, sections: [string, string][]): NavEntry => ({
+    kind: 'group',
+    label,
+    items: sections.map(([itemLabel, id]) => ({ label: itemLabel, onClick: go(id) })),
+  });
+  const back: NavEntry = {
+    kind: 'link',
     label: t.backDept,
+    dividerBefore: true,
     onClick: () => {
       closeMenu(true);
       setView('dept');
@@ -54,50 +73,70 @@ export function Header() {
     };
   }, [menuOpen]);
 
-  let navItems: NavItem[];
+  let navItems: NavEntry[];
   switch (view) {
     case 'holistic':
       navItems = [
-        { label: t.navAbout, onClick: go('h-about') },
-        { label: t.navMhfa, onClick: go('mhfa') },
-        { label: t.navSeed, onClick: go('seed') },
-        { label: isZh ? '研討會與成果' : 'Symposia', onClick: go('h-symposiums') },
-        { label: isZh ? '健康台灣' : 'Healthy Taiwan', onClick: go('scope2') },
-        { label: isZh ? '最新公告' : 'News', onClick: go('h-news') },
-        { label: isZh ? '近期活動' : 'Activities', onClick: go('h-activities') },
-        { label: t.navContact, onClick: go('h-contact') },
+        group(isZh ? '中心介紹' : 'About', [
+          [isZh ? '關於中心' : 'About the Center', 'h-about'],
+          [isZh ? '中心成員' : 'Members', 'h-members'],
+        ]),
+        group(isZh ? '重點計畫' : 'Programs', [
+          [t.navMhfa, 'mhfa'],
+          [t.navSeed, 'seed'],
+          [isZh ? '健康台灣範疇二' : 'Healthy Taiwan Scope 2', 'scope2'],
+        ]),
+        group(isZh ? '教育成果' : 'Outcomes', [
+          [isZh ? '全人研討會' : 'Symposia', 'h-symposiums'],
+          [isZh ? '師培課程' : 'Faculty Training', 'h-training'],
+        ]),
+        group(isZh ? '最新動態' : 'Updates', [
+          [isZh ? '最新公告' : 'News', 'h-news'],
+          [isZh ? '近期活動' : 'Activities', 'h-activities'],
+        ]),
+        link(t.navContact, 'h-contact'),
         back,
       ];
       break;
     case 'ebm':
       navItems = [
-        { label: isZh ? '中心簡介' : 'About', onClick: go('ebm-about') },
-        { label: isZh ? '核心任務' : 'Missions', onClick: go('ebm-missions') },
-        { label: isZh ? '競賽成就' : 'Awards', onClick: go('ebm-awards') },
-        { label: isZh ? '推動歷程' : 'Journey', onClick: go('ebm-journey') },
-        { label: isZh ? '訓練課程' : 'Courses', onClick: go('ebm-courses') },
-        { label: t.navContact, onClick: go('ebm-contact') },
+        link(isZh ? '中心簡介' : 'About', 'ebm-about'),
+        group(isZh ? '業務與課程' : 'Missions & Courses', [
+          [isZh ? '四大核心任務' : 'Four Core Missions', 'ebm-missions'],
+          [isZh ? '訓練課程' : 'Courses', 'ebm-courses'],
+        ]),
+        group(isZh ? '成果與歷程' : 'Achievements', [
+          [isZh ? '競賽成就' : 'Awards', 'ebm-awards'],
+          [isZh ? '推動歷程' : 'Journey', 'ebm-journey'],
+        ]),
+        link(t.navContact, 'ebm-contact'),
         back,
       ];
       break;
     case 'facdev':
       navItems = [
-        { label: isZh ? '中心簡介' : 'About', onClick: go('fd-about') },
-        { label: isZh ? '中心成員' : 'Members', onClick: go('fd-members') },
-        { label: isZh ? '核心業務' : 'Services', onClick: go('fd-services') },
-        { label: isZh ? '六大培育小組' : 'Groups', onClick: go('fd-groups') },
-        { label: isZh ? '最新公告' : 'News', onClick: go('fd-news') },
-        { label: t.navContact, onClick: go('fd-contact') },
+        group(isZh ? '中心介紹' : 'About', [
+          [isZh ? '中心簡介' : 'About the Center', 'fd-about'],
+          [isZh ? '中心成員' : 'Members', 'fd-members'],
+        ]),
+        group(isZh ? '業務與組織' : 'Services & Structure', [
+          [isZh ? '四大核心業務' : 'Four Core Services', 'fd-services'],
+          [isZh ? '六大培育小組' : 'Six Cultivation Groups', 'fd-groups'],
+        ]),
+        link(isZh ? '最新動態' : 'Updates', 'fd-news'),
+        link(t.navContact, 'fd-contact'),
         back,
       ];
       break;
     case 'dept':
+      // Left flat: only six rows, and the centers dropdown already supplies the
+      // expandable behaviour a grouped menu would add.
       navItems = [
-        { label: t.navNews, onClick: go('news') },
-        { label: t.navAbout, onClick: go('about') },
+        link(t.navNews, 'news'),
+        link(t.navAbout, 'about'),
         {
-          label: isZh ? '五大中心' : 'Centers',
-          custom: (
+          kind: 'custom',
+          node: (
             <NavDropdown
               label={isZh ? '五大中心' : 'Centers'}
               scrollTarget="org"
@@ -105,9 +144,9 @@ export function Header() {
             />
           ),
         },
-        { label: t.navOrg, onClick: go('org') },
-        { label: isZh ? '品質與成果' : 'Impact', onClick: go('impact') },
-        { label: t.navContact, onClick: go('contact') },
+        link(t.navOrg, 'org'),
+        link(isZh ? '品質與成果' : 'Impact', 'impact'),
+        link(t.navContact, 'contact'),
       ];
       break;
     default:
@@ -309,36 +348,28 @@ export function Header() {
           }}
         >
           {navItems.map((item, i) => (
-            <div key={i} style={{ width: '100%' }}>
-              {item.custom ? (
-                <div style={{ padding: '2px 0' }}>{item.custom}</div>
+            <div
+              key={i}
+              style={{
+                width: '100%',
+                ...(item.kind === 'link' && item.dividerBefore
+                  ? { borderTop: '1px solid var(--border)', marginTop: 4, paddingTop: 4 }
+                  : null),
+              }}
+            >
+              {item.kind === 'custom' ? (
+                <div style={{ padding: '2px 0' }}>{item.node}</div>
+              ) : item.kind === 'group' ? (
+                <NavMenuGroup
+                  label={item.label}
+                  items={item.items}
+                  open={openGroup === item.label}
+                  onToggle={() =>
+                    setOpenGroup((current) => (current === item.label ? null : item.label))
+                  }
+                />
               ) : (
-                <button
-                  onClick={item.onClick}
-                  style={{
-                    width: '100%',
-                    textAlign: 'left',
-                    padding: '10px 12px',
-                    border: 'none',
-                    background: 'transparent',
-                    cursor: 'pointer',
-                    borderRadius: 8,
-                    fontWeight: 600,
-                    fontSize: 14,
-                    color: 'var(--text)',
-                    transition: 'background 0.15s ease',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                  }}
-                  onMouseEnter={(e) => (e.currentTarget.style.background = 'var(--teal-50)')}
-                  onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
-                >
-                  <span>{item.label}</span>
-                  <span style={{ width: 14, height: 14, opacity: 0.5 }}>
-                    <Icon name="arrow" />
-                  </span>
-                </button>
+                <NavMenuLink label={item.label} onClick={item.onClick} />
               )}
             </div>
           ))}
