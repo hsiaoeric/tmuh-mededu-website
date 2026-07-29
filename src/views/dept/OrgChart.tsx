@@ -40,7 +40,7 @@ function TreeCenterButton({
       style={{
         position: 'relative',
         padding: '18px 12px',
-        borderRadius: 14,
+        borderRadius: 2,
         cursor: 'pointer',
         border: `1.5px solid ${lifted ? color : 'var(--border)'}`,
         background: active
@@ -58,7 +58,7 @@ function TreeCenterButton({
           width: 34,
           height: 34,
           margin: '0 auto 9px',
-          borderRadius: 10,
+          borderRadius: 2,
           alignItems: 'center',
           justifyContent: 'center',
           background: `color-mix(in srgb,${color} 16%,transparent)`,
@@ -82,7 +82,7 @@ function TreeCenterButton({
       <span
         style={{
           display: 'block',
-          fontFamily: "'IBM Plex Sans', sans-serif",
+          fontFamily: "'Archivo', sans-serif",
           fontSize: 10.5,
           color: 'var(--muted)',
           marginTop: 4,
@@ -139,11 +139,11 @@ export function OrgChart({
         <div
           style={{
             padding: '14px 30px',
-            borderRadius: 14,
-            background: 'linear-gradient(140deg,var(--teal),var(--teal-700))',
+            borderRadius: 2,
+            background: 'linear-gradient(140deg,var(--accent),var(--accent-700))',
             color: '#fff',
             textAlign: 'center',
-            boxShadow: '0 12px 26px var(--teal-glow)',
+            boxShadow: 'none',
           }}
         >
           <div style={{ fontFamily: "'Noto Sans TC', sans-serif", fontWeight: 700, fontSize: 18 }}>
@@ -151,7 +151,7 @@ export function OrgChart({
           </div>
           <div
             style={{
-              fontFamily: "'IBM Plex Sans', sans-serif",
+              fontFamily: "'Archivo', sans-serif",
               fontSize: 11,
               letterSpacing: '.08em',
               opacity: 0.9,
@@ -164,9 +164,9 @@ export function OrgChart({
         <div
           style={{
             padding: '11px 26px',
-            borderRadius: 12,
+            borderRadius: 2,
             background: 'var(--surface)',
-            border: '1.5px solid var(--teal)',
+            border: '1.5px solid var(--accent)',
             color: 'var(--text)',
             textAlign: 'center',
             fontFamily: "'Noto Sans TC', sans-serif",
@@ -179,7 +179,7 @@ export function OrgChart({
           <span
             style={{
               display: 'block',
-              fontFamily: "'IBM Plex Sans', sans-serif",
+              fontFamily: "'Archivo', sans-serif",
               fontWeight: 500,
               fontSize: 10.5,
               letterSpacing: '.06em',

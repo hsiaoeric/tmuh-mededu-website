@@ -26,7 +26,7 @@ export function DeptNewsSection() {
               <Reveal
                 key={`${activity.title}-${index}`}
                 style={{
-                  borderRadius: 16,
+                  borderRadius: 2,
                   border: '1px solid var(--border)',
                   background: 'var(--surface)',
                   boxShadow: 'var(--shadow-card)',
@@ -34,7 +34,7 @@ export function DeptNewsSection() {
                 }}
               >
                 <div style={{ padding: '20px 22px' }}>
-                  <span style={{ fontSize: 11.5, fontWeight: 700, color: 'var(--teal-700)' }}>{activity.cat}</span>
+                  <span style={{ fontSize: 11.5, fontWeight: 700, color: 'var(--accent-700)' }}>{activity.cat}</span>
                   <h4 style={{ margin: '7px 0 13px', fontFamily: "'Noto Sans TC', sans-serif", fontSize: 18, color: 'var(--text)' }}>
                     {activity.title}
                   </h4>
@@ -44,7 +44,7 @@ export function DeptNewsSection() {
                     ['brain', activity.speaker],
                   ] as const).map(([icon, text]) => (
                     <div key={icon} style={{ display: 'flex', gap: 9, marginTop: 8, fontSize: 13.5, color: 'var(--body)' }}>
-                      <span style={{ width: 16, height: 16, flexShrink: 0, color: 'var(--teal)' }}>
+                      <span style={{ width: 16, height: 16, flexShrink: 0, color: 'var(--accent)' }}>
                         <Icon name={icon as IconName} />
                       </span>
                       <span>{text}</span>
@@ -57,7 +57,7 @@ export function DeptNewsSection() {
                       href={activity.link}
                       target="_blank"
                       rel="noopener"
-                      style={{ color: 'var(--teal-700)', fontSize: 12.5, fontWeight: 700, textDecoration: 'none' }}
+                      style={{ color: 'var(--accent-700)', fontSize: 12.5, fontWeight: 700, textDecoration: 'none' }}
                     >
                       {activity.status} ↗
                     </a>
@@ -86,17 +86,17 @@ export function DeptNewsSection() {
                 delay={index * 60}
                 style={{
                   padding: '18px 20px',
-                  borderRadius: 14,
+                  borderRadius: 2,
                   border: '1px solid var(--border)',
                   background: 'var(--surface)',
                   boxShadow: 'var(--shadow-card)',
                 }}
               >
                 <div style={{ display: 'flex', gap: 9, alignItems: 'center', marginBottom: 8 }}>
-                  <span style={{ padding: '2px 9px', borderRadius: 999, fontSize: 11, fontWeight: 700, color: announcement.tagColor, background: announcement.tagBg }}>
+                  <span style={{ padding: '2px 9px', borderRadius: 2, fontSize: 11, fontWeight: 700, color: announcement.tagColor, background: announcement.tagBg }}>
                     {announcement.tag}
                   </span>
-                  <span style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 11.5, color: 'var(--muted)' }}>
+                  <span style={{ fontFamily: "'Archivo', sans-serif", fontSize: 11.5, color: 'var(--muted)' }}>
                     {announcement.date}
                   </span>
                 </div>

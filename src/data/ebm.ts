@@ -4,9 +4,9 @@ import { formatPhoneExt } from '@/utils/phone';
 
 export const EBM_COLORS = {
   ink: '#26303B',
-  gold: '#B0894B',
-  goldSoft: '#C4A268',
-  blue: '#5E7A8C',
+  gold: '#A96B0A',
+  goldSoft: '#C8811A',
+  blue: '#1A63C4',
 };
 
 export interface EbmKpi {
@@ -49,8 +49,8 @@ export function buildEbm(lang: Lang) {
   const kpis: EbmKpi[] = [
     { num: 20, suffix: '+', zh: '年實證深耕', en: 'Years since 2004', color: gold },
     { num: 4, suffix: '', zh: '大核心任務', en: 'Core Missions', color: blue },
-    { num: 15, suffix: '+', zh: '年 NHQA 持續參與', en: 'Years at NHQA', color: '#6E8A77' },
-    { num: 3, suffix: '', zh: '大競賽組別', en: 'Contest Tracks', color: '#A87A6B' },
+    { num: 15, suffix: '+', zh: '年 NHQA 持續參與', en: 'Years at NHQA', color: '#6B45B0' },
+    { num: 3, suffix: '', zh: '大競賽組別', en: 'Contest Tracks', color: '#C0392B' },
   ].map((k, i) => ({ num: k.num, suffix: k.suffix, label: isZh ? k.zh : k.en, en: k.en, color: k.color, delay: i * 70 }));
 
   const missions: EbmMission[] = [
@@ -62,32 +62,32 @@ export function buildEbm(lang: Lang) {
 
   const awardsLit: EbmAward[] = [
     { sess: pick(lang, '第 7 屆', '7th'), award: pick(lang, '銀獎', 'Silver'), tone: '#9AA0A6' },
-    { sess: pick(lang, '第 14 ・15 屆', '14th · 15th'), award: pick(lang, '潛力獎', 'Potential'), tone: '#6E8A77' },
+    { sess: pick(lang, '第 14 ・15 屆', '14th · 15th'), award: pick(lang, '潛力獎', 'Potential'), tone: '#6B45B0' },
     { sess: pick(lang, '第 16 ・21 屆', '16th · 21st'), award: pick(lang, '金獎', 'Gold'), tone: gold },
     { sess: pick(lang, '第 22 屆', '22nd'), award: pick(lang, '15 年以上持續參與特別獎', '15-yr Sustained'), tone: blue },
   ];
 
   const awardsClin: EbmAward[] = [
-    { sess: pick(lang, '第 10 屆', '10th'), award: pick(lang, '潛力獎', 'Potential'), tone: '#6E8A77', note: '' },
+    { sess: pick(lang, '第 10 屆', '10th'), award: pick(lang, '潛力獎', 'Potential'), tone: '#6B45B0', note: '' },
     { sess: pick(lang, '特別獎項', 'Special'), award: pick(lang, '金獎', 'Gold'), tone: gold, note: pick(lang, '全腹膜外內視鏡腹股溝痝氣修補手術之人工網膌固定改善專案', 'Mesh fixation improvement in TEP inguinal hernia repair') },
-    { sess: pick(lang, '第 12 屆', '12th'), award: pick(lang, '潛力獎', 'Potential'), tone: '#6E8A77', note: pick(lang, '預防性投與類固醇以改善全身麻醉手術後之冑心嘔吐專案', 'Prophylactic steroids to reduce post-anesthesia nausea & vomiting') },
+    { sess: pick(lang, '第 12 屆', '12th'), award: pick(lang, '潛力獎', 'Potential'), tone: '#6B45B0', note: pick(lang, '預防性投與類固醇以改善全身麻醉手術後之冑心嘔吐專案', 'Prophylactic steroids to reduce post-anesthesia nausea & vomiting') },
   ];
 
   const awardsTrans: EbmAward[] = [
-    { sess: pick(lang, '113 學年起', 'From AY113'), award: pick(lang, '新增參與', 'Newly Joined'), tone: '#7A95A8', note: pick(lang, '自 113 學年度起參與 NCMEA 知識轉譯組競賽，拓展實證應用新面向。', 'Joined the NCMEA Knowledge-Translation track from AY113, opening a new dimension of evidence application.') },
-    { sess: pick(lang, '推動重點', 'Focus'), award: pick(lang, '證據轉化', 'Translation'), tone: '#6E8A77', note: pick(lang, '以每月「實證醫學知識轉譯討論會」為基礎，推動證據轉化為臨床決策。', 'Built on the monthly knowledge-translation forum, turning evidence into clinical decisions.') },
+    { sess: pick(lang, '113 學年起', 'From AY113'), award: pick(lang, '新增參與', 'Newly Joined'), tone: '#4A7FD0', note: pick(lang, '自 113 學年度起參與 NCMEA 知識轉譯組競賽，拓展實證應用新面向。', 'Joined the NCMEA Knowledge-Translation track from AY113, opening a new dimension of evidence application.') },
+    { sess: pick(lang, '推動重點', 'Focus'), award: pick(lang, '證據轉化', 'Translation'), tone: '#6B45B0', note: pick(lang, '以每月「實證醫學知識轉譯討論會」為基礎，推動證據轉化為臨床決策。', 'Built on the monthly knowledge-translation forum, turning evidence into clinical decisions.') },
   ];
 
   const stages: EbmStage[] = [
     { phase: pick(lang, '第一階段', 'Phase 1'), name: pick(lang, '奠基階段', 'Foundation'), years: pick(lang, '民國 93–103 年', '2004–2014'), color: gold, items: pick(lang, ['正式成立實證醫學中心，制定院內推動制度架構', '針對 R、PGY、UGY 及各類醫事人員開設適切課程', '定期舉辦 EBM Journal Club，建立臨床討論文化', '推動 Clinical based–PBL–EBM 整合課程'], ['Founded the EBM Center and its hospital-wide framework', 'Tailored courses for residents (R), PGY, UGY and allied health', 'Regular EBM Journal Club to build a clinical-discussion culture', 'Clinical-based PBL-EBM integrated curriculum']) },
     { phase: pick(lang, '第二階段', 'Phase 2'), name: pick(lang, '擴展階段', 'Expansion'), years: pick(lang, '民國 104–107 年', '2015–2018'), color: blue, items: pick(lang, ['首度協辦「北醫體系一校三院實證醫學競賽」', '辦理院內競賽成果發表會', '參與臺灣實證醫學學會，由院內人員遮選為理監事', '協助醫策會舉辦文獻查證競賽'], ['Co-hosted the TMU system one-university-three-hospital EBM contest', 'Held in-hospital contest result presentations', 'Active in the Taiwan EBM Association; elected to its board', 'Assisted the JCT in running literature-appraisal contests']) },
-    { phase: pick(lang, '第三階段', 'Phase 3'), name: pick(lang, '深化階段', 'Deepening'), years: pick(lang, '民國 108–至今', '2019–Present'), color: '#6E8A77', items: pick(lang, ['108 年舉辦「實證教學與臨床應用發表會」', '111–113 年每年舉辦實證醫學能力競賽暨成果發表會', '持續參與國際實證醫學學術活動', '籌設「臺北醫學大學考科藍臺灣校級研究中心」'], ['2019 “EBM Teaching & Clinical Application” showcase', 'Annual EBM competency contests, 2022–2024', 'Ongoing participation in international EBM activities', 'Establishing the Cochrane Taiwan university research center']) },
+    { phase: pick(lang, '第三階段', 'Phase 3'), name: pick(lang, '深化階段', 'Deepening'), years: pick(lang, '民國 108–至今', '2019–Present'), color: '#6B45B0', items: pick(lang, ['108 年舉辦「實證教學與臨床應用發表會」', '111–113 年每年舉辦實證醫學能力競賽暨成果發表會', '持續參與國際實證醫學學術活動', '籌設「臺北醫學大學考科藍臺灣校級研究中心」'], ['2019 “EBM Teaching & Clinical Application” showcase', 'Annual EBM competency contests, 2022–2024', 'Ongoing participation in international EBM activities', 'Establishing the Cochrane Taiwan university research center']) },
   ];
 
   const courseGroups: EbmCourseGroup[] = [
     { gicon: 'chart', title: pick(lang, '系統性課程', 'Systematic Courses'), color: gold, rows: pick(lang, [['實證醫學 Meta-analysis 帶狀課程', '每月 1 堂・全年持續'], ['文獻查證培訓班（初階）', '每年 2–4 月・奠定基礎'], ['文獻查證培訓班（進階）', '每年 5–7 月・進階分析']], [['Meta-analysis course series', 'Monthly · year-round'], ['Literature appraisal (Beginner)', 'Feb–Apr each year'], ['Literature appraisal (Advanced)', 'May–Jul each year']]).map((r) => ({ name: r[0], detail: r[1] })) },
     { gicon: 'skills', title: pick(lang, '應用與實踐', 'Application & Practice'), color: blue, rows: pick(lang, [['文獻查證院內競賽', '每年 1 次・實戰演練'], ['實證知識轉譯討論會', '每月 1 次・證據轉化'], ['其他相關課程', '每年不定期舉辦']], [['In-hospital appraisal contest', 'Once a year · hands-on'], ['Knowledge-translation forum', 'Monthly'], ['Other related courses', 'Periodically']]).map((r) => ({ name: r[0], detail: r[1] })) },
-    { gicon: 'cap', title: pick(lang, '師資培育', 'Faculty Cultivation'), color: '#6E8A77', rows: pick(lang, [['實證醫學種子師資培訓課程', '每年 3–4 堂'], ['院內實證教學人才庫', '系統性管理'], ['培養未來實證領導者', '長期培育計畫']], [['Seed-teacher training', '3–4 sessions/year'], ['Teaching talent pool', 'Systematic management'], ['Future EBM leaders', 'Long-term program']]).map((r) => ({ name: r[0], detail: r[1] })) },
+    { gicon: 'cap', title: pick(lang, '師資培育', 'Faculty Cultivation'), color: '#6B45B0', rows: pick(lang, [['實證醫學種子師資培訓課程', '每年 3–4 堂'], ['院內實證教學人才庫', '系統性管理'], ['培養未來實證領導者', '長期培育計畫']], [['Seed-teacher training', '3–4 sessions/year'], ['Teaching talent pool', 'Systematic management'], ['Future EBM leaders', 'Long-term program']]).map((r) => ({ name: r[0], detail: r[1] })) },
   ];
 
   return {

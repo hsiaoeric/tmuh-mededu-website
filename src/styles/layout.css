@@ -23,16 +23,23 @@
   }
 }
 
-/* Eyebrow: the small uppercase label above section titles. Colour is set by
-   the caller (via inline `color`) so it can adapt per center / on dark heros. */
+/* Section label above a title.
+   Deliberately NOT the uppercase wide-tracked kicker this site used to have —
+   that treatment is the most generic marketing-page device there is. Here it
+   is a plain-case label under a short accent rule, a Swiss section marker.
+   Colour is set by the caller (via inline `color`) so it adapts per center /
+   on dark heroes; the rule picks it up through `currentColor`. */
 .eyebrow {
-  font-family: 'IBM Plex Sans', sans-serif;
-  font-size: 12px;
+  display: inline-block;
+  font-family: 'Archivo', sans-serif;
+  font-size: 12.5px;
   font-weight: 600;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--teal);
-  margin-bottom: 8px;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--accent);
+  border-top: 2px solid currentColor;
+  padding-top: 7px;
+  margin-bottom: 10px;
 }
 
 /* Responsive grids. The base rules match the old fixed column counts; the

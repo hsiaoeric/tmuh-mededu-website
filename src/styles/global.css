@@ -14,44 +14,50 @@ html {
 }
 
 body {
-  font-family: 'IBM Plex Sans', 'Noto Sans TC', sans-serif;
+  font-family: 'Archivo', 'Noto Sans TC', sans-serif;
 }
 
 ::selection {
-  background: var(--teal);
+  background: var(--accent);
   color: #fff;
 }
 
+/*
+ * Swiss type defaults. Large text gets negative tracking; leading stays tight
+ * (1.55, not the airy 1.7 this site used to run). Headings are set flush —
+ * alignment comes from the grid, not from `text-align: center`.
+ */
+h1,
+h2,
+h3,
+h4 {
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--text);
+}
+
+h1 {
+  letter-spacing: -0.03em;
+}
+
+/* Numerals line up in columns wherever they are compared. */
+[data-figure],
+table,
+.tabular {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum' 1;
+}
+
+/*
+ * Structural org-chart motion only — these carry meaning (drawing the
+ * connection, marking the active branch, live indicator). The ornamental
+ * glow / pulse-ring / float animations were removed deliberately along with
+ * the particle background; do not reintroduce them.
+ */
 @keyframes draw {
   to {
     stroke-dashoffset: 0;
-  }
-}
-@keyframes floatchip {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
-}
-@keyframes pulsering {
-  0% {
-    transform: scale(1);
-    opacity: 0.55;
-  }
-  70% {
-    transform: scale(2.1);
-    opacity: 0;
-  }
-  100% {
-    opacity: 0;
-  }
-}
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
   }
 }
 @keyframes blink {
@@ -63,18 +69,14 @@ body {
     opacity: 1;
   }
 }
-
 @keyframes branch-pop {
   from {
     opacity: 0;
-    scale: 0.9;
   }
   to {
     opacity: 1;
-    scale: 1;
   }
 }
-
 @keyframes line-flow {
   from {
     stroke-dashoffset: 12;
@@ -84,39 +86,8 @@ body {
   }
 }
 
-@keyframes hub-glow {
-  0%,
-  100% {
-    box-shadow: 0 14px 32px var(--teal-glow);
-  }
-  50% {
-    box-shadow: 0 14px 42px color-mix(in srgb, var(--teal) 55%, transparent);
-  }
-}
-
 .hub-org-chart {
   overflow: visible;
-}
-
-.hub-core-disc {
-  animation: hub-glow 3.2s ease-in-out infinite;
-}
-
-.hub-core-ring {
-  position: absolute;
-  inset: -6px;
-  border-radius: 50%;
-  border: 1px solid color-mix(in srgb, var(--teal) 35%, transparent);
-  animation: pulsering 2.8s ease-out infinite;
-}
-
-.hub-core-ring--2 {
-  inset: -14px;
-  animation-delay: 0.9s;
-}
-
-.hub-center-node--active {
-  animation: hub-glow 2.4s ease-in-out infinite;
 }
 
 .hub-dimmed {
@@ -128,17 +99,19 @@ body {
   min-width: 68px;
   max-width: 88px;
   padding: 7px 8px;
-  border-radius: 11px;
+  border-radius: var(--radius);
   border: 1px solid var(--border);
   background: var(--surface);
   cursor: pointer;
   text-align: center;
-  transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+  transition:
+    border-color 0.15s,
+    background 0.15s;
 }
 
 .hub-branch-node:hover,
 .hub-branch-node--active {
-  transform: translateY(-2px);
+  border-color: var(--accent);
 }
 
 .hub-branch-tooltip {
@@ -149,9 +122,9 @@ body {
   width: max-content;
   max-width: 200px;
   padding: 8px 10px;
-  border-radius: 10px;
+  border-radius: var(--radius);
   border: 1px solid var(--border);
-  background: color-mix(in srgb, var(--surface) 96%, transparent);
+  background: var(--surface);
   box-shadow: var(--shadow-lift);
   font-family: 'Noto Sans TC', sans-serif;
   font-size: 11px;
@@ -179,19 +152,6 @@ body {
   transform: translateY(-50%);
 }
 
-.hub-line--active {
-  filter: drop-shadow(0 0 3px color-mix(in srgb, var(--teal) 40%, transparent));
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .hub-core-disc,
-  .hub-core-ring,
-  .hub-center-node--active,
-  .hub-line--active {
-    animation: none !important;
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
   * {
     animation: none !important;
@@ -205,7 +165,6 @@ body {
 }
 ::-webkit-scrollbar-thumb {
   background: var(--border);
-  border-radius: 9px;
   border: 3px solid var(--bg);
 }
 ::-webkit-scrollbar-track {
@@ -218,22 +177,19 @@ body {
   min-height: 100vh;
   background: var(--bg);
   color: var(--body);
-  font-family: 'IBM Plex Sans', 'Noto Sans TC', sans-serif;
+  font-family: 'Archivo', 'Noto Sans TC', sans-serif;
   font-size: 16px;
-  line-height: 1.7;
+  line-height: 1.55;
   overflow-x: clip;
-  transition:
-    background 0.4s ease,
-    color 0.4s ease;
 }
 
-/* Reveal-on-scroll */
+/*
+ * `Reveal` / `useScrollReveal` no longer animate anything — the global
+ * fade-up-on-scroll was removed. `[data-reveal]` is kept as an inert hook so
+ * the ~24 files using <Reveal> did not all need rewriting; content renders
+ * immediately and visibly.
+ */
 [data-reveal] {
-  opacity: 0;
-  transform: translateY(26px);
-  will-change: opacity, transform;
-}
-[data-reveal][data-seen] {
   opacity: 1;
   transform: none;
 }

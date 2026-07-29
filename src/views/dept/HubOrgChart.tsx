@@ -138,7 +138,7 @@ function BranchNode({
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              borderRadius: 7,
+              borderRadius: 2,
               background: `color-mix(in srgb,${color} 16%,transparent)`,
               color,
               margin: '0 auto 5px',
@@ -206,7 +206,7 @@ function CenterNode({
         transform: `translate(-50%,-50%) scale(${lifted ? 1.08 : 1})`,
         width: 118,
         padding: '14px 10px',
-        borderRadius: 14,
+        borderRadius: 2,
         cursor: 'pointer',
         border: `1.5px solid ${lifted ? center.color : 'var(--border)'}`,
         background: active
@@ -227,7 +227,7 @@ function CenterNode({
           width: 30,
           height: 30,
           margin: '0 auto 7px',
-          borderRadius: 9,
+          borderRadius: 2,
           alignItems: 'center',
           justifyContent: 'center',
           background: `color-mix(in srgb,${center.color} 16%,transparent)`,
@@ -365,10 +365,7 @@ export function HubOrgChart({
           zIndex: 4,
         }}
       >
-        <span className="hub-core-ring hub-core-ring--1" aria-hidden="true" />
-        <span className="hub-core-ring hub-core-ring--2" aria-hidden="true" />
         <div
-          className="hub-core-disc"
           style={{
             position: 'absolute',
             inset: 0,
@@ -378,9 +375,8 @@ export function HubOrgChart({
             alignItems: 'center',
             justifyContent: 'center',
             textAlign: 'center',
-            background: 'linear-gradient(140deg,var(--teal),var(--teal-700))',
+            background: 'var(--accent)',
             color: '#fff',
-            boxShadow: '0 14px 32px var(--teal-glow)',
           }}
         >
           <div style={{ fontFamily: "'Noto Sans TC', sans-serif", fontWeight: 800, fontSize: 18 }}>
@@ -388,9 +384,9 @@ export function HubOrgChart({
           </div>
           <div
             style={{
-              fontFamily: "'IBM Plex Sans', sans-serif",
+              fontFamily: "'Archivo', sans-serif",
               fontSize: 9.5,
-              letterSpacing: '.1em',
+              letterSpacing: '.06em',
               opacity: 0.9,
               marginTop: 2,
             }}

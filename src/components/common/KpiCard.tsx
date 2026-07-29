@@ -4,7 +4,7 @@ import { Reveal } from './Reveal';
 interface KpiCardProps {
   num: number;
   suffix?: string;
-  /** When provided, shown verbatim instead of the counting animation. */
+  /** When provided, shown verbatim instead of the formatted number. */
   staticDisplay?: string;
   label: string;
   caption?: string;
@@ -14,7 +14,14 @@ interface KpiCardProps {
   active?: boolean;
 }
 
-/** A single metric card with a count-up number and a colored accent bar. */
+/**
+ * A single reported figure.
+ *
+ * Deliberately not a "stat card": no floating surface, no soft corners, no
+ * count-up animation. It is a rule, a number set flush in tabular figures, and
+ * a label — an institution reporting a value rather than a landing page
+ * celebrating one. The accent rule sits on top and is the only colour.
+ */
 export function KpiCard({
   num,
   suffix = '',
@@ -33,15 +40,10 @@ export function KpiCard({
       delay={delay}
       style={{
         position: 'relative',
-        padding: '24px 22px',
-        borderRadius: 16,
-        background: 'var(--surface)',
-        border: `1px solid ${active ? color : 'var(--border)'}`,
-        boxShadow: active ? 'var(--shadow-lift)' : 'var(--shadow-card)',
-        overflow: 'hidden',
+        padding: '18px 0 20px',
+        borderTop: `2px solid ${color}`,
+        background: 'transparent',
         cursor: clickable ? 'pointer' : 'default',
-        transition: 'border-color .2s,box-shadow .2s,transform .2s',
-        transform: active ? 'translateY(-2px)' : 'none',
       }}
     >
       <Tag
@@ -65,45 +67,27 @@ export function KpiCard({
         }}
       >
         <div
+          data-figure=""
           style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            width: 3,
-            height: '100%',
-            background: color,
-          }}
-        />
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'baseline',
-            gap: 4,
+            fontFamily: "'Archivo', sans-serif",
+            fontWeight: 700,
+            fontSize: 52,
+            lineHeight: 0.95,
+            letterSpacing: '-0.035em',
+            color: active ? color : 'var(--text)',
+            fontVariantNumeric: 'tabular-nums',
           }}
         >
-          <span
-            {...(staticDisplay == null
-              ? { 'data-count': num, 'data-suffix': suffix }
-              : {})}
-            style={{
-              fontFamily: "'IBM Plex Sans', sans-serif",
-              fontWeight: 700,
-              fontSize: 54,
-              lineHeight: 1,
-              color: 'var(--text)',
-              fontVariantNumeric: 'tabular-nums',
-            }}
-          >
-            {staticDisplay ?? 0}
-          </span>
+          {staticDisplay ?? `${num.toLocaleString('en-US')}${suffix}`}
         </div>
         <div
           style={{
             fontFamily: "'Noto Sans TC', sans-serif",
-            fontWeight: 700,
-            fontSize: 15,
+            fontWeight: 600,
+            fontSize: 14.5,
+            lineHeight: 1.4,
             color: 'var(--text)',
-            marginTop: 12,
+            marginTop: 14,
           }}
         >
           {label}
@@ -111,16 +95,26 @@ export function KpiCard({
         {caption && (
           <div
             style={{
-              fontFamily: "'IBM Plex Sans', sans-serif",
-              fontSize: 11.5,
-              letterSpacing: '.05em',
-              textTransform: 'uppercase',
+              fontFamily: "'Archivo', sans-serif",
+              fontSize: 12,
+              letterSpacing: '.02em',
               color: 'var(--muted)',
-              marginTop: 2,
+              marginTop: 3,
             }}
           >
             {caption}
           </div>
+        )}
+        {clickable && (
+          <div
+            aria-hidden="true"
+            style={{
+              height: 2,
+              marginTop: 12,
+              background: active ? color : 'var(--border)',
+              transition: 'background .15s',
+            }}
+          />
         )}
       </Tag>
     </Reveal>

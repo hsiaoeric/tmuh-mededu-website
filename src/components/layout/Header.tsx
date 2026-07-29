@@ -160,7 +160,7 @@ export function Header() {
         >
           <TmuhLogo
             size={36}
-            style={{ filter: 'drop-shadow(0 3px 8px var(--teal-glow))', flexShrink: 0 }}
+            style={{ filter: 'drop-shadow(0 3px 8px var(--accent-glow))', flexShrink: 0 }}
           />
           <div
             style={{
@@ -173,7 +173,7 @@ export function Header() {
           >
             <span
               style={{
-                fontFamily: "'Noto Sans TC', 'IBM Plex Sans', sans-serif",
+                fontFamily: "'Noto Sans TC', 'Archivo', sans-serif",
                 fontWeight: 700,
                 fontSize: 14,
                 color: 'var(--text)',
@@ -194,9 +194,9 @@ export function Header() {
             </span>
             <span
               style={{
-                fontFamily: "'IBM Plex Sans', sans-serif",
+                fontFamily: "'Archivo', sans-serif",
                 fontSize: 10,
-                letterSpacing: '.1em',
+                letterSpacing: '.06em',
                 textTransform: 'uppercase',
                 color: 'var(--muted)',
                 whiteSpace: 'nowrap',
@@ -218,11 +218,11 @@ export function Header() {
               border: '1px solid var(--border)',
               background: 'var(--surface)',
               cursor: 'pointer',
-              borderRadius: 999,
-              fontFamily: "'IBM Plex Sans', sans-serif",
+              borderRadius: 2,
+              fontFamily: "'Archivo', sans-serif",
               fontWeight: 700,
               fontSize: 11.5,
-              color: 'var(--teal-700)',
+              color: 'var(--accent-700)',
               letterSpacing: '.04em',
               display: 'flex',
               alignItems: 'center',
@@ -243,7 +243,7 @@ export function Header() {
               border: '1px solid var(--border)',
               background: 'var(--surface)',
               cursor: 'pointer',
-              borderRadius: 999,
+              borderRadius: 2,
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -267,10 +267,10 @@ export function Header() {
               width: 32,
               height: 32,
               border: '1px solid var(--border)',
-              background: menuOpen ? 'var(--teal-50)' : 'var(--surface)',
-              color: menuOpen ? 'var(--teal)' : 'var(--text)',
+              background: menuOpen ? 'var(--accent-50)' : 'var(--surface)',
+              color: menuOpen ? 'var(--accent)' : 'var(--text)',
               cursor: 'pointer',
-              borderRadius: 8,
+              borderRadius: 2,
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -299,8 +299,8 @@ export function Header() {
             padding: 10,
             background: 'var(--surface)',
             border: '1px solid var(--border)',
-            borderRadius: 14,
-            boxShadow: '0 16px 36px rgba(0,0,0,0.12)',
+            borderRadius: 2,
+            boxShadow: 'var(--shadow-lift)',
             display: 'flex',
             flexDirection: 'column',
             gap: 4,
@@ -325,7 +325,7 @@ export function Header() {
                     border: 'none',
                     background: 'transparent',
                     cursor: 'pointer',
-                    borderRadius: 8,
+                    borderRadius: 2,
                     fontWeight: 600,
                     fontSize: 14,
                     color: 'var(--text)',
@@ -334,7 +334,7 @@ export function Header() {
                     alignItems: 'center',
                     justifyContent: 'space-between',
                   }}
-                  onMouseEnter={(e) => (e.currentTarget.style.background = 'var(--teal-50)')}
+                  onMouseEnter={(e) => (e.currentTarget.style.background = 'var(--accent-50)')}
                   onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
                 >
                   <span>{item.label}</span>

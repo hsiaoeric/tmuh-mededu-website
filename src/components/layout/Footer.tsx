@@ -29,11 +29,11 @@ export function Footer() {
             style={{
               width: 40,
               height: 40,
-              borderRadius: 11,
+              borderRadius: 2,
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              background: 'linear-gradient(140deg,var(--teal),var(--teal-700))',
+              background: 'linear-gradient(140deg,var(--accent),var(--accent-700))',
             }}
           >
             <span style={{ display: 'block', width: 21, height: 21, color: '#fff' }}>
@@ -53,7 +53,7 @@ export function Footer() {
             </div>
             <div
               style={{
-                fontFamily: "'IBM Plex Sans', sans-serif",
+                fontFamily: "'Archivo', sans-serif",
                 fontSize: 11,
                 color: 'var(--muted)',
               }}
@@ -89,7 +89,7 @@ export function Footer() {
               display: 'flex',
               alignItems: 'center',
               gap: 9,
-              fontFamily: "'IBM Plex Mono', monospace",
+              fontFamily: "'Archivo', sans-serif",
               fontSize: 13,
               color: 'var(--body)',
             }}

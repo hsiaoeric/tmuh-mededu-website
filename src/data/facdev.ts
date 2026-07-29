@@ -4,12 +4,12 @@ import { pick } from '@/i18n';
 import { formatPhoneExt } from '@/utils/phone';
 
 export const FD_COLORS = {
-  ink: '#3A2E25',
-  clay: '#A87A6B',
-  claySoft: '#C49A8C',
-  sage: '#8FA898',
-  blue: '#7A95A8',
-  ochre: '#B69B66',
+  ink: '#141A20',
+  clay: '#C0392B',
+  claySoft: '#C0392B',
+  sage: '#0E8073',
+  blue: '#4A7FD0',
+  ochre: '#A96B0A',
 };
 
 export interface FdKpi {
@@ -56,8 +56,8 @@ export function buildFacdev(lang: Lang) {
     { zh: 'CBME–評量組', en: 'CBME · Assessment', tone: blue, lead: person('吳政誠', 'Jeng-Cheng Wu', 'lead', '西醫 · 助理教授', 'Physician · Asst. Prof.', 'jeng-cheng-wu', 'jeng-cheng-wu'), descZh: '發展 Mini-CEX、DOPS、CbD 等評量工具與 EPA 信效度分析。', descEn: 'Mini-CEX, DOPS, CbD tools and EPA reliability/validity analysis.' },
     { zh: '永續韌性組', en: 'Sustainability & Resilience', tone: sage, lead: person('陳建宇', 'Chien-Yu Chen', 'lead', '西醫 · 教授', 'Physician · Professor', 'chien-yu-chen', 'chien-yu-chen'), descZh: '推動教師身心永續與職場韌性，深化教學熱情與職涯發展。', descEn: 'Faculty wellbeing, workplace resilience and career development.' },
     { zh: '科技輔導教學組', en: 'Technology-Enhanced Teaching', tone: ochre, lead: person('吳人傑', 'Jen-Chieh Wu', 'lead', '西醫 · 助理教授', 'Physician · Asst. Prof.', 'jen-chieh-wu', 'jen-chieh-wu'), descZh: '導入數位與模擬科技輔助教學，提升教學互動與學習成效。', descEn: 'Digital and simulation technology to enhance teaching and learning.' },
-    { zh: '實證醫學組', en: 'Evidence-Based Medicine', tone: '#9C6F8E', lead: person('林秀真', 'Hsiu-Chen Lin', 'lead', '西醫 · 副教授', 'Physician · Assoc. Prof.', 'hsiu-chen-lin', 'hsiu-chen-lin'), descZh: '將實證醫學精神融入教學，培養師生實證查證與應用能力。', descEn: 'Embedding evidence-based medicine into teaching practice.' },
-    { zh: '全人照護組', en: 'Holistic Care', tone: '#6E8A77', lead: person('廖若帆', 'Faith Ruofan Liao', 'lead', '護理 · 副教授', 'Nursing · Assoc. Prof.', 'faith-ruofan-liao', 'faith-ruofan-liao'), descZh: '發展全人照護教案與跨職類教學，落實以人為本的醫學教育。', descEn: 'Holistic-care teaching cases and cross-professional education.' },
+    { zh: '實證醫學組', en: 'Evidence-Based Medicine', tone: '#6B45B0', lead: person('林秀真', 'Hsiu-Chen Lin', 'lead', '西醫 · 副教授', 'Physician · Assoc. Prof.', 'hsiu-chen-lin', 'hsiu-chen-lin'), descZh: '將實證醫學精神融入教學，培養師生實證查證與應用能力。', descEn: 'Embedding evidence-based medicine into teaching practice.' },
+    { zh: '全人照護組', en: 'Holistic Care', tone: '#6B45B0', lead: person('廖若帆', 'Faith Ruofan Liao', 'lead', '護理 · 副教授', 'Nursing · Assoc. Prof.', 'faith-ruofan-liao', 'faith-ruofan-liao'), descZh: '發展全人照護教案與跨職類教學，落實以人為本的醫學教育。', descEn: 'Holistic-care teaching cases and cross-professional education.' },
   ].map((g) => ({ name: isZh ? g.zh : g.en, tone: g.tone, desc: isZh ? g.descZh : g.descEn, lead: g.lead }));
 
   return {

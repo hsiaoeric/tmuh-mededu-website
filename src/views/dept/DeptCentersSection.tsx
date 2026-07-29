@@ -33,13 +33,13 @@ export function DeptCentersSection() {
                 flexDirection: 'column',
                 minHeight: 250,
                 padding: '22px 20px',
-                borderRadius: 17,
+                borderRadius: 2,
                 border: `1px solid color-mix(in srgb,${center.color} 28%,var(--border))`,
                 background: 'var(--surface)',
                 boxShadow: 'var(--shadow-card)',
               }}
             >
-              <span style={{ width: 42, height: 42, display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: 12, color: center.color, background: `color-mix(in srgb,${center.color} 14%,transparent)` }}>
+              <span style={{ width: 42, height: 42, display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: 2, color: center.color, background: `color-mix(in srgb,${center.color} 14%,transparent)` }}>
                 <Icon name={CENTER_ICON[center.id] as IconName} />
               </span>
               <h3 style={{ marginTop: 15, fontFamily: "'Noto Sans TC', sans-serif", fontSize: 17.5, lineHeight: 1.4, color: 'var(--text)' }}>
@@ -47,7 +47,7 @@ export function DeptCentersSection() {
               </h3>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: 5, margin: '13px 0 18px' }}>
                 {CENTER_BRANCHES[center.id].map((branch) => (
-                  <span key={branch.zh} style={{ padding: '3px 7px', borderRadius: 999, background: 'var(--surface-2)', fontSize: 10.5, color: 'var(--muted)' }}>
+                  <span key={branch.zh} style={{ padding: '3px 7px', borderRadius: 2, background: 'var(--surface-2)', fontSize: 10.5, color: 'var(--muted)' }}>
                     {isZh ? branch.zh : branch.en}
                   </span>
                 ))}

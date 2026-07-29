@@ -109,13 +109,13 @@ export function NavDropdown({ label, scrollTarget = 'org', onNavigate }: NavDrop
           width: '100%',
           padding: '10px 12px',
           border: 'none',
-          background: hover || open ? 'var(--teal-50)' : 'none',
+          background: hover || open ? 'var(--accent-50)' : 'none',
           cursor: 'pointer',
           fontFamily: "'Noto Sans TC', sans-serif",
           fontWeight: 600,
           fontSize: 14,
-          color: hover || open ? 'var(--teal)' : 'var(--body)',
-          borderRadius: 8,
+          color: hover || open ? 'var(--accent)' : 'var(--body)',
+          borderRadius: 2,
           transition: 'color .2s,background .2s',
           whiteSpace: 'nowrap',
         }}
@@ -151,7 +151,7 @@ export function NavDropdown({ label, scrollTarget = 'org', onNavigate }: NavDrop
             style={{
               width: '100%',
               padding: 8,
-              borderRadius: 14,
+              borderRadius: 2,
               background: 'var(--surface)',
               border: '1px solid var(--border)',
               boxShadow: 'var(--shadow-lift)',
@@ -218,10 +218,10 @@ function DropdownItem({
         width: '100%',
         padding: '10px 12px',
         border: 'none',
-        borderRadius: 10,
+        borderRadius: 2,
         cursor: 'pointer',
         textAlign: 'left',
-        background: hover || active ? 'var(--teal-50)' : 'transparent',
+        background: hover || active ? 'var(--accent-50)' : 'transparent',
         transition: 'background .18s',
       }}
     >
@@ -230,12 +230,12 @@ function DropdownItem({
           width: 30,
           height: 30,
           flex: 'none',
-          borderRadius: 8,
+          borderRadius: 2,
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          background: 'color-mix(in srgb,var(--teal) 14%,transparent)',
-          color: 'var(--teal)',
+          background: 'color-mix(in srgb,var(--accent) 14%,transparent)',
+          color: 'var(--accent)',
         }}
       >
         <span style={{ width: 17, height: 17, display: 'block' }}>
@@ -248,16 +248,16 @@ function DropdownItem({
             fontFamily: "'Noto Sans TC', sans-serif",
             fontWeight: 600,
             fontSize: 14,
-            color: active ? 'var(--teal)' : 'var(--text)',
+            color: active ? 'var(--accent)' : 'var(--text)',
           }}
         >
           {name}
         </span>
         <span
           style={{
-            fontFamily: "'IBM Plex Sans', sans-serif",
+            fontFamily: "'Archivo', sans-serif",
             fontSize: 11,
-            color: ready ? 'var(--muted)' : 'var(--teal-700)',
+            color: ready ? 'var(--muted)' : 'var(--accent-700)',
             opacity: ready ? 0.85 : 1,
           }}
         >

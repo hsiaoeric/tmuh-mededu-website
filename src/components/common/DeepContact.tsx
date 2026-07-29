@@ -39,7 +39,7 @@ export function DeepContact({
       style={{
         width: 36,
         height: 36,
-        borderRadius: 10,
+        borderRadius: 2,
         background: `color-mix(in srgb,${accent} 13%,transparent)`,
         color: accent,
         display: 'flex',
@@ -57,7 +57,7 @@ export function DeepContact({
         <div
           style={{
             padding: 32,
-            borderRadius: 18,
+            borderRadius: 2,
             background: `linear-gradient(140deg,${ink},${inkGradientEnd})`,
             color: '#fff',
             display: 'flex',
@@ -68,15 +68,15 @@ export function DeepContact({
           <span style={{ display: 'block', width: 34, height: 34, color: closingIconColor, marginBottom: 16 }}>
             <Icon name={closingIcon} />
           </span>
-          <h2 style={{ fontFamily: "'Noto Serif TC', serif", fontWeight: 800, fontSize: 22, lineHeight: 1.55, marginBottom: 14 }}>
+          <h2 style={{ fontFamily: "'Noto Sans TC', sans-serif", fontWeight: 800, fontSize: 22, lineHeight: 1.55, marginBottom: 14 }}>
             {closingTitle}
           </h2>
-          <p style={{ fontSize: 14.5, lineHeight: 1.85, color: '#d8ddd6' }}>{closingBody}</p>
+          <p style={{ fontSize: 14.5, lineHeight: 1.6, color: '#DFE6EC' }}>{closingBody}</p>
         </div>
         <div
           style={{
             padding: 32,
-            borderRadius: 18,
+            borderRadius: 2,
             background: 'var(--surface)',
             border: '1px solid var(--border)',
             boxShadow: 'var(--shadow-card)',
@@ -86,7 +86,7 @@ export function DeepContact({
           }}
         >
           <Eyebrow color={accent}>Contact</Eyebrow>
-          <h3 style={{ fontFamily: "'Noto Sans TC', sans-serif", fontWeight: 900, fontSize: 24, color: 'var(--text)', marginBottom: 18 }}>
+          <h3 style={{ fontFamily: "'Noto Sans TC', sans-serif", fontWeight: 700, fontSize: 24, color: 'var(--text)', marginBottom: 18 }}>
             {contactTitle}
           </h3>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
@@ -94,7 +94,7 @@ export function DeepContact({
               {iconChip('phone')}
               <div>
                 <div style={{ fontFamily: "'Noto Sans TC', sans-serif", fontWeight: 600, fontSize: 14.5, color: 'var(--text)' }}>{contactPerson}</div>
-                <div style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: 13, color: 'var(--muted)' }}>{contactExt}</div>
+                <div style={{ fontFamily: "'Archivo', sans-serif", fontSize: 13, color: 'var(--muted)' }}>{contactExt}</div>
               </div>
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
@@ -103,10 +103,10 @@ export function DeepContact({
             </div>
             <p
               style={{
-                fontFamily: "'Noto Serif TC', serif",
+                fontFamily: "'Noto Sans TC', sans-serif",
                 fontWeight: 700,
                 fontSize: 16,
-                lineHeight: 1.7,
+                lineHeight: 1.6,
                 color: accent,
                 marginTop: 6,
                 borderLeft: `3px solid ${accent}`,

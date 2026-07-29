@@ -151,10 +151,10 @@ export function buildAnnouncements(lang: Lang): Announcement[] {
       a.stat?.bottomLabel ? pick(lang, a.stat.bottomLabel.zh, a.stat.bottomLabel.en) : undefined,
     title: pick(lang, a.title.zh, a.title.en),
     lines: pick(lang, a.lines.zh, a.lines.en),
-    tagColor: a.pinned ? '#B07A4A' : '#4f8c7d',
-    tagBg: a.pinned
-      ? 'color-mix(in srgb,#B07A4A 14%,transparent)'
-      : 'color-mix(in srgb,#4f8c7d 13%,transparent)',
+    // Pinned reads as a solid accent block; everything else is a neutral
+    // chip. Tinted pastel backgrounds were part of the old soft look.
+    tagColor: a.pinned ? '#ffffff' : 'var(--body)',
+    tagBg: a.pinned ? 'var(--accent)' : 'var(--grid)',
     statFont: a.stat?.small ? '26px' : '40px',
     delay: i * 70,
   }));

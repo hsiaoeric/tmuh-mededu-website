@@ -63,7 +63,7 @@ export function CenterDetailPanel({
           <p
             style={{
               fontSize: 15.5,
-              lineHeight: 1.8,
+              lineHeight: 1.6,
               color: 'var(--body)',
               borderLeft: `3px solid ${center.color}`,
               paddingLeft: 16,
@@ -80,7 +80,7 @@ export function CenterDetailPanel({
         if (isAdmin) return <AdminTeamTree center={center} />;
         return (
           <>
-            <p style={{ fontSize: 14.5, lineHeight: 1.75, color: 'var(--muted)', marginBottom: 16 }}>
+            <p style={{ fontSize: 14.5, lineHeight: 1.6, color: 'var(--muted)', marginBottom: 16 }}>
               {desc}
             </p>
             <div
@@ -108,7 +108,7 @@ export function CenterDetailPanel({
                     justifyContent: 'space-between',
                     alignItems: 'center',
                     padding: '12px 16px',
-                    borderRadius: 12,
+                    borderRadius: 2,
                     border: '1px solid var(--border)',
                     background: 'var(--surface-2)',
                   }}
@@ -118,7 +118,7 @@ export function CenterDetailPanel({
                   </span>
                   <span
                     style={{
-                      fontFamily: "'IBM Plex Mono', monospace",
+                      fontFamily: "'Archivo', sans-serif",
                       fontSize: 13,
                       color: center.color,
                     }}
@@ -137,11 +137,11 @@ export function CenterDetailPanel({
               alignItems: 'center',
               gap: 9,
               padding: '10px 18px',
-              borderRadius: 999,
-              background: 'var(--teal-50)',
+              borderRadius: 2,
+              background: 'var(--accent-50)',
               fontFamily: "'Noto Sans TC', sans-serif",
               fontSize: 14,
-              color: 'var(--teal-700)',
+              color: 'var(--accent-700)',
               fontWeight: 600,
             }}
           >
@@ -159,7 +159,7 @@ export function CenterDetailPanel({
           <div
             style={{
               padding: '18px 20px',
-              borderRadius: 14,
+              borderRadius: 2,
               border: `1px solid color-mix(in srgb,${center.color} 25%,var(--border))`,
               background: `color-mix(in srgb,${center.color} 6%,var(--surface))`,
             }}
@@ -175,7 +175,7 @@ export function CenterDetailPanel({
             >
               {label}
             </div>
-            <p style={{ fontSize: 14.5, lineHeight: 1.75, color: 'var(--body)' }}>{desc}</p>
+            <p style={{ fontSize: 14.5, lineHeight: 1.6, color: 'var(--body)' }}>{desc}</p>
           </div>
         );
     }
@@ -185,11 +185,11 @@ export function CenterDetailPanel({
     <div
       style={{
         marginTop: 34,
-        borderRadius: 20,
+        borderRadius: 2,
         overflow: 'hidden',
         border: '1px solid var(--border)',
         background: 'var(--surface)',
-        boxShadow: 'var(--shadow-lift)',
+        boxShadow: 'none',
       }}
     >
       <div
@@ -206,7 +206,7 @@ export function CenterDetailPanel({
           style={{
             width: 50,
             height: 50,
-            borderRadius: 13,
+            borderRadius: 2,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -218,12 +218,12 @@ export function CenterDetailPanel({
           <Icon name={CENTER_ICON[center.id] as IconName} />
         </span>
         <div style={{ flex: 1 }}>
-          <div style={{ fontFamily: "'Noto Sans TC', sans-serif", fontWeight: 900, fontSize: 23, color: 'var(--text)' }}>
+          <div style={{ fontFamily: "'Noto Sans TC', sans-serif", fontWeight: 700, fontSize: 23, color: 'var(--text)' }}>
             {isZh ? center.zh : center.en}
           </div>
           <div
             style={{
-              fontFamily: "'IBM Plex Sans', sans-serif",
+              fontFamily: "'Archivo', sans-serif",
               fontSize: 12,
               letterSpacing: '.05em',
               color: 'var(--muted)',
@@ -267,7 +267,7 @@ export function CenterDetailPanel({
                   alignItems: 'center',
                   gap: 6,
                   padding: '7px 14px',
-                  borderRadius: 999,
+                  borderRadius: 2,
                   border: `1px solid ${on ? center.color : 'var(--border)'}`,
                   background: on
                     ? `color-mix(in srgb,${center.color} 12%,var(--surface))`
@@ -309,7 +309,7 @@ export function CenterDetailPanel({
                   alignItems: 'center',
                   gap: 8,
                   padding: '10px 18px',
-                  borderRadius: 999,
+                  borderRadius: 2,
                   border: 'none',
                   background: center.color,
                   color: '#fff',
@@ -334,7 +334,7 @@ export function CenterDetailPanel({
               textAlign: 'center',
               padding: 36,
               border: '1.5px dashed var(--border)',
-              borderRadius: 14,
+              borderRadius: 2,
               color: 'var(--muted)',
               fontFamily: "'Noto Sans TC', sans-serif",
             }}

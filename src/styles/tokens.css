@@ -1,36 +1,60 @@
-/* Morandi Clinical BI — design tokens (ported from the original design component) */
+/*
+ * Design tokens — Swiss grotesque / institutional.
+ *
+ * The structure of the palette matters as much as the hues: cool-neutral paper
+ * (not warm cream), hairline rules instead of floating cards, and one
+ * saturated institutional blue carrying all emphasis. Keep it that way —
+ * desaturating the accent or warming the neutrals reverts the old look.
+ *
+ * Every token must be defined in BOTH the :root and [data-theme='dark'] block.
+ */
 :root {
-  --teal: #4f8c7d;
-  --teal-700: #3a6b5f;
-  --teal-50: #e6f0ec;
-  --teal-glow: rgba(79, 140, 125, 0.5);
-  --bg: #f4f6f4;
-  --bg2: #efebe6;
+  /* Institutional blue. Saturated on purpose. */
+  --accent: #0b4fa0;
+  --accent-700: #073a78;
+  --accent-50: #e8eff8;
+  --accent-glow: rgba(11, 79, 160, 0.28);
+
+  /* Neutrals: cool, not warm. --bg is paper white; structure comes from rules. */
+  --bg: #ffffff;
+  --bg2: #f3f5f7;
   --surface: #ffffff;
-  --surface-2: #fbfaf8;
-  --border: #dcd9d2;
-  --grid: #e6e2dc;
-  --text: #2a2e2b;
-  --body: #4a4540;
-  --muted: #827c73;
-  --shadow-card: 0 1px 2px rgba(74, 69, 64, 0.05);
-  --shadow-lift: 0 18px 40px rgba(46, 55, 50, 0.16);
+  --surface-2: #f7f8fa;
+  --border: #d5d9de;
+  --grid: #e6e9ed;
+  --text: #0d0f12;
+  --body: #3c4147;
+  --muted: #6b727c;
+
+  /* Cards are flat. --shadow-lift is only for genuinely floating UI
+     (dropdowns, tooltips) — do not put it back on static cards. */
+  --shadow-card: none;
+  --shadow-lift: 0 8px 24px rgba(13, 15, 18, 0.12);
+
+  /* Near-square corners. Raise these and the soft-card look returns. */
+  --radius: 2px;
+  --radius-lg: 3px;
 }
 
 [data-theme='dark'] {
-  --teal: #6db5a1;
-  --teal-700: #8fcab8;
-  --teal-50: #1a2a25;
-  --teal-glow: rgba(109, 181, 161, 0.4);
-  --bg: #161b18;
-  --bg2: #1b211d;
-  --surface: #1f2622;
-  --surface-2: #252d28;
-  --border: #333c36;
-  --grid: #2a322d;
-  --text: #ece9e3;
-  --body: #cbc6bd;
-  --muted: #8f8a80;
-  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.4);
-  --shadow-lift: 0 18px 44px rgba(0, 0, 0, 0.55);
+  --accent: #5b9beb;
+  --accent-700: #8fbdf5;
+  --accent-50: #10233d;
+  --accent-glow: rgba(91, 155, 235, 0.3);
+
+  --bg: #0d1014;
+  --bg2: #14181e;
+  --surface: #14181e;
+  --surface-2: #1a1f26;
+  --border: #2b323b;
+  --grid: #232a32;
+  --text: #f0f2f5;
+  --body: #c2c8d0;
+  --muted: #838b96;
+
+  --shadow-card: none;
+  --shadow-lift: 0 8px 24px rgba(0, 0, 0, 0.6);
+
+  --radius: 2px;
+  --radius-lg: 3px;
 }

@@ -33,7 +33,7 @@ export function BuildingView() {
             width: 74,
             height: 74,
             margin: '0 auto 22px',
-            borderRadius: 20,
+            borderRadius: 2,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -48,10 +48,10 @@ export function BuildingView() {
         </span>
         <div
           style={{
-            fontFamily: "'IBM Plex Sans', sans-serif",
+            fontFamily: "'Archivo', sans-serif",
             fontSize: 12,
             fontWeight: 600,
-            letterSpacing: '.14em',
+            letterSpacing: '.06em',
             textTransform: 'uppercase',
             color: center.color,
             marginBottom: 10,
@@ -61,8 +61,8 @@ export function BuildingView() {
         </div>
         <h1
           style={{
-            fontFamily: "'Noto Serif TC', serif",
-            fontWeight: 900,
+            fontFamily: "'Noto Sans TC', sans-serif",
+            fontWeight: 700,
             fontSize: 'clamp(30px,4vw,42px)',
             color: 'var(--text)',
             lineHeight: 1.2,
@@ -78,8 +78,8 @@ export function BuildingView() {
             gap: 9,
             margin: '14px 0 20px',
             padding: '7px 16px',
-            borderRadius: 999,
-            background: 'color-mix(in srgb,var(--teal) 12%,transparent)',
+            borderRadius: 2,
+            background: 'color-mix(in srgb,var(--accent) 12%,transparent)',
           }}
         >
           <span
@@ -87,7 +87,7 @@ export function BuildingView() {
               width: 8,
               height: 8,
               borderRadius: '50%',
-              background: 'var(--teal)',
+              background: 'var(--accent)',
               animation: 'blink 1.8s ease-in-out infinite',
             }}
           />
@@ -96,7 +96,7 @@ export function BuildingView() {
               fontFamily: "'Noto Sans TC', sans-serif",
               fontSize: 13.5,
               fontWeight: 700,
-              color: 'var(--teal-700)',
+              color: 'var(--accent-700)',
             }}
           >
             {title}
@@ -105,7 +105,7 @@ export function BuildingView() {
         <p
           style={{
             fontSize: 16,
-            lineHeight: 1.85,
+            lineHeight: 1.6,
             color: 'var(--body)',
             marginBottom: 14,
           }}
@@ -115,7 +115,7 @@ export function BuildingView() {
         <p
           style={{
             fontSize: 14.5,
-            lineHeight: 1.8,
+            lineHeight: 1.6,
             color: 'var(--muted)',
             marginBottom: 30,
           }}
@@ -130,14 +130,14 @@ export function BuildingView() {
             gap: 9,
             padding: '13px 26px',
             border: 'none',
-            borderRadius: 12,
+            borderRadius: 2,
             cursor: 'pointer',
-            background: 'linear-gradient(140deg,var(--teal),var(--teal-700))',
+            background: 'linear-gradient(140deg,var(--accent),var(--accent-700))',
             color: '#fff',
             fontFamily: "'Noto Sans TC', sans-serif",
             fontWeight: 700,
             fontSize: 15,
-            boxShadow: '0 12px 26px var(--teal-glow)',
+            boxShadow: 'none',
           }}
         >
           {t.backDept}

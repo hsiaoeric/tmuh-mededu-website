@@ -8,8 +8,9 @@ interface EyebrowProps {
 }
 
 /**
- * Small uppercase label shown above section titles. Replaces the long
- * inline-style block that used to be copy-pasted before every heading.
+ * Small section label shown above section titles. See `.eyebrow` in
+ * layout.css — it is a plain-case label under a short accent rule, not the
+ * wide-tracked uppercase kicker it used to be.
  */
 export function Eyebrow({ children, color, style }: EyebrowProps) {
   return (

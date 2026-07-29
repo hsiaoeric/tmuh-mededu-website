@@ -36,7 +36,7 @@ function TeamNode({
         minWidth: compact ? 88 : 142,
         minHeight: compact ? 86 : 76,
         padding: compact ? '10px 8px' : '11px 14px',
-        borderRadius: 12,
+        borderRadius: 2,
         border: `1px solid color-mix(in srgb,${color} 30%,var(--border))`,
         borderTop: `3px solid ${color}`,
         background: 'var(--surface)',
@@ -73,7 +73,7 @@ function TeamNode({
         <span
           style={{
             marginTop: 5,
-            fontFamily: "'IBM Plex Mono', monospace",
+            fontFamily: "'Archivo', sans-serif",
             fontSize: 10.5,
             lineHeight: 1,
             color: color,

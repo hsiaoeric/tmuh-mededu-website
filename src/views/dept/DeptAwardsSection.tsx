@@ -4,8 +4,8 @@ import { buildDeptAwards, type SnqProject } from '@/data/deptAwards';
 import { Reveal } from '@/components/common/Reveal';
 import { Eyebrow } from '@/components/common/Eyebrow';
 
-const TEAL = '#4f8c7d';
-const GOLD = '#B0894B';
+const TEAL = '#0E8073';
+const GOLD = '#A96B0A';
 
 function SnqProjectCard({
   project,
@@ -29,7 +29,7 @@ function SnqProjectCard({
     <Reveal
       delay={delay}
       style={{
-        borderRadius: 14,
+        borderRadius: 2,
         background: `color-mix(in srgb,${TEAL} 5%,var(--surface))`,
         border: `1px solid color-mix(in srgb,${TEAL} 22%,var(--border))`,
         overflow: 'hidden',
@@ -53,12 +53,12 @@ function SnqProjectCard({
             <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap', marginBottom: 6 }}>
               <span
                 style={{
-                  fontFamily: "'IBM Plex Mono', monospace",
+                  fontFamily: "'Archivo', sans-serif",
                   fontSize: 11.5,
                   fontWeight: 600,
                   color: TEAL,
                   padding: '2px 8px',
-                  borderRadius: 999,
+                  borderRadius: 2,
                   background: `color-mix(in srgb,${TEAL} 12%,transparent)`,
                 }}
               >
@@ -99,7 +99,7 @@ function SnqProjectCard({
                 gridTemplateColumns: '1fr 1.2fr auto',
                 gap: '4px 10px',
                 padding: '8px 10px',
-                borderRadius: 8,
+                borderRadius: 2,
                 background: 'var(--surface)',
                 fontSize: 12.5,
                 lineHeight: 1.5,
@@ -127,10 +127,10 @@ export function DeptAwardsSection() {
     <section id="dept-awards" style={{ maxWidth: 1240, margin: '0 auto', padding: '34px 28px' }}>
       <Reveal style={{ marginBottom: 24 }}>
         <Eyebrow>{awards.eyebrow}</Eyebrow>
-        <h2 style={{ fontFamily: "'Noto Sans TC', sans-serif", fontWeight: 900, fontSize: 30, color: 'var(--text)' }}>
+        <h2 style={{ fontFamily: "'Noto Sans TC', sans-serif", fontWeight: 700, fontSize: 30, color: 'var(--text)' }}>
           {awards.title}
         </h2>
-        <p style={{ fontSize: 15, lineHeight: 1.8, color: 'var(--muted)', maxWidth: 680, marginTop: 10 }}>{awards.desc}</p>
+        <p style={{ fontSize: 15, lineHeight: 1.6, color: 'var(--muted)', maxWidth: 680, marginTop: 10 }}>{awards.desc}</p>
       </Reveal>
 
       <div className="grid grid-split" style={{ gap: 28, alignItems: 'start' }}>
@@ -145,8 +145,8 @@ export function DeptAwardsSection() {
                   key={y.year}
                   style={{
                     padding: '5px 12px',
-                    borderRadius: 999,
-                    fontFamily: "'IBM Plex Mono', monospace",
+                    borderRadius: 2,
+                    fontFamily: "'Archivo', sans-serif",
                     fontSize: 12,
                     fontWeight: 600,
                     color: TEAL,
@@ -181,7 +181,7 @@ export function DeptAwardsSection() {
           <div
             style={{
               padding: 26,
-              borderRadius: 18,
+              borderRadius: 2,
               background: 'var(--surface)',
               border: '1px solid var(--border)',
               boxShadow: 'var(--shadow-card)',
@@ -190,12 +190,12 @@ export function DeptAwardsSection() {
             <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap', marginBottom: 14 }}>
               <span
                 style={{
-                  fontFamily: "'IBM Plex Mono', monospace",
+                  fontFamily: "'Archivo', sans-serif",
                   fontSize: 13,
                   fontWeight: 700,
                   color: GOLD,
                   padding: '4px 12px',
-                  borderRadius: 999,
+                  borderRadius: 2,
                   background: `color-mix(in srgb,${GOLD} 14%,transparent)`,
                 }}
               >
@@ -207,7 +207,7 @@ export function DeptAwardsSection() {
                   fontWeight: 600,
                   color: GOLD,
                   padding: '4px 12px',
-                  borderRadius: 999,
+                  borderRadius: 2,
                   background: `color-mix(in srgb,${GOLD} 10%,transparent)`,
                 }}
               >
@@ -250,11 +250,11 @@ export function DeptAwardsSection() {
                   key={kw}
                   style={{
                     padding: '4px 11px',
-                    borderRadius: 999,
+                    borderRadius: 2,
                     fontSize: 12,
                     fontWeight: 600,
-                    color: '#5E7A8C',
-                    background: 'color-mix(in srgb,#5E7A8C 12%,transparent)',
+                    color: '#1A63C4',
+                    background: 'color-mix(in srgb,#1A63C4 12%,transparent)',
                   }}
                 >
                   {kw}
@@ -286,7 +286,7 @@ export function DeptAwardsSection() {
       </div>
 
       <Reveal delay={180} style={{ marginTop: 22, textAlign: 'center' }}>
-        <span style={{ fontFamily: "'IBM Plex Sans', sans-serif", fontSize: 12, color: 'var(--muted)', letterSpacing: '.04em' }}>
+        <span style={{ fontFamily: "'Archivo', sans-serif", fontSize: 12, color: 'var(--muted)', letterSpacing: '.04em' }}>
           {awards.dataSource}
         </span>
       </Reveal>

@@ -67,13 +67,13 @@ function OrgToggle({
         onClick={() => onSet(v)}
         style={{
           padding: '8px 18px',
-          borderRadius: 999,
+          borderRadius: 2,
           cursor: 'pointer',
           fontFamily: "'Noto Sans TC', sans-serif",
           fontWeight: 600,
           fontSize: 13.5,
-          border: `1px solid ${on ? 'var(--teal)' : 'var(--border)'}`,
-          background: on ? 'var(--teal)' : 'var(--surface)',
+          border: `1px solid ${on ? 'var(--accent)' : 'var(--border)'}`,
+          background: on ? 'var(--accent)' : 'var(--surface)',
           color: on ? '#fff' : 'var(--body)',
         }}
       >
@@ -111,7 +111,7 @@ function CenterLinks() {
             alignItems: 'center',
             gap: 7,
             padding: '9px 14px',
-            borderRadius: 999,
+            borderRadius: 2,
             border: '1px solid rgba(255,255,255,.42)',
             background: 'rgba(255,255,255,.12)',
             color: '#fff',
@@ -142,7 +142,7 @@ export function DeptView() {
   const activeCenter = active ? centerById(active) : undefined;
   const activeKpiPeople = activeKpiGroup
     ? (KPI_MEMBER_GROUPS[activeKpiGroup] ?? []).map((p) =>
-        resolvePerson(p, activeKpiGroup === 'Teaching Attendings' ? '#B69B66' : '#7A95A8', lang),
+        resolvePerson(p, activeKpiGroup === 'Teaching Attendings' ? '#A96B0A' : '#4A7FD0', lang),
       )
     : [];
   const activeKpiCenters =
@@ -180,7 +180,7 @@ export function DeptView() {
       center: isZh ? '教學部' : 'Dept. of Medical Education',
       person: isZh ? '王怡文' : 'Yi-Wen Wang',
       ext: formatPhoneExt('3752', lang),
-      color: '#4f8c7d',
+      color: '#0E8073',
     },
     ...CENTERS.filter((c) => c.ext).map((c) => ({
       center: isZh ? c.zh : c.en,
@@ -197,13 +197,13 @@ export function DeptView() {
         <Reveal
           style={{
             position: 'relative',
-            borderRadius: 26,
+            borderRadius: 2,
             overflow: 'hidden',
-            boxShadow: 'var(--shadow-lift)',
+            boxShadow: 'none',
             minHeight: 'clamp(420px,52vw,560px)',
             display: 'flex',
             alignItems: 'center',
-            background: 'linear-gradient(120deg,#1d342c,#2c4b3f)',
+            background: 'linear-gradient(120deg,#08182A,#0E2438)',
           }}
         >
           <HeroImage
@@ -225,7 +225,7 @@ export function DeptView() {
                 alignItems: 'center',
                 gap: 9,
                 padding: '6px 14px',
-                borderRadius: 999,
+                borderRadius: 2,
                 background: 'rgba(255,255,255,.14)',
                 border: '1px solid rgba(255,255,255,.3)',
                 marginBottom: 24,
@@ -233,12 +233,12 @@ export function DeptView() {
             >
               <span
                 style={{
-                  fontFamily: "'IBM Plex Sans', sans-serif",
+                  fontFamily: "'Archivo', sans-serif",
                   fontSize: 11.5,
                   fontWeight: 600,
-                  letterSpacing: '.16em',
+                  letterSpacing: '.06em',
                   textTransform: 'uppercase',
-                  color: '#eafff7',
+                  color: '#EDF4FC',
                 }}
               >
                 {t.heroEyebrow}
@@ -246,8 +246,8 @@ export function DeptView() {
             </div>
             <h1
               style={{
-                fontFamily: "'Noto Serif TC', serif",
-                fontWeight: 900,
+                fontFamily: "'Noto Sans TC', sans-serif",
+                fontWeight: 700,
                 fontSize: 'clamp(44px,6vw,76px)',
                 lineHeight: 1.08,
                 color: '#fff',
@@ -256,19 +256,19 @@ export function DeptView() {
             >
               {t.heroTitle1}
               <br />
-              <span style={{ color: '#bfe9dc' }}>{t.heroTitle2}</span>
+              <span style={{ color: '#C7DDF5' }}>{t.heroTitle2}</span>
             </h1>
-            <div style={{ width: 80, height: 5, borderRadius: 999, background: '#bfe9dc', margin: '26px 0 22px' }} />
-            <p style={{ fontSize: 18, lineHeight: 1.85, color: '#e6f3ee', maxWidth: 560 }}>{t.heroTag}</p>
+            <div style={{ width: 80, height: 5, borderRadius: 2, background: '#C7DDF5', margin: '26px 0 22px' }} />
+            <p style={{ fontSize: 18, lineHeight: 1.6, color: '#E8EFF8', maxWidth: 560 }}>{t.heroTag}</p>
             <div style={{ marginTop: 24 }}>
               <div
                 style={{
-                  fontFamily: "'IBM Plex Sans', sans-serif",
+                  fontFamily: "'Archivo', sans-serif",
                   fontSize: 10.5,
                   fontWeight: 600,
-                  letterSpacing: '.16em',
+                  letterSpacing: '.06em',
                   textTransform: 'uppercase',
-                  color: '#bfe9dc',
+                  color: '#C7DDF5',
                   marginBottom: 11,
                 }}
               >
@@ -323,7 +323,7 @@ export function DeptView() {
           >
             <div>
               <Eyebrow>{t.kpiEyebrow}</Eyebrow>
-              <h2 style={{ fontFamily: "'Noto Sans TC', sans-serif", fontWeight: 900, fontSize: 30, color: 'var(--text)' }}>
+              <h2 style={{ fontFamily: "'Noto Sans TC', sans-serif", fontWeight: 700, fontSize: 30, color: 'var(--text)' }}>
                 {t.kpiTitle}
               </h2>
             </div>
@@ -361,7 +361,7 @@ export function DeptView() {
               style={{
                 marginTop: 18,
                 padding: '18px 18px 20px',
-                borderRadius: 16,
+                borderRadius: 2,
                 border: '1px solid var(--border)',
                 background: 'var(--surface)',
                 boxShadow: 'var(--shadow-card)',
@@ -400,7 +400,7 @@ export function DeptView() {
               style={{
                 marginTop: 18,
                 padding: '18px 18px 20px',
-                borderRadius: 16,
+                borderRadius: 2,
                 border: '1px solid var(--border)',
                 background: 'var(--surface)',
                 boxShadow: 'var(--shadow-card)',
@@ -431,7 +431,7 @@ export function DeptView() {
                       key={center.id}
                       style={{
                         border: '1px solid var(--border)',
-                        borderRadius: 14,
+                        borderRadius: 2,
                         padding: '16px 14px',
                         background: 'var(--surface-2)',
                         display: 'flex',
@@ -444,7 +444,7 @@ export function DeptView() {
                           style={{
                             width: 30,
                             height: 30,
-                            borderRadius: 8,
+                            borderRadius: 2,
                             display: 'inline-flex',
                             alignItems: 'center',
                             justifyContent: 'center',
@@ -495,7 +495,7 @@ export function DeptView() {
       <section id="contact" style={{ maxWidth: 1240, margin: '0 auto', padding: '20px 28px 60px' }}>
         <Reveal style={{ textAlign: 'center', marginBottom: 26 }}>
           <Eyebrow>Contact</Eyebrow>
-          <h2 style={{ fontFamily: "'Noto Sans TC', sans-serif", fontWeight: 900, fontSize: 30, color: 'var(--text)' }}>
+          <h2 style={{ fontFamily: "'Noto Sans TC', sans-serif", fontWeight: 700, fontSize: 30, color: 'var(--text)' }}>
             {t.contactTitle}
           </h2>
         </Reveal>
@@ -505,7 +505,7 @@ export function DeptView() {
               key={i}
               style={{
                 padding: '22px 22px',
-                borderRadius: 16,
+                borderRadius: 2,
                 background: 'var(--surface)',
                 border: '1px solid var(--border)',
                 boxShadow: 'var(--shadow-card)',
@@ -525,9 +525,9 @@ export function DeptView() {
                   display: 'flex',
                   alignItems: 'center',
                   gap: 8,
-                  fontFamily: "'IBM Plex Mono', monospace",
+                  fontFamily: "'Archivo', sans-serif",
                   fontSize: 13,
-                  color: 'var(--teal-700)',
+                  color: 'var(--accent-700)',
                 }}
               >
                 <span style={{ display: 'block', width: 14, height: 14 }}>
