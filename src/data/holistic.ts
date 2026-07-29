@@ -1,4 +1,5 @@
 import { person, type RawPerson } from './people';
+import { HOLISTIC_PAPER_TOTAL } from './holisticPapers';
 import type { Lang } from '@/i18n';
 import { pick } from '@/i18n';
 
@@ -65,9 +66,10 @@ export function holisticKpis(lang: Lang): HolisticKpi[] {
     { num: 11, label: pick(lang, 'MHFA 種子教師', 'MHFA Seed Teachers'), color: '#B69B66' },
     { num: 2, label: pick(lang, 'MHFA 指導員', 'MHFA Instructors'), color: '#5E7A8C' },
     {
-      display: '?',
-      label: pick(lang, '全人照護教育相關論文', 'Holistic Care Education Papers'),
+      num: HOLISTIC_PAPER_TOTAL,
+      label: pick(lang, '全院全人相關研究論文', 'Hospital-Wide Holistic Research'),
       color: '#A87A6B',
+      subtitle: pick(lang, '2019–2025 · 含 10 篇全人照護教育', '2019–2025 · incl. 10 on education'),
     },
   ];
   return raw.map((k) => ({

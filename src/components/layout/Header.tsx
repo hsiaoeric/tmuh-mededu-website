@@ -89,6 +89,7 @@ export function Header() {
         group(isZh ? '教育成果' : 'Outcomes', [
           [isZh ? '全人研討會' : 'Symposia', 'h-symposiums'],
           [isZh ? '師培課程' : 'Faculty Training', 'h-training'],
+          [isZh ? '研究成果' : 'Research', 'h-research'],
         ]),
         group(isZh ? '最新動態' : 'Updates', [
           [isZh ? '最新公告' : 'News', 'h-news'],

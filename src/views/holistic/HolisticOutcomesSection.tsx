@@ -3,6 +3,7 @@ import { buildHolisticOutcomes } from '@/data/holistic';
 import { Reveal } from '@/components/common/Reveal';
 import { Eyebrow } from '@/components/common/Eyebrow';
 import { KpiCard } from '@/components/common/KpiCard';
+import { HolisticResearchSection } from './HolisticResearchSection';
 
 const TEAL = '#4f8c7d';
 
@@ -129,6 +130,8 @@ export function HolisticOutcomesSection() {
           />
         </div>
       </section>
+
+      <HolisticResearchSection />
     </>
   );
 }
