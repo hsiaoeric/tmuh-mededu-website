@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#064E3B" />
+  <title>教學部 — 臺北醫學大學附設醫院</title>
+  <meta name="description" content="臺北醫學大學附設醫院教學部：教師發展、臨床技能、實證醫學、全人照護與醫學教育研究五大中心，培育兼具同理心與專業能力的醫療人才。" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <script>document.documentElement.classList.add('js');</script>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%23064E3B'/><path d='M16 24c0-6 3-10 8-11-1 7-4 10-8 11zM16 24c0-5-2.5-8-6.5-9 .8 5.8 3.2 8.3 6.5 9z' fill='%2310B981'/></svg>" />
+</head>
+<body>
+  <a class="skip-link" href="#main" data-t="skip">跳至主要內容</a>
+
+  <!-- ============ 固定導覽列 ============ -->
+  <header class="nav" data-nav>
+    <div class="container nav__inner">
+      <a class="brand" href="#top" data-scroll>
+        <span class="brand__mark" aria-hidden="true">
+          <svg viewBox="0 0 32 32" width="30" height="30">
+            <path d="M16 27c0-7.2 3.6-12 9.6-13.2C24.4 22.2 20.8 25.8 16 27Z" fill="currentColor" opacity=".95"/>
+            <path d="M16 27c0-6-3-10-7.8-10.8C9.2 23 12 26.1 16 27Z" fill="currentColor" opacity=".55"/>
+            <path d="M16 28.5V16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" opacity=".4"/>
+          </svg>
+        </span>
+        <span class="brand__text">
+          <em data-brand1>臺北醫學大學附設醫院</em>
+          <strong data-brand2>教學部</strong>
+        </span>
+      </a>
+
+      <nav class="nav__menu" id="primary-menu" aria-label="主要導覽">
+        <ul class="nav__list" data-nav-list></ul>
+        <div class="nav__tools">
+          <button class="langbtn" type="button" data-lang-toggle aria-label="Switch to English">EN</button>
+          <a class="btn btn--primary btn--sm nav__cta" href="#contact" data-scroll data-navcta>聯絡教學部</a>
+        </div>
+      </nav>
+
+      <button class="hamburger" type="button" aria-label="開啟選單" aria-expanded="false" aria-controls="primary-menu" data-menu-toggle>
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+  <div class="nav-scrim" data-menu-scrim hidden></div>
+
+  <main id="main">
+    <!-- ============ Hero ============ -->
+    <section class="hero" id="top">
+      <div class="hero__layers" aria-hidden="true">
+        <div class="hero__photo" data-parallax="0.26" data-parallax-scale="1.16"></div>
+        <div class="hero__wash"></div>
+        <div class="hero__orb hero__orb--a" data-parallax="-0.16"></div>
+        <div class="hero__orb hero__orb--b" data-parallax="0.3"></div>
+      </div>
+      <div class="container hero__content" data-parallax="-0.05" data-hero></div>
+      <a class="hero__scroll" href="#about" data-scroll>
+        <span class="hero__scroll-line" aria-hidden="true"></span>
+        <span data-hero-scroll>向下捲動</span>
+      </a>
+    </section>
+
+    <!-- ============ 關於教學部 ============ -->
+    <section class="section" id="about" data-about></section>
+
+    <!-- ============ 五大中心 ============ -->
+    <section class="section section--tint" id="centers" data-centers></section>
+
+    <!-- ============ 組織架構 ============ -->
+    <section class="section" id="org" data-org></section>
+
+    <!-- ============ 品質榮譽 ============ -->
+    <section class="band" id="impact" data-impact>
+      <div class="band__layers" aria-hidden="true">
+        <div class="band__photo" data-parallax="0.18" data-parallax-scale="1.14"></div>
+        <div class="band__veil"></div>
+        <div class="band__glow" data-parallax="-0.2"></div>
+      </div>
+      <div class="container band__inner" data-impact-inner></div>
+    </section>
+
+    <!-- ============ 公告與活動 ============ -->
+    <section class="section section--tint" id="news" data-news></section>
+
+    <!-- ============ 聯絡 ============ -->
+    <section class="section" id="contact" data-contact></section>
+  </main>
+
+  <!-- ============ 頁尾 ============ -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <p class="footer__copy" data-foot-copy></p>
+      <ul class="social" data-foot-links aria-label="相關連結"></ul>
+    </div>
+  </footer>
+
+  <script src="content.js"></script>
+  <script src="main.js" defer></script>
+</body>
+</html>
