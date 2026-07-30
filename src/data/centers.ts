@@ -231,7 +231,7 @@ export const CENTERS: Center[] = [
     id: 'faculty_dev',
     zh: '教師發展中心',
     en: 'Faculty Development Center',
-    color: '#A87A6B',
+    color: 'var(--c-facdev)',
     introZh:
       '全院臨床教師培育，並協助學校教職相關事務，提升整體教學品質與師資專業發展。',
     introEn:
@@ -249,7 +249,7 @@ export const CENTERS: Center[] = [
     id: 'clinical_skills',
     zh: '臨床技能中心',
     en: 'Clinical Skills Center',
-    color: '#5E7A8C',
+    color: 'var(--c-skills)',
     introZh:
       '規劃並執行醫學生客觀結構式臨床測驗（OSCE）與各式模擬訓練，培養紮實的臨床技能。',
     introEn:
@@ -268,7 +268,7 @@ export const CENTERS: Center[] = [
     id: 'ebm',
     zh: '實證醫學中心',
     en: 'Evidence-Based Medicine Center',
-    color: '#B69B66',
+    color: 'var(--c-ebm)',
     introZh:
       '推動實證醫學（EBM），將實證精神落實於醫療品質，提升臨床決策與照護成效。',
     introEn:
@@ -286,7 +286,7 @@ export const CENTERS: Center[] = [
     id: 'holistic',
     zh: '全人照護教育中心',
     en: 'Center for Education in Holistic Care and Human Flourishing',
-    color: '#4f8c7d',
+    color: 'var(--c-holistic)',
     introZh:
       '以人為本，照顧每一個完整的人。結合醫療、心理與關懷的力量，推動「心理健康急救 MHFA」，培育跨領域種子教師。',
     introEn:
@@ -305,7 +305,7 @@ export const CENTERS: Center[] = [
     id: 'med_edu_research',
     zh: '醫學教育研究中心',
     en: 'Medical Education Research Center',
-    color: '#6E8A77',
+    color: 'var(--c-research)',
     introZh:
       '以實證與資料驅動的方法研究醫學教育，發展教學評量工具與成效分析，將研究成果回饋至課程設計與教師發展。',
     introEn:
@@ -323,7 +323,7 @@ export const CENTERS: Center[] = [
     id: 'admin',
     zh: '行政團隊',
     en: 'Administrative Team',
-    color: '#8a8076',
+    color: 'var(--c-admin)',
     introZh:
       '依職責與分工協同運作，從教學副院長、教學部主任、副主任、組長到各行政專員，支援教學部各項業務的推動。',
     introEn:

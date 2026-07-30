@@ -4,8 +4,8 @@ import { buildDeptAwards, type SnqProject } from '@/data/deptAwards';
 import { Reveal } from '@/components/common/Reveal';
 import { Eyebrow } from '@/components/common/Eyebrow';
 
-const TEAL = '#4f8c7d';
-const GOLD = '#B0894B';
+const TEAL = 'var(--c-holistic)';
+const GOLD = 'var(--c-ebm)';
 
 function SnqProjectCard({
   project,
@@ -29,7 +29,6 @@ function SnqProjectCard({
     <Reveal
       delay={delay}
       style={{
-        borderRadius: 14,
         background: `color-mix(in srgb,${TEAL} 5%,var(--surface))`,
         border: `1px solid color-mix(in srgb,${TEAL} 22%,var(--border))`,
         overflow: 'hidden',
@@ -53,12 +52,11 @@ function SnqProjectCard({
             <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap', marginBottom: 6 }}>
               <span
                 style={{
-                  fontFamily: "'IBM Plex Mono', monospace",
+                  fontFamily: 'var(--font-mono)',
                   fontSize: 11.5,
                   fontWeight: 600,
                   color: TEAL,
                   padding: '2px 8px',
-                  borderRadius: 999,
                   background: `color-mix(in srgb,${TEAL} 12%,transparent)`,
                 }}
               >
@@ -72,7 +70,7 @@ function SnqProjectCard({
             </div>
             <div
               style={{
-                fontFamily: "'Noto Sans TC', sans-serif",
+                fontFamily: 'var(--font-sans)',
                 fontWeight: 700,
                 fontSize: 14.5,
                 color: 'var(--text)',
@@ -99,7 +97,6 @@ function SnqProjectCard({
                 gridTemplateColumns: '1fr 1.2fr auto',
                 gap: '4px 10px',
                 padding: '8px 10px',
-                borderRadius: 8,
                 background: 'var(--surface)',
                 fontSize: 12.5,
                 lineHeight: 1.5,
@@ -124,10 +121,10 @@ export function DeptAwardsSection() {
   const awards = buildDeptAwards(lang);
 
   return (
-    <section id="dept-awards" style={{ maxWidth: 1240, margin: '0 auto', padding: '34px 28px' }}>
+    <section id="dept-awards" >
       <Reveal style={{ marginBottom: 24 }}>
         <Eyebrow>{awards.eyebrow}</Eyebrow>
-        <h2 style={{ fontFamily: "'Noto Sans TC', sans-serif", fontWeight: 900, fontSize: 30, color: 'var(--text)' }}>
+        <h2 style={{ fontFamily: 'var(--font-sans)', fontWeight: 900, fontSize: 30, color: 'var(--text)' }}>
           {awards.title}
         </h2>
         <p style={{ fontSize: 15, lineHeight: 1.8, color: 'var(--muted)', maxWidth: 680, marginTop: 10 }}>{awards.desc}</p>
@@ -136,7 +133,7 @@ export function DeptAwardsSection() {
       <div className="grid grid-split" style={{ gap: 28, alignItems: 'start' }}>
         <Reveal delay={60}>
           <div style={{ marginBottom: 16 }}>
-            <h3 style={{ fontFamily: "'Noto Sans TC', sans-serif", fontWeight: 800, fontSize: 18, color: 'var(--text)', marginBottom: 12 }}>
+            <h3 style={{ fontFamily: 'var(--font-sans)', fontWeight: 800, fontSize: 18, color: 'var(--text)', marginBottom: 12 }}>
               {awards.snqTitle}
             </h3>
             <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 16 }}>
@@ -145,8 +142,7 @@ export function DeptAwardsSection() {
                   key={y.year}
                   style={{
                     padding: '5px 12px',
-                    borderRadius: 999,
-                    fontFamily: "'IBM Plex Mono', monospace",
+                    fontFamily: 'var(--font-mono)',
                     fontSize: 12,
                     fontWeight: 600,
                     color: TEAL,
@@ -175,13 +171,12 @@ export function DeptAwardsSection() {
         </Reveal>
 
         <Reveal delay={120}>
-          <h3 style={{ fontFamily: "'Noto Sans TC', sans-serif", fontWeight: 800, fontSize: 18, color: 'var(--text)', marginBottom: 16 }}>
+          <h3 style={{ fontFamily: 'var(--font-sans)', fontWeight: 800, fontSize: 18, color: 'var(--text)', marginBottom: 16 }}>
             {awards.nhqaTitle}
           </h3>
           <div
             style={{
               padding: 26,
-              borderRadius: 18,
               background: 'var(--surface)',
               border: '1px solid var(--border)',
               boxShadow: 'var(--shadow-card)',
@@ -190,12 +185,11 @@ export function DeptAwardsSection() {
             <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap', marginBottom: 14 }}>
               <span
                 style={{
-                  fontFamily: "'IBM Plex Mono', monospace",
+                  fontFamily: 'var(--font-mono)',
                   fontSize: 13,
                   fontWeight: 700,
                   color: GOLD,
                   padding: '4px 12px',
-                  borderRadius: 999,
                   background: `color-mix(in srgb,${GOLD} 14%,transparent)`,
                 }}
               >
@@ -207,7 +201,6 @@ export function DeptAwardsSection() {
                   fontWeight: 600,
                   color: GOLD,
                   padding: '4px 12px',
-                  borderRadius: 999,
                   background: `color-mix(in srgb,${GOLD} 10%,transparent)`,
                 }}
               >
@@ -216,7 +209,7 @@ export function DeptAwardsSection() {
             </div>
             <div
               style={{
-                fontFamily: "'Noto Sans TC', sans-serif",
+                fontFamily: 'var(--font-sans)',
                 fontWeight: 800,
                 fontSize: 17,
                 color: 'var(--text)',
@@ -250,11 +243,10 @@ export function DeptAwardsSection() {
                   key={kw}
                   style={{
                     padding: '4px 11px',
-                    borderRadius: 999,
                     fontSize: 12,
                     fontWeight: 600,
-                    color: '#5E7A8C',
-                    background: 'color-mix(in srgb,#5E7A8C 12%,transparent)',
+                    color: 'var(--c-skills)',
+                    background: 'color-mix(in srgb,var(--c-skills) 12%,transparent)',
                   }}
                 >
                   {kw}
@@ -274,7 +266,7 @@ export function DeptAwardsSection() {
               border: 'none',
               background: 'none',
               cursor: 'pointer',
-              fontFamily: "'Noto Sans TC', sans-serif",
+              fontFamily: 'var(--font-sans)',
               fontSize: 13.5,
               fontWeight: 600,
               color: TEAL,
@@ -286,7 +278,7 @@ export function DeptAwardsSection() {
       </div>
 
       <Reveal delay={180} style={{ marginTop: 22, textAlign: 'center' }}>
-        <span style={{ fontFamily: "'IBM Plex Sans', sans-serif", fontSize: 12, color: 'var(--muted)', letterSpacing: '.04em' }}>
+        <span style={{ fontFamily: 'var(--font-sans)', fontSize: 12, color: 'var(--muted)', letterSpacing: '.04em' }}>
           {awards.dataSource}
         </span>
       </Reveal>

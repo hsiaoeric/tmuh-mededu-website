@@ -1,5 +1,6 @@
 @import './tokens.css';
 @import './layout.css';
+@import './zdepth.css';
 
 * {
   box-sizing: border-box;
@@ -8,18 +9,26 @@
 }
 
 html {
-  scroll-behavior: smooth;
+  /* The z-depth engine reads `scrollY` every frame and drives the whole stack
+     from it. Native smooth scrolling would fight the HUD's own animated jumps,
+     so scrolling is left instantaneous and `scrollTo({behavior:'smooth'})` is
+     used explicitly where a glide is wanted. */
+  scroll-behavior: auto;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
 
 body {
-  font-family: 'IBM Plex Sans', 'Noto Sans TC', sans-serif;
+  font-family: var(--font-sans);
+  background: var(--bg);
+  /* Receding cards scale down from the top edge, briefly exposing the ground
+     at the sides; clipping keeps that from producing a scrollbar. */
+  overflow-x: hidden;
 }
 
 ::selection {
-  background: var(--teal);
-  color: #fff;
+  background: var(--volt);
+  color: var(--volt-ink);
 }
 
 @keyframes draw {
@@ -132,13 +141,13 @@ body {
 }
 
 .hub-core-disc__title {
-  font-family: 'Noto Sans TC', sans-serif;
+  font-family: var(--font-sans);
   font-weight: 800;
   font-size: 1.96cqw;
 }
 
 .hub-core-disc__sub {
-  font-family: 'IBM Plex Sans', sans-serif;
+  font-family: var(--font-mono);
   font-size: 1.03cqw;
   letter-spacing: 0.1em;
   opacity: 0.9;
@@ -161,7 +170,6 @@ body {
 .hub-center-node {
   width: 12.83cqw;
   padding: 1.52cqw 1.09cqw;
-  border-radius: 1.52cqw;
 }
 
 .hub-center-node__icon {
@@ -169,14 +177,13 @@ body {
   width: 3.26cqw;
   height: 3.26cqw;
   margin: 0 auto 0.76cqw;
-  border-radius: 0.98cqw;
   align-items: center;
   justify-content: center;
 }
 
 .hub-center-node__label {
   display: block;
-  font-family: 'Noto Sans TC', sans-serif;
+  font-family: var(--font-sans);
   font-weight: 700;
   font-size: 1.36cqw;
   line-height: 1.25;
@@ -196,7 +203,6 @@ body {
   min-width: 7.39cqw;
   max-width: 9.57cqw;
   padding: 0.76cqw 0.87cqw;
-  border-radius: 1.2cqw;
   border: 1px solid var(--border);
   background: var(--surface);
   cursor: pointer;
@@ -209,14 +215,13 @@ body {
   width: 2.39cqw;
   height: 2.39cqw;
   margin: 0 auto 0.54cqw;
-  border-radius: 0.76cqw;
   align-items: center;
   justify-content: center;
 }
 
 .hub-branch-node__label {
   display: block;
-  font-family: 'Noto Sans TC', sans-serif;
+  font-family: var(--font-sans);
   font-weight: 700;
   font-size: 1.14cqw;
   line-height: 1.25;
@@ -235,11 +240,10 @@ body {
   width: max-content;
   max-width: 200px;
   padding: 8px 10px;
-  border-radius: 10px;
   border: 1px solid var(--border);
   background: color-mix(in srgb, var(--surface) 96%, transparent);
   box-shadow: var(--shadow-lift);
-  font-family: 'Noto Sans TC', sans-serif;
+  font-family: var(--font-sans);
   font-size: 11px;
   line-height: 1.45;
   color: var(--body);
@@ -310,14 +314,12 @@ body {
   .hub-center-node {
     width: 25cqw;
     padding: 2.9cqw 2.1cqw;
-    border-radius: 2.9cqw;
   }
 
   .hub-center-node__icon {
     width: 6.4cqw;
     height: 6.4cqw;
     margin: 0 auto 1.5cqw;
-    border-radius: 1.9cqw;
   }
 
   .hub-center-node__label {
@@ -351,26 +353,32 @@ body {
 }
 ::-webkit-scrollbar-thumb {
   background: var(--border);
-  border-radius: 9px;
   border: 3px solid var(--bg);
 }
 ::-webkit-scrollbar-track {
   background: var(--bg);
 }
 
-/* App shell */
+/* App shell. Height comes from the stack's scroll spacer, not from this
+   element — the cards are fixed and contribute nothing to flow — so no
+   `min-height` here, or every view would gain a blank viewport at the end. */
 .app-root {
   position: relative;
-  min-height: 100vh;
   background: var(--bg);
   color: var(--body);
-  font-family: 'IBM Plex Sans', 'Noto Sans TC', sans-serif;
+  font-family: var(--font-sans);
   font-size: 16px;
   line-height: 1.7;
-  overflow-x: clip;
   transition:
     background 0.4s ease,
     color 0.4s ease;
+}
+
+/* Headings inherit the Nexus voice: tight tracking, no serif anywhere. */
+h1,
+h2,
+h3 {
+  letter-spacing: -0.02em;
 }
 
 /* Reveal-on-scroll */

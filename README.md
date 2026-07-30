@@ -33,13 +33,15 @@ src/
 │  ├─ kpis.ts                教學部首頁的數據
 │  ├─ holistic.ts / ebm.ts / facdev.ts   各中心專頁內容
 ├─ views/                    各頁面（DeptView 首頁 / HolisticView / EbmView / FacdevView / BuildingView）
+├─ zdepth/                   捲動堆疊引擎：engine.ts（時間軸計算）、ZStack、ZCard
 ├─ components/
-│  ├─ common/                可重用元件（Eyebrow、PersonCard、KpiCard、SectionHeading…）
-│  └─ layout/                Header、Footer、NavDropdown、背景特效
+│  ├─ common/                可重用元件（NxHero、NxCardHead、NxColophon、PersonCard、KpiCard…）
+│  └─ layout/                Header、Hud（底部狀態列）、NavDropdown、背景特效
 ├─ hooks/                    捲動揭示、背景粒子效果
 └─ styles/
    ├─ tokens.css             ★ 顏色、主題變數（改配色看這裡）
    ├─ layout.css             ★ 共用版面：eyebrow 樣式、響應式格線
+   ├─ zdepth.css             捲動堆疊、底部狀態列、Nexus 元件樣式
    └─ global.css             全域基礎樣式與動畫
 ```
 
@@ -72,10 +74,38 @@ src/
 
 ---
 
+## 捲動堆疊（Z-Depth）
+
+本站的版型改編自 Nexus System 設計語言：每一頁都是一疊「卡片」，往下捲時新卡片由下方滑入、舊卡片縮小淡出。
+
+每張卡片就是一個 `<ZCard>`：
+
+```tsx
+<ZCard id="org" label="06 / 組織架構">
+  …這一段的全部內容…
+</ZCard>
+```
+
+- `id`：錨點名稱，選單與跨頁連結靠它跳轉。
+- `label`：底部狀態列顯示的段落名稱（習慣用「編號 / 名稱」）。
+- `tone="dark"`：碳黑底色的卡片，通常用在每頁最後的聯絡段落。
+- `center`：內容比一個畫面短時垂直居中（首頁大標、結尾段落用）。
+
+**內容再長也不會被截斷。** 卡片比畫面高時，引擎會讓它「釘住」，內容在卡片內往上捲動（`engine.ts` 稱為 dwell），捲完才換下一張卡片。所以像研究論文清單這種很長的段落照樣完整呈現，不需要分頁。
+
+新增一個段落＝在該頁面的 view 檔案裡加一個 `<ZCard>`，編號依序往下排即可；底部狀態列與上下箭頭會自動更新。
+
+開啟系統的「減少動態效果」時，整個堆疊會退回成普通的長頁面，內容完全相同。
+
+---
+
 ## 版面與設計系統（B2）
 
 為了「改一次、全站套用」，重複的樣式已收斂成共用資源：
 
+- **首頁大標**：用 `<NxHero>` 元件。
+- **段落標題**：用 `<NxCardHead num="06" kicker="…" title="…">`，會排出「編號 / 英文小標」加分隔線的樣式。
+- **頁尾資訊**（地址、電話、院徽）：用 `<NxColophon>`。捲動堆疊沒有文件底部可以放頁尾，所以這些資訊放在每一頁最後一張卡片裡，常駐的底部狀態列則負責顯示品牌與進度。
 - **區塊小標**：用 `<Eyebrow>` 元件（`src/components/common/Eyebrow.tsx`），而不是每次貼一長串 inline 樣式。
 - **響應式格線**：用 `src/styles/layout.css` 的 class，例如
   - `grid grid-2` / `grid-3` / `grid-4`：等寬欄，手機自動收合成單欄。
@@ -151,3 +181,4 @@ Vercel 會自動重新 build 並上線，無需再手動操作。
 - 路由：react-router-dom 7
 - 語言：TypeScript（`npm run build` 會先做型別檢查，攔截錯字／漏欄位）
 - 無後端，內容皆為前端靜態資料（見 `src/data/`）
+- 視覺語言改編自 Nexus System：拉絲鈦白／碳黑底色、1px 鋼灰分隔線、直角無圓角、JetBrains Mono 標籤，強調色是把院方 teal 推到霓虹的 volt mint（`--volt`）

@@ -111,11 +111,10 @@ export function NavDropdown({ label, scrollTarget = 'org', onNavigate }: NavDrop
           border: 'none',
           background: hover || open ? 'var(--teal-50)' : 'none',
           cursor: 'pointer',
-          fontFamily: "'Noto Sans TC', sans-serif",
+          fontFamily: 'var(--font-sans)',
           fontWeight: 600,
           fontSize: 14,
           color: hover || open ? 'var(--teal)' : 'var(--body)',
-          borderRadius: 8,
           transition: 'color .2s,background .2s',
           whiteSpace: 'nowrap',
         }}
@@ -151,7 +150,6 @@ export function NavDropdown({ label, scrollTarget = 'org', onNavigate }: NavDrop
             style={{
               width: '100%',
               padding: 8,
-              borderRadius: 14,
               background: 'var(--surface)',
               border: '1px solid var(--border)',
               boxShadow: 'var(--shadow-lift)',
@@ -218,7 +216,6 @@ function DropdownItem({
         width: '100%',
         padding: '10px 12px',
         border: 'none',
-        borderRadius: 10,
         cursor: 'pointer',
         textAlign: 'left',
         background: hover || active ? 'var(--teal-50)' : 'transparent',
@@ -230,7 +227,6 @@ function DropdownItem({
           width: 30,
           height: 30,
           flex: 'none',
-          borderRadius: 8,
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
@@ -245,7 +241,7 @@ function DropdownItem({
       <span style={{ display: 'flex', flexDirection: 'column', lineHeight: 1.3 }}>
         <span
           style={{
-            fontFamily: "'Noto Sans TC', sans-serif",
+            fontFamily: 'var(--font-sans)',
             fontWeight: 600,
             fontSize: 14,
             color: active ? 'var(--teal)' : 'var(--text)',
@@ -255,7 +251,7 @@ function DropdownItem({
         </span>
         <span
           style={{
-            fontFamily: "'IBM Plex Sans', sans-serif",
+            fontFamily: 'var(--font-sans)',
             fontSize: 11,
             color: ready ? 'var(--muted)' : 'var(--teal-700)',
             opacity: ready ? 0.85 : 1,

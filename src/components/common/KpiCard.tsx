@@ -34,7 +34,6 @@ export function KpiCard({
       style={{
         position: 'relative',
         padding: '24px 22px',
-        borderRadius: 16,
         background: 'var(--surface)',
         border: `1px solid ${active ? color : 'var(--border)'}`,
         boxShadow: active ? 'var(--shadow-lift)' : 'var(--shadow-card)',
@@ -86,7 +85,7 @@ export function KpiCard({
               ? { 'data-count': num, 'data-suffix': suffix }
               : {})}
             style={{
-              fontFamily: "'IBM Plex Sans', sans-serif",
+              fontFamily: 'var(--font-sans)',
               fontWeight: 700,
               fontSize: 54,
               lineHeight: 1,
@@ -99,7 +98,7 @@ export function KpiCard({
         </div>
         <div
           style={{
-            fontFamily: "'Noto Sans TC', sans-serif",
+            fontFamily: 'var(--font-sans)',
             fontWeight: 700,
             fontSize: 15,
             color: 'var(--text)',
@@ -111,7 +110,7 @@ export function KpiCard({
         {caption && (
           <div
             style={{
-              fontFamily: "'IBM Plex Sans', sans-serif",
+              fontFamily: 'var(--font-sans)',
               fontSize: 11.5,
               letterSpacing: '.05em',
               textTransform: 'uppercase',

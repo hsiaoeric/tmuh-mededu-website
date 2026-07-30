@@ -2,6 +2,8 @@ import { useSite } from '@/context/SiteContext';
 import { centerById, CENTER_ICON } from '@/data/centers';
 import { Icon, type IconName } from '@/components/common/Icon';
 import { Reveal } from '@/components/common/Reveal';
+import { NxColophon } from '@/components/common/NxColophon';
+import { ZCard } from '@/zdepth/ZCard';
 
 export function BuildingView() {
   const { isZh, t, buildingId, setView } = useSite();
@@ -16,133 +18,104 @@ export function BuildingView() {
     : 'Content is being prepared and will be online soon. Meanwhile, return to the department home to explore the structure and teams.';
 
   return (
-    <div
-      style={{
-        position: 'relative',
-        zIndex: 1,
-        minHeight: '64vh',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: '60px 28px',
-      }}
+    <ZCard
+      id="top"
+      label={isZh ? `01 / ${name}` : `01 / ${center.en.toUpperCase()}`}
+      center
     >
-      <Reveal style={{ maxWidth: 560, textAlign: 'center' }}>
+      <div className="nx-grid-bg" aria-hidden="true" />
+      <Reveal style={{ position: 'relative', maxWidth: 640 }}>
         <span
-          style={{
-            width: 74,
-            height: 74,
-            margin: '0 auto 22px',
-            borderRadius: 20,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            background: `linear-gradient(140deg,${center.color},color-mix(in srgb,${center.color} 55%,#000))`,
-            color: '#fff',
-            boxShadow: `0 14px 32px color-mix(in srgb,${center.color} 40%,transparent)`,
-          }}
-        >
-          <span style={{ width: 34, height: 34 }}>
-            <Icon name={CENTER_ICON[center.id] as IconName} />
-          </span>
-        </span>
-        <div
-          style={{
-            fontFamily: "'IBM Plex Sans', sans-serif",
-            fontSize: 12,
-            fontWeight: 600,
-            letterSpacing: '.14em',
-            textTransform: 'uppercase',
-            color: center.color,
-            marginBottom: 10,
-          }}
+          className="nx-chip"
+          style={{ background: center.color, color: 'var(--titanium)' }}
         >
           {center.en}
-        </div>
+        </span>
         <h1
           style={{
-            fontFamily: "'Noto Serif TC', serif",
-            fontWeight: 900,
-            fontSize: 'clamp(30px,4vw,42px)',
+            marginTop: 28,
+            fontFamily: 'var(--font-sans)',
+            fontWeight: 800,
+            fontSize: 'clamp(32px,4.6vw,66px)',
+            lineHeight: 1.06,
+            letterSpacing: '-0.035em',
             color: 'var(--text)',
-            lineHeight: 1.2,
-            marginBottom: 6,
           }}
         >
           {name}
         </h1>
+
+        {/* Build status, read as a telemetry line rather than a badge. */}
         <div
           style={{
             display: 'inline-flex',
             alignItems: 'center',
-            gap: 9,
-            margin: '14px 0 20px',
-            padding: '7px 16px',
-            borderRadius: 999,
-            background: 'color-mix(in srgb,var(--teal) 12%,transparent)',
+            gap: 10,
+            margin: '26px 0 24px',
+            padding: '9px 14px',
+            border: '1px solid var(--border)',
+            borderLeft: '2px solid var(--volt)',
           }}
         >
           <span
             style={{
-              width: 8,
-              height: 8,
+              width: 7,
+              height: 7,
               borderRadius: '50%',
-              background: 'var(--teal)',
+              background: 'var(--volt)',
               animation: 'blink 1.8s ease-in-out infinite',
             }}
           />
-          <span
-            style={{
-              fontFamily: "'Noto Sans TC', sans-serif",
-              fontSize: 13.5,
-              fontWeight: 700,
-              color: 'var(--teal-700)',
-            }}
-          >
+          <span className="nx-tag" style={{ color: 'var(--text)' }}>
             {title}
           </span>
         </div>
-        <p
-          style={{
-            fontSize: 16,
-            lineHeight: 1.85,
-            color: 'var(--body)',
-            marginBottom: 14,
-          }}
-        >
+
+        <p style={{ fontSize: 16, lineHeight: 1.8, color: 'var(--body)', marginBottom: 14 }}>
           {intro}
         </p>
-        <p
-          style={{
-            fontSize: 14.5,
-            lineHeight: 1.8,
-            color: 'var(--muted)',
-            marginBottom: 30,
-          }}
-        >
+        <p style={{ fontSize: 14.5, lineHeight: 1.8, color: 'var(--muted)', marginBottom: 30 }}>
           {desc}
         </p>
-        <button
-          onClick={() => setView('dept')}
-          style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: 9,
-            padding: '13px 26px',
-            border: 'none',
-            borderRadius: 12,
-            cursor: 'pointer',
-            background: 'linear-gradient(140deg,var(--teal),var(--teal-700))',
-            color: '#fff',
-            fontFamily: "'Noto Sans TC', sans-serif",
-            fontWeight: 700,
-            fontSize: 15,
-            boxShadow: '0 12px 26px var(--teal-glow)',
-          }}
-        >
-          {t.backDept}
-        </button>
+
+        <div style={{ display: 'flex', alignItems: 'center', gap: 14, flexWrap: 'wrap' }}>
+          <button
+            onClick={() => setView('dept')}
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: 9,
+              padding: '13px 24px',
+              border: 'none',
+              cursor: 'pointer',
+              background: 'var(--volt)',
+              color: 'var(--volt-ink)',
+              fontFamily: 'var(--font-sans)',
+              fontWeight: 600,
+              fontSize: 14.5,
+            }}
+          >
+            {t.backDept}
+          </button>
+          <span
+            style={{
+              width: 40,
+              height: 40,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              border: '1px solid var(--border)',
+              color: center.color,
+            }}
+          >
+            <span style={{ width: 20, height: 20 }}>
+              <Icon name={CENTER_ICON[center.id] as IconName} />
+            </span>
+          </span>
+        </div>
+
+        <NxColophon />
       </Reveal>
-    </div>
+    </ZCard>
   );
 }

@@ -407,7 +407,6 @@ export function HubOrgChart({
             textAlign: 'center',
             background: 'linear-gradient(140deg,var(--teal),var(--teal-700))',
             color: '#fff',
-            boxShadow: '0 14px 32px var(--teal-glow)',
           }}
         >
           <div className="hub-core-disc__title">{t.deptShort}</div>

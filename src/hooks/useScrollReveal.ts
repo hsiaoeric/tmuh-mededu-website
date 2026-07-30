@@ -1,11 +1,20 @@
 import { useEffect, type RefObject } from 'react';
 
 /**
- * Reveal-on-scroll + count-up animation, ported from the original component.
- * Any descendant with `data-reveal` fades/slides in when it enters the viewport.
- * Numbers with `data-count` (+ optional `data-suffix`) count up once visible.
+ * Reveal-on-scroll + count-up animation.
  *
- * Re-runs whenever any value in `deps` changes (e.g. switching view/language).
+ * Any descendant with `data-reveal` fades and slides in when it enters the
+ * viewport; numbers with `data-count` (+ optional `data-suffix`) count up once
+ * visible. Re-runs whenever any value in `deps` changes (e.g. switching
+ * view/language).
+ *
+ * Visibility is decided by an IntersectionObserver rather than by measuring
+ * `getBoundingClientRect().top` against the viewport on every scroll event.
+ * The z-depth engine moves content by writing transforms inside a
+ * `requestAnimationFrame`, so a scroll handler reading rects sees the frame
+ * *before* the card moved and would leave pinned content invisible. The observer
+ * reports the position the browser actually composited, and it also fires when
+ * content moves for reasons other than scrolling.
  */
 export function useScrollReveal(
   rootRef: RefObject<HTMLElement | null>,
@@ -31,37 +40,47 @@ export function useScrollReveal(
       requestAnimationFrame(step);
     };
 
-    const reveal = () => {
-      const vh = window.innerHeight || 800;
-      root
-        .querySelectorAll<HTMLElement>('[data-reveal]:not([data-seen])')
-        .forEach((el) => {
-          const delay = el.getAttribute('data-reveal-delay') || '0';
-          el.style.willChange = 'opacity,transform';
-          el.style.transition = `opacity .7s cubic-bezier(.2,0,.2,1) ${delay}ms,transform .7s cubic-bezier(.2,0,.2,1) ${delay}ms`;
-          if (el.getBoundingClientRect().top < vh * 0.92) {
-            el.setAttribute('data-seen', '1');
-            requestAnimationFrame(() => {
-              el.style.opacity = '1';
-              el.style.transform = 'none';
-            });
-            el.querySelectorAll<HTMLElement>('[data-count]').forEach(countUp);
-          } else {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(26px)';
-          }
-        });
+    const show = (el: HTMLElement) => {
+      const delay = el.getAttribute('data-reveal-delay') || '0';
+      el.style.willChange = 'opacity,transform';
+      el.style.transition = `opacity .7s cubic-bezier(.2,0,.2,1) ${delay}ms,transform .7s cubic-bezier(.2,0,.2,1) ${delay}ms`;
+      el.setAttribute('data-seen', '1');
+      requestAnimationFrame(() => {
+        el.style.opacity = '1';
+        el.style.transform = 'none';
+      });
+      el.querySelectorAll<HTMLElement>('[data-count]').forEach(countUp);
     };
 
-    reveal();
-    requestAnimationFrame(reveal);
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue;
+          show(entry.target as HTMLElement);
+          observer.unobserve(entry.target);
+        }
+      },
+      // Hold the reveal until the element is a little way inside the viewport,
+      // matching the old 92%-of-viewport trigger point.
+      { rootMargin: '0px 0px -8% 0px' },
+    );
 
-    const onScroll = () => reveal();
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onScroll);
+    const observe = () => {
+      root
+        .querySelectorAll<HTMLElement>('[data-reveal]:not([data-seen])')
+        .forEach((el) => observer.observe(el));
+    };
+
+    observe();
+
+    // Cards mount and unmount as views change and panels expand, so keep
+    // picking up new `[data-reveal]` nodes as they appear.
+    const mutations = new MutationObserver(observe);
+    mutations.observe(root, { childList: true, subtree: true });
+
     return () => {
-      window.removeEventListener('scroll', onScroll);
-      window.removeEventListener('resize', onScroll);
+      observer.disconnect();
+      mutations.disconnect();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, deps);

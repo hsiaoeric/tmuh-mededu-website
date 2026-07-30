@@ -24,15 +24,16 @@
 }
 
 /* Eyebrow: the small uppercase label above section titles. Colour is set by
-   the caller (via inline `color`) so it can adapt per center / on dark heros. */
+   the caller (via inline `color`) so it can adapt per center / on dark heros.
+   In the Nexus system these are monospaced telemetry labels, widely tracked. */
 .eyebrow {
-  font-family: 'IBM Plex Sans', sans-serif;
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.16em;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: 0.3em;
   text-transform: uppercase;
   color: var(--teal);
-  margin-bottom: 8px;
+  margin-bottom: 10px;
 }
 
 /* Responsive grids. The base rules match the old fixed column counts; the

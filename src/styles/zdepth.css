@@ -1,0 +1,742 @@
+/*
+ * The z-depth stack, the HUD and the Nexus surface primitives.
+ *
+ * See `src/zdepth/engine.ts` for the scroll timeline these rules are the
+ * visual half of. Anything positional here is load-bearing: the engine writes
+ * `transform`, `opacity`, `visibility` and `z-index` onto `.zcard`, and
+ * `transform` onto `.zcard__inner`, so those four properties must not be set
+ * from CSS.
+ */
+
+/* ---------- the stack ---------- */
+
+/* The spacer is the whole scroll track. The engine sets its height from the
+   sum of every card's dwell; the cards themselves are fixed and contribute
+   nothing to document flow. */
+.zstack__spacer {
+  height: 0;
+}
+
+.zcard {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100svh;
+  overflow: hidden;
+  transform-origin: top center;
+  transform: translate3d(0, 100%, 0);
+  will-change: transform, opacity;
+  background: var(--bg);
+  /* The receding card is dimmed rather than blurred, and the incoming edge
+     reads as a lifted sheet against it. */
+  box-shadow: var(--shadow-stack);
+}
+
+/*
+ * Carbon cards, as Nexus uses for its overlay and matrix panels.
+ *
+ * Rather than have every component learn about a dark context, the card
+ * re-points the semantic ink tokens for its whole subtree. Anything already
+ * written against `var(--text)` / `var(--body)` / `var(--border)` — which is
+ * nearly all of the site — inverts correctly with no changes. `--volt` is not
+ * touched: it is legible on carbon in both themes, so it stands in for the
+ * ink-safe accent here.
+ */
+.zcard--dark {
+  --text: var(--titanium);
+  --body: rgba(244, 245, 246, 0.76);
+  --muted: rgba(244, 245, 246, 0.54);
+  --border: rgba(244, 245, 246, 0.18);
+  --border-strong: rgba(244, 245, 246, 0.34);
+  --surface: rgba(244, 245, 246, 0.04);
+  --surface-2: rgba(244, 245, 246, 0.07);
+  --grid: rgba(244, 245, 246, 0.06);
+  --teal: var(--volt);
+  --teal-700: var(--volt-soft);
+  --teal-50: color-mix(in srgb, var(--volt) 14%, transparent);
+
+  background: var(--carbon);
+  color: var(--titanium);
+}
+
+.zcard--panel {
+  background: var(--surface);
+}
+
+.zcard__inner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  will-change: transform;
+}
+
+.zcard__body {
+  max-width: 1240px;
+  margin: 0 auto;
+  /* The fixed header and HUD overlay the cards, so every card reserves their
+     height rather than sliding content under them. */
+  padding: calc(var(--header-h) + 34px) 28px calc(var(--hud-h) + 34px);
+}
+
+.zcard__body--center {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Full-bleed cards fill the viewport themselves and position their own content,
+   so they need a sized containing block rather than the padded container. */
+.zcard__body--bleed {
+  position: relative;
+  max-width: none;
+  min-height: 100svh;
+  padding: 0;
+}
+
+/* Static mode: reduced motion, and the shape the page takes if the engine
+   never runs. Cards become ordinary stacked sections. */
+@media (prefers-reduced-motion: reduce) {
+  .zcard {
+    position: relative;
+    width: 100%;
+    height: auto;
+    min-height: 0;
+    transform: none !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    box-shadow: none;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .zcard__inner {
+    position: relative;
+    transform: none !important;
+  }
+
+  .zcard__body--center {
+    min-height: 0;
+  }
+
+  .zstack__spacer {
+    display: none;
+  }
+}
+
+/* ---------- the HUD signature bar ---------- */
+
+.hud {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: var(--hud-h);
+  z-index: 9000;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 0 clamp(16px, 4vw, 40px);
+  background: color-mix(in srgb, var(--bg) 84%, transparent);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-top: 1px solid var(--border);
+}
+
+.hud__brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text);
+  white-space: nowrap;
+}
+
+.hud__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--volt);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--text) 30%, transparent);
+  flex: none;
+}
+
+.hud__section {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+}
+
+.hud__progress {
+  flex: 1;
+  min-width: 60px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.hud__track {
+  flex: 1;
+  height: 2px;
+  background: var(--border);
+  position: relative;
+  overflow: hidden;
+}
+
+.hud__fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 0;
+  background: var(--volt);
+}
+
+.hud__pct {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text);
+  min-width: 42px;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.hud__nav {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-left: 18px;
+  border-left: 1px solid var(--border);
+}
+
+.hud__arrow {
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+  transition:
+    background 0.4s var(--ease-silk),
+    border-color 0.4s var(--ease-silk),
+    opacity 0.4s var(--ease-silk);
+}
+
+.hud__arrow svg {
+  width: 13px;
+  height: 13px;
+  display: block;
+}
+
+.hud__arrow:hover:not(:disabled) {
+  background: var(--volt);
+  border-color: var(--volt);
+  color: var(--volt-ink);
+}
+
+.hud__arrow:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.hud__arrow:focus-visible {
+  outline: 2px solid var(--volt);
+  outline-offset: 2px;
+}
+
+/* As the bar narrows, the readouts drop in order of usefulness: the exact
+   percentage first, then the brand — on a phone, knowing which section you are
+   in matters more than seeing the department's name a second time. */
+@media (max-width: 860px) {
+  .hud__pct {
+    display: none;
+  }
+}
+
+@media (max-width: 620px) {
+  .hud__brand {
+    display: none;
+  }
+
+  .hud {
+    gap: 14px;
+  }
+
+  .hud__nav {
+    padding-left: 12px;
+  }
+}
+
+@keyframes nx-menu-in {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ---------- Nexus surface primitives ---------- */
+
+/* Hairline-ruled panel: the system's only container. No radius, no shadow —
+   separation comes from 1px of steel and from the ground shifting. */
+.nx-panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 22px 24px;
+}
+
+.nx-panel--flush {
+  padding: 0;
+}
+
+/* A panel with the accent driven in on its leading edge, for anything that
+   reads as "selected" or "primary". */
+.nx-panel--marked {
+  border-left: 2px solid var(--volt);
+}
+
+/* Monospaced telemetry label. Nexus numbers its sections, so most headings are
+   preceded by one of these. */
+.nx-tag {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* The hero eyebrow: carbon text knocked out of a solid volt block. */
+.nx-chip {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--volt-ink);
+  background: var(--volt);
+  padding: 7px 14px 7px 18px;
+}
+
+/* Engineering grid, used behind hero and closing cards. */
+.nx-grid-bg {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 80px 80px;
+  pointer-events: none;
+}
+
+/* Crosshair rules and the pulsing node marker from Nexus card 2. */
+.nx-crosshair-v,
+.nx-crosshair-h {
+  position: absolute;
+  background: color-mix(in srgb, var(--text) 16%, transparent);
+  pointer-events: none;
+}
+
+.nx-crosshair-v {
+  top: 0;
+  bottom: 0;
+  width: 1px;
+}
+
+.nx-crosshair-h {
+  left: 0;
+  right: 0;
+  height: 1px;
+}
+
+.nx-node {
+  position: absolute;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: var(--volt);
+  transform: translate(-50%, -50%);
+  box-shadow:
+    0 0 0 6px color-mix(in srgb, var(--volt) 22%, transparent),
+    0 0 22px 4px color-mix(in srgb, var(--volt) 70%, transparent);
+  animation: nx-node-pulse 2.6s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes nx-node-pulse {
+  0%,
+  100% {
+    box-shadow:
+      0 0 0 6px color-mix(in srgb, var(--volt) 22%, transparent),
+      0 0 22px 4px color-mix(in srgb, var(--volt) 70%, transparent);
+  }
+  50% {
+    box-shadow:
+      0 0 0 12px color-mix(in srgb, var(--volt) 10%, transparent),
+      0 0 34px 8px color-mix(in srgb, var(--volt) 85%, transparent);
+  }
+}
+
+/* Floating translucent slabs behind the hero (Nexus's glass shapes). */
+.nx-glass {
+  position: absolute;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  background: color-mix(in srgb, var(--surface) 45%, transparent);
+  border: 1px solid var(--border);
+  pointer-events: none;
+}
+
+/* The template centres its hero, so its slabs sit out at both margins. This
+   hero is left-aligned, so all three are kept on the right, clear of the type. */
+.nx-glass--a {
+  width: 220px;
+  height: 220px;
+  top: 8%;
+  right: 6%;
+  animation: nx-bob-a 9s ease-in-out infinite;
+}
+
+.nx-glass--b {
+  width: 150px;
+  height: 150px;
+  bottom: 14%;
+  right: 22%;
+  border-radius: 50%;
+  animation: nx-bob-b 7s ease-in-out infinite;
+}
+
+.nx-glass--c {
+  width: 110px;
+  height: 110px;
+  top: 44%;
+  right: 30%;
+  transform: rotate(18deg);
+  animation: nx-bob-c 11s ease-in-out infinite;
+}
+
+/* Below the point where the hero text would run under them, they go. */
+@media (max-width: 1080px) {
+  .nx-glass {
+    display: none;
+  }
+}
+
+@keyframes nx-bob-a {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-26px);
+  }
+}
+
+@keyframes nx-bob-b {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(22px);
+  }
+}
+
+@keyframes nx-bob-c {
+  0%,
+  100% {
+    transform: translateY(0) rotate(18deg);
+  }
+  50% {
+    transform: translateY(-18px) rotate(24deg);
+  }
+}
+
+@media (max-width: 900px) {
+  .nx-glass--a {
+    width: 140px;
+    height: 140px;
+    left: 3%;
+  }
+  .nx-glass--b {
+    width: 100px;
+    height: 100px;
+    right: 5%;
+  }
+  .nx-glass--c {
+    width: 76px;
+    height: 76px;
+    right: 12%;
+  }
+}
+
+/* The hero's scroll invitation, with the dropping hairline from the template. */
+.nx-scroll-hint {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.nx-scroll-hint::after {
+  content: '';
+  width: 1px;
+  height: 32px;
+  background: linear-gradient(to bottom, var(--text), transparent);
+  animation: nx-hint-drop 2.2s var(--ease-silk) infinite;
+}
+
+@keyframes nx-hint-drop {
+  0% {
+    transform: scaleY(0);
+    transform-origin: top;
+  }
+  55% {
+    transform: scaleY(1);
+    transform-origin: top;
+  }
+  56% {
+    transform-origin: bottom;
+  }
+  100% {
+    transform: scaleY(0);
+    transform-origin: bottom;
+  }
+}
+
+/* ---------- the kinetic accordion (Nexus card 3) ---------- */
+
+.nx-accordion {
+  display: flex;
+  width: 100%;
+  min-height: 420px;
+  border: 1px solid var(--border);
+  border-right: none;
+}
+
+.nx-slice {
+  position: relative;
+  flex: 1 1 0;
+  min-width: 0;
+  overflow: hidden;
+  border-right: 1px solid var(--border);
+  background: var(--surface);
+  transition: flex-grow 1.2s var(--ease-silk);
+  cursor: pointer;
+  text-align: left;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+}
+
+.nx-slice--active {
+  flex-grow: 3.4;
+}
+
+.nx-slice__shade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(13, 14, 21, 0.88), rgba(13, 14, 21, 0.1) 62%);
+  opacity: 0;
+  transition: opacity 1.2s var(--ease-silk);
+}
+
+.nx-slice--active .nx-slice__shade {
+  opacity: 1;
+}
+
+.nx-slice__wash {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transform: scale(1.06);
+  transition:
+    opacity 1.2s var(--ease-silk),
+    transform 1.2s var(--ease-silk);
+}
+
+.nx-slice--active .nx-slice__wash {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.nx-slice__idle {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 0;
+  transition: opacity 0.6s var(--ease-silk);
+}
+
+.nx-slice--active .nx-slice__idle {
+  opacity: 0;
+}
+
+.nx-slice__idle-title {
+  writing-mode: vertical-rl;
+  font-family: var(--font-sans);
+  font-size: clamp(15px, 1.7vw, 19px);
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  color: var(--text);
+}
+
+.nx-slice__reveal {
+  position: absolute;
+  left: 26px;
+  right: 26px;
+  bottom: 26px;
+  color: var(--titanium);
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity 1.2s var(--ease-silk),
+    transform 1.2s var(--ease-silk);
+}
+
+.nx-slice--active .nx-slice__reveal {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.nx-slice:focus-visible {
+  outline: 2px solid var(--volt);
+  outline-offset: -2px;
+}
+
+@media (max-width: 900px) {
+  .nx-accordion {
+    flex-direction: column;
+    border-right: 1px solid var(--border);
+    min-height: 0;
+  }
+
+  .nx-slice {
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+    min-height: 68px;
+  }
+
+  .nx-slice:last-child {
+    border-bottom: none;
+  }
+
+  .nx-slice--active {
+    min-height: 300px;
+  }
+
+  .nx-slice__idle {
+    flex-direction: row;
+    align-items: center;
+    padding: 0 20px;
+  }
+
+  .nx-slice__idle-title {
+    writing-mode: horizontal-tb;
+    letter-spacing: 0.06em;
+  }
+
+  .nx-slice__reveal {
+    left: 20px;
+    right: 20px;
+    bottom: 20px;
+  }
+}
+
+/* ---------- matrix tabs (Nexus card 4) ---------- */
+
+.nx-tab {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 18px 22px;
+  border: none;
+  border-left: 2px solid var(--border);
+  background: none;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+  transition:
+    border-color 0.5s var(--ease-silk),
+    background 0.5s var(--ease-silk);
+}
+
+.nx-tab__num {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--muted);
+  transition: color 0.5s var(--ease-silk);
+}
+
+.nx-tab__name {
+  font-family: var(--font-sans);
+  font-size: clamp(16px, 1.8vw, 20px);
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  color: color-mix(in srgb, var(--text) 55%, transparent);
+  transition: color 0.5s var(--ease-silk);
+}
+
+.nx-tab__body {
+  margin-top: 8px;
+  font-size: 13.5px;
+  line-height: 1.7;
+  color: var(--muted);
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition:
+    max-height 0.7s var(--ease-silk),
+    opacity 0.7s var(--ease-silk);
+}
+
+.nx-tab--active {
+  border-left-color: var(--volt);
+  background: var(--volt-wash);
+}
+
+.nx-tab--active .nx-tab__num {
+  color: var(--teal);
+}
+
+.nx-tab--active .nx-tab__name {
+  color: var(--text);
+}
+
+.nx-tab--active .nx-tab__body {
+  max-height: 220px;
+  opacity: 1;
+}
+
+.nx-tab:focus-visible {
+  outline: 2px solid var(--volt);
+  outline-offset: -2px;
+}
+
+@media (max-width: 720px) {
+  .zcard__body {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+}

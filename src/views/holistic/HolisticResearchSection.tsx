@@ -10,13 +10,13 @@ import { Reveal } from '@/components/common/Reveal';
 import { Eyebrow } from '@/components/common/Eyebrow';
 import { KpiCard } from '@/components/common/KpiCard';
 
-const TEAL = '#4f8c7d';
-const SLATE = '#5E7A8C';
+const TEAL = 'var(--c-holistic)';
+const SLATE = 'var(--c-skills)';
 
 function Legend({ color, label }: { color: string; label: string }) {
   return (
     <span style={{ display: 'inline-flex', alignItems: 'center', gap: 7, fontSize: 12.5, color: 'var(--muted)' }}>
-      <span style={{ width: 10, height: 10, borderRadius: 3, background: color, flex: 'none' }} />
+      <span style={{ width: 10, height: 10, background: color, flex: 'none' }} />
       {label}
     </span>
   );
@@ -45,7 +45,7 @@ function YearBar({
     >
       <span
         style={{
-          fontFamily: "'IBM Plex Sans', sans-serif",
+          fontFamily: 'var(--font-sans)',
           fontWeight: 700,
           fontSize: 13.5,
           color: 'var(--muted)',
@@ -60,8 +60,7 @@ function YearBar({
             style={{
               width: `${(clinical / max) * 100}%`,
               background: SLATE,
-              borderRadius: edu > 0 ? '5px 0 0 5px' : 5,
-            }}
+              }}
           />
         )}
         {edu > 0 && (
@@ -70,14 +69,13 @@ function YearBar({
               width: `${(edu / max) * 100}%`,
               minWidth: 5,
               background: TEAL,
-              borderRadius: clinical > 0 ? '0 5px 5px 0' : 5,
-            }}
+              }}
           />
         )}
       </span>
       <span
         style={{
-          fontFamily: "'IBM Plex Sans', sans-serif",
+          fontFamily: 'var(--font-sans)',
           fontWeight: 700,
           fontSize: 13.5,
           color: 'var(--text)',
@@ -106,7 +104,7 @@ function PaperEntry({
     <div>
       <div
         style={{
-          fontFamily: "'Noto Sans TC', sans-serif",
+          fontFamily: 'var(--font-sans)',
           fontWeight: 700,
           fontSize: 15.5,
           lineHeight: 1.55,
@@ -121,7 +119,6 @@ function PaperEntry({
             fontSize: 12,
             fontWeight: 600,
             padding: '4px 11px',
-            borderRadius: 999,
             color: TEAL,
             background: `color-mix(in srgb,${TEAL} 12%,transparent)`,
           }}
@@ -146,12 +143,12 @@ export function HolisticResearchSection() {
   const years = [...new Set(HOLISTIC_EDU_PAPERS.map((p) => p.year))].sort((a, b) => b - a);
 
   return (
-    <section id="h-research" style={{ maxWidth: 1240, margin: '0 auto', padding: '20px 28px 40px' }}>
+    <section id="h-research" >
       <Reveal style={{ marginBottom: 26 }}>
         <Eyebrow>{research.eyebrow}</Eyebrow>
         <h2
           style={{
-            fontFamily: "'Noto Sans TC', sans-serif",
+            fontFamily: 'var(--font-sans)',
             fontWeight: 900,
             fontSize: 28,
             color: 'var(--text)',
@@ -176,7 +173,6 @@ export function HolisticResearchSection() {
         <Reveal
           style={{
             padding: '24px 26px',
-            borderRadius: 16,
             background: 'var(--surface)',
             border: '1px solid var(--border)',
             boxShadow: 'var(--shadow-card)',
@@ -185,7 +181,7 @@ export function HolisticResearchSection() {
           <div style={{ display: 'flex', alignItems: 'baseline', gap: 8 }}>
             <span
               style={{
-                fontFamily: "'IBM Plex Sans', sans-serif",
+                fontFamily: 'var(--font-sans)',
                 fontWeight: 700,
                 fontSize: 54,
                 lineHeight: 1,
@@ -208,7 +204,7 @@ export function HolisticResearchSection() {
         <div>
           <div
             style={{
-              fontFamily: "'Noto Sans TC', sans-serif",
+              fontFamily: 'var(--font-sans)',
               fontWeight: 700,
               fontSize: 14,
               color: 'var(--text)',
@@ -228,7 +224,7 @@ export function HolisticResearchSection() {
       <Reveal style={{ marginBottom: 18 }}>
         <h3
           style={{
-            fontFamily: "'Noto Sans TC', sans-serif",
+            fontFamily: 'var(--font-sans)',
             fontWeight: 800,
             fontSize: 20,
             color: 'var(--text)',
@@ -237,7 +233,7 @@ export function HolisticResearchSection() {
             gap: 10,
           }}
         >
-          <span style={{ width: 5, height: 22, borderRadius: 3, background: TEAL }} />
+          <span style={{ width: 5, height: 22, background: TEAL }} />
           {research.eduTitle}
         </h3>
         <p style={{ fontSize: 14, lineHeight: 1.75, color: 'var(--muted)', maxWidth: 640, marginTop: 8 }}>
@@ -264,7 +260,7 @@ export function HolisticResearchSection() {
             >
               <div
                 style={{
-                  fontFamily: "'IBM Plex Sans', sans-serif",
+                  fontFamily: 'var(--font-sans)',
                   fontWeight: 800,
                   fontSize: 26,
                   color: TEAL,
@@ -292,7 +288,7 @@ export function HolisticResearchSection() {
       <Reveal style={{ marginBottom: 18 }}>
         <h3
           style={{
-            fontFamily: "'Noto Sans TC', sans-serif",
+            fontFamily: 'var(--font-sans)',
             fontWeight: 800,
             fontSize: 20,
             color: 'var(--text)',
@@ -301,7 +297,7 @@ export function HolisticResearchSection() {
             gap: 10,
           }}
         >
-          <span style={{ width: 5, height: 22, borderRadius: 3, background: SLATE }} />
+          <span style={{ width: 5, height: 22, background: SLATE }} />
           {research.clinicalTitle}
         </h3>
         <p style={{ fontSize: 14, lineHeight: 1.75, color: 'var(--muted)', maxWidth: 640, marginTop: 8 }}>
@@ -321,7 +317,7 @@ export function HolisticResearchSection() {
             key={stat.label}
             num={stat.num}
             label={stat.label}
-            color={i === 0 ? SLATE : i === 1 ? TEAL : '#B69B66'}
+            color={i === 0 ? SLATE : i === 1 ? TEAL : 'var(--c-ebm)'}
             delay={i * 70}
           />
         ))}

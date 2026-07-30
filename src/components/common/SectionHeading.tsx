@@ -29,7 +29,7 @@ export function SectionHeading({
       {eyebrow && <Eyebrow color={eyebrowColor}>{eyebrow}</Eyebrow>}
       <h2
         style={{
-          fontFamily: "'Noto Sans TC', sans-serif",
+          fontFamily: 'var(--font-sans)',
           fontWeight: 900,
           fontSize: 'clamp(26px,3vw,34px)',
           color: 'var(--text)',

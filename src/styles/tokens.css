@@ -1,36 +1,126 @@
-/* Morandi Clinical BI — design tokens (ported from the original design component) */
+/*
+ * Nexus Clinical — design tokens.
+ *
+ * Adapted from the Nexus System industrial-tech design language: brushed
+ * titanium ground, carbon ink, hairline steel rules, no shadows, no radii, and
+ * a single high-voltage accent. The template's acid lime (#D1FF00) is retuned
+ * to the department's own hue — the brand teal #4f8c7d sits at ~165deg, so the
+ * accent is that same hue pushed to neon ("volt mint"). It keeps the acid
+ * energy while staying recognisably the hospital's colour.
+ *
+ * Every token is defined twice: `:root` (light) and `[data-theme='dark']`.
+ * The dark block is not a mechanical inversion — light Nexus is titanium with
+ * carbon ink and volt reserved for fills, while dark Nexus is carbon with
+ * titanium ink and volt free to act as text, because neon reads cleanly on
+ * carbon but not on titanium.
+ */
 :root {
-  --teal: #4f8c7d;
-  --teal-700: #3a6b5f;
-  --teal-50: #e6f0ec;
-  --teal-glow: rgba(79, 140, 125, 0.5);
-  --bg: #f4f6f4;
-  --bg2: #efebe6;
+  /* --- Nexus base palette ------------------------------------------------ */
+  --titanium: #f4f5f6;
+  --carbon: #0d0e15;
+  --graphite: #1a1d1a;
+  --steel: #d9e0e4;
+
+  /* --- The accent ("volt") ----------------------------------------------- */
+  /* Fill colour: only ever used behind `--volt-ink`, never as text on the page
+     ground, where neon mint would fail contrast. */
+  --volt: #00e6a2;
+  --volt-soft: #7cf3d0;
+  --volt-ink: #0d0e15;
+  --volt-line: rgba(0, 230, 162, 0.42);
+  --volt-wash: rgba(0, 230, 162, 0.1);
+
+  /* --- Semantic surfaces -------------------------------------------------- */
+  --bg: #f4f5f6;
+  --bg2: #eceef0;
   --surface: #ffffff;
-  --surface-2: #fbfaf8;
-  --border: #dcd9d2;
-  --grid: #e6e2dc;
-  --text: #2a2e2b;
-  --body: #4a4540;
-  --muted: #827c73;
-  --shadow-card: 0 1px 2px rgba(74, 69, 64, 0.05);
-  --shadow-lift: 0 18px 40px rgba(46, 55, 50, 0.16);
+  --surface-2: #f7f8f9;
+  --border: #d9e0e4;
+  --border-strong: #b9c3c9;
+  --grid: #e3e8eb;
+  --text: #0d0e15;
+  --body: #4b515c;
+  --muted: #6a7077;
+
+  /* --- Legacy brand aliases ---------------------------------------------- */
+  /* The views were authored against `--teal*`. Rather than rename hundreds of
+     call sites, the aliases are re-pointed at the volt system: `--teal` is the
+     ink-safe accent (deep volt) and `--volt` the neon fill. */
+  --teal: #04795a;
+  --teal-700: #045740;
+  --teal-50: #e2faf2;
+  --teal-glow: rgba(0, 230, 162, 0.34);
+
+  /* --- Per-center accents ------------------------------------------------- */
+  /* Derived from the same instrument-panel system: saturated telemetry hues,
+     held dark enough in light mode to read as text on titanium. */
+  --c-facdev: #0069b3;
+  --c-skills: #5638d1;
+  --c-ebm: #9c6500;
+  --c-holistic: #04795a;
+  --c-research: #55730a;
+  --c-admin: #59626e;
+
+  /* Deep grounds for the full-bleed hero panels. */
+  --ink-ebm: #10161d;
+  --ink-facdev: #171310;
+
+  /* --- Depth ------------------------------------------------------------- */
+  /* Nexus is a flat, hairline-ruled system: panels are separated by 1px steel,
+     not by shadow. Only the z-depth stack itself casts anything. */
+  --shadow-card: none;
+  --shadow-lift: none;
+  --shadow-stack: 0 -24px 60px rgba(13, 14, 21, 0.14);
+
+  /* --- Metrics & motion --------------------------------------------------- */
+  --hud-h: 56px;
+  --header-h: 58px;
+  --ease-silk: cubic-bezier(0.16, 1, 0.3, 1);
+
+  --font-sans: 'Plus Jakarta Sans', 'Noto Sans TC', sans-serif;
+  --font-mono: 'JetBrains Mono', 'IBM Plex Mono', monospace;
 }
 
 [data-theme='dark'] {
-  --teal: #6db5a1;
-  --teal-700: #8fcab8;
-  --teal-50: #1a2a25;
-  --teal-glow: rgba(109, 181, 161, 0.4);
-  --bg: #161b18;
-  --bg2: #1b211d;
-  --surface: #1f2622;
-  --surface-2: #252d28;
-  --border: #333c36;
-  --grid: #2a322d;
-  --text: #ece9e3;
-  --body: #cbc6bd;
-  --muted: #8f8a80;
-  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.4);
-  --shadow-lift: 0 18px 44px rgba(0, 0, 0, 0.55);
+  --titanium: #f4f5f6;
+  --carbon: #0d0e15;
+  --graphite: #1a1d1a;
+  --steel: #2a3038;
+
+  /* On carbon the accent can carry text as well as fill, so it runs brighter. */
+  --volt: #2dffc4;
+  --volt-soft: #9dffe4;
+  --volt-ink: #0d0e15;
+  --volt-line: rgba(45, 255, 196, 0.4);
+  --volt-wash: rgba(45, 255, 196, 0.08);
+
+  --bg: #0d0e15;
+  --bg2: #101219;
+  --surface: #14171f;
+  --surface-2: #191d26;
+  --border: #2a3038;
+  --border-strong: #3d454f;
+  --grid: #1c2029;
+  --text: #f4f5f6;
+  --body: #b4bcc6;
+  --muted: #7d848f;
+
+  --teal: #2dffc4;
+  --teal-700: #9dffe4;
+  --teal-50: #0d2b24;
+  --teal-glow: rgba(45, 255, 196, 0.28);
+
+  --c-facdev: #3fb0ff;
+  --c-skills: #a38bff;
+  --c-ebm: #ffbe3d;
+  --c-holistic: #2dffc4;
+  --c-research: #b9e845;
+  --c-admin: #98a2ae;
+
+  --ink-ebm: #0a0d12;
+  --ink-facdev: #100d0a;
+
+  --shadow-card: none;
+  --shadow-lift: none;
+  --shadow-stack: 0 -24px 60px rgba(0, 0, 0, 0.6);
 }

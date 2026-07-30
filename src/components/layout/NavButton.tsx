@@ -18,11 +18,10 @@ export function NavButton({ label, onClick }: NavButtonProps) {
         border: 'none',
         background: hover ? 'var(--teal-50)' : 'none',
         cursor: 'pointer',
-        fontFamily: "'Noto Sans TC', sans-serif",
+        fontFamily: 'var(--font-sans)',
         fontWeight: 600,
         fontSize: 14,
         color: hover ? 'var(--teal)' : 'var(--body)',
-        borderRadius: 8,
         transition: 'color .2s,background .2s',
       }}
     >

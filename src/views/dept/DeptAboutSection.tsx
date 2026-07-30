@@ -33,7 +33,7 @@ export function DeptAboutSection() {
   ];
 
   return (
-    <section id="about" style={{ maxWidth: 1240, margin: '0 auto', padding: '46px 28px' }}>
+    <section id="about" >
       <SectionHeading
         eyebrow="About Us"
         title={isZh ? '認識教學部' : 'About the Department'}
@@ -47,16 +47,15 @@ export function DeptAboutSection() {
             delay={index * 80}
             style={{
               padding: '26px 24px',
-              borderRadius: 17,
               border: '1px solid var(--border)',
               background: 'var(--surface)',
               boxShadow: 'var(--shadow-card)',
             }}
           >
-            <span style={{ width: 40, height: 40, display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: 11, color: 'var(--teal)', background: 'var(--teal-50)', marginBottom: 16 }}>
+            <span style={{ width: 40, height: 40, display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--teal)', background: 'var(--teal-50)', marginBottom: 16 }}>
               <Icon name={card.icon} />
             </span>
-            <h3 style={{ fontFamily: "'Noto Sans TC', sans-serif", fontSize: 19, color: 'var(--text)', marginBottom: 9 }}>
+            <h3 style={{ fontFamily: 'var(--font-sans)', fontSize: 19, color: 'var(--text)', marginBottom: 9 }}>
               {card.title}
             </h3>
             <p style={{ fontSize: 14.5, lineHeight: 1.75, color: 'var(--body)' }}>{card.body}</p>

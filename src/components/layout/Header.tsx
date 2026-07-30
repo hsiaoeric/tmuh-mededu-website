@@ -158,20 +158,25 @@ export function Header() {
     <header
       ref={headerRef}
       style={{
-        position: 'sticky',
+        // Fixed, not sticky: the cards below are themselves fixed, so there is
+        // no scrolling flow for a sticky element to stick within.
+        position: 'fixed',
         top: 0,
-        zIndex: 50,
-        backdropFilter: 'saturate(1.4) blur(14px)',
-        background: 'color-mix(in srgb,var(--surface) 88%,transparent)',
+        left: 0,
+        right: 0,
+        height: 'var(--header-h)',
+        zIndex: 9100,
+        backdropFilter: 'blur(12px)',
+        background: 'color-mix(in srgb,var(--bg) 84%,transparent)',
         borderBottom: '1px solid var(--border)',
-        width: '100%',
       }}
     >
       <div
         style={{
           maxWidth: 1240,
+          height: '100%',
           margin: '0 auto',
-          padding: '8px 16px',
+          padding: '0 clamp(16px,4vw,40px)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
@@ -198,23 +203,23 @@ export function Header() {
             overflow: 'hidden',
           }}
         >
-          <TmuhLogo size={36} />
+          <TmuhLogo size={30} />
           <div
             style={{
               display: 'flex',
               flexDirection: 'column',
-              lineHeight: 1.18,
+              lineHeight: 1.2,
               minWidth: 0,
               overflow: 'hidden',
             }}
           >
             <span
               style={{
-                fontFamily: "'Noto Sans TC', 'IBM Plex Sans', sans-serif",
+                fontFamily: 'var(--font-sans)',
                 fontWeight: 700,
-                fontSize: 14,
+                fontSize: 13.5,
                 color: 'var(--text)',
-                letterSpacing: '.01em',
+                letterSpacing: '-.01em',
                 whiteSpace: 'nowrap',
                 overflow: 'hidden',
                 textOverflow: 'ellipsis',
@@ -231,9 +236,9 @@ export function Header() {
             </span>
             <span
               style={{
-                fontFamily: "'IBM Plex Sans', sans-serif",
-                fontSize: 10,
-                letterSpacing: '.1em',
+                fontFamily: 'var(--font-mono)',
+                fontSize: 9.5,
+                letterSpacing: '.24em',
                 textTransform: 'uppercase',
                 color: 'var(--muted)',
                 whiteSpace: 'nowrap',
@@ -251,16 +256,16 @@ export function Header() {
             onClick={toggleLang}
             title="Language"
             style={{
-              padding: '5px 9px',
+              height: 30,
+              padding: '0 10px',
               border: '1px solid var(--border)',
               background: 'var(--surface)',
               cursor: 'pointer',
-              borderRadius: 999,
-              fontFamily: "'IBM Plex Sans', sans-serif",
-              fontWeight: 700,
-              fontSize: 11.5,
-              color: 'var(--teal-700)',
-              letterSpacing: '.04em',
+              fontFamily: 'var(--font-mono)',
+              fontWeight: 500,
+              fontSize: 11,
+              color: 'var(--text)',
+              letterSpacing: '.14em',
               display: 'flex',
               alignItems: 'center',
               gap: 3,
@@ -275,12 +280,11 @@ export function Header() {
             aria-label="theme"
             title="Theme"
             style={{
-              width: 32,
-              height: 32,
+              width: 30,
+              height: 30,
               border: '1px solid var(--border)',
               background: 'var(--surface)',
               cursor: 'pointer',
-              borderRadius: 999,
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -301,13 +305,12 @@ export function Header() {
             aria-label="Toggle Navigation Menu"
             title={isZh ? '選單' : 'Menu'}
             style={{
-              width: 32,
-              height: 32,
-              border: '1px solid var(--border)',
-              background: menuOpen ? 'var(--teal-50)' : 'var(--surface)',
-              color: menuOpen ? 'var(--teal)' : 'var(--text)',
+              width: 30,
+              height: 30,
+              border: `1px solid ${menuOpen ? 'var(--volt)' : 'var(--border)'}`,
+              background: menuOpen ? 'var(--volt)' : 'var(--surface)',
+              color: menuOpen ? 'var(--volt-ink)' : 'var(--text)',
               cursor: 'pointer',
-              borderRadius: 8,
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -329,21 +332,20 @@ export function Header() {
           style={{
             position: 'absolute',
             top: '100%',
-            right: 16,
+            right: 'clamp(16px,4vw,40px)',
             width: 'calc(100vw - 32px)',
-            maxWidth: 360,
-            marginTop: 6,
-            padding: 10,
+            maxWidth: 340,
+            marginTop: -1,
+            padding: 6,
             background: 'var(--surface)',
             border: '1px solid var(--border)',
-            borderRadius: 14,
-            boxShadow: '0 16px 36px rgba(0,0,0,0.12)',
+            borderTop: '2px solid var(--volt)',
             display: 'flex',
             flexDirection: 'column',
-            gap: 4,
-            maxHeight: 'calc(85vh - 70px)',
+            gap: 2,
+            maxHeight: 'calc(100svh - var(--header-h) - var(--hud-h) - 24px)',
             overflowY: 'auto',
-            animation: 'fadeInDown 0.18s cubic-bezier(0.16, 1, 0.3, 1)',
+            animation: 'nx-menu-in 0.22s var(--ease-silk)',
             zIndex: 100,
             boxSizing: 'border-box',
           }}
