@@ -1,6 +1,6 @@
-import type { IconName } from '@/components/common/Icon';
+import type { IconName } from '@/ui/Icon';
 import { person, type RawPerson } from './people';
-import type { CenterId } from '@/context/SiteContext';
+import type { CenterId } from './types';
 
 export interface CenterBranch {
   id: string;
@@ -31,7 +31,7 @@ export interface Center {
 }
 
 /** Lucide-style icon id per center. */
-export const CENTER_ICON: Record<CenterId, string> = {
+export const CENTER_ICON: Record<CenterId, IconName> = {
   faculty_dev: 'cap',
   clinical_skills: 'skills',
   ebm: 'chart',

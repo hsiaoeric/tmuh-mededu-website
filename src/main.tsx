@@ -1,9 +1,11 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
-import { SiteProvider } from '@/context/SiteContext';
-import { App } from '@/App';
-import '@/styles/global.css';
+import { SiteProvider } from '@/app/site';
+import { App } from '@/app/App';
+import '@/design/tokens.css';
+import '@/design/base.css';
+import '@/design/components.css';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

@@ -1,0 +1,92 @@
+/* ------------------------------------------------------------------ *
+ *  Living Tissue — design tokens
+ *
+ *  Every token is declared in BOTH blocks below (:root = light,
+ *  [data-theme='dark']). Adding a token to only one theme is a bug.
+ * ------------------------------------------------------------------ */
+
+:root {
+  /* Surfaces — warm bone paper */
+  --bg: #f2efe8;
+  --bg-deep: #e8e4db;
+  --surface: #fbfaf6;
+  --surface-2: #f6f3ec;
+  --surface-sunk: #ebe7de;
+  --line: #ded8cb;
+  --line-soft: #e9e4d9;
+
+  /* Ink */
+  --ink: #16211d;
+  --body: #46504a;
+  --muted: #7d857e;
+  --faint: #a8afa7;
+
+  /* Bioluminescent jade */
+  --accent: #2f7d68;
+  --accent-bright: #3d9b81;
+  --accent-deep: #1d5647;
+  --accent-wash: #e3ece7;
+  --accent-veil: rgba(47, 125, 104, 0.1);
+
+  /* Warm counterpoint */
+  --amber: #a9752f;
+  --amber-wash: #f3ead9;
+
+  /* On-accent text */
+  --on-accent: #f7fbf9;
+
+  /* Depth */
+  --shadow-sm: 0 1px 2px rgba(30, 42, 36, 0.06);
+  --shadow-md: 0 10px 30px -12px rgba(30, 42, 36, 0.22);
+  --shadow-lg: 0 34px 70px -28px rgba(24, 38, 32, 0.35);
+  --glow: 0 0 60px -12px rgba(47, 125, 104, 0.35);
+
+  /* WebGL field — read by the shader, comma-free rgb triplets */
+  --field-a: 0.949 0.937 0.910;
+  --field-b: 0.921 0.929 0.906;
+  --field-c: 0.184 0.490 0.408;
+  --field-strength: 0.55;
+
+  /* Chrome */
+  --nav-h: 74px;
+  --edge: clamp(20px, 5vw, 76px);
+  --measure: 1320px;
+  --radius: 4px;
+  --radius-lg: 8px;
+}
+
+[data-theme='dark'] {
+  --bg: #0b100e;
+  --bg-deep: #070b0a;
+  --surface: #121917;
+  --surface-2: #16211d;
+  --surface-sunk: #0e1412;
+  --line: #24302b;
+  --line-soft: #1b2521;
+
+  --ink: #eef1ec;
+  --body: #b6bfb8;
+  --muted: #808b84;
+  --faint: #5b665f;
+
+  --accent: #58c9a6;
+  --accent-bright: #7ee0c0;
+  --accent-deep: #2b8a71;
+  --accent-wash: #10201b;
+  --accent-veil: rgba(88, 201, 166, 0.12);
+
+  --amber: #d9a463;
+  --amber-wash: #211a10;
+
+  --on-accent: #05100c;
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 10px 30px -12px rgba(0, 0, 0, 0.6);
+  --shadow-lg: 0 34px 70px -28px rgba(0, 0, 0, 0.8);
+  --glow: 0 0 70px -10px rgba(88, 201, 166, 0.32);
+
+  --field-a: 0.043 0.063 0.055;
+  --field-b: 0.059 0.086 0.075;
+  --field-c: 0.345 0.788 0.651;
+  --field-strength: 1;
+}

@@ -22,25 +22,32 @@ npm run preview    # 在本機預覽 build 後的成果
 
 ```
 src/
-├─ main.tsx                  進入點（掛上路由 BrowserRouter + 全域 Provider）
-├─ App.tsx                   依目前網址顯示對應頁面
-├─ context/SiteContext.tsx   全域狀態：語言、主題、目前頁面、網址 ↔ 頁面對應
+├─ main.tsx                  進入點（BrowserRouter + SiteProvider）
+├─ app/
+│  ├─ App.tsx                版面外框與路由表
+│  ├─ site.tsx               全域狀態：語言、主題（皆會記憶在瀏覽器）
+│  ├─ routes.ts              網址 ↔ 中心的對應、舊網址轉址
+│  └─ navigation.ts          跨頁錨點跳轉、換頁捲動歸零
 ├─ i18n/                     ★ 介面文字（中英）：zh.ts / en.ts
 ├─ data/                     ★ 網站內容（最常更新的地方）
 │  ├─ news.ts                公告 & 活動
 │  ├─ people.ts              人員（姓名、職稱、照片檔名）
 │  ├─ centers.ts             各中心基本資料、聯絡方式
 │  ├─ kpis.ts                教學部首頁的數據
-│  ├─ holistic.ts / ebm.ts / facdev.ts   各中心專頁內容
-├─ views/                    各頁面（DeptView 首頁 / HolisticView / EbmView / FacdevView / BuildingView）
-├─ components/
-│  ├─ common/                可重用元件（Eyebrow、PersonCard、KpiCard、SectionHeading…）
-│  └─ layout/                Header、Footer、NavDropdown、背景特效
-├─ hooks/                    捲動揭示、背景粒子效果
-└─ styles/
+│  ├─ deptAwards.ts          SNQ / NHQA 品質榮譽
+│  ├─ holisticPapers.ts      全院全人相關研究論文
+│  └─ holistic.ts / ebm.ts / facdev.ts   各中心專頁內容
+├─ pages/
+│  ├─ Home.tsx + home/       首頁各區塊（Hero、About、組織、五大中心、數據、公告、榮譽、聯絡）
+│  ├─ CenterPage.tsx         依網址分派到對應中心頁
+│  └─ centers/               HolisticPage / EbmPage / FacdevPage / GenericCenterPage
+├─ ui/                       共用元件（Nav、Footer、Icon、Person、Stats、組織圖…）
+├─ motion/                   動效：Lenis 平滑捲動、GSAP 進場、逐行標題、計數器、橫向捲動
+├─ webgl/                    背景「活體組織」著色器（three.js）
+└─ design/
    ├─ tokens.css             ★ 顏色、主題變數（改配色看這裡）
-   ├─ layout.css             ★ 共用版面：eyebrow 樣式、響應式格線
-   └─ global.css             全域基礎樣式與動畫
+   ├─ base.css               ★ 文字級距、共用格線、響應式斷點
+   └─ components.css         元件外觀（導覽列、卡片、表格、組織圖…）
 ```
 
 標 ★ 的是日後最常需要調整的檔案。
@@ -62,29 +69,31 @@ src/
 
 ### 3. 修改人員
 `src/data/people.ts`（共用）或各中心的 `centers.ts` / `holistic.ts` 等。
-照片放在 `public/`，`person(...)` 第 6、7 個參數是照片檔名（沒有照片會自動顯示姓名縮寫）。
+照片放在 `public/assets/`，檔名為 `<slug>.jpg`；`person(...)` 第 6 個參數就是這個 slug（沒有照片、或照片檔案不存在時，會自動改顯示姓名縮寫）。
 
 ### 4. 修改介面文字（按鈕、標題等）
 `src/i18n/zh.ts`（中文）與 `src/i18n/en.ts`（英文）。兩個檔的欄位（key）必須一致，少一個英文 build 時會報錯提醒。
 
 ### 5. 調整配色 / 主題
-`src/styles/tokens.css`，修改 CSS 變數即可，明暗兩套都在這裡。
+`src/design/tokens.css`，修改 CSS 變數即可，明暗兩套都在這裡。
+注意：**每個變數在 `:root`（淺色）與 `[data-theme='dark']`（深色）兩區塊都要有**，只改一邊會讓另一個主題壞掉。
+`--field-*` 這幾個變數是背景著色器的顏色，改配色時一併調整才會協調。
 
 ---
 
-## 版面與設計系統（B2）
+## 版面與設計系統
 
 為了「改一次、全站套用」，重複的樣式已收斂成共用資源：
 
-- **區塊小標**：用 `<Eyebrow>` 元件（`src/components/common/Eyebrow.tsx`），而不是每次貼一長串 inline 樣式。
-- **響應式格線**：用 `src/styles/layout.css` 的 class，例如
-  - `grid grid-2` / `grid-3` / `grid-4`：等寬欄，手機自動收合成單欄。
-  - `grid grid-sidebar`：左寬右窄（介紹＋側欄）。
-  - `grid grid-split`：左右各半。
-  - `grid grid-statcard` / `grid-rail`：公告日期欄、ALGEE 字母欄。
-  斷點集中在 `layout.css`，要調整手機/平板的收合行為改這裡即可。
+- **字級**：`display d1`–`d4`（大標）、`lede`、`prose`、`tiny`、`eyebrow`。中文字比英文字視覺上大得多，因此每一級都有 `:lang(zh-Hant)` 的專屬字級，切換語言時會自動套用。
+- **格線**：`grid` 搭配 `g2` / `g3` / `g4`（等寬欄）、`g-editorial`（左窄右寬）、`g-aside`、`auto-fit`、`grid-people`（人員卡）。斷點集中在 `design/base.css`。
+- **元件**：`card`、`panel`、`tag`、`stat`、`table`、`index-row`、`btn`、`tlink`。
+- **中心代表色**：來自 `data/centers.ts` 的 `color`，以 CSS 變數 `--tone` 往下傳，卡片、標籤、圖表會自動跟著變色。
 
----
+### 動效與無障礙
+
+平滑捲動（Lenis）、逐行標題進場、數字計數、橫向捲動章節都由 `src/motion/` 提供。
+**所有動效都會偵測系統的「減少動態效果」設定**：一旦開啟，平滑捲動、進場動畫與背景動畫都會停用，內容直接完整顯示。背景著色器在不支援 WebGL 時也會自動略過，只留下純色背景。
 
 ## 網址與路由（A2）
 
@@ -93,12 +102,15 @@ src/
 | 網址 | 頁面 |
 |------|------|
 | `/` | 教學部首頁 |
-| `/holistic` | 全人照護教育中心 |
-| `/ebm` | 實證醫學中心 |
-| `/facdev` | 教師發展中心 |
-| `/center/:id` | 尚未建置專頁的中心（佔位頁） |
+| `/centers/faculty-development` | 教師發展中心 |
+| `/centers/clinical-skills` | 臨床技能中心 |
+| `/centers/evidence-based-medicine` | 實證醫學中心 |
+| `/centers/holistic-care` | 全人照護教育中心 |
+| `/centers/medical-education-research` | 醫學教育研究中心 |
 
-網址 ↔ 頁面的對應集中在 `src/context/SiteContext.tsx`（`VIEW_PATH`、`parsePath`）。切換頁面時瀏覽器分頁標題也會自動更新。
+舊網址（`/holistic`、`/ebm`、`/facdev`、`/center/:id`）會自動轉到新網址，舊的連結與書籤仍然有效。
+
+網址 ↔ 中心的對應集中在 `src/app/routes.ts`。切換頁面時瀏覽器分頁標題也會自動更新。
 
 ---
 
@@ -149,5 +161,7 @@ Vercel 會自動重新 build 並上線，無需再手動操作。
 
 - 建置工具：Vite 5
 - 路由：react-router-dom 7
+- 動效：GSAP（ScrollTrigger / SplitText）+ Lenis
+- 背景：three.js 全螢幕著色器（獨立 chunk，載入首頁後才下載）
 - 語言：TypeScript（`npm run build` 會先做型別檢查，攔截錯字／漏欄位）
 - 無後端，內容皆為前端靜態資料（見 `src/data/`）

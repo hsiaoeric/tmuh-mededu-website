@@ -1,0 +1,406 @@
+/* ------------------------------------------------------------------ *
+ *  Living Tissue — reset, typography scale and layout primitives
+ * ------------------------------------------------------------------ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+/* Lenis drives scrolling; native smooth-scroll would fight it. */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+body {
+  background: var(--bg);
+  color: var(--body);
+  font-family: 'Inter', 'Noto Sans TC', system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.75;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  text-rendering: optimizeLegibility;
+}
+
+img,
+svg,
+canvas {
+  display: block;
+  max-width: 100%;
+}
+
+button,
+input,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent-bright);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* ---------------------------------------------------------------- *
+ *  Type
+ * ---------------------------------------------------------------- */
+
+.display {
+  font-family: 'Instrument Serif', 'Noto Serif TC', Georgia, serif;
+  font-weight: 400;
+  line-height: 0.98;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+/* Chinese glyphs fall through to Noto Serif TC, which needs more weight
+   and a looser line to hold the same optical size as the Latin serif. */
+.display:lang(zh-Hant) {
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: 0.005em;
+}
+
+/* Latin display sizes. Han glyphs are full-width and optically much larger at
+   the same point size, so every step gets a smaller :lang(zh-Hant) twin. */
+.d1 {
+  font-size: clamp(3rem, 9vw, 8rem);
+}
+.d2 {
+  font-size: clamp(2.2rem, 5.6vw, 4.4rem);
+}
+.d3 {
+  font-size: clamp(1.75rem, 3.2vw, 2.7rem);
+}
+.d4 {
+  font-size: clamp(1.3rem, 2vw, 1.75rem);
+  line-height: 1.25;
+}
+
+.d1:lang(zh-Hant) {
+  font-size: clamp(2.1rem, 5.4vw, 4.6rem);
+}
+.d2:lang(zh-Hant) {
+  font-size: clamp(1.65rem, 3.4vw, 2.9rem);
+}
+.d3:lang(zh-Hant) {
+  font-size: clamp(1.35rem, 2.2vw, 1.95rem);
+}
+.d4:lang(zh-Hant) {
+  font-size: clamp(1.05rem, 1.5vw, 1.3rem);
+}
+
+.eyebrow {
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.mono {
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-variant-numeric: tabular-nums;
+}
+
+.lede {
+  font-size: clamp(1.05rem, 1.5vw, 1.3rem);
+  line-height: 1.7;
+  color: var(--body);
+  font-weight: 300;
+}
+
+.prose {
+  font-size: 1rem;
+  line-height: 1.85;
+  color: var(--body);
+}
+
+.tiny {
+  font-size: 0.78rem;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+.ink {
+  color: var(--ink);
+}
+.accent {
+  color: var(--accent);
+}
+.italic {
+  font-style: italic;
+}
+
+/* ---------------------------------------------------------------- *
+ *  Layout
+ * ---------------------------------------------------------------- */
+
+.shell {
+  width: 100%;
+  max-width: var(--measure);
+  margin-inline: auto;
+  padding-inline: var(--edge);
+}
+
+.section {
+  position: relative;
+  padding-block: clamp(64px, 9vh, 118px);
+}
+
+.section-tight {
+  padding-block: clamp(48px, 7vh, 90px);
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+}
+.gap-1 {
+  gap: 8px;
+}
+.gap-2 {
+  gap: 16px;
+}
+.gap-3 {
+  gap: 26px;
+}
+.gap-4 {
+  gap: 40px;
+}
+.gap-5 {
+  gap: 64px;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+}
+.wrap {
+  flex-wrap: wrap;
+}
+.between {
+  justify-content: space-between;
+}
+.center {
+  justify-content: center;
+}
+.baseline {
+  align-items: baseline;
+}
+.start {
+  align-items: flex-start;
+}
+.grow {
+  flex: 1 1 auto;
+}
+
+.grid {
+  display: grid;
+  gap: clamp(18px, 2.4vw, 34px);
+}
+.g2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.g3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.g4 {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+.g-editorial {
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: clamp(28px, 5vw, 80px);
+}
+.g-aside {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2.1fr);
+  gap: clamp(24px, 4vw, 60px);
+}
+.auto-fit {
+  grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr));
+}
+.auto-fit-lg {
+  grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+}
+.auto-fit-sm {
+  grid-template-columns: repeat(auto-fit, minmax(min(170px, 100%), 1fr));
+}
+
+.measure {
+  max-width: 62ch;
+}
+/* `ch` is sized from the Latin "0", which is far narrower than a Han glyph —
+   headline measures therefore need an `em`-based twin for Chinese. */
+.title-measure {
+  max-width: 18ch;
+}
+.title-measure:lang(zh-Hant) {
+  max-width: 13em;
+}
+.hero-measure {
+  max-width: 14ch;
+}
+.hero-measure:lang(zh-Hant) {
+  max-width: 9.5em;
+}
+.measure-sm {
+  max-width: 46ch;
+}
+
+.sticky-col {
+  position: sticky;
+  top: calc(var(--nav-h) + 40px);
+  align-self: start;
+}
+
+.rule {
+  height: 1px;
+  background: var(--line);
+  border: 0;
+  width: 100%;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  z-index: 200;
+  padding: 10px 18px;
+  background: var(--accent);
+  color: var(--on-accent);
+  border-radius: var(--radius);
+  font-size: 0.85rem;
+  transform: translateY(-200%);
+  transition: transform 0.2s ease;
+}
+.skip-link:focus-visible {
+  transform: translateY(0);
+}
+
+/* ---------------------------------------------------------------- *
+ *  Motion primitives — the reveal hook animates these
+ * ---------------------------------------------------------------- */
+
+[data-reveal] {
+  will-change: transform, opacity;
+}
+
+.reveal-hidden {
+  opacity: 0;
+}
+
+.split-line {
+  display: block;
+  overflow: hidden;
+}
+.split-line > span {
+  display: block;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .reveal-hidden {
+    opacity: 1;
+  }
+}
+
+/* ---------------------------------------------------------------- *
+ *  Responsive
+ * ---------------------------------------------------------------- */
+
+@media (max-width: 1080px) {
+  .g4 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .g-editorial,
+  .g-aside {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .sticky-col {
+    position: static;
+  }
+}
+
+@media (max-width: 780px) {
+  :root {
+    --nav-h: 64px;
+  }
+  .g2,
+  .g3 {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .section {
+    padding-block: clamp(56px, 9vh, 90px);
+  }
+}
+
+@media (max-width: 520px) {
+  .g4 {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  body {
+    font-size: 15px;
+  }
+}
+
+/* People grids cap the card width: a portrait tile stretched across a wide
+   column dwarfs the name it belongs to. */
+.grid-people {
+  grid-template-columns: repeat(auto-fill, minmax(min(148px, 100%), 186px));
+  gap: clamp(16px, 2vw, 26px);
+}
