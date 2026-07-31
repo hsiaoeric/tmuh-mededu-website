@@ -5,6 +5,7 @@ import { useGoToSection } from '@/app/navigation';
 import { CENTER_ORDER, centerPath } from '@/app/routes';
 import { centerById } from '@/data/centers';
 import { setScrollLocked } from '@/motion/smoothScroll';
+import { assetUrl } from '@/utils/asset';
 import { Icon } from './Icon';
 
 interface SectionItem {
@@ -152,7 +153,7 @@ export function Nav() {
       <header className="nav" data-scrolled={scrolled}>
         <div className="nav-inner">
           <Link to="/" className="brand" aria-label={t.footBrand}>
-            <img className="brand-mark" src="/assets/tmuh-logo.svg" alt="" />
+            <img className="brand-mark" src={assetUrl('assets/tmuh-logo.svg')} alt="" />
             <span className="brand-text">
               <span className="brand-zh">{isZh ? t.brand1 : 'TMU Hospital'}</span>
               <span className="brand-en">

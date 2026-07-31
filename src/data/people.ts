@@ -1,4 +1,5 @@
 import type { Lang } from '@/i18n';
+import { assetUrl } from '@/utils/asset';
 
 /** Role keys mapped to [zh, en] labels. */
 export const ROLES = {
@@ -77,7 +78,7 @@ function initialsOf(en: string): string {
 
 /** Resolve an image slug to a public asset path. */
 export function resourceSrc(slug: string): string {
-  return slug ? `/assets/${slug}.jpg` : '';
+  return slug ? assetUrl(`assets/${slug}.jpg`) : '';
 }
 
 /** Factory mirroring the original `P(...)` helper. */

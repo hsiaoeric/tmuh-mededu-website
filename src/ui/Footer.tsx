@@ -6,6 +6,7 @@ import { centerById } from '@/data/centers';
 import { latestUpdate } from '@/data/news';
 import { MAIN_PHONE } from '@/utils/phone';
 import { Reveal } from '@/motion/Reveal';
+import { assetUrl } from '@/utils/asset';
 import { Icon } from './Icon';
 
 export function Footer() {
@@ -26,7 +27,7 @@ export function Footer() {
         <div className="grid g-aside">
           <div className="stack gap-3">
             <div className="row gap-2">
-              <img src="/assets/tmuh-logo.svg" alt="" style={{ width: 52, height: 52 }} />
+              <img src={assetUrl('assets/tmuh-logo.svg')} alt="" style={{ width: 52, height: 52 }} />
               <div className="stack">
                 <span style={{ fontFamily: "'Noto Sans TC', sans-serif", fontWeight: 700, color: 'var(--ink)' }}>
                   {isZh ? t.footBrand : t.footBrandEn}

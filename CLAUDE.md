@@ -23,7 +23,18 @@ There is **no test suite and no linter configured**. `npm run build` / `npm run 
 
 Because there are no tests, **visual changes need a browser check**. The Chrome DevTools MCP tools are the fastest route; check both themes and both languages, since the type scale and layout differ between them.
 
-Node 18+. Deployment is Vercel auto-deploy on push to `main` (`vercel.json` supplies the SPA rewrite; any other host needs an equivalent `/* → /index.html` fallback).
+Node 18+.
+
+### Deployment targets
+
+The build serves two hosts, and `vite.config.ts` keeps them compatible:
+
+- **Vercel** — auto-deploy on push to `main`; `vercel.json` supplies the SPA rewrite.
+- **GitHub Pages** — `.github/workflows/deploy.yml` on push to `main` or manual dispatch.
+
+`base` comes from `process.env.VITE_BASE`, defaulting to `/`. Only the Pages workflow sets it (to the repo sub-path), so **never hardcode `base`** — that silently breaks the other target. Pages cannot rewrite, so a build plugin copies `index.html` to `dist/404.html` for deep links.
+
+**Anything pointing at `public/` must go through `assetUrl()` (`src/utils/asset.ts`).** Vite rewrites asset URLs in index.html and in bundled imports, but not strings assembled at runtime — a literal `/assets/…` builds and looks fine locally, then 404s on Pages. Portraits fail *silently* there, falling back to initials, so this does not announce itself.
 
 ## Architecture
 
@@ -76,7 +87,7 @@ Han glyphs are full-width and read much larger than Latin at the same point size
 `person(zh, en, role, dZh, dEn, slug, hubId, dutyZh, dutyEn)` in `data/people.ts` builds a `RawPerson`; `resolvePerson(p, accent, lang)` turns it into render-ready data. Notes:
 
 - `role` must be a key of `ROLES` (typed).
-- `slug` resolves to `/assets/<slug>.jpg`. **Roughly half the slugs in the data have no matching file**, so `PersonCard` / `Avatar` in `ui/Person.tsx` fall back to initials both when the slug is empty *and* when the image fails to load. Never render a portrait `<img>` without that fallback.
+- `slug` resolves to `<base>assets/<slug>.jpg` via `assetUrl`. **Roughly half the slugs in the data have no matching file**, so `PersonCard` / `Avatar` in `ui/Person.tsx` fall back to initials both when the slug is empty *and* when the image fails to load. Never render a portrait `<img>` without that fallback.
 - `hubId` builds the TMU Hub academic-profile URL.
 - Off-center portrait crops are overrides in the `FULL_BODY_POSITION` map, keyed by slug.
 

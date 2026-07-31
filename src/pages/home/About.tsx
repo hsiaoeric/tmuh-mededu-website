@@ -3,6 +3,7 @@ import { Reveal } from '@/motion/Reveal';
 import { Parallax } from '@/motion/Parallax';
 import { Section, SectionHeader } from '@/ui/Section';
 import { Icon, type IconName } from '@/ui/Icon';
+import { assetUrl } from '@/utils/asset';
 
 export function About() {
   const { isZh } = useSite();
@@ -57,7 +58,7 @@ export function About() {
             >
               <Parallax distance={54}>
                 <img
-                  src="/assets/hero.jpg"
+                  src={assetUrl('assets/hero.jpg')}
                   alt={isZh ? '臺北醫學大學附設醫院' : 'Taipei Medical University Hospital'}
                   style={{
                     width: '100%',

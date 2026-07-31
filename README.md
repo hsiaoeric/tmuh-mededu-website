@@ -146,11 +146,41 @@ Vercel 會自動重新 build 並上線，無需再手動操作。
 
 ---
 
+## 部署到 GitHub Pages
+
+專案也含 `.github/workflows/deploy.yml`，推送到 `main` 時會自動 build 並發佈到 GitHub Pages。
+第一次使用需到 repo 的 **Settings → Pages → Source** 選 **GitHub Actions**。
+
+要發佈某個分支預覽，到 **Actions** 分頁手動執行 **Run workflow** 即可，不必改 workflow。
+
+### 網址前綴（`VITE_BASE`）
+
+GitHub Pages 的網址是 `https://<帳號>.github.io/<repo>/`，多了一層 `/<repo>/` 前綴，
+因此 build 時要告訴 Vite 這個前綴。這由 workflow 裡的環境變數 `VITE_BASE` 提供：
+
+```yaml
+env:
+  VITE_BASE: /tmuh-mededu-website/
+```
+
+- **repo 改名時**，要一併改這裡。
+- **改用自訂網域**（網站放在根目錄）時，把它設成 `/` 或整段刪掉。
+- 本機或 Vercel 不設這個變數，預設就是 `/`，所以兩邊可以共存、互不影響。
+
+> 在程式裡要指向 `public/` 的檔案時，**請用 `assetUrl()`（`src/utils/asset.ts`）**，
+> 不要直接寫 `/assets/...`。Vite 只會改寫 index.html 與 import 進來的資源，
+> 程式執行時才組出來的字串不會被改寫，寫死斜線開頭在 Pages 上會全部 404。
+
+---
+
 ## 部署注意事項
 
-這是**單頁應用（SPA）**，部署到靜態主機時，需設定「所有路徑都回傳 `index.html`」(SPA fallback)，否則直接打開 `/ebm` 會 404。
+這是**單頁應用（SPA）**，部署到靜態主機時，需設定「所有路徑都回傳 `index.html`」(SPA fallback)，
+否則直接打開 `/centers/holistic-care` 會 404。
 
 - **Vercel**：專案根目錄的 `vercel.json` 已設定 rewrite。
+- **GitHub Pages**：不能設 rewrite，但會用 `404.html` 回應找不到的路徑；
+  因此 build 時會自動把 `index.html` 複製成 `dist/404.html`（見 `vite.config.ts`），深層連結就能正常運作。
 - **Netlify**：加一條 rewrite `/* → /index.html`。
 - **Nginx**：`try_files $uri /index.html;`
 - 先 `npm run build`，再把 `dist/` 內容上傳即可。

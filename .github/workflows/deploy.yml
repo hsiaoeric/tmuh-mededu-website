@@ -2,50 +2,56 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches:
-      - worktree-living-tissue
-      - main
+    branches: [main]
+  # Lets you publish a branch preview, or re-publish, from the Actions tab.
   workflow_dispatch:
+
+# The site is served from https://<owner>.github.io/<repo>/, so the build needs
+# to know that sub-path. Change this if the repository is renamed, or set it to
+# "/" when serving from the root of a custom domain.
+env:
+  VITE_BASE: /tmuh-mededu-website/
 
 permissions:
   contents: read
   pages: write
   id-token: write
 
+# Never let two deployments race; queue instead, and let an in-flight run finish
+# rather than cancelling it half-published.
 concurrency:
-  group: 'pages'
-  cancel-in-progress: true
+  group: pages
+  cancel-in-progress: false
 
 jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+
+      # `npm run build` typechecks first, so a broken build never reaches Pages,
+      # and the Vite config writes dist/404.html for SPA deep links.
+      - run: npm run build
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
   deploy:
+    needs: build
+    runs-on: ubuntu-latest
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Set up Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: 'npm'
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Build
-        run: npm run build && cp dist/index.html dist/404.html
-
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: './dist'
-
-      - name: Deploy to GitHub Pages
-        id: deployment
+      - id: deployment
         uses: actions/deploy-pages@v4
