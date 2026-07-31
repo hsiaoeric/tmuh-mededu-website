@@ -75,9 +75,15 @@ function initialsOf(en: string): string {
   return (en || '?').slice(0, 2).toUpperCase();
 }
 
-/** Resolve an image slug to a public asset path. */
+/**
+ * Resolve an image slug to a public asset path.
+ *
+ * Built against `BASE_URL` rather than a leading slash so the site still finds
+ * its assets when served from a sub-path (a GitHub Pages project site). Vite
+ * guarantees the value ends in a slash, so no separator is needed here.
+ */
 export function resourceSrc(slug: string): string {
-  return slug ? `/assets/${slug}.jpg` : '';
+  return slug ? `${import.meta.env.BASE_URL}assets/${slug}.jpg` : '';
 }
 
 /** Factory mirroring the original `P(...)` helper. */

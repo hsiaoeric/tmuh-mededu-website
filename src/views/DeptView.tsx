@@ -27,11 +27,6 @@ import { DeptCentersSection } from './dept/DeptCentersSection';
 import { DeptNewsSection } from './dept/DeptNewsSection';
 import { DeptAboutSection } from './dept/DeptAboutSection';
 
-interface KpiCenterLink {
-  id: CenterId;
-  url: string;
-}
-
 const KPI_MEMBER_GROUPS: Record<string, RawPerson[]> = {
   'Teaching Attendings': [
     person('邱欣怡', 'Hsin-Yi Chiu', 'lead', '', '', 'hsin-yi-chiu', 'hsin-yi-chiu'),
@@ -46,12 +41,14 @@ const KPI_MEMBER_GROUPS: Record<string, RawPerson[]> = {
   ],
 };
 
-const KPI_CENTER_LINKS: KpiCenterLink[] = [
-  { id: 'faculty_dev', url: '/facdev' },
-  { id: 'clinical_skills', url: '/center/clinical_skills' },
-  { id: 'ebm', url: '/ebm' },
-  { id: 'holistic', url: '/holistic' },
-  { id: 'med_edu_research', url: '/center/med_edu_research' },
+/* Order of the five centers in the KPI card's expanded panel. Destinations come
+   from `enterCenter`, which already knows each center's route. */
+const KPI_CENTER_LINKS: CenterId[] = [
+  'faculty_dev',
+  'clinical_skills',
+  'ebm',
+  'holistic',
+  'med_edu_research',
 ];
 
 function OrgToggle({
@@ -157,7 +154,7 @@ function CenterLinks() {
 }
 
 export function DeptView() {
-  const { t, isZh, lang } = useSite();
+  const { t, isZh, lang, enterCenter } = useSite();
   const [orgVariant, setOrgVariant] = useState<'A' | 'B'>('A');
   const [active, setActive] = useState<CenterId | null>('admin');
   const [activeBranchId, setActiveBranchId] = useState<string | null>(null);
@@ -171,10 +168,9 @@ export function DeptView() {
     : [];
   const activeKpiCenters =
     activeKpiGroup === 'Education Centers'
-      ? KPI_CENTER_LINKS.map((item) => ({
-          ...item,
-          center: centerById(item.id),
-        })).filter((item) => !!item.center)
+      ? KPI_CENTER_LINKS.map((id) => ({ center: centerById(id) })).filter(
+          (item) => !!item.center,
+        )
       : [];
 
   const handleSelectCenter = (id: CenterId) => {
@@ -422,19 +418,26 @@ export function DeptView() {
                           {isZh ? center.zh : center.en}
                         </span>
                       </div>
-                      <a
-                        href={item.url}
+                      {/* Router navigation rather than a raw href: these are
+                          in-app routes, so an absolute path would break when
+                          the site is served from a sub-path. */}
+                      <button
+                        onClick={() => enterCenter(center.id)}
                         style={{
                           marginTop: 'auto',
+                          alignSelf: 'flex-start',
+                          padding: 0,
+                          border: 'none',
+                          background: 'none',
+                          cursor: 'pointer',
                           color: center.color,
                           fontFamily: 'var(--font-sans)',
                           fontSize: 12.5,
                           fontWeight: 700,
-                          textDecoration: 'none',
                         }}
                       >
-                        {isZh ? '前往官網 ↗' : 'Visit website ↗'}
-                      </a>
+                        {isZh ? '前往專頁 ↗' : 'Visit page ↗'}
+                      </button>
                     </div>
                   );
                 })}

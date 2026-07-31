@@ -13,7 +13,7 @@ interface TmuhLogoProps {
 export function TmuhLogo({ size = 36, className, style }: TmuhLogoProps) {
   return (
     <img
-      src="/assets/tmuh-logo.svg"
+      src={`${import.meta.env.BASE_URL}assets/tmuh-logo.svg`}
       alt=""
       width={size}
       height={size}
