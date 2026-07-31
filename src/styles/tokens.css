@@ -94,16 +94,27 @@
   --volt-line: rgba(45, 255, 196, 0.4);
   --volt-wash: rgba(45, 255, 196, 0.08);
 
-  --bg: #0d0e15;
-  --bg2: #101219;
-  --surface: #14171f;
-  --surface-2: #191d26;
-  --border: #2a3038;
-  --border-strong: #3d454f;
-  --grid: #1c2029;
+  /*
+   * The ground is graphite, not carbon.
+   *
+   * Nexus uses `--carbon` (#0d0e15) for one or two slabs set against a titanium
+   * page. Used as the ground of a whole content-heavy site it reads as a void:
+   * it sits 1.09 from pure black, panels lift only 1.07 off it, and the
+   * hairlines that carry *all* the separation in this system land at 1.35 —
+   * effectively invisible. Each step below is widened so panels read as panels
+   * and rules read as rules. Carbon stays reserved for `.zcard--dark`, which
+   * then still registers as a deliberate inversion inside dark mode.
+   */
+  --bg: #171a23;
+  --bg2: #1c202a;
+  --surface: #222732;
+  --surface-2: #29303c;
+  --border: #39414f;
+  --border-strong: #4e5766;
+  --grid: #252b36;
   --text: #f4f5f6;
-  --body: #b4bcc6;
-  --muted: #7d848f;
+  --body: #bcc4ce;
+  --muted: #8b929e;
 
   --teal: #2dffc4;
   --teal-700: #9dffe4;
