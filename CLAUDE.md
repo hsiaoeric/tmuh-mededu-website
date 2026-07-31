@@ -30,9 +30,9 @@ Node 18+.
 The build serves two hosts, and `vite.config.ts` keeps them compatible:
 
 - **Vercel** — auto-deploy on push to `main`; `vercel.json` supplies the SPA rewrite.
-- **GitHub Pages** — `.github/workflows/deploy.yml` on push to `main` or manual dispatch.
+- **GitHub Pages** — served from the `gh-pages` branch, published with `npm run deploy` (https://hsiaoeric.github.io/tmuh-mededu-website/). This deliberately does not require merging to `main`, so this branch can be previewed on its own. `.github/workflows/deploy.yml` is an Actions-based alternative, but it only works once Settings → Pages → Source is switched to "GitHub Actions", so it is manual-dispatch only.
 
-`base` comes from `process.env.VITE_BASE`, defaulting to `/`. Only the Pages workflow sets it (to the repo sub-path), so **never hardcode `base`** — that silently breaks the other target. Pages cannot rewrite, so a build plugin copies `index.html` to `dist/404.html` for deep links.
+`base` comes from `process.env.VITE_BASE`, defaulting to `/`. Only the Pages routes set it (to the repo sub-path), so **never hardcode `base`** — that silently breaks Vercel. Pages cannot rewrite, so a build plugin copies `index.html` to `dist/404.html` for deep links.
 
 **Anything pointing at `public/` must go through `assetUrl()` (`src/utils/asset.ts`).** Vite rewrites asset URLs in index.html and in bundled imports, but not strings assembled at runtime — a literal `/assets/…` builds and looks fine locally, then 404s on Pages. Portraits fail *silently* there, falling back to initials, so this does not announce itself.
 

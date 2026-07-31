@@ -1,9 +1,12 @@
+# Alternative publishing route, kept ready but not wired to pushes.
+#
+# This repository currently serves Pages from the `gh-pages` branch, which is
+# published with `npm run deploy`. `actions/deploy-pages` below only works once
+# Settings → Pages → Source is switched to "GitHub Actions" — until then a run
+# would fail, so this is manual-dispatch only rather than on push.
 name: Deploy to GitHub Pages
 
 on:
-  push:
-    branches: [main]
-  # Lets you publish a branch preview, or re-publish, from the Actions tab.
   workflow_dispatch:
 
 # The site is served from https://<owner>.github.io/<repo>/, so the build needs

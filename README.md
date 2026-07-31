@@ -148,22 +148,32 @@ Vercel 會自動重新 build 並上線，無需再手動操作。
 
 ## 部署到 GitHub Pages
 
-專案也含 `.github/workflows/deploy.yml`，推送到 `main` 時會自動 build 並發佈到 GitHub Pages。
-第一次使用需到 repo 的 **Settings → Pages → Source** 選 **GitHub Actions**。
+目前線上預覽網址：**https://hsiaoeric.github.io/tmuh-mededu-website/**
 
-要發佈某個分支預覽，到 **Actions** 分頁手動執行 **Run workflow** 即可，不必改 workflow。
+這個 repo 的 Pages 設定是「從 `gh-pages` 分支發佈」，更新方式是在本機執行：
+
+```bash
+npm run deploy
+```
+
+會先型別檢查、用正確的網址前綴 build，再把 `dist/` 推到 `gh-pages` 分支。
+**不需要合併到 `main`**，所以可以單獨預覽這個設計版本。
+
+> 另外附了 `.github/workflows/deploy.yml`（改用 GitHub Actions 發佈的版本），
+> 但要先到 **Settings → Pages → Source** 改成 **GitHub Actions** 才會生效，
+> 因此目前設定成只能從 Actions 分頁手動執行，不會自動跑。
 
 ### 網址前綴（`VITE_BASE`）
 
 GitHub Pages 的網址是 `https://<帳號>.github.io/<repo>/`，多了一層 `/<repo>/` 前綴，
-因此 build 時要告訴 Vite 這個前綴。這由 workflow 裡的環境變數 `VITE_BASE` 提供：
+因此 build 時要告訴 Vite 這個前綴。這由環境變數 `VITE_BASE` 提供，
+寫在 `package.json` 的 `predeploy`（以及 workflow 的 `env:`）裡：
 
-```yaml
-env:
-  VITE_BASE: /tmuh-mededu-website/
+```jsonc
+"predeploy": "npm run typecheck && VITE_BASE=/tmuh-mededu-website/ vite build"
 ```
 
-- **repo 改名時**，要一併改這裡。
+- **repo 改名時**，這兩處都要一併改。
 - **改用自訂網域**（網站放在根目錄）時，把它設成 `/` 或整段刪掉。
 - 本機或 Vercel 不設這個變數，預設就是 `/`，所以兩邊可以共存、互不影響。
 
