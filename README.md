@@ -164,11 +164,27 @@ Vercel 會自動重新 build 並上線，無需再手動操作。
 
 ---
 
+## GitHub Pages（改版預覽）
+
+改版後的版本部署在 GitHub Pages，可直接開啟預覽：
+
+**https://hsiaoeric.github.io/tmuh-nexus-template/**
+
+推送到該 repo 的 `main` 後，`.github/workflows/pages.yml` 會自動 build 並上線。
+
+Pages 是從「網址子路徑」提供服務（`/tmuh-nexus-template/`），所以有兩點與 Vercel 不同：
+
+- **子路徑**：workflow 會設定 `VITE_BASE`，Vite 的 `base` 與路由 `basename`、圖片路徑都跟著它走。若日後改用自訂網域（從根目錄提供），把 `VITE_BASE` 改成 `/` 即可。不設這個變數時預設就是根目錄，因此 Vercel 的 build 完全不受影響。
+- **`404.html`**：Pages 沒有 rewrite 功能，build 時會自動複製一份 `index.html` 成 `404.html`。直接開 `/ebm` 時 Pages 會回傳這份檔案，網站照常載入並顯示正確頁面（HTTP 狀態碼會是 404，這是 Pages 的限制，不影響瀏覽）。
+
+---
+
 ## 部署注意事項
 
 這是**單頁應用（SPA）**，部署到靜態主機時，需設定「所有路徑都回傳 `index.html`」(SPA fallback)，否則直接打開 `/ebm` 會 404。
 
 - **Vercel**：專案根目錄的 `vercel.json` 已設定 rewrite。
+- **GitHub Pages**：build 產生的 `404.html` 即為 fallback（見上一節）。
 - **Netlify**：加一條 rewrite `/* → /index.html`。
 - **Nginx**：`try_files $uri /index.html;`
 - 先 `npm run build`，再把 `dist/` 內容上傳即可。
