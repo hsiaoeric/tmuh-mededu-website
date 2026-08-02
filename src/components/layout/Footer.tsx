@@ -3,7 +3,21 @@ import { Icon } from '@/components/common/Icon';
 import { TmuhLogo } from '@/components/common/TmuhLogo';
 
 export function Footer() {
-  const { t } = useSite();
+  const { t, isZh } = useSite();
+  const designTeam = [
+    {
+      name: isZh ? '蕭名凱 · hsiaoeric' : 'Ming-Kai Hsiao · hsiaoeric',
+      detail: isZh ? '醫學二' : 'Medicine, Year 2',
+      email: 'hsiaoeric.dev@gmail.com',
+      github: 'https://github.com/hsiaoeric',
+    },
+    {
+      name: '古珉瑄',
+      detail: '',
+      email: 'michelleku0813@gmail.com',
+      github: 'https://github.com/michelleku0813-hub',
+    },
+  ];
   return (
     <footer
       style={{
@@ -89,6 +103,46 @@ export function Footer() {
           <p style={{ fontSize: 12, color: 'var(--muted)', marginTop: 6 }}>
             {t.footNote}
           </p>
+        </div>
+        <div style={{ minWidth: 260 }}>
+          <div
+            style={{
+              fontFamily: "'IBM Plex Sans', sans-serif",
+              fontSize: 10.5,
+              fontWeight: 700,
+              letterSpacing: '.13em',
+              textTransform: 'uppercase',
+              color: 'var(--muted)',
+              marginBottom: 10,
+            }}
+          >
+            {isZh ? '網站設計團隊' : 'Website Design Team'}
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+            {designTeam.map((member) => (
+              <div key={member.email} style={{ fontSize: 12.5, lineHeight: 1.55 }}>
+                <div style={{ fontWeight: 700, color: 'var(--text)' }}>
+                  {member.name}
+                  {member.detail && (
+                    <span style={{ fontWeight: 400, color: 'var(--muted)' }}> · {member.detail}</span>
+                  )}
+                </div>
+                <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
+                  <a href={`mailto:${member.email}`} style={{ color: 'var(--body)' }}>
+                    {member.email}
+                  </a>
+                  <a
+                    href={member.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{ color: 'var(--teal-700)', fontWeight: 600 }}
+                  >
+                    GitHub ↗
+                  </a>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </footer>

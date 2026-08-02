@@ -16,7 +16,7 @@ type NavEntry =
   | { kind: 'custom'; node: ReactNode };
 
 export function Header() {
-  const { t, isZh, view, theme, toggleLang, toggleTheme, goHome, setView } =
+  const { t, isZh, view, theme, toggleLang, toggleTheme, goHome, setView, enterCenter } =
     useSite();
   const [menuOpen, setMenuOpen] = useState(false);
   const [openGroup, setOpenGroup] = useState<string | null>(null);
@@ -31,6 +31,10 @@ export function Header() {
 
   const go = (id: string) => () => {
     closeMenu(true);
+    if (view === 'holistic' && !document.getElementById(id)) {
+      enterCenter('holistic', id);
+      return;
+    }
     scrollToId(id);
   };
   /** Destination row scrolling to a section on the current page. */
@@ -77,6 +81,7 @@ export function Header() {
   switch (view) {
     case 'holistic':
       navItems = [
+        link(isZh ? '健康台灣範疇二' : 'Healthy Taiwan Scope 2', 'scope2'),
         group(isZh ? '中心介紹' : 'About', [
           [isZh ? '關於中心' : 'About the Center', 'h-about'],
           [isZh ? '中心成員' : 'Members', 'h-members'],
@@ -84,7 +89,6 @@ export function Header() {
         group(isZh ? '重點計畫' : 'Programs', [
           [t.navMhfa, 'mhfa'],
           [t.navSeed, 'seed'],
-          [isZh ? '健康台灣範疇二' : 'Healthy Taiwan Scope 2', 'scope2'],
         ]),
         group(isZh ? '教育成果' : 'Outcomes', [
           [isZh ? '全人研討會' : 'Symposia', 'h-symposiums'],

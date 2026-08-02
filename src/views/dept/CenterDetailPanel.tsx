@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, type CSSProperties } from 'react';
 import { useSite } from '@/context/SiteContext';
 import {
   type Center,
@@ -36,7 +36,23 @@ export function CenterDetailPanel({
   const resolvedBranchId = activeBranchId ?? branches[0]?.id ?? null;
   const activeBranch = branches.find((b) => b.id === resolvedBranchId) ?? branches[0];
   const isAdmin = center.id === 'admin';
-  const hasPage = READY_CENTER_PAGES.includes(center.id);
+  const hasPage = READY_CENTER_PAGES.includes(center.id) || !!center.externalUrl;
+  const pageCtaStyle: CSSProperties = {
+    marginTop: 20,
+    display: 'inline-flex',
+    alignItems: 'center',
+    gap: 8,
+    padding: '10px 18px',
+    borderRadius: 999,
+    border: 'none',
+    background: center.color,
+    color: '#fff',
+    fontFamily: "'Noto Sans TC', sans-serif",
+    fontSize: 13.5,
+    fontWeight: 700,
+    cursor: 'pointer',
+    textDecoration: 'none',
+  };
   const contactLine = center.ext
     ? `${isZh ? center.contactZh : center.contactEn} · ${formatPhoneExt(center.ext, lang)}`
     : '';
@@ -278,32 +294,29 @@ export function CenterDetailPanel({
           >
             {renderSectionContent()}
 
-            {hasPage && activeBranch.pageSection && (
-              <button
-                type="button"
-                onClick={() => enterCenter(center.id, activeBranch.pageSection)}
-                style={{
-                  marginTop: 20,
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: 8,
-                  padding: '10px 18px',
-                  borderRadius: 999,
-                  border: 'none',
-                  background: center.color,
-                  color: '#fff',
-                  fontFamily: "'Noto Sans TC', sans-serif",
-                  fontSize: 13.5,
-                  fontWeight: 700,
-                  cursor: 'pointer',
-                }}
-              >
-                {isZh ? '進入專頁' : 'Enter center page'}
-                <span style={{ width: 14, height: 14, display: 'block' }}>
-                  <Icon name="arrow" />
-                </span>
-              </button>
-            )}
+            {hasPage && (center.externalUrl || activeBranch.pageSection) &&
+              (center.externalUrl ? (
+                <a
+                  href={center.externalUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={pageCtaStyle}
+                >
+                  {isZh ? '前往官方網站' : 'Visit official website'}
+                  <span aria-hidden="true">↗</span>
+                </a>
+              ) : (
+                <button
+                  type="button"
+                  onClick={() => enterCenter(center.id, activeBranch.pageSection)}
+                  style={pageCtaStyle}
+                >
+                  {isZh ? '進入專頁' : 'Enter center page'}
+                  <span style={{ width: 14, height: 14, display: 'block' }}>
+                    <Icon name="arrow" />
+                  </span>
+                </button>
+              ))}
           </div>
         )}
       </div>

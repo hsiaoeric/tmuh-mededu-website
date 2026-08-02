@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { useSite } from '@/context/SiteContext';
 import { centerById } from '@/data/centers';
 import { resolvePerson } from '@/data/people';
@@ -19,11 +20,14 @@ import { Eyebrow } from '@/components/common/Eyebrow';
 import { PersonCard } from '@/components/common/PersonCard';
 import { HeroImage } from '@/components/common/HeroImage';
 import { HolisticOutcomesSection } from './holistic/HolisticOutcomesSection';
+import { HolisticResearchSection } from './holistic/HolisticResearchSection';
+import { HolisticDetailView } from './holistic/HolisticDetailView';
 
 const TEAL = '#4f8c7d';
 
 export function HolisticView() {
   const { t, isZh, lang, setView } = useSite();
+  const location = useLocation();
   const [algee, setAlgee] = useState(0);
 
   const kpis = holisticKpis(lang);
@@ -38,6 +42,16 @@ export function HolisticView() {
   const seed = HOLISTIC_SEED.map((p) => resolvePerson(p, TEAL, lang));
   const aiTeam = HOLISTIC_AI_TEAM.map((p) => resolvePerson(p, '#5E7A8C', lang));
   const activeAlgee = ALGEE[algee];
+  const detailMatch = location.pathname.match(/^\/holistic\/(symposia|research)\/(\d{4})\/?$/);
+
+  if (detailMatch) {
+    return (
+      <HolisticDetailView
+        kind={detailMatch[1] as 'symposia' | 'research'}
+        year={Number(detailMatch[2])}
+      />
+    );
+  }
 
   return (
     <div style={{ position: 'relative', zIndex: 1 }}>
@@ -136,6 +150,96 @@ export function HolisticView() {
                 {t.backDept}
               </button>
             </div>
+          </div>
+        </Reveal>
+      </section>
+
+      {/* AI ECOSYSTEM — the first content section after the hero. */}
+      <section id="scope2" style={{ maxWidth: 1240, margin: '0 auto', padding: '30px 28px 50px' }}>
+        <Reveal
+          style={{
+            position: 'relative',
+            borderRadius: 22,
+            overflow: 'hidden',
+            padding: '42px 40px',
+            background: 'linear-gradient(135deg,color-mix(in srgb,var(--teal) 22%,var(--surface)),var(--surface))',
+            border: '1px solid var(--border)',
+            boxShadow: 'var(--shadow-card)',
+          }}
+        >
+          <div
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: 8,
+              padding: '6px 14px',
+              borderRadius: 999,
+              background: 'var(--surface)',
+              border: '1px solid color-mix(in srgb,var(--teal) 30%,transparent)',
+              marginBottom: 16,
+            }}
+          >
+            <span style={{ width: 8, height: 8, borderRadius: '50%', background: 'var(--teal)', animation: 'blink 1.8s ease-in-out infinite' }} />
+            <span style={{ fontFamily: "'IBM Plex Sans', sans-serif", fontSize: 11, fontWeight: 600, letterSpacing: '.1em', textTransform: 'uppercase', color: 'var(--teal-700)' }}>
+              Healthy Taiwan Deep Cultivation · Scope 2
+            </span>
+          </div>
+          <h2 style={{ fontFamily: "'Noto Sans TC', sans-serif", fontWeight: 900, fontSize: 28, color: 'var(--text)', maxWidth: 760, lineHeight: 1.35, marginBottom: 14 }}>
+            {t.aiTitle}
+          </h2>
+          <p style={{ fontSize: 16, lineHeight: 1.85, color: 'var(--body)', maxWidth: 820 }}>{t.aiBody}</p>
+
+          <div style={{ marginTop: 30, padding: 28, borderRadius: 18, background: 'var(--surface)', border: '1px solid var(--border)', boxShadow: 'var(--shadow-card)' }}>
+            <h3 style={{ fontFamily: "'Noto Sans TC', sans-serif", fontWeight: 800, fontSize: 20, color: 'var(--text)', marginBottom: 8 }}>{ai.title}</h3>
+            <p style={{ fontSize: 14.5, lineHeight: 1.8, color: 'var(--muted)', maxWidth: 860, marginBottom: 22 }}>{ai.body}</p>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(210px,1fr))', gap: 14 }}>
+              {ai.flow.map((s, i) => (
+                <div key={i} style={{ position: 'relative', padding: '18px 16px', borderRadius: 14, background: 'var(--surface-2)', border: '1px solid var(--border)' }}>
+                  <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: 3, background: s.color, borderRadius: '14px 14px 0 0' }} />
+                  <div style={{ fontFamily: "'IBM Plex Sans', sans-serif", fontSize: 10.5, fontWeight: 600, letterSpacing: '.12em', textTransform: 'uppercase', color: s.color, marginBottom: 6 }}>{s.role}</div>
+                  <div style={{ fontFamily: "'Noto Sans TC', sans-serif", fontWeight: 700, fontSize: 15, color: 'var(--text)', marginBottom: 6 }}>{s.title}</div>
+                  <div style={{ fontSize: 12.5, lineHeight: 1.6, color: 'var(--muted)' }}>{s.text}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(220px,1fr))', gap: 14, marginTop: 18 }}>
+            {ai.steps.map((s, i) => (
+              <div key={i} style={{ display: 'flex', gap: 13, padding: '18px 16px', borderRadius: 14, background: 'var(--surface)', border: '1px solid var(--border)', boxShadow: 'var(--shadow-card)' }}>
+                <span style={{ flexShrink: 0, fontFamily: "'IBM Plex Sans', sans-serif", fontWeight: 700, fontSize: 22, color: 'var(--teal)', fontVariantNumeric: 'tabular-nums' }}>{s.n}</span>
+                <div>
+                  <div style={{ fontFamily: "'Noto Sans TC', sans-serif", fontWeight: 700, fontSize: 14.5, color: 'var(--text)', marginBottom: 4 }}>{s.title}</div>
+                  <div style={{ fontSize: 12.5, lineHeight: 1.6, color: 'var(--muted)' }}>{s.text}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div style={{ marginTop: 18, padding: '24px 26px', borderRadius: 16, background: 'color-mix(in srgb,var(--teal) 8%,var(--surface))', border: '1px solid color-mix(in srgb,var(--teal) 22%,var(--border))' }}>
+            <div style={{ fontFamily: "'Noto Sans TC', sans-serif", fontWeight: 800, fontSize: 16, color: 'var(--text)', marginBottom: 14 }}>{ai.problemsTitle}</div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 11 }}>
+              {ai.problems.map((p, i) => (
+                <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: 11 }}>
+                  <span style={{ flexShrink: 0, width: 20, height: 20, marginTop: 2, borderRadius: '50%', background: 'var(--teal)', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={3} strokeLinecap="round" strokeLinejoin="round" style={{ width: 12, height: 12, display: 'block' }}>
+                      <path d="M20 6 9 17l-5-5" />
+                    </svg>
+                  </span>
+                  <span style={{ fontSize: 14.5, lineHeight: 1.7, color: 'var(--body)' }}>{p}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div style={{ fontFamily: "'Noto Sans TC', sans-serif", fontWeight: 700, fontSize: 15, color: 'var(--text)', margin: '28px 0 14px', display: 'flex', alignItems: 'center', gap: 10 }}>
+            <span style={{ width: 5, height: 20, borderRadius: 9, background: '#5E7A8C' }} />
+            {ai.teamLabel}
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(216px,1fr))', gap: 16 }}>
+            {aiTeam.map((p, i) => (
+              <PersonCard key={i} person={p} />
+            ))}
           </div>
         </Reveal>
       </section>
@@ -262,8 +366,6 @@ export function HolisticView() {
         </div>
       </section>
 
-      <HolisticOutcomesSection />
-
       {/* MHFA / ALGEE */}
       <section id="mhfa" style={{ maxWidth: 1240, margin: '0 auto', padding: '40px 28px' }}>
         <Reveal style={{ textAlign: 'center', maxWidth: 680, margin: '0 auto 30px' }}>
@@ -378,95 +480,7 @@ export function HolisticView() {
         </div>
       </section>
 
-      {/* AI ECOSYSTEM */}
-      <section id="scope2" style={{ maxWidth: 1240, margin: '0 auto', padding: '30px 28px 50px' }}>
-        <Reveal
-          style={{
-            position: 'relative',
-            borderRadius: 22,
-            overflow: 'hidden',
-            padding: '42px 40px',
-            background: 'linear-gradient(135deg,color-mix(in srgb,var(--teal) 22%,var(--surface)),var(--surface))',
-            border: '1px solid var(--border)',
-            boxShadow: 'var(--shadow-card)',
-          }}
-        >
-          <div
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: 8,
-              padding: '6px 14px',
-              borderRadius: 999,
-              background: 'var(--surface)',
-              border: '1px solid color-mix(in srgb,var(--teal) 30%,transparent)',
-              marginBottom: 16,
-            }}
-          >
-            <span style={{ width: 8, height: 8, borderRadius: '50%', background: 'var(--teal)', animation: 'blink 1.8s ease-in-out infinite' }} />
-            <span style={{ fontFamily: "'IBM Plex Sans', sans-serif", fontSize: 11, fontWeight: 600, letterSpacing: '.1em', textTransform: 'uppercase', color: 'var(--teal-700)' }}>
-              Healthy Taiwan Deep Cultivation · Scope 2
-            </span>
-          </div>
-          <h2 style={{ fontFamily: "'Noto Sans TC', sans-serif", fontWeight: 900, fontSize: 28, color: 'var(--text)', maxWidth: 760, lineHeight: 1.35, marginBottom: 14 }}>
-            {t.aiTitle}
-          </h2>
-          <p style={{ fontSize: 16, lineHeight: 1.85, color: 'var(--body)', maxWidth: 820 }}>{t.aiBody}</p>
-
-          <div style={{ marginTop: 30, padding: 28, borderRadius: 18, background: 'var(--surface)', border: '1px solid var(--border)', boxShadow: 'var(--shadow-card)' }}>
-            <h3 style={{ fontFamily: "'Noto Sans TC', sans-serif", fontWeight: 800, fontSize: 20, color: 'var(--text)', marginBottom: 8 }}>{ai.title}</h3>
-            <p style={{ fontSize: 14.5, lineHeight: 1.8, color: 'var(--muted)', maxWidth: 860, marginBottom: 22 }}>{ai.body}</p>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(210px,1fr))', gap: 14 }}>
-              {ai.flow.map((s, i) => (
-                <div key={i} style={{ position: 'relative', padding: '18px 16px', borderRadius: 14, background: 'var(--surface-2)', border: '1px solid var(--border)' }}>
-                  <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: 3, background: s.color, borderRadius: '14px 14px 0 0' }} />
-                  <div style={{ fontFamily: "'IBM Plex Sans', sans-serif", fontSize: 10.5, fontWeight: 600, letterSpacing: '.12em', textTransform: 'uppercase', color: s.color, marginBottom: 6 }}>{s.role}</div>
-                  <div style={{ fontFamily: "'Noto Sans TC', sans-serif", fontWeight: 700, fontSize: 15, color: 'var(--text)', marginBottom: 6 }}>{s.title}</div>
-                  <div style={{ fontSize: 12.5, lineHeight: 1.6, color: 'var(--muted)' }}>{s.text}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(220px,1fr))', gap: 14, marginTop: 18 }}>
-            {ai.steps.map((s, i) => (
-              <div key={i} style={{ display: 'flex', gap: 13, padding: '18px 16px', borderRadius: 14, background: 'var(--surface)', border: '1px solid var(--border)', boxShadow: 'var(--shadow-card)' }}>
-                <span style={{ flexShrink: 0, fontFamily: "'IBM Plex Sans', sans-serif", fontWeight: 700, fontSize: 22, color: 'var(--teal)', fontVariantNumeric: 'tabular-nums' }}>{s.n}</span>
-                <div>
-                  <div style={{ fontFamily: "'Noto Sans TC', sans-serif", fontWeight: 700, fontSize: 14.5, color: 'var(--text)', marginBottom: 4 }}>{s.title}</div>
-                  <div style={{ fontSize: 12.5, lineHeight: 1.6, color: 'var(--muted)' }}>{s.text}</div>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <div style={{ marginTop: 18, padding: '24px 26px', borderRadius: 16, background: 'color-mix(in srgb,var(--teal) 8%,var(--surface))', border: '1px solid color-mix(in srgb,var(--teal) 22%,var(--border))' }}>
-            <div style={{ fontFamily: "'Noto Sans TC', sans-serif", fontWeight: 800, fontSize: 16, color: 'var(--text)', marginBottom: 14 }}>{ai.problemsTitle}</div>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 11 }}>
-              {ai.problems.map((p, i) => (
-                <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: 11 }}>
-                  <span style={{ flexShrink: 0, width: 20, height: 20, marginTop: 2, borderRadius: '50%', background: 'var(--teal)', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={3} strokeLinecap="round" strokeLinejoin="round" style={{ width: 12, height: 12, display: 'block' }}>
-                      <path d="M20 6 9 17l-5-5" />
-                    </svg>
-                  </span>
-                  <span style={{ fontSize: 14.5, lineHeight: 1.7, color: 'var(--body)' }}>{p}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div style={{ fontFamily: "'Noto Sans TC', sans-serif", fontWeight: 700, fontSize: 15, color: 'var(--text)', margin: '28px 0 14px', display: 'flex', alignItems: 'center', gap: 10 }}>
-            <span style={{ width: 5, height: 20, borderRadius: 9, background: '#5E7A8C' }} />
-            {ai.teamLabel}
-          </div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(216px,1fr))', gap: 16 }}>
-            {aiTeam.map((p, i) => (
-              <PersonCard key={i} person={p} />
-            ))}
-          </div>
-        </Reveal>
-      </section>
+      <HolisticOutcomesSection />
 
       {/* ANNOUNCEMENTS */}
       <section id="h-news" style={{ maxWidth: 1240, margin: '0 auto', padding: '40px 28px' }}>
@@ -578,6 +592,8 @@ export function HolisticView() {
           ))}
         </div>
       </section>
+
+      <HolisticResearchSection />
 
       {/* CONTACT */}
       <section id="h-contact" style={{ maxWidth: 1240, margin: '0 auto', padding: '10px 28px 60px' }}>

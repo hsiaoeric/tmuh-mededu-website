@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { useSite } from '@/context/SiteContext';
 import {
   HOLISTIC_EDU_PAPERS,
@@ -91,7 +92,7 @@ function YearBar({
   );
 }
 
-function PaperEntry({
+export function PaperEntry({
   paper,
   authorsLabel,
   isZh,
@@ -245,45 +246,58 @@ export function HolisticResearchSection() {
         </p>
       </Reveal>
 
-      <div style={{ display: 'flex', flexDirection: 'column', marginBottom: 40 }}>
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit,minmax(190px,1fr))',
+          gap: 16,
+          marginBottom: 40,
+        }}
+      >
         {years.map((year, i) => {
-          const papers = HOLISTIC_EDU_PAPERS.filter((p) => p.year === year).sort(
-            (a, b) => b.month - a.month,
-          );
+          const paperCount = HOLISTIC_EDU_PAPERS.filter((p) => p.year === year).length;
           return (
             <Reveal
               key={year}
               delay={i * 60}
               style={{
-                display: 'grid',
-                gridTemplateColumns: '72px 1fr',
-                gap: '0 22px',
-                padding: '22px 0',
-                borderBottom: i < years.length - 1 ? '1px solid var(--border)' : 'none',
+                display: 'flex',
               }}
             >
-              <div
+              <Link
+                to={`/holistic/research/${year}`}
                 style={{
-                  fontFamily: "'IBM Plex Sans', sans-serif",
-                  fontWeight: 800,
-                  fontSize: 26,
-                  color: TEAL,
-                  lineHeight: 1,
-                  textAlign: 'center',
+                  width: '100%',
+                  minHeight: 148,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  padding: '22px 20px',
+                  borderRadius: 16,
+                  border: '1px solid var(--border)',
+                  background: 'var(--surface)',
+                  boxShadow: 'var(--shadow-card)',
+                  color: 'inherit',
+                  textDecoration: 'none',
                 }}
               >
-                {year}
-              </div>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 22 }}>
-                {papers.map((paper) => (
-                  <PaperEntry
-                    key={paper.title}
-                    paper={paper}
-                    authorsLabel={research.authorsLabel}
-                    isZh={isZh}
-                  />
-                ))}
-              </div>
+                <div
+                  style={{
+                    fontFamily: "'IBM Plex Sans', sans-serif",
+                    fontWeight: 800,
+                    fontSize: 30,
+                    color: TEAL,
+                    lineHeight: 1,
+                  }}
+                >
+                  {year}
+                </div>
+                <div style={{ fontSize: 13, color: 'var(--muted)', marginTop: 8 }}>
+                  {isZh ? `${paperCount} 篇全人照護教育論文` : `${paperCount} holistic-care education ${paperCount === 1 ? 'paper' : 'papers'}`}
+                </div>
+                <div style={{ marginTop: 'auto', paddingTop: 18, color: TEAL, fontSize: 13, fontWeight: 700 }}>
+                  {isZh ? '查看論文' : 'View papers'} →
+                </div>
+              </Link>
             </Reveal>
           );
         })}

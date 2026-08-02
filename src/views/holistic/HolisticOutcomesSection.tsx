@@ -1,9 +1,9 @@
+import { Link } from 'react-router-dom';
 import { useSite } from '@/context/SiteContext';
 import { buildHolisticOutcomes } from '@/data/holistic';
 import { Reveal } from '@/components/common/Reveal';
 import { Eyebrow } from '@/components/common/Eyebrow';
 import { KpiCard } from '@/components/common/KpiCard';
-import { HolisticResearchSection } from './HolisticResearchSection';
 
 const TEAL = '#4f8c7d';
 
@@ -21,25 +21,42 @@ export function HolisticOutcomesSection() {
           </h2>
           <p style={{ fontSize: 15, lineHeight: 1.8, color: 'var(--muted)', maxWidth: 640, marginTop: 10 }}>{outcomes.symposiumDesc}</p>
         </Reveal>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit,minmax(210px,1fr))',
+            gap: 16,
+          }}
+        >
           {outcomes.symposiums.map((s, i) => (
             <Reveal
               key={i}
               delay={i * 70}
               style={{
-                display: 'grid',
-                gridTemplateColumns: '72px 1fr',
-                gap: '0 22px',
-                padding: '22px 0',
-                borderBottom: i < outcomes.symposiums.length - 1 ? '1px solid var(--border)' : 'none',
+                display: 'flex',
+                minHeight: 170,
               }}
             >
-              <div style={{ textAlign: 'center' }}>
+              <Link
+                to={`/holistic/symposia/${s.year}`}
+                style={{
+                  width: '100%',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  padding: '24px 22px',
+                  borderRadius: 16,
+                  border: '1px solid var(--border)',
+                  background: 'var(--surface)',
+                  boxShadow: 'var(--shadow-card)',
+                  color: 'inherit',
+                  textDecoration: 'none',
+                }}
+              >
                 <div
                   style={{
                     fontFamily: "'IBM Plex Sans', sans-serif",
                     fontWeight: 800,
-                    fontSize: 28,
+                    fontSize: 30,
                     color: TEAL,
                     lineHeight: 1,
                   }}
@@ -47,58 +64,28 @@ export function HolisticOutcomesSection() {
                   {s.year}
                 </div>
                 <div style={{ fontSize: 11.5, color: 'var(--muted)', marginTop: 4 }}>{s.edition}</div>
-              </div>
-              <div>
-                <div style={{ fontFamily: "'Noto Sans TC', sans-serif", fontWeight: 800, fontSize: 17.5, color: 'var(--text)', marginBottom: 8 }}>
+                <div style={{ fontFamily: "'Noto Sans TC', sans-serif", fontWeight: 800, fontSize: 17, lineHeight: 1.5, color: 'var(--text)', marginTop: 18 }}>
                   {s.title}
                 </div>
-                <div style={{ fontSize: 14, color: 'var(--body)', lineHeight: 1.65 }}>
-                  {s.dates}
-                  {s.time ? ` · ${s.time}` : ''}
+                {/* Year + name + a headline figure only; the rest lives on the detail page. */}
+                {(s.attendees != null || s.satisfaction != null) && (
+                  <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginTop: 12 }}>
+                    {s.attendees != null && (
+                      <span style={{ fontSize: 11.5, fontWeight: 700, padding: '3px 9px', borderRadius: 999, color: '#5E7A8C', background: 'color-mix(in srgb,#5E7A8C 12%,transparent)' }}>
+                        {s.attendees.toLocaleString()} {outcomes.attendeesLabel}
+                      </span>
+                    )}
+                    {s.satisfaction != null && (
+                      <span style={{ fontSize: 11.5, fontWeight: 700, padding: '3px 9px', borderRadius: 999, color: '#B69B66', background: 'color-mix(in srgb,#B69B66 14%,transparent)' }}>
+                        {outcomes.satisfactionLabel} {s.satisfaction}
+                      </span>
+                    )}
+                  </div>
+                )}
+                <div style={{ marginTop: 'auto', paddingTop: 18, color: TEAL, fontSize: 13, fontWeight: 700 }}>
+                  {lang === 'zh' ? '查看詳情' : 'View details'} →
                 </div>
-                <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginTop: 10 }}>
-                  <span
-                    style={{
-                      fontSize: 12,
-                      fontWeight: 600,
-                      padding: '4px 11px',
-                      borderRadius: 999,
-                      color: TEAL,
-                      background: `color-mix(in srgb,${TEAL} 12%,transparent)`,
-                    }}
-                  >
-                    {outcomes.hostLabel}
-                  </span>
-                  {s.attendees != null && (
-                    <span
-                      style={{
-                        fontSize: 12,
-                        fontWeight: 600,
-                        padding: '4px 11px',
-                        borderRadius: 999,
-                        color: '#5E7A8C',
-                        background: 'color-mix(in srgb,#5E7A8C 12%,transparent)',
-                      }}
-                    >
-                      {s.attendees.toLocaleString()} {outcomes.attendeesLabel}
-                    </span>
-                  )}
-                  {s.satisfaction != null && (
-                    <span
-                      style={{
-                        fontSize: 12,
-                        fontWeight: 600,
-                        padding: '4px 11px',
-                        borderRadius: 999,
-                        color: '#B69B66',
-                        background: 'color-mix(in srgb,#B69B66 14%,transparent)',
-                      }}
-                    >
-                      {outcomes.satisfactionLabel} {s.satisfaction}
-                    </span>
-                  )}
-                </div>
-              </div>
+              </Link>
             </Reveal>
           ))}
         </div>
@@ -130,8 +117,6 @@ export function HolisticOutcomesSection() {
           />
         </div>
       </section>
-
-      <HolisticResearchSection />
     </>
   );
 }

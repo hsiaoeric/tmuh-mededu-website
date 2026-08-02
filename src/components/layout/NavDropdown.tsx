@@ -73,7 +73,10 @@ export function NavDropdown({ label, scrollTarget = 'org', onNavigate }: NavDrop
     id: c.id,
     name: isZh ? c.zh : c.en,
     iconId: CENTER_ICON[c.id] as IconName,
-    ready: READY_CENTER_PAGES.includes(c.id),
+    externalUrl: c.externalUrl,
+    // Centers whose site lives outside this app count as ready too — the entry
+    // links straight out rather than to the in-progress placeholder.
+    ready: READY_CENTER_PAGES.includes(c.id) || !!c.externalUrl,
   }));
 
   const handleSelect = (id: (typeof links)[number]['id']) => {
@@ -167,17 +170,30 @@ export function NavDropdown({ label, scrollTarget = 'org', onNavigate }: NavDrop
                 name={c.name}
                 iconId={c.iconId}
                 statusLabel={
-                  c.ready
+                  c.externalUrl
                     ? isZh
-                      ? '進入專頁'
-                      : 'Enter page'
-                    : isZh
-                      ? '建置中'
-                      : 'In progress'
+                      ? '外部官網'
+                      : 'Official site'
+                    : c.ready
+                      ? isZh
+                        ? '進入專頁'
+                        : 'Enter page'
+                      : isZh
+                        ? '建置中'
+                        : 'In progress'
                 }
                 ready={c.ready}
                 active={view === c.id}
-                onClick={() => handleSelect(c.id)}
+                href={c.externalUrl}
+                onClick={() => {
+                  if (c.externalUrl) {
+                    cancelClose();
+                    setOpen(false);
+                    onNavigate?.();
+                    return;
+                  }
+                  handleSelect(c.id);
+                }}
               />
             ))}
           </div>
@@ -193,6 +209,8 @@ interface DropdownItemProps {
   statusLabel: string;
   ready: boolean;
   active: boolean;
+  /** When set, the row opens this external site instead of navigating in-app. */
+  href?: string;
   onClick: () => void;
 }
 
@@ -202,29 +220,27 @@ function DropdownItem({
   statusLabel,
   ready,
   active,
+  href,
   onClick,
 }: DropdownItemProps) {
   const [hover, setHover] = useState(false);
-  return (
-    <button
-      role="menuitem"
-      onClick={onClick}
-      onMouseEnter={() => setHover(true)}
-      onMouseLeave={() => setHover(false)}
-      style={{
-        display: 'flex',
-        alignItems: 'center',
-        gap: 11,
-        width: '100%',
-        padding: '10px 12px',
-        border: 'none',
-        borderRadius: 10,
-        cursor: 'pointer',
-        textAlign: 'left',
-        background: hover || active ? 'var(--teal-50)' : 'transparent',
-        transition: 'background .18s',
-      }}
-    >
+  const style = {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 11,
+    width: '100%',
+    padding: '10px 12px',
+    border: 'none',
+    borderRadius: 10,
+    cursor: 'pointer',
+    textAlign: 'left',
+    background: hover || active ? 'var(--teal-50)' : 'transparent',
+    transition: 'background .18s',
+    textDecoration: 'none',
+    boxSizing: 'border-box',
+  } as const;
+  const content = (
+    <>
       <span
         style={{
           width: 30,
@@ -264,6 +280,21 @@ function DropdownItem({
           {statusLabel}
         </span>
       </span>
+    </>
+  );
+
+  const hoverProps = {
+    onMouseEnter: () => setHover(true),
+    onMouseLeave: () => setHover(false),
+  };
+
+  return href ? (
+    <a role="menuitem" href={href} target="_blank" rel="noopener noreferrer" onClick={onClick} style={style} {...hoverProps}>
+      {content}
+    </a>
+  ) : (
+    <button role="menuitem" onClick={onClick} style={style} {...hoverProps}>
+      {content}
     </button>
   );
 }

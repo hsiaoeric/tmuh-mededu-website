@@ -14,6 +14,7 @@ export const ROLES = {
   head: ['教學部組長', 'Section Head'],
   spec: ['行政專員', 'Administrative Specialist'],
   pm: ['專案經理', 'Project Manager'],
+  advisor: ['顧問', 'Advisor'],
   ai: ['AI 專家顧問', 'AI Expert Advisor'],
   eng: ['專案工程師', 'Project Engineer'],
 } as const satisfies Record<string, readonly [string, string]>;

@@ -26,7 +26,7 @@ import { DeptAboutSection } from './dept/DeptAboutSection';
 
 interface KpiCenterLink {
   id: CenterId;
-  url: string;
+  url?: string;
 }
 
 const KPI_MEMBER_GROUPS: Record<string, RawPerson[]> = {
@@ -45,10 +45,10 @@ const KPI_MEMBER_GROUPS: Record<string, RawPerson[]> = {
 
 const KPI_CENTER_LINKS: KpiCenterLink[] = [
   { id: 'faculty_dev', url: '/facdev' },
-  { id: 'clinical_skills', url: '/center/clinical_skills' },
+  { id: 'clinical_skills' },
   { id: 'ebm', url: '/ebm' },
   { id: 'holistic', url: '/holistic' },
-  { id: 'med_edu_research', url: '/center/med_edu_research' },
+  { id: 'med_edu_research' },
 ];
 
 function OrgToggle({
@@ -91,42 +91,61 @@ function OrgToggle({
 function CenterLinks() {
   const { isZh, enterCenter } = useSite();
   const links = CENTER_LINK_ORDER.map((id) => centerById(id)!).map((c) => {
-    const ready = READY_CENTER_PAGES.includes(c.id);
+    const external = !!c.externalUrl;
+    const ready = READY_CENTER_PAGES.includes(c.id) || external;
     return {
       id: c.id,
       name: isZh ? c.zh : c.en,
       iconId: CENTER_ICON[c.id] as IconName,
-      statusLabel: ready ? (isZh ? '進入專頁' : 'Enter page') : isZh ? '建置中' : 'In progress',
+      externalUrl: c.externalUrl,
+      statusLabel: external
+        ? isZh ? '外部官網' : 'Official site'
+        : ready ? (isZh ? '進入專頁' : 'Enter page') : isZh ? '建置中' : 'In progress',
     };
   });
   return (
     <div style={{ display: 'flex', gap: 9, flexWrap: 'wrap', maxWidth: 680 }}>
-      {links.map((c) => (
-        <button
-          key={c.id}
-          onClick={() => enterCenter(c.id)}
-          style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: 7,
-            padding: '9px 14px',
-            borderRadius: 999,
-            border: '1px solid rgba(255,255,255,.42)',
-            background: 'rgba(255,255,255,.12)',
-            color: '#fff',
-            fontFamily: "'Noto Sans TC', sans-serif",
-            fontWeight: 600,
-            fontSize: 13,
-            cursor: 'pointer',
-          }}
-        >
-          <span style={{ width: 16, height: 16, display: 'block' }}>
-            <Icon name={c.iconId} />
-          </span>
-          {c.name}
-          <span style={{ fontSize: 10.5, opacity: 0.82 }}>· {c.statusLabel}</span>
-        </button>
-      ))}
+      {links.map((c) => {
+        const style = {
+          display: 'inline-flex',
+          alignItems: 'center',
+          gap: 7,
+          padding: '9px 14px',
+          borderRadius: 999,
+          border: '1px solid rgba(255,255,255,.42)',
+          background: 'rgba(255,255,255,.12)',
+          color: '#fff',
+          fontFamily: "'Noto Sans TC', sans-serif",
+          fontWeight: 600,
+          fontSize: 13,
+          cursor: 'pointer',
+          textDecoration: 'none',
+        } as const;
+        const content = (
+          <>
+            <span style={{ width: 16, height: 16, display: 'block' }}>
+              <Icon name={c.iconId} />
+            </span>
+            {c.name}
+            <span style={{ fontSize: 10.5, opacity: 0.82 }}>· {c.statusLabel}</span>
+          </>
+        );
+        return c.externalUrl ? (
+          <a
+            key={c.id}
+            href={c.externalUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={style}
+          >
+            {content}
+          </a>
+        ) : (
+          <button key={c.id} onClick={() => enterCenter(c.id)} style={style}>
+            {content}
+          </button>
+        );
+      })}
     </div>
   );
 }
@@ -149,7 +168,12 @@ export function DeptView() {
       ? KPI_CENTER_LINKS.map((item) => ({
           ...item,
           center: centerById(item.id),
-        })).filter((item) => !!item.center)
+        }))
+          .filter((item) => !!item.center)
+          .map((item) => ({
+            ...item,
+            url: item.center!.externalUrl ?? item.url ?? `/center/${item.id}`,
+          }))
       : [];
 
   const handleSelectCenter = (id: CenterId) => {
@@ -466,6 +490,8 @@ export function DeptView() {
                       </div>
                       <a
                         href={item.url}
+                        target={item.url.startsWith('https://') ? '_blank' : undefined}
+                        rel={item.url.startsWith('https://') ? 'noopener noreferrer' : undefined}
                         style={{
                           marginTop: 'auto',
                           color: center.color,
