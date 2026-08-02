@@ -99,9 +99,9 @@ export function PersonCard({ person, accent, hideRole, compact }: PersonCardProp
   const p = resolvePerson(person, accent, lang);
 
   return (
-    <div className="person">
+    <div className="person" style={{ ['--tone' as string]: accent }}>
       <Portrait person={p} accent={accent} />
-      <div className="stack" style={{ gap: 3 }}>
+      <div className="person-meta stack" style={{ gap: 3 }}>
         <span className="person-name">{p.fullname}</span>
         <span className="person-sub">{p.sub}</span>
         {!hideRole && (
