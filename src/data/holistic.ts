@@ -121,7 +121,7 @@ export function buildAiEcosystem(lang: Lang) {
       'The core is not a single tool but a teaching-simulation ecosystem for repeated practice, instant feedback and an accumulating case library — connecting AI patients, AI-authored cases, tablet & VR simulation, holistic learning feedback and a Line AI ChatBot assistant.',
     ),
     problemsTitle: pick(lang, '生態系要解決什麼問題？', 'What does the ecosystem solve?'),
-    teamLabel: pick(lang, '範疇二团隊', 'Scope 2 Team'),
+    teamLabel: pick(lang, '範疇二團隊', 'Scope 2 Team'),
     flow: [
       { role: pick(lang, '教師端', 'Faculty'), title: pick(lang, '教案 AI 化', 'AI-authored cases'), text: pick(lang, '把全人照護目標、臨床任務與討論問題轉成可互動的情境教案。', 'Turn holistic-care goals, clinical tasks and discussion prompts into interactive case scenarios.'), color: '#4f8c7d' },
       { role: pick(lang, '情境內容', 'Scenario'), title: pick(lang, '全人臨床情境', 'Whole-person clinical context'), text: pick(lang, '以醫學、人文、心理、倫理與照護脈絡設計案例。', 'Cases designed across medical, humanistic, psychological, ethical and care contexts.'), color: '#6E8A77' },
