@@ -1,8 +1,24 @@
-import { useLayoutEffect, useRef, type CSSProperties, type ElementType, type ReactNode } from 'react';
+import {
+  isValidElement,
+  useLayoutEffect,
+  useRef,
+  type CSSProperties,
+  type ElementType,
+  type ReactNode,
+} from 'react';
 import { SplitText } from 'gsap/SplitText';
 import { gsap, ScrollTrigger, EASE, prefersReducedMotion } from './gsap';
 
 gsap.registerPlugin(SplitText);
+
+/** Flattened text of the children, used as the remount key — see below. */
+function textOf(node: ReactNode): string {
+  if (node === null || node === undefined || typeof node === 'boolean') return '';
+  if (typeof node === 'string' || typeof node === 'number') return String(node);
+  if (Array.isArray(node)) return node.map(textOf).join('');
+  if (isValidElement(node)) return textOf((node.props as { children?: ReactNode }).children);
+  return '';
+}
 
 interface SplitLinesProps {
   children: ReactNode;
@@ -29,6 +45,7 @@ export function SplitLines({
   stagger = 0.09,
 }: SplitLinesProps) {
   const ref = useRef<HTMLElement>(null);
+  const text = textOf(children);
 
   useLayoutEffect(() => {
     const el = ref.current;
@@ -60,10 +77,19 @@ export function SplitLines({
       split?.revert();
       ctx.revert();
     };
-  }, [delay, immediate, stagger, children]);
+  }, [delay, immediate, stagger, text]);
 
+  /*
+   * SplitText replaces the heading's text node with per-line wrappers, so React
+   * no longer owns what is on screen. When the copy changes — switching
+   * language is the only case here — React writes into markup GSAP has since
+   * rebuilt, and the cleanup's `revert()` then restores GSAP's cached *original*
+   * HTML, putting the previous language back. Keying on the text sidesteps the
+   * conflict: React discards the whole element and mounts a fresh one for the
+   * effect to split, rather than trying to patch a node it no longer controls.
+   */
   return (
-    <Tag ref={ref} className={className} style={style}>
+    <Tag key={text} ref={ref} className={className} style={style}>
       {children}
     </Tag>
   );
