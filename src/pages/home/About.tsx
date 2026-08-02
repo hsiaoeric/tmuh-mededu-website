@@ -65,19 +65,31 @@ export function About() {
                     aspectRatio: '4 / 5',
                     objectFit: 'cover',
                     transform: 'scale(1.12)',
-                    filter: 'grayscale(0.7) contrast(1.05)',
+                    filter: 'saturate(1.08) contrast(1.04)',
                   }}
                 />
               </Parallax>
-              {/* Jade duotone wash ties the photo to the field behind it. */}
+              {/* Jade light, not a duotone: soft-light drops the accent into the
+                  shadows only, so the photo keeps its own colour while still
+                  belonging to the field behind it. */}
               <div
                 aria-hidden="true"
                 style={{
                   position: 'absolute',
                   inset: 0,
                   background:
-                    'linear-gradient(200deg, color-mix(in srgb, var(--accent) 34%, transparent), transparent 58%)',
-                  mixBlendMode: 'multiply',
+                    'linear-gradient(200deg, color-mix(in srgb, var(--accent) 62%, transparent), transparent 62%)',
+                  mixBlendMode: 'soft-light',
+                }}
+              />
+              {/* Scrim for the caption — the photo is bright now. */}
+              <div
+                aria-hidden="true"
+                style={{
+                  position: 'absolute',
+                  inset: 0,
+                  background:
+                    'linear-gradient(to top, rgba(12, 24, 20, 0.55), transparent 34%)',
                 }}
               />
               <figcaption
