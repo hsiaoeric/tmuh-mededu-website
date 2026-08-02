@@ -16,7 +16,7 @@ export function AiEcosystem() {
   return (
     <section id="ai" className="section">
       <div className="shell">
-        <SectionHeader index="05" eyebrow="Healthy Taiwan · Scope 2" title={t.aiTitle} desc={t.aiBody} />
+        <SectionHeader index="01" eyebrow="Healthy Taiwan · Scope 2" title={t.aiTitle} desc={t.aiBody} />
 
         <div className="grid g-editorial" style={{ alignItems: 'start', marginBottom: 'clamp(40px, 6vw, 76px)' }}>
           <Reveal variant="up" className="stack gap-2">

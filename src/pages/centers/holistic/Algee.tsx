@@ -13,7 +13,7 @@ export function Algee() {
 
   return (
     <Section id="mhfa">
-      <SectionHeader index="03" eyebrow="Mental Health First Aid" title={t.mhfaTitle} desc={t.mhfaIntro} />
+      <SectionHeader index="04" eyebrow="Mental Health First Aid" title={t.mhfaTitle} desc={t.mhfaIntro} />
 
       <Reveal variant="up" className="row gap-2 wrap" style={{ marginBottom: 40 }}>
         {ALGEE.map((s, i) => (

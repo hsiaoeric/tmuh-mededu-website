@@ -1,13 +1,33 @@
-import { Link } from 'react-router-dom';
 import { useSite } from '@/app/site';
 import { useGoToSection } from '@/app/navigation';
-import { CENTER_ORDER, centerPath } from '@/app/routes';
+import { CENTER_ORDER } from '@/app/routes';
 import { centerById } from '@/data/centers';
 import { latestUpdate } from '@/data/news';
 import { MAIN_PHONE } from '@/utils/phone';
 import { Reveal } from '@/motion/Reveal';
 import { assetUrl } from '@/utils/asset';
+import { CenterLink } from './CenterLink';
 import { Icon } from './Icon';
+
+/** Students who designed and built this site. */
+const DESIGN_TEAM = [
+  {
+    zh: '蕭名凱',
+    en: 'Ming-Kai Hsiao',
+    detailZh: '醫學二',
+    detailEn: 'Medicine, Year 2',
+    email: 'hsiaoeric.dev@gmail.com',
+    github: 'https://github.com/hsiaoeric',
+  },
+  {
+    zh: '古珉瑄',
+    en: '古珉瑄',
+    detailZh: '',
+    detailEn: '',
+    email: 'michelleku0813@gmail.com',
+    github: 'https://github.com/michelleku0813-hub',
+  },
+];
 
 export function Footer() {
   const { isZh, t, lang } = useSite();
@@ -60,15 +80,16 @@ export function Footer() {
                 {CENTER_ORDER.map((id) => {
                   const c = centerById(id)!;
                   return (
-                    <Link
+                    <CenterLink
                       key={id}
-                      to={centerPath(id)}
+                      id={id}
                       style={{ fontSize: '0.86rem', color: 'var(--body)', transition: 'color .25s' }}
                       onMouseEnter={(e) => (e.currentTarget.style.color = c.color)}
                       onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--body)')}
                     >
                       {isZh ? c.zh : c.en}
-                    </Link>
+                      {c.externalUrl && ' ↗'}
+                    </CenterLink>
                   );
                 })}
               </div>
@@ -97,6 +118,31 @@ export function Footer() {
             {isZh ? '教學部　MEDICAL EDUCATION' : 'MEDICAL EDUCATION'}
           </div>
         </Reveal>
+
+        {/* Compact build credit, kept just above the closing bar. */}
+        <div
+          className="row between wrap gap-3"
+          style={{ paddingTop: 22, borderTop: '1px solid var(--line-soft)' }}
+        >
+          <span className="eyebrow">{isZh ? '網站設計' : 'Site by'}</span>
+          <div className="row gap-3 wrap" style={{ justifyContent: 'flex-end' }}>
+            {DESIGN_TEAM.map((m) => (
+              <span key={m.email} className="row gap-1 wrap tiny">
+                <span style={{ color: 'var(--ink)' }}>{isZh ? m.zh : m.en}</span>
+                {(isZh ? m.detailZh : m.detailEn) && (
+                  <span style={{ color: 'var(--faint)' }}>{isZh ? m.detailZh : m.detailEn}</span>
+                )}
+                <a className="tlink" href={`mailto:${m.email}`}>
+                  {m.email}
+                </a>
+                <a className="tlink" href={m.github} target="_blank" rel="noopener noreferrer">
+                  GitHub
+                  <Icon name="arrowUpRight" />
+                </a>
+              </span>
+            ))}
+          </div>
+        </div>
 
         <div className="row between wrap gap-2" style={{ paddingTop: 22, borderTop: '1px solid var(--line-soft)' }}>
           <span className="tiny">{isZh ? t.footNote : '© Dept. of Medical Education, TMU Hospital · For departmental presentation only.'}</span>

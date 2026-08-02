@@ -35,25 +35,24 @@ export function HolisticPage() {
         tag={t.hHeroTag}
         tone={TEAL}
         icon={CENTER_ICON.holistic}
-        scrollTo="h-about"
+        scrollTo="ai"
       />
 
-      {/* About + members */}
+      {/* Healthy Taiwan Scope 2 leads the page — it is the center's headline work. */}
+      <AiEcosystem />
+
+      {/* About, figures and the core services */}
       <Section id="h-about">
-        <SectionHeader index="01" eyebrow="About" title={t.hAboutTitle} />
-        <div className="grid g-editorial" style={{ alignItems: 'start' }}>
-          <Reveal variant="up">
-            <p className="lede">{t.hAboutBody}</p>
-          </Reveal>
-          <div className="stack gap-3">
-            <span className="eyebrow">{isZh ? '中心成員' : 'Center Members'}</span>
-            <Reveal variant="up" stagger={80} className="grid grid-people">
-              {center.people.map((p, i) => (
-                <PersonCard key={`${p.en}-${i}`} person={p} accent={TEAL} compact />
-              ))}
-            </Reveal>
-          </div>
-        </div>
+        <SectionHeader index="02" eyebrow="About" title={t.hAboutTitle} desc={t.hAboutBody} />
+
+        <StatRow
+          items={kpis.map((k) => ({
+            value: k.isStatic ? k.display : k.num,
+            label: k.label,
+            sub: k.subtitle,
+            tone: k.color,
+          }))}
+        />
 
         <Reveal variant="up" stagger={90} className="grid g2" style={{ marginTop: 'clamp(40px, 6vw, 72px)' }}>
           {features.map((f) => (
@@ -83,24 +82,25 @@ export function HolisticPage() {
         </Reveal>
       </Section>
 
-      {/* KPIs */}
-      <Section id="h-figures" tight>
-        <SectionHeader index="02" eyebrow="At a Glance" title={isZh ? '中心數據' : 'Center Figures'} />
-        <StatRow
-          items={kpis.map((k) => ({
-            value: k.isStatic ? k.display : k.num,
-            label: k.label,
-            sub: k.subtitle,
-            tone: k.color,
-          }))}
+      {/* Center members */}
+      <Section id="h-members" tight>
+        <SectionHeader
+          index="03"
+          eyebrow="People"
+          title={isZh ? '中心成員' : 'Center Members'}
         />
+        <Reveal variant="up" stagger={80} className="grid grid-people">
+          {center.people.map((p, i) => (
+            <PersonCard key={`${p.en}-${i}`} person={p} accent={TEAL} />
+          ))}
+        </Reveal>
       </Section>
 
       <Algee />
 
       {/* Instructors + seed teachers */}
       <Section id="seed">
-        <SectionHeader index="04" eyebrow="People" title={t.instructorsTitle} />
+        <SectionHeader index="05" eyebrow="People" title={t.instructorsTitle} />
         <Reveal variant="up" stagger={90} className="grid grid-people" style={{ maxWidth: 620 }}>
           {HOLISTIC_INSTRUCTORS.map((p, i) => (
             <PersonCard key={`${p.en}-${i}`} person={p} accent={TEAL} />
@@ -128,7 +128,6 @@ export function HolisticPage() {
         </div>
       </Section>
 
-      <AiEcosystem />
       <Outcomes />
       <Research />
 

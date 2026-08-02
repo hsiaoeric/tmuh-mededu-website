@@ -1,4 +1,6 @@
+import { Link } from 'react-router-dom';
 import { useSite } from '@/app/site';
+import { holisticDetailPath } from '@/app/routes';
 import { buildHolisticOutcomes } from '@/data/holistic';
 import { Reveal } from '@/motion/Reveal';
 import { Section, SectionHeader } from '@/ui/Section';
@@ -9,7 +11,7 @@ const TEAL = '#4f8c7d';
 
 /** Symposia hosted by the department, plus AY113 faculty-training results. */
 export function Outcomes() {
-  const { lang } = useSite();
+  const { lang, isZh } = useSite();
   const o = buildHolisticOutcomes(lang);
 
   return (
@@ -22,61 +24,51 @@ export function Outcomes() {
           desc={o.symposiumDesc}
         />
 
-        <div className="stack" style={{ gap: 0 }}>
-          {o.symposiums.map((s, i) => (
-            <Reveal
+        {/* Year cards: year, name and a headline figure only — the agenda,
+            speakers and photos live on the detail page. */}
+        <Reveal variant="up" stagger={70} className="grid g4">
+          {o.symposiums.map((s) => (
+            <Link
               key={`${s.year}-${s.title}`}
-              variant="up"
-              delay={i * 70}
-              className="grid"
-              style={{
-                gridTemplateColumns: 'minmax(0, 130px) minmax(0, 1fr) auto',
-                gap: 'clamp(14px, 3vw, 40px)',
-                alignItems: 'center',
-                padding: 'clamp(22px, 2.8vw, 34px) 0',
-                borderTop: '1px solid var(--line-soft)',
-                ['--tone' as string]: TEAL,
-              }}
+              to={holisticDetailPath('symposia', s.year)}
+              className="card card-hover stack gap-2"
+              style={{ ['--tone' as string]: TEAL }}
+              data-cursor={isZh ? '查看' : 'View'}
             >
               <div className="stack gap-1">
-                <span className="display" style={{ fontSize: '1.8rem', lineHeight: 1, color: TEAL }}>
+                <span className="display" style={{ fontSize: '2rem', lineHeight: 1, color: TEAL }}>
                   {s.year}
                 </span>
                 <span className="mono tiny">{s.edition}</span>
               </div>
 
-              <div className="stack gap-1" style={{ minWidth: 0 }}>
-                <h3 className="display d4">{s.title}</h3>
-                <span className="row gap-2 wrap tiny">
-                  <span className="row gap-1">
-                    <Icon name="calendar" size={12} />
-                    {s.dates}
-                  </span>
-                  {s.time && <span className="mono">{s.time}</span>}
-                </span>
-                <span className="mono tiny" style={{ color: 'var(--faint)' }}>
-                  {o.hostLabel}
-                </span>
-              </div>
+              <h3 className="display d4" style={{ minWidth: 0 }}>
+                {s.title}
+              </h3>
 
-              <div className="stack gap-1" style={{ textAlign: 'right' }}>
+              <span className="row gap-1 wrap">
                 {s.attendees !== undefined && (
-                  <span>
-                    <span className="display" style={{ fontSize: '1.5rem', color: 'var(--ink)' }}>
-                      {s.attendees}
-                    </span>
-                    <span className="tiny"> {o.attendeesLabel}</span>
+                  <span className="tag" style={{ ['--tone' as string]: '#5E7A8C' }}>
+                    {s.attendees.toLocaleString()} {o.attendeesLabel}
                   </span>
                 )}
                 {s.satisfaction !== undefined && (
-                  <span className="mono tiny" style={{ color: TEAL }}>
+                  <span className="tag" style={{ ['--tone' as string]: '#B69B66' }}>
                     {o.satisfactionLabel} {s.satisfaction}
                   </span>
                 )}
-              </div>
-            </Reveal>
+              </span>
+
+              <span
+                className="row gap-1 tiny"
+                style={{ marginTop: 'auto', paddingTop: 12, color: TEAL }}
+              >
+                {isZh ? '查看詳情' : 'View details'}
+                <Icon name="arrow" size={12} />
+              </span>
+            </Link>
           ))}
-        </div>
+        </Reveal>
       </Section>
 
       <Section id="training" tight>

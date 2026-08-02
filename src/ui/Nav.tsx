@@ -6,6 +6,7 @@ import { CENTER_ORDER, centerPath } from '@/app/routes';
 import { centerById } from '@/data/centers';
 import { setScrollLocked } from '@/motion/smoothScroll';
 import { assetUrl } from '@/utils/asset';
+import { CenterLink } from './CenterLink';
 import { Icon } from './Icon';
 
 interface SectionItem {
@@ -77,9 +78,9 @@ function CentersMenu({ onNavigate }: { onNavigate: () => void }) {
         {CENTER_ORDER.map((id) => {
           const c = centerById(id)!;
           return (
-            <Link
+            <CenterLink
               key={id}
-              to={centerPath(id)}
+              id={id}
               onClick={() => {
                 setOpen(false);
                 onNavigate();
@@ -109,10 +110,10 @@ function CentersMenu({ onNavigate }: { onNavigate: () => void }) {
                   {isZh ? c.zh : c.en}
                 </span>
                 <span className="mono" style={{ fontSize: '0.6rem', color: 'var(--faint)', letterSpacing: '.1em' }}>
-                  {isZh ? c.en : c.zh}
+                  {c.externalUrl ? (isZh ? '外部官網 ↗' : 'Official site ↗') : isZh ? c.en : c.zh}
                 </span>
               </span>
-            </Link>
+            </CenterLink>
           );
         })}
       </div>
@@ -229,14 +230,15 @@ export function Nav() {
           {CENTER_ORDER.map((id) => {
             const c = centerById(id)!;
             return (
-              <Link
+              <CenterLink
                 key={id}
-                to={centerPath(id)}
+                id={id}
                 data-active={pathname === centerPath(id)}
                 onClick={() => setSheet(false)}
               >
                 {isZh ? c.zh : c.en}
-              </Link>
+                {c.externalUrl && ' ↗'}
+              </CenterLink>
             );
           })}
         </div>

@@ -1,9 +1,9 @@
-import { Link } from 'react-router-dom';
 import { useSite } from '@/app/site';
-import { CENTER_ORDER, centerPath } from '@/app/routes';
+import { CENTER_ORDER } from '@/app/routes';
 import { centerById } from '@/data/centers';
 import { Reveal } from '@/motion/Reveal';
 import { Section, SectionHeader } from '@/ui/Section';
+import { CenterLink } from '@/ui/CenterLink';
 import { Icon } from '@/ui/Icon';
 
 export function Centers() {
@@ -26,12 +26,12 @@ export function Centers() {
         {CENTER_ORDER.map((id, i) => {
           const c = centerById(id)!;
           return (
-            <Link
+            <CenterLink
               key={id}
-              to={centerPath(id)}
+              id={id}
               className="index-row"
               style={{ ['--tone' as string]: c.color }}
-              data-cursor={isZh ? '進入' : 'Enter'}
+              data-cursor={c.externalUrl ? (isZh ? '官網' : 'Site') : isZh ? '進入' : 'Enter'}
             >
               <span className="num">0{i + 1}</span>
               <span className="stack gap-1" style={{ minWidth: 0 }}>
@@ -45,10 +45,10 @@ export function Centers() {
               <span className="row gap-3">
                 <span className="row-meta">{isZh ? c.introZh : c.introEn}</span>
                 <span className="row-go">
-                  <Icon name="arrow" />
+                  <Icon name={c.externalUrl ? 'arrowUpRight' : 'arrow'} />
                 </span>
               </span>
-            </Link>
+            </CenterLink>
           );
         })}
       </Reveal>

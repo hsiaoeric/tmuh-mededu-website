@@ -56,15 +56,18 @@ export function holisticKpis(lang: Lang): HolisticKpi[] {
     | { num: number; label: string; color: string; subtitle?: string }
     | { display: string; label: string; color: string }
   > = [
-    { num: 142, label: pick(lang, '全人種子教師（累計）', 'Holistic Seed Teachers (total)'), color: '#4f8c7d' },
     {
       num: 87,
       label: pick(lang, '113 學年種子教師', 'AY113 Seed Teachers'),
       color: '#6E8A77',
       subtitle: pick(lang, '醫師 40 · 醫事 14 · 護理 33', 'Physicians 40 · Allied 14 · Nursing 33'),
     },
-    { num: 11, label: pick(lang, 'MHFA 種子教師', 'MHFA Seed Teachers'), color: '#B69B66' },
-    { num: 2, label: pick(lang, 'MHFA 指導員', 'MHFA Instructors'), color: '#5E7A8C' },
+    { num: 133, label: pick(lang, '全人種子教師（累計）', 'Holistic Seed Teachers (total)'), color: '#4f8c7d' },
+    {
+      display: '2 / 11',
+      label: pick(lang, 'MHFA 指導員／種子教師', 'MHFA Instructors / Seed Teachers'),
+      color: '#5E7A8C',
+    },
     {
       num: HOLISTIC_PAPER_TOTAL,
       label: pick(lang, '全院全人相關研究論文', 'Hospital-Wide Holistic Research'),
@@ -91,10 +94,9 @@ export interface HolisticFeature {
 
 export function holisticFeatures(lang: Lang): HolisticFeature[] {
   return [
-    { iconId: 'brain', title: pick(lang, '心理健康急救', 'Mental Health First Aid'), desc: pick(lang, '引進國際 MHFA 課程，培訓同仁辨識、陪伴並適時轉介需要協助的人。', 'International MHFA training to recognize, accompany and refer those who need help.'), delay: 0 },
-    { iconId: 'sprout', title: pick(lang, '種子教師培育', 'Seed Teacher Cultivation'), desc: pick(lang, '集結護理、醫師、藥劑、社工、心理、語言治療等跨領域人才，將關懷文化向下扎根。', 'Bringing together nursing, medicine, pharmacy, social work, psychology and more to root a culture of care.'), delay: 100 },
-    { iconId: 'network', title: pick(lang, '跨科部協作', 'Cross-Department Collaboration'), desc: pick(lang, '串連臨床各單位與校園資源，打造彼此支持、能即時伸出援手的健康職場。', 'Linking clinical units and campus resources into a supportive, responsive, healthy workplace.'), delay: 200 },
-    { iconId: 'team', title: pick(lang, '全人教育小組', 'Holistic Education Working Group'), desc: pick(lang, '跨越西醫、中醫、牙醫與各醫事職類，組成專責團隊，共同鑽研全人照護教案設計與教學發展，讓全人精神在每個專業領域生根。', 'A dedicated cross-professional team — uniting Western medicine, TCM, dentistry and all allied-health roles — to co-develop holistic-care teaching cases and curricula across every discipline.'), delay: 300 },
+    { iconId: 'sprout', title: pick(lang, '種子教師培育', 'Seed Teacher Cultivation'), desc: pick(lang, '集結護理、醫師、藥劑、社工、心理、語言治療等跨領域人才，將關懷文化向下扎根。', 'Bringing together nursing, medicine, pharmacy, social work, psychology and more to root a culture of care.'), delay: 0 },
+    { iconId: 'network', title: pick(lang, '跨科部協作', 'Cross-Department Collaboration'), desc: pick(lang, '串連臨床各單位與校園資源，打造彼此支持、能即時伸出援手的健康職場。', 'Linking clinical units and campus resources into a supportive, responsive, healthy workplace.'), delay: 100 },
+    { iconId: 'team', title: pick(lang, '全人教育小組', 'Holistic Education Working Group'), desc: pick(lang, '跨越西醫、中醫、牙醫與各醫事職類，組成專責團隊，共同鑽研全人照護教案設計與教學發展，讓全人精神在每個專業領域生根。', 'A dedicated cross-professional team — uniting Western medicine, TCM, dentistry and all allied-health roles — to co-develop holistic-care teaching cases and curricula across every discipline.'), delay: 200 },
   ];
 }
 
@@ -252,4 +254,3 @@ export function buildHolisticOutcomes(lang: Lang) {
     trainingSatisfaction: { num: 4.75, label: pick(lang, '整體滿意度', 'Overall Satisfaction'), suffix: '/5' },
   };
 }
-

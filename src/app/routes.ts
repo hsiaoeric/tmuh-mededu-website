@@ -15,6 +15,15 @@ export const SLUG_TO_CENTER: Record<string, CenterId> = Object.fromEntries(
 
 export const centerPath = (id: Exclude<CenterId, 'admin'>) => `/centers/${CENTER_SLUG[id]}`;
 
+/**
+ * The holistic center lists its symposia and papers as year cards; each opens a
+ * detail page nested under the center's own path.
+ */
+export type HolisticDetailKind = 'symposia' | 'research';
+export const HOLISTIC_DETAIL_KINDS: HolisticDetailKind[] = ['symposia', 'research'];
+export const holisticDetailPath = (kind: HolisticDetailKind, year: number) =>
+  `${centerPath('holistic')}/${kind}/${year}`;
+
 /** Order the centers are presented in across the site. */
 export const CENTER_ORDER: Array<Exclude<CenterId, 'admin'>> = [
   'faculty_dev',

@@ -1,7 +1,8 @@
+import { Link } from 'react-router-dom';
 import { useSite } from '@/app/site';
+import { holisticDetailPath } from '@/app/routes';
 import {
   buildHolisticResearch,
-  resolveAuthorName,
   HOLISTIC_EDU_PAPERS,
   HOLISTIC_PAPER_TOTAL,
 } from '@/data/holisticPapers';
@@ -9,15 +10,17 @@ import { Counter } from '@/motion/Counter';
 import { Reveal } from '@/motion/Reveal';
 import { Section, SectionHeader } from '@/ui/Section';
 import { StatRow } from '@/ui/Stats';
+import { Icon } from '@/ui/Icon';
 
 const EDU_TONE = '#4f8c7d';
 const CLINICAL_TONE = '#A87A6B';
 const CHART_H = 190;
 
 export function Research() {
-  const { lang } = useSite();
+  const { lang, isZh } = useSite();
   const r = buildHolisticResearch(lang);
   const peak = Math.max(...r.byYear.map((y) => y.edu + y.clinical));
+  const eduYears = [...new Set(HOLISTIC_EDU_PAPERS.map((p) => p.year))].sort((a, b) => b - a);
 
   return (
     <Section id="research">
@@ -100,43 +103,46 @@ export function Research() {
           <p className="prose measure">{r.eduDesc}</p>
         </div>
 
-        <div className="stack" style={{ gap: 0, marginTop: 10 }}>
-          {HOLISTIC_EDU_PAPERS.map((p, i) => (
-            <Reveal
-              key={p.title}
-              variant="up"
-              delay={Math.min(i, 6) * 50}
-              className="grid"
-              style={{
-                gridTemplateColumns: 'minmax(0, 78px) minmax(0, 1fr)',
-                gap: 'clamp(12px, 2.4vw, 32px)',
-                padding: 'clamp(18px, 2.2vw, 28px) 0',
-                borderTop: '1px solid var(--line-soft)',
-              }}
-            >
-              <span className="mono" style={{ fontSize: '0.8rem', color: EDU_TONE, paddingTop: 3 }}>
-                {p.year}
-              </span>
-              <div className="stack gap-1" style={{ minWidth: 0 }}>
-                <span className="italic" style={{ color: 'var(--accent)', fontSize: '0.82rem' }}>
-                  {p.journal}
+        {/* Year entry cards, newest first — the titles themselves live on the
+            per-year detail page rather than expanded here. */}
+        <Reveal
+          variant="up"
+          stagger={60}
+          className="grid"
+          style={{
+            gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))',
+            marginTop: 10,
+          }}
+        >
+          {eduYears.map((year) => {
+            const count = HOLISTIC_EDU_PAPERS.filter((p) => p.year === year).length;
+            return (
+              <Link
+                key={year}
+                to={holisticDetailPath('research', year)}
+                className="card card-hover stack gap-2"
+                style={{ ['--tone' as string]: EDU_TONE }}
+                data-cursor={isZh ? '查看' : 'View'}
+              >
+                <span className="display" style={{ fontSize: '2rem', lineHeight: 1, color: EDU_TONE }}>
+                  {year}
                 </span>
-                <span style={{ color: 'var(--ink)', lineHeight: 1.5 }}>{p.title}</span>
-                <span className="tiny">{p.byline}</span>
-                <span className="row gap-1 wrap" style={{ marginTop: 5 }}>
-                  <span className="mono" style={{ fontSize: '0.6rem', letterSpacing: '.14em', color: 'var(--faint)' }}>
-                    {r.authorsLabel}
-                  </span>
-                  {p.authors.map((a) => (
-                    <span className="tag" key={a} style={{ ['--tone' as string]: EDU_TONE }}>
-                      {resolveAuthorName(a, lang)}
-                    </span>
-                  ))}
+                <span className="tiny">
+                  {isZh
+                    ? `${count} 篇全人照護教育論文`
+                    : `${count} education ${count === 1 ? 'paper' : 'papers'}`}
                 </span>
-              </div>
-            </Reveal>
-          ))}
-        </div>
+                <span
+                  className="row gap-1 tiny"
+                  style={{ marginTop: 'auto', paddingTop: 12, color: EDU_TONE }}
+                >
+                  {isZh ? '查看論文' : 'View papers'}
+                  <Icon name="arrow" size={12} />
+                </span>
+              </Link>
+            );
+          })}
+        </Reveal>
       </div>
 
       {/* Hospital-wide clinical register */}

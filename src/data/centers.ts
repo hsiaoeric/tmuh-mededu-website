@@ -26,6 +26,8 @@ export interface Center {
   contactEn: string;
   /** Extension number only (formatted at display time). */
   ext: string;
+  /** Official external center website, when maintained outside this app. */
+  externalUrl?: string;
   deep?: boolean;
   people: RawPerson[];
 }
@@ -257,6 +259,7 @@ export const CENTERS: Center[] = [
     contactZh: '張家銘、賴哲民',
     contactEn: 'Chia-Ming Chang · Che-Min Lai',
     ext: '3770',
+    externalUrl: 'https://tmuh-education.tmuh.org.tw/center/about/clinical/abt02',
     people: [
       person('吳人傑', 'Jen-Chieh Wu', 'director', '西醫 · 助理教授', 'Physician · Asst. Prof.', 'jen-chieh-wu', 'jen-chieh-wu'),
       person('蔡鴻維', 'Hung-Wei Tsai', 'deputy', '西醫 · 講師', 'Physician · Lecturer', 'hung-wei-tsai', 'hung-wei-tsai'),
@@ -298,6 +301,7 @@ export const CENTERS: Center[] = [
     people: [
       person('廖若帆', 'Faith Ruofan Liao', 'director', '護理 · 副教授', 'Nursing · Assoc. Prof.', 'faith-ruofan-liao', 'faith-ruofan-liao'),
       person('孟令城', 'Ling-Cheng Mong', 'deputy', '牙醫', 'Dentist', 'ling-cheng-mong', 'ling-cheng-mong'),
+      person('邵軒磊', 'Hsuan-Lei Shao', 'advisor', '教授', 'Professor', 'hsuan-lei-shao'),
       person('江明憲', 'Ming-Hsien Chiang', 'cadmin', '行政', 'Administration'),
     ],
   },
@@ -313,6 +317,7 @@ export const CENTERS: Center[] = [
     contactZh: '陳麗玉',
     contactEn: 'Li-Yu Chen',
     ext: '',
+    externalUrl: 'https://tmuh.ai/u/jc2jc/med-ed-research-center/#overview',
     people: [
       person('陳建宇', 'Chien-Yu Chen', 'director', '西醫 · 教授', 'Physician · Professor', 'chien-yu-chen', 'chien-yu-chen'),
       person('邱欣怡', 'Hsin-Yi Chiu', 'deputy', '西醫 · 助理教授', 'Physician · Asst. Prof.', 'hsin-yi-chiu', 'hsin-yi-chiu'),

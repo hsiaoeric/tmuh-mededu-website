@@ -28,6 +28,20 @@ export function GenericCenterPage({ id }: { id: CenterId }) {
         tone={center.color}
         icon={CENTER_ICON[id]}
         scrollTo="remit"
+        meta={
+          center.externalUrl && (
+            <a
+              className="tlink"
+              href={center.externalUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ color: center.color, alignSelf: 'flex-start' }}
+            >
+              {isZh ? '前往官方網站' : 'Visit the official site'}
+              <Icon name="arrowUpRight" />
+            </a>
+          )
+        }
       />
 
       <Section id="remit">
