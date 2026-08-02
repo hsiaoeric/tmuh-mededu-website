@@ -1774,7 +1774,7 @@ class Component extends DCLogic {
       isDept: view==='dept', isHolistic: view==='holistic', isBuilding: view==='building', isEbm: view==='ebm', ebm, isFacdev: view==='facdev', facdev, building:buildingObj,
       centerLinks, enterCenter:this.enterCenter,
       aiEcoTitle, aiEcoBody, aiFlow, aiSteps, aiProblems,
-      aiProblemsTitle:isZh?'生態系要解決什麼問題？':'What does the ecosystem solve?', aiTeamLabel:isZh?'範疇二团隊':'Scope 2 Team',
+      aiProblemsTitle:isZh?'生態系要解決什麼問題？':'What does the ecosystem solve?', aiTeamLabel:isZh?'範疇二團隊':'Scope 2 Team',
       centerPagesEyebrow:'Center Pages', centerPagesTitle:isZh?'中心專頁入口':'Center Pages', centerPagesDesc:isZh?'點擊任一中心進入專頁；全人照護教育中心已上線，其餘中心專頁陸續建置中。':'Tap any center to open its page. The Holistic Care Education Center is live; others are in progress.',
       buildingTitle:isZh?'本中心專頁建置中':'This center page is in progress', buildingDesc:isZh?'內容正陸續整理上線，敬請期待。您可以先返回教學部首頁瀏覽組織架構與團隊成員。':'Content is being prepared and will be online soon. Meanwhile, return to the department home to explore the structure and teams.',
       heroA: (this.props.heroVariant||'B')==='A', heroB: (this.props.heroVariant||'B')!=='A',
