@@ -1,10 +1,17 @@
 import { useState } from 'react';
 import { useSite } from '@/app/site';
-import { ALGEE } from '@/data/holistic';
+import { ALGEE, HOLISTIC_INSTRUCTORS, HOLISTIC_SEED } from '@/data/holistic';
 import { Reveal } from '@/motion/Reveal';
 import { Section, SectionHeader } from '@/ui/Section';
+import { PersonCard } from '@/ui/Person';
 
-/** The five MHFA action steps, one letter at a time. */
+const TEAL = '#4f8c7d';
+
+/**
+ * Everything MHFA: the five action steps, then the people who teach them.
+ * The instructors and seed teachers used to sit in a separate section after
+ * this one, which split the programme from its team.
+ */
 export function Algee() {
   const { t, isZh } = useSite();
   const [step, setStep] = useState(0);
@@ -41,6 +48,36 @@ export function Algee() {
         </Reveal>
         <Reveal variant="up" delay={100}>
           <p className="lede measure">{body}</p>
+        </Reveal>
+      </div>
+
+      {/* The people behind the programme */}
+      <div className="stack gap-3" style={{ marginTop: 'clamp(56px, 8vw, 104px)' }}>
+        <h3 className="display d3">{t.instructorsTitle}</h3>
+        <Reveal variant="up" stagger={90} className="grid grid-people" style={{ maxWidth: 620 }}>
+          {HOLISTIC_INSTRUCTORS.map((p, i) => (
+            <PersonCard key={`${p.en}-${i}`} person={p} accent={TEAL} />
+          ))}
+        </Reveal>
+      </div>
+
+      <div className="stack gap-3" style={{ marginTop: 'clamp(46px, 7vw, 88px)' }}>
+        <div className="row between wrap gap-2">
+          <div className="stack gap-1">
+            <h3 className="display d3">{t.seedTitle}</h3>
+            <p className="prose measure">{t.seedDesc}</p>
+          </div>
+          <span className="stat" style={{ ['--tone' as string]: TEAL }}>
+            <span className="stat-num" style={{ fontSize: '2.6rem' }}>
+              {HOLISTIC_SEED.length}
+            </span>
+          </span>
+        </div>
+
+        <Reveal variant="up" stagger={50} className="grid grid-people" style={{ marginTop: 12 }}>
+          {HOLISTIC_SEED.map((p, i) => (
+            <PersonCard key={`${p.en}-${i}`} person={p} accent={TEAL} hideRole />
+          ))}
         </Reveal>
       </div>
     </Section>

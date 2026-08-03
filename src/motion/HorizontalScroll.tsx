@@ -1,6 +1,7 @@
 import { useLayoutEffect, useRef, useState, type ReactNode } from 'react';
 import { gsap, ScrollTrigger, prefersReducedMotion } from './gsap';
 
+
 /**
  * Pins the section and drives its track sideways with the scroll wheel.
  * Below `minWidth` — and whenever motion is reduced — the track degrades to a
@@ -26,9 +27,15 @@ export function HorizontalScroll({
 
     const distance = () => Math.max(0, track.scrollWidth - window.innerWidth * 0.92);
 
-    // On a wide enough screen the whole track already fits, so there is nothing
-    // to scrub — pinning there would just freeze the page for no reason.
-    if (prefersReducedMotion() || window.innerWidth < minWidth || distance() === 0) {
+    // Pinning costs a whole stage of vertical scroll, so the scrub has to buy
+    // something back. Unless at least one full card is off-screen, the plain
+    // strip is the better trade — a wide screen where the track nearly fits
+    // would otherwise freeze the page to nudge the cards a finger's width.
+    const firstCard = track.firstElementChild;
+    const worthPinning = () =>
+      distance() >= (firstCard ? firstCard.getBoundingClientRect().width : 320);
+
+    if (prefersReducedMotion() || window.innerWidth < minWidth || !worthPinning()) {
       setPinned(false);
       return;
     }
@@ -40,7 +47,10 @@ export function HorizontalScroll({
         ease: 'none',
         scrollTrigger: {
           trigger: outer,
-          start: 'top top',
+          // A stage shorter than the viewport is pinned centred, so its slack
+          // splits evenly instead of stranding the cards at the top. Anything
+          // taller has to pin from the top or its head would sit off-screen.
+          start: () => (outer.offsetHeight < window.innerHeight ? 'center center' : 'top top'),
           end: () => `+=${distance()}`,
           pin: true,
           scrub: 0.7,

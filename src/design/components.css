@@ -977,9 +977,10 @@
 }
 .hscroll[data-pinned='true'] {
   overflow: hidden;
-  /* While pinned the section fills the viewport, so the track has to be
-     centred in it or the cards hang from the top of a mostly empty screen. */
-  min-height: 100vh;
+  /* A floor, not a ceiling: taller cards still grow the stage. Pinning used to
+     force a full 100vh here, which scaled the empty space with the monitor —
+     on a tall window the cards were a third of a mostly blank screen. */
+  min-height: min(100vh, 560px);
   display: flex;
   align-items: center;
 }
@@ -1001,6 +1002,12 @@
   padding-bottom: 14px;
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
+  /* The native bar reads as a stray UI element under the cards; the strip is
+     still swipeable, trackpad-scrollable and keyboard-reachable without it. */
+  scrollbar-width: none;
+}
+.hscroll[data-pinned='false'] .hscroll-track::-webkit-scrollbar {
+  display: none;
 }
 .hscroll[data-pinned='false'] .hscroll-track > * {
   scroll-snap-align: start;
@@ -1073,4 +1080,126 @@
 .year-seg {
   border-radius: 2px;
   transition: opacity 0.3s ease;
+}
+
+/* ------------------------------------------------------------------ *
+ * Section rail — per-page wayfinding for the long center pages.
+ * Wide screens: a numbered rail in the left gutter, labels on hover.
+ * Below 1280px there is no gutter, so it becomes a sticky chip strip.
+ * ------------------------------------------------------------------ */
+.sec-rail {
+  position: fixed;
+  left: var(--edge);
+  top: 50%;
+  transform: translateY(-50%);
+  /* Under the nav (60) so the two never overlap awkwardly. */
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+}
+.sec-rail[data-past='true'] {
+  opacity: 1;
+  pointer-events: auto;
+}
+.sec-rail-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 5px 0;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  text-align: left;
+  color: var(--faint);
+  transition: color 0.3s ease;
+}
+.sec-rail-num {
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  transition: transform 0.3s ease;
+}
+.sec-rail-item[data-on='true'] .sec-rail-num {
+  transform: scale(1.25);
+}
+/* The gutter is only ~130px at 1440, so only the numbers live in it. Labels
+   layer out over the content on hover, on their own surface. */
+.sec-rail-label {
+  font-size: 0.72rem;
+  white-space: nowrap;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: var(--surface);
+  border: 1px solid var(--line-soft);
+  box-shadow: var(--shadow-md);
+  color: var(--ink);
+  opacity: 0;
+  transform: translateX(-6px);
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.sec-rail:hover .sec-rail-label {
+  opacity: 1;
+  transform: none;
+}
+.sec-rail-item[data-on='true'] {
+  color: var(--tone, var(--accent));
+}
+.sec-rail-item[data-on='true'] .sec-rail-label {
+  color: var(--tone, var(--accent));
+  border-color: color-mix(in srgb, var(--tone, var(--accent)) 40%, transparent);
+}
+.sec-rail-item:hover {
+  color: var(--ink);
+}
+
+@media (max-width: 1199px) {
+  .sec-rail {
+    position: sticky;
+    top: var(--nav-h);
+    left: auto;
+    transform: none;
+    flex-direction: row;
+    gap: 4px;
+    /* Always present here: it doubles as a contents list for the page. */
+    opacity: 1;
+    pointer-events: auto;
+    overflow-x: auto;
+    scrollbar-width: none;
+    padding: 10px var(--edge);
+    background: color-mix(in srgb, var(--bg) 86%, transparent);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-block: 1px solid var(--line-soft);
+  }
+  .sec-rail::-webkit-scrollbar {
+    display: none;
+  }
+  .sec-rail-item {
+    flex: none;
+    padding: 5px 12px;
+    border-radius: 999px;
+    border: 1px solid transparent;
+  }
+  .sec-rail-num {
+    display: none;
+  }
+  /* The item itself is the pill here, so the label drops its own surface. */
+  .sec-rail-label {
+    opacity: 1;
+    transform: none;
+    font-size: 0.78rem;
+    padding: 0;
+    background: none;
+    border: 0;
+    box-shadow: none;
+    color: inherit;
+  }
+  .sec-rail-item[data-on='true'] {
+    border-color: color-mix(in srgb, var(--tone, var(--accent)) 40%, transparent);
+    background: color-mix(in srgb, var(--tone, var(--accent)) 12%, transparent);
+  }
 }

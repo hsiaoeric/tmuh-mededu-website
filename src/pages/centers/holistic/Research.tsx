@@ -24,7 +24,7 @@ export function Research() {
 
   return (
     <Section id="research">
-      <SectionHeader index="08" eyebrow={r.eyebrow} title={r.title} desc={r.desc} />
+      <SectionHeader index="07" eyebrow={r.eyebrow} title={r.title} desc={r.desc} />
 
       {/* Total + per-year composition */}
       <div className="grid g-aside" style={{ alignItems: 'end', marginBottom: 'clamp(40px, 6vw, 76px)' }}>
@@ -51,11 +51,37 @@ export function Research() {
             </span>
           </div>
 
+          {/* The bars carry no text, and their per-segment counts are only in
+              `title` tooltips — which never surface on touch. The same numbers
+              go out as a table for screen readers. */}
+          {/* Wrapped in a div because `.sr-only` sizes a <table> unreliably —
+              a table treats `height` as a minimum. */}
+          <div className="sr-only">
+            <table>
+              <caption>{r.byYearTitle}</caption>
+              <thead>
+                <tr>
+                  <th scope="col">{isZh ? '年份' : 'Year'}</th>
+                  <th scope="col">{r.eduLegend}</th>
+                  <th scope="col">{r.clinicalLegend}</th>
+                </tr>
+              </thead>
+              <tbody>
+                {r.byYear.map((y) => (
+                  <tr key={y.year}>
+                    <th scope="row">{y.year}</th>
+                    <td>{y.edu}</td>
+                    <td>{y.clinical}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
           <div
             className="row"
             style={{ alignItems: 'flex-end', gap: 'clamp(6px, 1.4vw, 18px)', height: CHART_H }}
-            role="img"
-            aria-label={r.byYearTitle}
+            aria-hidden="true"
           >
             {r.byYear.map((y) => {
               const total = y.edu + y.clinical;

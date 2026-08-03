@@ -18,7 +18,7 @@ export function Outcomes() {
     <>
       <Section id="symposia">
         <SectionHeader
-          index="06"
+          index="05"
           eyebrow={o.symposiumEyebrow}
           title={o.symposiumTitle}
           desc={o.symposiumDesc}
@@ -73,7 +73,7 @@ export function Outcomes() {
 
       <Section id="training" tight>
         <SectionHeader
-          index="07"
+          index="06"
           eyebrow={o.trainingEyebrow}
           title={o.trainingTitle}
           desc={o.trainingDesc}

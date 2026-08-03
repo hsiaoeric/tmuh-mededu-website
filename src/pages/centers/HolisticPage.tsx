@@ -1,14 +1,11 @@
+import { useMemo } from 'react';
 import { useSite, usePageTitle } from '@/app/site';
 import { centerById, CENTER_ICON } from '@/data/centers';
-import {
-  holisticFeatures,
-  holisticKpis,
-  HOLISTIC_INSTRUCTORS,
-  HOLISTIC_SEED,
-} from '@/data/holistic';
+import { holisticFeatures, holisticKpis } from '@/data/holistic';
 import { Reveal } from '@/motion/Reveal';
 import { Section, SectionHeader } from '@/ui/Section';
 import { PageHero, ClosingContact } from '@/ui/PageParts';
+import { SectionRail, type PageSection } from '@/ui/SectionRail';
 import { PersonCard } from '@/ui/Person';
 import { StatRow } from '@/ui/Stats';
 import { Icon, type IconName } from '@/ui/Icon';
@@ -27,6 +24,20 @@ export function HolisticPage() {
   const features = holisticFeatures(lang);
   const kpis = holisticKpis(lang);
 
+  const sections = useMemo<PageSection[]>(
+    () => [
+      { id: 'ai', label: isZh ? 'AI 生態系' : 'AI Ecosystem' },
+      { id: 'h-about', label: isZh ? '關於中心' : 'About' },
+      { id: 'h-members', label: isZh ? '中心成員' : 'Members' },
+      { id: 'mhfa', label: isZh ? '心理健康急救' : 'MHFA' },
+      { id: 'symposia', label: isZh ? '全人研討會' : 'Symposia' },
+      { id: 'training', label: isZh ? '師資培訓' : 'Training' },
+      { id: 'research', label: isZh ? '研究成果' : 'Research' },
+      { id: 'contact', label: isZh ? '聯絡' : 'Contact' },
+    ],
+    [isZh],
+  );
+
   return (
     <>
       <PageHero
@@ -36,7 +47,21 @@ export function HolisticPage() {
         tone={TEAL}
         icon={CENTER_ICON.holistic}
         scrollTo="ai"
+        meta={
+          <div className="grid g2" style={{ gap: 18 }}>
+            {kpis.slice(0, 2).map((k) => (
+              <div className="stat" key={k.label} style={{ ['--tone' as string]: k.color }}>
+                <div className="stat-num" style={{ fontSize: 'clamp(2rem, 3.6vw, 2.8rem)' }}>
+                  {k.isStatic ? k.display : k.num}
+                </div>
+                <span className="stat-label">{k.label}</span>
+              </div>
+            ))}
+          </div>
+        }
       />
+
+      <SectionRail sections={sections} tone={TEAL} />
 
       {/* Healthy Taiwan Scope 2 leads the page — it is the center's headline work. */}
       <AiEcosystem />
@@ -96,37 +121,8 @@ export function HolisticPage() {
         </Reveal>
       </Section>
 
+      {/* MHFA: the ALGEE steps, the instructors and the seed teachers */}
       <Algee />
-
-      {/* Instructors + seed teachers */}
-      <Section id="seed">
-        <SectionHeader index="05" eyebrow="People" title={t.instructorsTitle} />
-        <Reveal variant="up" stagger={90} className="grid grid-people" style={{ maxWidth: 620 }}>
-          {HOLISTIC_INSTRUCTORS.map((p, i) => (
-            <PersonCard key={`${p.en}-${i}`} person={p} accent={TEAL} />
-          ))}
-        </Reveal>
-
-        <div className="stack gap-3" style={{ marginTop: 'clamp(46px, 7vw, 88px)' }}>
-          <div className="row between wrap gap-2">
-            <div className="stack gap-1">
-              <h3 className="display d3">{t.seedTitle}</h3>
-              <p className="prose measure">{t.seedDesc}</p>
-            </div>
-            <span className="stat" style={{ ['--tone' as string]: TEAL }}>
-              <span className="stat-num" style={{ fontSize: '2.6rem' }}>
-                {HOLISTIC_SEED.length}
-              </span>
-            </span>
-          </div>
-
-          <Reveal variant="up" stagger={50} className="grid grid-people" style={{ marginTop: 12 }}>
-            {HOLISTIC_SEED.map((p, i) => (
-              <PersonCard key={`${p.en}-${i}`} person={p} accent={TEAL} hideRole />
-            ))}
-          </Reveal>
-        </div>
-      </Section>
 
       <Outcomes />
       <Research />
