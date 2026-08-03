@@ -3,6 +3,7 @@ import { buildActivities, buildAnnouncements } from '@/data/news';
 import { Reveal } from '@/motion/Reveal';
 import { Section, SectionHeader } from '@/ui/Section';
 import { ActivityCard, AnnouncementRow } from '@/ui/NewsParts';
+import { RAIL_INDEX } from './rail';
 
 /**
  * The centre's own share of the department bulletin: courses it is running and
@@ -20,7 +21,7 @@ export function Activities() {
   return (
     <Section id="h-news">
       <SectionHeader
-        index="02"
+        index={RAIL_INDEX['h-news']}
         eyebrow="Activities"
         title={isZh ? '近期活動' : 'Upcoming Activities'}
         desc={
@@ -47,7 +48,7 @@ export function International() {
   return (
     <Section id="h-intl">
       <SectionHeader
-        index="09"
+        index={RAIL_INDEX['h-intl']}
         eyebrow="International"
         title={isZh ? '國際合作' : 'International Collaboration'}
         desc={

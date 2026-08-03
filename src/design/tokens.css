@@ -51,6 +51,9 @@
   --nav-h: 74px;
   --edge: clamp(20px, 5vw, 76px);
   --measure: 1320px;
+  /* The gap between blocks inside one section — the rhythm a pinned stage has
+     to match, or it reads as a separate page rather than part of the section. */
+  --gap-block: clamp(40px, 6vw, 76px);
   --radius: 4px;
   --radius-lg: 8px;
 }

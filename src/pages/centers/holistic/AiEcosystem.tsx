@@ -2,8 +2,9 @@ import { useSite } from '@/app/site';
 import { buildAiEcosystem } from '@/data/holistic';
 import { Reveal } from '@/motion/Reveal';
 import { HorizontalScroll } from '@/motion/HorizontalScroll';
-import { SectionHeader } from '@/ui/Section';
+import { SectionHeader, SectionTag } from '@/ui/Section';
 import { Icon } from '@/ui/Icon';
+import { RAIL_INDEX } from './rail';
 
 /** Healthy Taiwan Scope 2: the AI holistic-care teaching ecosystem. */
 export function AiEcosystem() {
@@ -13,9 +14,9 @@ export function AiEcosystem() {
   return (
     <section id="ai" className="section">
       <div className="shell">
-        <SectionHeader index="06" eyebrow="Healthy Taiwan · Scope 2" title={t.aiTitle} desc={t.aiBody} />
+        <SectionHeader index={RAIL_INDEX.ai} eyebrow="Healthy Taiwan · Scope 2" title={t.aiTitle} desc={t.aiBody} />
 
-        <div className="grid g-editorial" style={{ alignItems: 'start', marginBottom: 'clamp(40px, 6vw, 76px)' }}>
+        <div className="grid g-editorial" style={{ alignItems: 'start', marginBottom: 'var(--gap-block)' }}>
           <Reveal variant="up" className="stack gap-2">
             <h3 className="display d3">{ai.title}</h3>
             <p className="prose">{ai.body}</p>
@@ -40,7 +41,7 @@ export function AiEcosystem() {
       </div>
 
       {/* The four-stage flow, scrubbed sideways */}
-      <HorizontalScroll>
+      <HorizontalScroll head={<SectionTag index={RAIL_INDEX.ai} eyebrow="Healthy Taiwan · Scope 2" />}>
         {ai.flow.map((f, i) => (
           <article key={f.title} className="hscroll-card card" style={{ ['--tone' as string]: f.color }}>
             <div className="row between">
@@ -65,7 +66,7 @@ export function AiEcosystem() {
       </HorizontalScroll>
 
       {/* The team behind this work is listed under 中心成員 › 研究團隊. */}
-      <div className="shell" style={{ marginTop: 'clamp(40px, 6vw, 76px)' }}>
+      <div className="shell" style={{ marginTop: 'var(--gap-block)' }}>
         <div className="stack gap-3">
           <span className="eyebrow">{ai.stepsLabel}</span>
 

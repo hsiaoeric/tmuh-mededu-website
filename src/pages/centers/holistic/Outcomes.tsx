@@ -6,6 +6,7 @@ import { Reveal } from '@/motion/Reveal';
 import { Section, SectionHeader } from '@/ui/Section';
 import { StatRow } from '@/ui/Stats';
 import { Icon } from '@/ui/Icon';
+import { RAIL_INDEX } from './rail';
 
 const TEAL = '#4f8c7d';
 
@@ -17,7 +18,7 @@ export function Symposia() {
   return (
       <Section id="symposia">
         <SectionHeader
-          index="03"
+          index={RAIL_INDEX.symposia}
           eyebrow={o.symposiumEyebrow}
           title={o.symposiumTitle}
           desc={o.symposiumDesc}
@@ -80,7 +81,7 @@ export function Training() {
   return (
       <Section id="training" tight>
         <SectionHeader
-          index="08"
+          index={RAIL_INDEX.training}
           eyebrow={o.trainingEyebrow}
           title={o.trainingTitle}
           desc={o.trainingDesc}

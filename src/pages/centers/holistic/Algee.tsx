@@ -4,6 +4,7 @@ import { ALGEE, HOLISTIC_INSTRUCTORS, HOLISTIC_SEED } from '@/data/holistic';
 import { Reveal } from '@/motion/Reveal';
 import { Section, SectionHeader } from '@/ui/Section';
 import { PersonCard } from '@/ui/Person';
+import { RAIL_INDEX } from './rail';
 
 const TEAL = '#4f8c7d';
 
@@ -20,7 +21,7 @@ export function Algee() {
 
   return (
     <Section id="mhfa">
-      <SectionHeader index="07" eyebrow="Mental Health First Aid" title={t.mhfaTitle} desc={t.mhfaIntro} />
+      <SectionHeader index={RAIL_INDEX.mhfa} eyebrow="Mental Health First Aid" title={t.mhfaTitle} desc={t.mhfaIntro} />
 
       <Reveal variant="up" className="row gap-2 wrap" style={{ marginBottom: 40 }}>
         {ALGEE.map((s, i) => (

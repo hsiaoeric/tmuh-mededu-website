@@ -17,6 +17,21 @@ export function Section({ id, children, className = '', tight }: SectionProps) {
   );
 }
 
+/**
+ * The index + eyebrow pair that opens a `SectionHeader`, on its own.
+ *
+ * Split out because a pinned stage scrolls its own header off screen, so it
+ * has to restate which section the visitor is still inside.
+ */
+export function SectionTag({ index, eyebrow }: { index?: string; eyebrow: string }) {
+  return (
+    <div className="row gap-2 wrap">
+      {index && <span className="index">{index}</span>}
+      <span className="eyebrow">{eyebrow}</span>
+    </div>
+  );
+}
+
 interface SectionHeaderProps {
   index?: string;
   eyebrow: string;
@@ -40,11 +55,8 @@ export function SectionHeader({
       className="sec-head"
       style={align === 'center' ? { alignItems: 'center', textAlign: 'center' } : undefined}
     >
-      <Reveal variant="fade">
-        <div className="row gap-2 wrap" style={align === 'center' ? { justifyContent: 'center' } : undefined}>
-          {index && <span className="index">{index}</span>}
-          <span className="eyebrow">{eyebrow}</span>
-        </div>
+      <Reveal variant="fade" style={align === 'center' ? { display: 'flex', justifyContent: 'center' } : undefined}>
+        <SectionTag index={index} eyebrow={eyebrow} />
       </Reveal>
 
       <div className="sec-head-row" style={align === 'center' ? { justifyContent: 'center' } : undefined}>

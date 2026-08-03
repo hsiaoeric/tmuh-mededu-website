@@ -11,6 +11,7 @@ import { Reveal } from '@/motion/Reveal';
 import { Section, SectionHeader } from '@/ui/Section';
 import { StatRow } from '@/ui/Stats';
 import { Icon } from '@/ui/Icon';
+import { RAIL_INDEX } from './rail';
 
 const EDU_TONE = '#4f8c7d';
 const CLINICAL_TONE = '#A87A6B';
@@ -24,7 +25,7 @@ export function Research() {
 
   return (
     <Section id="research">
-      <SectionHeader index="10" eyebrow={r.eyebrow} title={r.title} desc={r.desc} />
+      <SectionHeader index={RAIL_INDEX.research} eyebrow={r.eyebrow} title={r.title} desc={r.desc} />
 
       {/* Total + per-year composition */}
       <div className="grid g-aside" style={{ alignItems: 'end', marginBottom: 'clamp(40px, 6vw, 76px)' }}>

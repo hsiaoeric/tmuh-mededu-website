@@ -376,7 +376,8 @@
   gap: 18px;
   margin-bottom: clamp(36px, 5vw, 64px);
 }
-.sec-head .index {
+/* Not scoped to `.sec-head`: `SectionTag` reuses it inside a pinned stage. */
+.index {
   font-family: 'IBM Plex Mono', monospace;
   font-size: 0.68rem;
   letter-spacing: 0.2em;
@@ -974,23 +975,34 @@
 
 .hscroll {
   position: relative;
+  /* The strip is full-bleed but must not read as a different page from the
+     `.shell` column everything else lives in, so it carries the shell's own
+     inset: the first card's left edge lands on the section title's. The
+     percentage resolves against this element rather than `100vw`, which would
+     count a classic scrollbar and sit half its width off. */
+  --hscroll-gutter: max(var(--edge), calc((100% - var(--measure)) / 2 + var(--edge)));
 }
 .hscroll[data-pinned='true'] {
   overflow: hidden;
-  /* A floor, not a ceiling: taller cards still grow the stage. Pinning used to
-     force a full 100vh here, which scaled the empty space with the monitor —
-     on a tall window the cards were a third of a mostly blank screen. */
-  min-height: min(100vh, 560px);
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  gap: clamp(18px, 2.4vw, 30px);
+  /* The stage is sized by its cards, not by the viewport, and spaced on the
+     same rhythm as the blocks either side of it. Any floor here would only
+     add slack — and a pinned stage IS the whole screen, so slack reads as the
+     cards stranded alone with the rest of the page scrolled away. */
+  padding-block: var(--gap-block);
 }
 .hscroll[data-pinned='true'] .hscroll-track {
   display: flex;
   align-items: stretch;
   gap: clamp(20px, 3vw, 44px);
   width: max-content;
-  padding-inline: var(--edge);
+  padding-inline: var(--hscroll-gutter);
   will-change: transform;
+}
+.hscroll-head {
+  padding-inline: var(--hscroll-gutter);
 }
 /* Fallback: a normal swipeable strip. */
 .hscroll[data-pinned='false'] .hscroll-track {
@@ -998,9 +1010,12 @@
   align-items: stretch;
   gap: 20px;
   overflow-x: auto;
-  padding-inline: var(--edge);
+  padding-inline: var(--hscroll-gutter);
   padding-bottom: 14px;
   scroll-snap-type: x mandatory;
+  /* Snapping aligns to the scrollport edge, which would drag the first card
+     past the gutter and undo the alignment the padding just bought. */
+  scroll-padding-inline: var(--hscroll-gutter);
   -webkit-overflow-scrolling: touch;
   /* The native bar reads as a stray UI element under the cards; the strip is
      still swipeable, trackpad-scrollable and keyboard-reachable without it. */

@@ -3,7 +3,7 @@ import { centerById, CENTER_ICON } from '@/data/centers';
 import { buildEbm, type EbmAward } from '@/data/ebm';
 import { Reveal } from '@/motion/Reveal';
 import { HorizontalScroll } from '@/motion/HorizontalScroll';
-import { Section, SectionHeader } from '@/ui/Section';
+import { Section, SectionHeader, SectionTag } from '@/ui/Section';
 import { PageHero, ClosingContact } from '@/ui/PageParts';
 import { PersonCard } from '@/ui/Person';
 import { StatRow } from '@/ui/Stats';
@@ -185,7 +185,7 @@ export function EbmPage() {
             desc={e.journeyDesc}
           />
         </div>
-        <HorizontalScroll>
+        <HorizontalScroll head={<SectionTag index="04" eyebrow={e.journeyEyebrow} />}>
           {e.stages.map((s) => (
             <article
               key={s.phase}
