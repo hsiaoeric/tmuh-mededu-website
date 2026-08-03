@@ -1,5 +1,7 @@
 import { useMemo } from 'react';
 import { useSite, usePageTitle } from '@/app/site';
+import { HOLISTIC_SECTIONS, type HolisticSection } from '@/app/routes';
+import { pick } from '@/i18n';
 import { centerById, CENTER_ICON } from '@/data/centers';
 import { holisticFeatures, holisticKpis } from '@/data/holistic';
 import { Reveal } from '@/motion/Reveal';
@@ -16,6 +18,19 @@ import { Research } from './holistic/Research';
 
 const TEAL = '#4f8c7d';
 
+/** Rail labels. Keyed by `HolisticSection`, so a new section id fails the build
+ *  until it is given a label here. */
+const SECTION_LABELS: Record<HolisticSection, [zh: string, en: string]> = {
+  ai: ['AI 生態系', 'AI Ecosystem'],
+  'h-about': ['關於中心', 'About'],
+  'h-members': ['中心成員', 'Members'],
+  mhfa: ['心理健康急救', 'MHFA'],
+  symposia: ['全人研討會', 'Symposia'],
+  training: ['師資培訓', 'Training'],
+  research: ['研究成果', 'Research'],
+  contact: ['聯絡', 'Contact'],
+};
+
 export function HolisticPage() {
   const { t, isZh, lang } = useSite();
   const center = centerById('holistic')!;
@@ -25,17 +40,8 @@ export function HolisticPage() {
   const kpis = holisticKpis(lang);
 
   const sections = useMemo<PageSection[]>(
-    () => [
-      { id: 'ai', label: isZh ? 'AI 生態系' : 'AI Ecosystem' },
-      { id: 'h-about', label: isZh ? '關於中心' : 'About' },
-      { id: 'h-members', label: isZh ? '中心成員' : 'Members' },
-      { id: 'mhfa', label: isZh ? '心理健康急救' : 'MHFA' },
-      { id: 'symposia', label: isZh ? '全人研討會' : 'Symposia' },
-      { id: 'training', label: isZh ? '師資培訓' : 'Training' },
-      { id: 'research', label: isZh ? '研究成果' : 'Research' },
-      { id: 'contact', label: isZh ? '聯絡' : 'Contact' },
-    ],
-    [isZh],
+    () => HOLISTIC_SECTIONS.map((id) => ({ id, label: pick(lang, ...SECTION_LABELS[id]) })),
+    [lang],
   );
 
   return (

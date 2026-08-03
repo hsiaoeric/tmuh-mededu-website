@@ -37,6 +37,23 @@ export const CENTER_ORDER: Array<Exclude<CenterId, 'admin'>> = [
 export const HOME_SECTIONS = ['about', 'organisation', 'centers', 'news', 'honors', 'contact'] as const;
 export type HomeSection = (typeof HOME_SECTIONS)[number];
 
+/**
+ * Sections on the holistic centre page, in the order its section rail lists
+ * them. Kept here beside the home ids so every in-page anchor target on the
+ * site is declared in one file; the rail's labels live with the page.
+ */
+export const HOLISTIC_SECTIONS = [
+  'ai',
+  'h-about',
+  'h-members',
+  'mhfa',
+  'symposia',
+  'training',
+  'research',
+  'contact',
+] as const;
+export type HolisticSection = (typeof HOLISTIC_SECTIONS)[number];
+
 /** Old URLs kept alive so existing links and bookmarks still resolve. */
 export const LEGACY_REDIRECTS: Record<string, string> = {
   '/holistic': centerPath('holistic'),

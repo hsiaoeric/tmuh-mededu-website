@@ -40,7 +40,19 @@ The build serves two hosts, and `vite.config.ts` keeps them compatible:
 
 ### Routing is ordinary react-router
 
-`src/app/App.tsx` holds a real `<Routes>` table. `src/app/routes.ts` is the single source of truth for the center URL slugs (`CENTER_SLUG` / `SLUG_TO_CENTER` / `centerPath`), the home section ids, and `LEGACY_REDIRECTS` for the previous site's paths (`/holistic`, `/ebm`, `/facdev`, `/center/:id`) — those must keep resolving.
+`src/app/App.tsx` holds a real `<Routes>` table. `src/app/routes.ts` is the single source of truth for the center URL slugs (`CENTER_SLUG` / `SLUG_TO_CENTER` / `centerPath`), the in-page section ids (`HOME_SECTIONS`, `HOLISTIC_SECTIONS`), and `LEGACY_REDIRECTS` for the previous site's paths (`/holistic`, `/ebm`, `/facdev`, `/center/:id`) — those must keep resolving.
+
+The slugs are **not** the center ids, which trips up hand-typed URLs:
+
+| Center id | URL |
+|---|---|
+| `faculty_dev` | `/centers/faculty-development` |
+| `clinical_skills` | `/centers/clinical-skills` |
+| `ebm` | `/centers/evidence-based-medicine` |
+| `holistic` | `/centers/holistic-care` |
+| `med_edu_research` | `/centers/medical-education-research` |
+
+`CenterBranch.pageSection` in `data/centers.ts` looks like it deep-links to these anchors, but **nothing reads it** — several values (`h-contact`, `ebm-contact`) do not match any rendered id. It is dead data, not a broken anchor to fix.
 
 `src/pages/CenterPage.tsx` dispatches one `/centers/:slug` route to four components: three bespoke pages (holistic, EBM, faculty development) and `GenericCenterPage`, which renders any center purely from its `centers.ts` record. **Giving a center a bespoke page is the only change that needs new routing** — a new generic center just needs data.
 
@@ -52,6 +64,8 @@ Cross-page anchors go through `src/app/navigation.ts`: `useGoToSection` scrolls 
 
 - `smoothScroll.ts` — Lenis instance, wired into GSAP's ticker and `ScrollTrigger.update`. Also exports `scrollToId` / `scrollToTop` / `setScrollLocked`; **never call `window.scrollTo` or `scrollIntoView` directly**, they fight Lenis.
 - `Reveal.tsx`, `SplitLines.tsx`, `Counter.tsx`, `Parallax.tsx`, `HorizontalScroll.tsx` — the entire animation vocabulary. Prefer composing these over writing new GSAP by hand.
+
+`HorizontalScroll` **decides at runtime whether to pin at all**, and does it silently. It falls back to a plain swipeable strip under `minWidth`, under reduced motion, and — the surprising one — whenever less than one full card's width overflows the viewport, because pinning costs a whole stage of vertical scroll and has to buy something back. So adding or removing a card, or widening `.hscroll-card`, can flip a section between pinned and unpinned with no other change. While pinned the stage is `min(100vh, 560px)` **as a floor**, so taller cards still grow it.
 
 Two rules everything here follows, and new motion must too:
 
@@ -70,7 +84,7 @@ No CSS-in-JS, no Tailwind.
 
 - `design/tokens.css` — every colour and shadow as a custom property, declared twice: `:root` (light) and `[data-theme='dark']`. **A token added to only one block is a bug.** The theme attribute lives on `<html>`.
 - `design/base.css` — reset, type scale, layout primitives (`shell`, `section`, `stack`, `grid` + modifiers, `measure`), motion primitives, and **all responsive breakpoints**.
-- `design/components.css` — component surfaces (nav, cards, tables, org constellation, horizontal scroll…).
+- `design/components.css` — component surfaces (nav, cards, tables, org constellation, horizontal scroll, section rail…).
 
 Component-level one-offs are inline `style={{}}` referencing `var(--…)`.
 
