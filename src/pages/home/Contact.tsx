@@ -1,5 +1,6 @@
 import { useSite } from '@/app/site';
-import { CENTERS } from '@/data/centers';
+import { CENTER_ORDER } from '@/app/routes';
+import { centerById } from '@/data/centers';
 import { formatPhoneExt, MAIN_PHONE } from '@/utils/phone';
 import { Reveal } from '@/motion/Reveal';
 import { Section, SectionHeader } from '@/ui/Section';
@@ -15,12 +16,17 @@ export function Contact() {
       ext: formatPhoneExt('3752', lang),
       color: 'var(--accent)',
     },
-    ...CENTERS.filter((c) => c.ext).map((c) => ({
-      unit: isZh ? c.zh : c.en,
-      person: isZh ? c.contactZh : c.contactEn,
-      ext: formatPhoneExt(c.ext, lang),
-      color: c.color,
-    })),
+    // Every centre is listed, in CENTER_ORDER. Those whose desk extension is
+    // not yet confirmed fall back to the hospital's main line.
+    ...CENTER_ORDER.map((id) => {
+      const c = centerById(id)!;
+      return {
+        unit: isZh ? c.zh : c.en,
+        person: isZh ? c.contactZh : c.contactEn,
+        ext: formatPhoneExt(c.ext, lang) || MAIN_PHONE,
+        color: c.color,
+      };
+    }),
   ];
 
   return (

@@ -15,10 +15,20 @@ export const ANN_URL =
  *  - 顏色、動畫等「呈現」參數由程式自動套用，這裡只需要填內容。
  * ------------------------------------------------------------------ */
 
+/**
+ * 這則消息／活動屬於哪一頁：
+ *  'dept'     → 首頁「最新公告」（預設，不填就是這個）
+ *  'holistic' → 全人照護教育中心頁的「近期活動」「國際合作」
+ * 一則只會出現在一個地方，改這個欄位就等於把它搬到另一頁。
+ */
+export type NewsScope = 'dept' | 'holistic';
+
 interface RawAnnouncement {
   /** 發佈日期，格式 YYYY-MM-DD（用於排序與「最後更新」）。 */
   date: string;
   pinned?: boolean;
+  /** 不填 = 'dept'（首頁）。 */
+  scope?: NewsScope;
   tag: { zh: string; en: string };
   title: { zh: string; en: string };
   lines: { zh: string[]; en: string[] };
@@ -60,7 +70,9 @@ const ANNOUNCEMENTS: RawAnnouncement[] = [
   },
   {
     date: '2026-04-15',
-    tag: { zh: '公告', en: 'News' },
+    // 全人中心的國際合作，列在中心頁而非首頁。
+    scope: 'holistic',
+    tag: { zh: '國際合作', en: 'International' },
     stat: {
       top: '56',
       topLabel: { zh: '人參與', en: 'attendees' },
@@ -124,6 +136,10 @@ function byPinnedThenDate(a: RawAnnouncement, b: RawAnnouncement): number {
   return b.date.localeCompare(a.date);
 }
 
+/** An entry with no explicit scope belongs to the department's home page. */
+const inScope = (item: { scope?: NewsScope }, scope: NewsScope) =>
+  (item.scope ?? 'dept') === scope;
+
 /** Format an ISO date for display (zh: 2026/05/20, en: May 20, 2026). */
 export function formatDate(iso: string, lang: Lang): string {
   const [y, m, d] = iso.split('-');
@@ -139,25 +155,28 @@ export function latestUpdate(lang: Lang): string {
   return newest ? formatDate(newest.date, lang) : '';
 }
 
-export function buildAnnouncements(lang: Lang): Announcement[] {
-  return [...ANNOUNCEMENTS].sort(byPinnedThenDate).map((a, i) => ({
-    pinned: !!a.pinned,
-    tag: pick(lang, a.tag.zh, a.tag.en),
-    date: formatDate(a.date, lang),
-    statTop: a.stat?.top,
-    statTopLabel: a.stat ? pick(lang, a.stat.topLabel.zh, a.stat.topLabel.en) : undefined,
-    statBot: a.stat?.bottom,
-    statBotLabel:
-      a.stat?.bottomLabel ? pick(lang, a.stat.bottomLabel.zh, a.stat.bottomLabel.en) : undefined,
-    title: pick(lang, a.title.zh, a.title.en),
-    lines: pick(lang, a.lines.zh, a.lines.en),
-    tagColor: a.pinned ? '#B07A4A' : '#4f8c7d',
-    tagBg: a.pinned
-      ? 'color-mix(in srgb,#B07A4A 14%,transparent)'
-      : 'color-mix(in srgb,#4f8c7d 13%,transparent)',
-    statFont: a.stat?.small ? '26px' : '40px',
-    delay: i * 70,
-  }));
+export function buildAnnouncements(lang: Lang, scope: NewsScope = 'dept'): Announcement[] {
+  return ANNOUNCEMENTS.filter((a) => inScope(a, scope))
+    .sort(byPinnedThenDate)
+    .map((a, i) => ({
+      pinned: !!a.pinned,
+      tag: pick(lang, a.tag.zh, a.tag.en),
+      date: formatDate(a.date, lang),
+      statTop: a.stat?.top,
+      statTopLabel: a.stat ? pick(lang, a.stat.topLabel.zh, a.stat.topLabel.en) : undefined,
+      statBot: a.stat?.bottom,
+      statBotLabel: a.stat?.bottomLabel
+        ? pick(lang, a.stat.bottomLabel.zh, a.stat.bottomLabel.en)
+        : undefined,
+      title: pick(lang, a.title.zh, a.title.en),
+      lines: pick(lang, a.lines.zh, a.lines.en),
+      tagColor: a.pinned ? '#B07A4A' : '#4f8c7d',
+      tagBg: a.pinned
+        ? 'color-mix(in srgb,#B07A4A 14%,transparent)'
+        : 'color-mix(in srgb,#4f8c7d 13%,transparent)',
+      statFont: a.stat?.small ? '26px' : '40px',
+      delay: i * 70,
+    }));
 }
 
 /* ------------------------------------------------------------------ *
@@ -169,6 +188,8 @@ export function buildAnnouncements(lang: Lang): Announcement[] {
 interface RawActivity {
   /** 排序用日期 YYYY-MM-DD。 */
   sortDate: string;
+  /** 不填 = 'dept'（首頁）。 */
+  scope?: NewsScope;
   cat: { zh: string; en: string };
   title: { zh: string; en: string };
   date: { zh: string; en: string };
@@ -183,6 +204,8 @@ interface RawActivity {
 const ACTIVITIES: RawActivity[] = [
   {
     sortDate: '2026-07-22',
+    // 全人教師發展課程，列在中心頁的「近期活動」。
+    scope: 'holistic',
     cat: { zh: '全人教師發展課程', en: 'Holistic Faculty Development' },
     title: { zh: '停下來，是最負責任的事', en: 'To pause is the most responsible act' },
     date: { zh: '2026/07/22（三）12:30–13:30', en: 'Wed 2026/07/22 12:30–13:30' },
@@ -207,8 +230,8 @@ export interface Activity {
   link: string;
 }
 
-export function buildActivities(lang: Lang): Activity[] {
-  return [...ACTIVITIES]
+export function buildActivities(lang: Lang, scope: NewsScope = 'dept'): Activity[] {
+  return ACTIVITIES.filter((a) => inScope(a, scope))
     .sort((a, b) => b.sortDate.localeCompare(a.sortDate))
     .map((a) => ({
       cat: pick(lang, a.cat.zh, a.cat.en),

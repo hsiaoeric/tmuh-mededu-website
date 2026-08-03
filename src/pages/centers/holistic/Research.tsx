@@ -24,7 +24,7 @@ export function Research() {
 
   return (
     <Section id="research">
-      <SectionHeader index="07" eyebrow={r.eyebrow} title={r.title} desc={r.desc} />
+      <SectionHeader index="10" eyebrow={r.eyebrow} title={r.title} desc={r.desc} />
 
       {/* Total + per-year composition */}
       <div className="grid g-aside" style={{ alignItems: 'end', marginBottom: 'clamp(40px, 6vw, 76px)' }}>

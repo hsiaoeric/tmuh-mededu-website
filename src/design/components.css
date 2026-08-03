@@ -1084,8 +1084,13 @@
 
 /* ------------------------------------------------------------------ *
  * Section rail — per-page wayfinding for the long center pages.
- * Wide screens: a numbered rail in the left gutter, labels on hover.
- * Below 1280px there is no gutter, so it becomes a sticky chip strip.
+ *
+ * Wide screens: a numbered rail in the left gutter, labels on hover, and
+ * grouped entries that open a dropdown alongside.
+ *
+ * Below 1200px there is no gutter, so a sticky strip of chips under the nav
+ * takes over. It scrolls sideways and so cannot host a dropdown — it lists
+ * every section flat instead.
  * ------------------------------------------------------------------ */
 .sec-rail {
   position: fixed;
@@ -1128,6 +1133,9 @@
 /* The gutter is only ~130px at 1440, so only the numbers live in it. Labels
    layer out over the content on hover, on their own surface. */
 .sec-rail-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
   font-size: 0.72rem;
   white-space: nowrap;
   padding: 3px 10px;
@@ -1141,7 +1149,8 @@
   pointer-events: none;
   transition: opacity 0.3s ease, transform 0.3s ease;
 }
-.sec-rail:hover .sec-rail-label {
+.sec-rail:hover .sec-rail-label,
+.sec-rail-group:focus-within .sec-rail-label {
   opacity: 1;
   transform: none;
 }
@@ -1156,17 +1165,75 @@
   color: var(--ink);
 }
 
+/* Grouped entries — one label standing for a run of sections. */
+.sec-rail-group {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+.sec-rail-menu {
+  position: absolute;
+  /* Labels already sit to the right of the numbers, so the panel continues
+     that line rather than covering it. */
+  left: calc(100% + 10px);
+  top: 50%;
+  translate: 0 -50%;
+  min-width: 152px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 6px;
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  background: color-mix(in srgb, var(--surface) 94%, transparent);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: var(--shadow-lg);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(-6px);
+  transition: opacity 0.28s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.28s;
+}
+.sec-rail-menu[data-open='true'] {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+}
+.sec-rail-sub {
+  padding: 7px 10px;
+  border: 0;
+  border-radius: calc(var(--radius) - 4px);
+  background: none;
+  cursor: pointer;
+  text-align: left;
+  white-space: nowrap;
+  font-size: 0.76rem;
+  color: var(--body);
+  transition: background 0.25s ease, color 0.25s ease;
+}
+.sec-rail-sub:hover {
+  background: var(--accent-veil);
+  color: var(--ink);
+}
+.sec-rail-sub[data-on='true'] {
+  color: var(--tone, var(--accent));
+}
+
+/* The narrow-screen strip. */
+.sec-strip {
+  display: none;
+}
+
 @media (max-width: 1199px) {
   .sec-rail {
+    display: none;
+  }
+  .sec-strip {
     position: sticky;
     top: var(--nav-h);
-    left: auto;
-    transform: none;
-    flex-direction: row;
+    z-index: 50;
+    display: flex;
     gap: 4px;
-    /* Always present here: it doubles as a contents list for the page. */
-    opacity: 1;
-    pointer-events: auto;
     overflow-x: auto;
     scrollbar-width: none;
     padding: 10px var(--edge);
@@ -1175,30 +1242,26 @@
     -webkit-backdrop-filter: blur(12px);
     border-block: 1px solid var(--line-soft);
   }
-  .sec-rail::-webkit-scrollbar {
+  .sec-strip::-webkit-scrollbar {
     display: none;
   }
-  .sec-rail-item {
+  .sec-strip-item {
     flex: none;
     padding: 5px 12px;
     border-radius: 999px;
     border: 1px solid transparent;
-  }
-  .sec-rail-num {
-    display: none;
-  }
-  /* The item itself is the pill here, so the label drops its own surface. */
-  .sec-rail-label {
-    opacity: 1;
-    transform: none;
-    font-size: 0.78rem;
-    padding: 0;
     background: none;
-    border: 0;
-    box-shadow: none;
-    color: inherit;
+    cursor: pointer;
+    white-space: nowrap;
+    font-size: 0.78rem;
+    color: var(--faint);
+    transition: color 0.3s ease, background 0.3s ease, border-color 0.3s ease;
   }
-  .sec-rail-item[data-on='true'] {
+  .sec-strip-item:hover {
+    color: var(--ink);
+  }
+  .sec-strip-item[data-on='true'] {
+    color: var(--tone, var(--accent));
     border-color: color-mix(in srgb, var(--tone, var(--accent)) 40%, transparent);
     background: color-mix(in srgb, var(--tone, var(--accent)) 12%, transparent);
   }

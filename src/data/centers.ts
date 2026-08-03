@@ -28,6 +28,12 @@ export interface Center {
   ext: string;
   /** Official external center website, when maintained outside this app. */
   externalUrl?: string;
+  /**
+   * English entry point for `externalUrl`, when the external site serves both
+   * languages. Without it the English site would open in whatever language the
+   * visitor last chose there, which is rarely English.
+   */
+  externalUrlEn?: string;
   deep?: boolean;
   people: RawPerson[];
 }
@@ -317,7 +323,10 @@ export const CENTERS: Center[] = [
     contactZh: '陳麗玉',
     contactEn: 'Li-Yu Chen',
     ext: '',
-    externalUrl: 'https://tmuh.ai/u/jc2jc/med-ed-research-center/#overview',
+    // The centre's site reads ?lang, then falls back to whatever it stored from
+    // the visitor's last visit — so the parameter has to be explicit both ways.
+    externalUrl: 'https://tmuh.ai/u/jc2jc/med-ed-research-center/?lang=zh#overview',
+    externalUrlEn: 'https://tmuh.ai/u/jc2jc/med-ed-research-center/?lang=en#overview',
     people: [
       person('陳建宇', 'Chien-Yu Chen', 'director', '西醫 · 教授', 'Physician · Professor', 'chien-yu-chen', 'chien-yu-chen'),
       person('邱欣怡', 'Hsin-Yi Chiu', 'deputy', '西醫 · 助理教授', 'Physician · Asst. Prof.', 'hsin-yi-chiu', 'hsin-yi-chiu'),
@@ -360,14 +369,16 @@ export const CENTERS: Center[] = [
 export const centerById = (id: CenterId): Center | undefined =>
   CENTERS.find((c) => c.id === id);
 
+/**
+ * The external site to open for a center, in the language the visitor is
+ * reading the site in. Falls back to the Chinese entry point when the external
+ * site has no English equivalent.
+ */
+export const centerExternalUrl = (id: CenterId, isZh: boolean): string | undefined => {
+  const c = centerById(id);
+  if (!c?.externalUrl) return undefined;
+  return isZh ? c.externalUrl : (c.externalUrlEn ?? c.externalUrl);
+};
+
 /** Centers that have a dedicated deep page. */
 export const READY_CENTER_PAGES: CenterId[] = ['holistic', 'ebm', 'faculty_dev'];
-
-/** Order of centers shown as "center page" entry links. */
-export const CENTER_LINK_ORDER: CenterId[] = [
-  'faculty_dev',
-  'clinical_skills',
-  'ebm',
-  'holistic',
-  'med_edu_research',
-];

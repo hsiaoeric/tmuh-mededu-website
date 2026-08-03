@@ -1,5 +1,5 @@
 import { useSite, usePageTitle } from '@/app/site';
-import { CENTER_BRANCHES, CENTER_ICON, centerById } from '@/data/centers';
+import { CENTER_BRANCHES, CENTER_ICON, centerById, centerExternalUrl } from '@/data/centers';
 import type { CenterId } from '@/data/types';
 import { formatPhoneExt } from '@/utils/phone';
 import { Reveal } from '@/motion/Reveal';
@@ -15,6 +15,7 @@ import { Icon } from '@/ui/Icon';
 export function GenericCenterPage({ id }: { id: CenterId }) {
   const { isZh, lang } = useSite();
   const center = centerById(id)!;
+  const externalUrl = centerExternalUrl(id, isZh);
   const branches = CENTER_BRANCHES[id];
   const name = isZh ? center.zh : center.en;
   usePageTitle(name);
@@ -29,10 +30,10 @@ export function GenericCenterPage({ id }: { id: CenterId }) {
         icon={CENTER_ICON[id]}
         scrollTo="remit"
         meta={
-          center.externalUrl && (
+          externalUrl && (
             <a
               className="tlink"
-              href={center.externalUrl}
+              href={externalUrl}
               target="_blank"
               rel="noopener noreferrer"
               style={{ color: center.color, alignSelf: 'flex-start' }}

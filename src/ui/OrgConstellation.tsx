@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 import { useSite } from '@/app/site';
-import { CENTERS, CENTER_BRANCHES, CENTER_ICON } from '@/data/centers';
+import { ORG_ORDER } from '@/app/routes';
+import { centerById, CENTER_BRANCHES, CENTER_ICON } from '@/data/centers';
 import type { CenterId } from '@/data/types';
 import { Reveal } from '@/motion/Reveal';
 import { Icon } from './Icon';
@@ -18,12 +19,15 @@ interface NodePos {
   above: boolean;
 }
 
-/** Six units on an ellipse, starting at the top and running clockwise. */
+/**
+ * Six units on an ellipse in `ORG_ORDER`: the administrative team at twelve
+ * o'clock, then the five centres clockwise from there.
+ */
 function layout(): NodePos[] {
-  return CENTERS.map((c, i) => {
-    const angle = (-90 + i * (360 / CENTERS.length)) * (Math.PI / 180);
+  return ORG_ORDER.map((id, i) => {
+    const angle = (-90 + i * (360 / ORG_ORDER.length)) * (Math.PI / 180);
     return {
-      id: c.id,
+      id,
       x: HUB.x + Math.cos(angle) * RING.rx,
       y: HUB.y + Math.sin(angle) * RING.ry,
       above: Math.sin(angle) < -0.9,
@@ -75,7 +79,7 @@ export function OrgConstellation({ active, onSelect }: Props) {
 
           {/* Links */}
           {nodes.map((n, i) => {
-            const center = CENTERS.find((c) => c.id === n.id)!;
+            const center = centerById(n.id)!;
             const on = active === n.id;
             const d = filament(n);
             return (
@@ -129,7 +133,7 @@ export function OrgConstellation({ active, onSelect }: Props) {
 
           {/* Unit nodes */}
           {nodes.map((n) => {
-            const center = CENTERS.find((c) => c.id === n.id)!;
+            const center = centerById(n.id)!;
             const on = active === n.id;
             const dim = active !== null && !on;
             const label = isZh ? center.zh : center.en;
@@ -190,7 +194,8 @@ export function OrgConstellation({ active, onSelect }: Props) {
       {/* Small-screen equivalent: the same six units as a tappable list. */}
       <div className="org-list">
         <Reveal variant="up" stagger={60} className="stack" style={{ gap: 0 }}>
-          {CENTERS.map((c) => {
+          {ORG_ORDER.map((id) => {
+            const c = centerById(id)!;
             const on = active === c.id;
             return (
               <button

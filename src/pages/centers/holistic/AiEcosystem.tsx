@@ -1,12 +1,9 @@
 import { useSite } from '@/app/site';
-import { buildAiEcosystem, HOLISTIC_AI_TEAM } from '@/data/holistic';
+import { buildAiEcosystem } from '@/data/holistic';
 import { Reveal } from '@/motion/Reveal';
 import { HorizontalScroll } from '@/motion/HorizontalScroll';
 import { SectionHeader } from '@/ui/Section';
-import { PersonCard } from '@/ui/Person';
 import { Icon } from '@/ui/Icon';
-
-const TEAM_TONE = '#5E7A8C';
 
 /** Healthy Taiwan Scope 2: the AI holistic-care teaching ecosystem. */
 export function AiEcosystem() {
@@ -16,7 +13,7 @@ export function AiEcosystem() {
   return (
     <section id="ai" className="section">
       <div className="shell">
-        <SectionHeader index="01" eyebrow="Healthy Taiwan · Scope 2" title={t.aiTitle} desc={t.aiBody} />
+        <SectionHeader index="06" eyebrow="Healthy Taiwan · Scope 2" title={t.aiTitle} desc={t.aiBody} />
 
         <div className="grid g-editorial" style={{ alignItems: 'start', marginBottom: 'clamp(40px, 6vw, 76px)' }}>
           <Reveal variant="up" className="stack gap-2">
@@ -67,16 +64,10 @@ export function AiEcosystem() {
         ))}
       </HorizontalScroll>
 
+      {/* The team behind this work is listed under 中心成員 › 研究團隊. */}
       <div className="shell" style={{ marginTop: 'clamp(40px, 6vw, 76px)' }}>
-        <div className="grid g-aside" style={{ alignItems: 'start' }}>
-          <div className="stack gap-3">
-            <span className="eyebrow">{ai.teamLabel}</span>
-            <Reveal variant="up" stagger={80} className="grid grid-people">
-              {HOLISTIC_AI_TEAM.map((p, i) => (
-                <PersonCard key={`${p.en}-${i}`} person={p} accent={TEAM_TONE} compact />
-              ))}
-            </Reveal>
-          </div>
+        <div className="stack gap-3">
+          <span className="eyebrow">{ai.stepsLabel}</span>
 
           <div className="stack" style={{ gap: 0 }}>
             {ai.steps.map((s) => (

@@ -9,16 +9,15 @@ import { Icon } from '@/ui/Icon';
 
 const TEAL = '#4f8c7d';
 
-/** Symposia hosted by the department, plus AY113 faculty-training results. */
-export function Outcomes() {
+/** Symposia hosted by the department. */
+export function Symposia() {
   const { lang, isZh } = useSite();
   const o = buildHolisticOutcomes(lang);
 
   return (
-    <>
       <Section id="symposia">
         <SectionHeader
-          index="05"
+          index="03"
           eyebrow={o.symposiumEyebrow}
           title={o.symposiumTitle}
           desc={o.symposiumDesc}
@@ -70,10 +69,18 @@ export function Outcomes() {
           ))}
         </Reveal>
       </Section>
+  );
+}
 
+/** AY113 faculty-training results. */
+export function Training() {
+  const { lang } = useSite();
+  const o = buildHolisticOutcomes(lang);
+
+  return (
       <Section id="training" tight>
         <SectionHeader
-          index="06"
+          index="08"
           eyebrow={o.trainingEyebrow}
           title={o.trainingTitle}
           desc={o.trainingDesc}
@@ -92,6 +99,5 @@ export function Outcomes() {
           ]}
         />
       </Section>
-    </>
   );
 }

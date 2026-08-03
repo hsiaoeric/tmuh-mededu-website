@@ -24,7 +24,11 @@ export const HOLISTIC_DETAIL_KINDS: HolisticDetailKind[] = ['symposia', 'researc
 export const holisticDetailPath = (kind: HolisticDetailKind, year: number) =>
   `${centerPath('holistic')}/${kind}/${year}`;
 
-/** Order the centers are presented in across the site. */
+/**
+ * Order the centers are presented in across the site. Every centre listing —
+ * nav, hero, glance, footer, contact table — reads this, so the sequence is
+ * defined once and cannot drift between them.
+ */
 export const CENTER_ORDER: Array<Exclude<CenterId, 'admin'>> = [
   'faculty_dev',
   'clinical_skills',
@@ -33,22 +37,32 @@ export const CENTER_ORDER: Array<Exclude<CenterId, 'admin'>> = [
   'med_edu_research',
 ];
 
+/**
+ * The org diagram's ring, read clockwise from twelve o'clock: the
+ * administrative team sits at the top, then the five centres in `CENTER_ORDER`.
+ */
+export const ORG_ORDER: CenterId[] = ['admin', ...CENTER_ORDER];
+
 /** Sections on the home page that the nav can jump to. */
 export const HOME_SECTIONS = ['about', 'organisation', 'centers', 'news', 'honors', 'contact'] as const;
 export type HomeSection = (typeof HOME_SECTIONS)[number];
 
 /**
- * Sections on the holistic centre page, in the order its section rail lists
- * them. Kept here beside the home ids so every in-page anchor target on the
- * site is declared in one file; the rail's labels live with the page.
+ * Sections on the holistic centre page, in the order they appear down the
+ * page. Kept here beside the home ids so every in-page anchor target on the
+ * site is declared in one file; the rail's labels and grouping live with the
+ * page.
  */
 export const HOLISTIC_SECTIONS = [
-  'ai',
   'h-about',
-  'h-members',
-  'mhfa',
+  'h-news',
   'symposia',
+  'h-members',
+  'h-research-team',
+  'ai',
+  'mhfa',
   'training',
+  'h-intl',
   'research',
   'contact',
 ] as const;

@@ -1,7 +1,8 @@
 import type { ComponentPropsWithoutRef } from 'react';
 import { Link } from 'react-router-dom';
+import { useSite } from '@/app/site';
 import { centerPath } from '@/app/routes';
-import { centerById } from '@/data/centers';
+import { centerExternalUrl } from '@/data/centers';
 import type { CenterId } from '@/data/types';
 
 interface CenterLinkProps extends Omit<ComponentPropsWithoutRef<'a'>, 'href'> {
@@ -10,11 +11,13 @@ interface CenterLinkProps extends Omit<ComponentPropsWithoutRef<'a'>, 'href'> {
 
 /**
  * A center's entry in any listing. Centers whose site is maintained outside
- * this app (`externalUrl`) open it in a new tab; the rest route to their
- * in-app page. Centralised so no list has to repeat the check.
+ * this app (`externalUrl`) open it in a new tab, in the language currently
+ * being read; the rest route to their in-app page. Centralised so no list has
+ * to repeat the check.
  */
 export function CenterLink({ id, children, ...rest }: CenterLinkProps) {
-  const externalUrl = centerById(id)?.externalUrl;
+  const { isZh } = useSite();
+  const externalUrl = centerExternalUrl(id, isZh);
 
   if (externalUrl) {
     return (
