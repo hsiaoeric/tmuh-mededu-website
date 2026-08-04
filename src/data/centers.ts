@@ -307,7 +307,6 @@ export const CENTERS: Center[] = [
     people: [
       person('廖若帆', 'Faith Ruofan Liao', 'director', '護理 · 副教授', 'Nursing · Assoc. Prof.', 'faith-ruofan-liao', 'faith-ruofan-liao'),
       person('孟令城', 'Ling-Cheng Mong', 'deputy', '牙醫', 'Dentist', 'ling-cheng-mong', 'ling-cheng-mong'),
-      person('邵軒磊', 'Hsuan-Lei Shao', 'advisor', '教授', 'Professor', 'hsuan-lei-shao'),
       person('江明憲', 'Ming-Hsien Chiang', 'cadmin', '行政', 'Administration'),
     ],
   },

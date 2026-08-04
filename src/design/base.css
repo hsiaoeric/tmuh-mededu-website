@@ -266,7 +266,12 @@ ol {
   max-width: 62ch;
 }
 /* `ch` is sized from the Latin "0", which is far narrower than a Han glyph —
-   headline measures therefore need an `em`-based twin for Chinese. */
+   measures therefore need an `em`-based twin for Chinese. Being `em`-based also
+   holds the characters-per-line count steady across the `.lede` / `.prose`
+   sizes, which a fixed `ch` value cannot do. */
+.measure:lang(zh-Hant) {
+  max-width: 42em;
+}
 .title-measure {
   max-width: 18ch;
 }

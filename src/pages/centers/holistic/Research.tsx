@@ -114,7 +114,7 @@ export function Research() {
                     )}
                   </div>
                   <span className="mono" style={{ fontSize: '0.62rem', color: 'var(--faint)' }}>
-                    {String(y.year).slice(2)}
+                    {y.year}
                   </span>
                 </div>
               );

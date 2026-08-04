@@ -24,7 +24,7 @@ export const HOLISTIC_SEED: RawPerson[] = [
 
 export const HOLISTIC_AI_TEAM: RawPerson[] = [
   person('廖若帆', 'Faith Ruofan Liao', 'pm', '副主任 · 副教授', 'Deputy Director · Assoc. Prof.', 'faith-ruofan-liao', 'faith-ruofan-liao'),
-  person('邵軒磊', 'Hsuan-Lei Shao', 'ai', '教授', 'Professor', 'hsuan-lei-shao'),
+  person('邵軒磊', 'Hsuan-Lei Shao', 'ai', '教授', 'Professor', 'hsuan-lei-shao', 'hsuan-lei-shao'),
   person('Diana Gonzalez', 'Diana Gonzalez', 'eng', 'MD · 範疇二團隊', 'MD · Scope 2 Team'),
 ];
 
