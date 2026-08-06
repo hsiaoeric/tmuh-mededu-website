@@ -28,18 +28,7 @@ export function DigitalMaterialsPage() {
         </SplitLines>
 
         <Reveal variant="up" delay={200}>
-          <p className="lede measure">
-            {isZh
-              ? '為一國際性的研究網絡，透過全球性的同儕合作與學習，發表高品質、公正獨立的健康照護成效的系統性文獻回顧證據。'
-              : 'An international research network that publishes high-quality, impartial and independent systematic reviews of evidence on healthcare outcomes, through global peer collaboration and learning.'}
-          </p>
-        </Reveal>
-
-        <Reveal variant="up" delay={300}>
-          <div
-            className="panel stack gap-2"
-            style={{ marginTop: 10, maxWidth: 560 }}
-          >
+          <div className="panel stack gap-2" style={{ maxWidth: 560 }}>
             <span className="row gap-2" style={{ color: 'var(--accent)' }}>
               <Icon name="clipboard" size={16} />
               <span className="eyebrow" style={{ color: 'var(--accent)' }}>
@@ -54,7 +43,7 @@ export function DigitalMaterialsPage() {
           </div>
         </Reveal>
 
-        <Reveal variant="up" delay={400}>
+        <Reveal variant="up" delay={300}>
           <Link className="btn btn-ghost" to="/" style={{ alignSelf: 'flex-start' }}>
             {isZh ? '返回教學部' : 'Back to the department'}
             <Icon name="arrow" />

@@ -189,25 +189,66 @@
   background: color-mix(in srgb, var(--bg) 96%, transparent);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  padding: calc(var(--nav-h) + 32px) var(--edge) 40px;
-  overflow-y: auto;
+  /* The shell itself never scrolls — iOS Safari loses touch scroll when a
+     fixed element is both the overflow container and covered by a body lock. */
+  overflow: hidden;
   display: flex;
   flex-direction: column;
-  gap: 4px;
 }
-.nav-sheet a {
+.nav-sheet-scroller {
+  flex: 1 1 auto;
+  min-height: 0;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
+  padding: calc(var(--nav-h) + 24px) var(--edge) 40px;
+  /* Swipe still works; the gutter track itself is hidden. */
+  scrollbar-width: none;
+}
+.nav-sheet-scroller::-webkit-scrollbar {
+  display: none;
+}
+.nav-sheet-inner {
+  width: 100%;
+  max-width: 520px;
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  /* Extra bottom room so the last items clear the home indicator. */
+  padding-bottom: max(24px, env(safe-area-inset-bottom));
+}
+.nav-sheet a,
+.nav-sheet a.sheet-main {
   font-family: 'Instrument Serif', 'Noto Serif TC', serif;
-  font-size: clamp(1.5rem, 5.6vw, 2.2rem);
-  line-height: 1.35;
+  font-size: clamp(1.2rem, 3.8vw, 1.65rem);
+  font-weight: 400;
+  line-height: 1.3;
   color: var(--ink);
-  padding-block: 6px;
+  padding-block: 10px;
   border-bottom: 1px solid var(--line-soft);
+}
+.nav-sheet a.sheet-main:lang(zh-Hant),
+.nav-sheet a:lang(zh-Hant):not(.sheet-sub) {
+  font-weight: 700;
+}
+.nav-sheet a.sheet-sub {
+  font-family: 'Noto Sans TC', sans-serif;
+  font-size: clamp(0.95rem, 2.4vw, 1.1rem);
+  font-weight: 500;
+  padding-block: 9px;
+  padding-inline-start: 0.4em;
+  color: var(--body);
 }
 .nav-sheet a[data-active='true'] {
   color: var(--accent);
 }
 .nav-sheet .sheet-label {
-  margin-top: 26px;
+  margin-top: 18px;
+  margin-bottom: 2px;
 }
 
 /* The bar carries seven items at the larger type size; below this it would

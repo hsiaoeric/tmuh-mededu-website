@@ -222,41 +222,72 @@ export function Nav() {
 
       {sheet && (
         <div className="nav-sheet">
-          {SECTIONS.map((s) => (
-            <a
-              key={s.id}
-              href={`/#${s.id}`}
-              onClick={(e) => {
-                e.preventDefault();
-                jump(s.id);
-              }}
-            >
-              {isZh ? s.zh : s.en}
-            </a>
-          ))}
-          <div className="eyebrow sheet-label">{isZh ? '五大中心' : 'The Five Centers'}</div>
-          {CENTER_ORDER.map((id) => {
-            const c = centerById(id)!;
-            return (
-              <CenterLink
-                key={id}
-                id={id}
-                data-active={pathname === centerPath(id)}
+          {/*
+            Scroll lives on this inner layer, not the fixed shell.
+            `data-lenis-prevent` tells Lenis to let native touch scroll through
+            while the page behind stays frozen by lenis.stop().
+          */}
+          <div
+            className="nav-sheet-scroller"
+            data-lenis-prevent
+            data-lenis-prevent-touch
+          >
+            <div className="nav-sheet-inner">
+              {SECTIONS.slice(0, 2).map((s) => (
+                <a
+                  key={s.id}
+                  className="sheet-main"
+                  href={`/#${s.id}`}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    jump(s.id);
+                  }}
+                >
+                  {isZh ? s.zh : s.en}
+                </a>
+              ))}
+
+              <div className="eyebrow sheet-label">{isZh ? '五大中心' : 'The Five Centers'}</div>
+              {CENTER_ORDER.map((id) => {
+                const c = centerById(id)!;
+                return (
+                  <CenterLink
+                    key={id}
+                    id={id}
+                    className="sheet-sub"
+                    data-active={pathname === centerPath(id)}
+                    onClick={() => setSheet(false)}
+                  >
+                    {isZh ? c.zh : c.en}
+                    {c.externalUrl && ' ↗'}
+                  </CenterLink>
+                );
+              })}
+
+              <Link
+                className="sheet-main"
+                to={DIGITAL_MATERIALS_PATH}
+                data-active={pathname === DIGITAL_MATERIALS_PATH}
                 onClick={() => setSheet(false)}
               >
-                {isZh ? c.zh : c.en}
-                {c.externalUrl && ' ↗'}
-              </CenterLink>
-            );
-          })}
-          <Link
-            to={DIGITAL_MATERIALS_PATH}
-            data-active={pathname === DIGITAL_MATERIALS_PATH}
-            onClick={() => setSheet(false)}
-            style={{ marginTop: 26 }}
-          >
-            {isZh ? '數位教材室' : 'Digital Materials'}
-          </Link>
+                {isZh ? '數位教材室' : 'Digital Materials'}
+              </Link>
+
+              {SECTIONS.slice(2).map((s) => (
+                <a
+                  key={s.id}
+                  className="sheet-main"
+                  href={`/#${s.id}`}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    jump(s.id);
+                  }}
+                >
+                  {isZh ? s.zh : s.en}
+                </a>
+              ))}
+            </div>
+          </div>
         </div>
       )}
     </>

@@ -68,11 +68,22 @@ export function scrollToTop(immediate = true) {
   window.scrollTo({ top: 0, behavior: 'auto' });
 }
 
-/** Pause/resume the scroll driver (used while the mobile menu is open). */
+/**
+ * Pause/resume the scroll driver (used while the mobile menu is open).
+ *
+ * When Lenis is running we only call `stop()` — it already `preventDefault`s
+ * touchmoves outside `[data-lenis-prevent]`, which is enough to freeze the
+ * page behind the sheet. Setting `body { overflow: hidden }` on top of that
+ * is what used to lock iOS Safari out of scrolling the sheet itself.
+ *
+ * Without Lenis (prefers-reduced-motion) we fall back to locking the body,
+ * and the sheet uses a dedicated scroller with `-webkit-overflow-scrolling`.
+ */
 export function setScrollLocked(locked: boolean) {
   if (lenis) {
     if (locked) lenis.stop();
     else lenis.start();
+    return;
   }
   document.body.style.overflow = locked ? 'hidden' : '';
 }

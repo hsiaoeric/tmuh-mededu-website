@@ -16,9 +16,21 @@
 背景著色器、平滑捲動與逐行標題進場、章節導覽軌與橫向捲動章節，並把原本的
 `src/views/` 重整為 `src/pages/`。
 
+目前第二版也已依教學部審稿調整：首頁「五大教育中心」併入「教學部一覽」展開卡片、
+行政專員名冊加上分機／信箱、導覽新增「數位教材室」、聯絡區改為地址與服務時間，
+並放大全站字級以利閱讀。手機漢堡選單可上下滑動瀏覽完整項目。
+
 兩版是**各自獨立的 Vercel 專案**，共用同一個 GitHub repo：第一版跟著 `main` 自動部署，
 第二版目前以手動指令從 `living-tissue` 的內容部署（見下方〈第二版的更新方式〉）。
 所以改第二版不會動到第一版，第一版仍是對外的正式站。
+
+### 倉庫與分支
+
+| 項目 | 連結 |
+| --- | --- |
+| GitHub（本 repo） | <https://github.com/michelleku0813-hub/tmuh-mededu-website> |
+| 第二版分支 | [`living-tissue`](https://github.com/michelleku0813-hub/tmuh-mededu-website/tree/living-tissue) |
+| 第二版線上預覽 | <https://tmuh-mededu-living-tissue.vercel.app> |
 
 ---
 
@@ -48,14 +60,15 @@ src/
 ├─ i18n/                     ★ 介面文字（中英）：zh.ts / en.ts
 ├─ data/                     ★ 網站內容（最常更新的地方）
 │  ├─ news.ts                公告 & 活動
-│  ├─ people.ts              人員（姓名、職稱、照片檔名）
-│  ├─ centers.ts             各中心基本資料、聯絡方式
-│  ├─ kpis.ts                教學部首頁的數據
+│  ├─ people.ts              人員（姓名、職稱、照片、分機、信箱）
+│  ├─ centers.ts             各中心基本資料、聯絡方式、行政團隊名冊
+│  ├─ kpis.ts                教學部首頁的數據（顧問／主治／醫事／五中心）
 │  ├─ deptAwards.ts          SNQ / NHQA 品質榮譽
 │  ├─ holisticPapers.ts      全院全人相關研究論文
 │  └─ holistic.ts / ebm.ts / facdev.ts   各中心專頁內容
 ├─ pages/
-│  ├─ Home.tsx + home/       首頁各區塊（Hero、About、組織、五大中心、數據、公告、榮譽、聯絡）
+│  ├─ Home.tsx + home/       首頁各區塊（Hero、About、組織、一覽、公告、榮譽、聯絡）
+│  ├─ DigitalMaterialsPage.tsx  數位教材室（內容建置中）
 │  ├─ CenterPage.tsx         依網址分派到對應中心頁
 │  └─ centers/               HolisticPage / EbmPage / FacdevPage / GenericCenterPage
 ├─ ui/                       共用元件（Nav、Footer、Icon、Person、Stats、組織圖…）
@@ -87,11 +100,15 @@ src/
 ### 3. 修改人員
 `src/data/people.ts`（共用）或各中心的 `centers.ts` / `holistic.ts` 等。
 照片放在 `public/assets/`，檔名為 `<slug>.jpg`；`person(...)` 第 6 個參數就是這個 slug（沒有照片、或照片檔案不存在時，會自動改顯示姓名縮寫）。
+行政專員的**分機**與**信箱**是 `person(...)` 最後兩個參數（可留空字串）；組織面板名冊會顯示在右側。
 
 ### 4. 修改介面文字（按鈕、標題等）
 `src/i18n/zh.ts`（中文）與 `src/i18n/en.ts`（英文）。兩個檔的欄位（key）必須一致，少一個英文 build 時會報錯提醒。
 
-### 5. 調整配色 / 主題
+### 5. 調整全站字級
+根字級在 `src/design/base.css` 的 `html { font-size: …% }`。目前設為 `125%`（約等於內文 20px），全站 rem 會跟著放大。要再大／再小，只改這個百分比即可。
+
+### 6. 調整配色 / 主題
 `src/design/tokens.css`，修改 CSS 變數即可，明暗兩套都在這裡。
 注意：**每個變數在 `:root`（淺色）與 `[data-theme='dark']`（深色）兩區塊都要有**，只改一邊會讓另一個主題壞掉。
 `--field-*` 這幾個變數是背景著色器的顏色，改配色時一併調整才會協調。
@@ -102,9 +119,9 @@ src/
 
 為了「改一次、全站套用」，重複的樣式已收斂成共用資源：
 
-- **字級**：`display d1`–`d4`（大標）、`lede`、`prose`、`tiny`、`eyebrow`。中文字比英文字視覺上大得多，因此每一級都有 `:lang(zh-Hant)` 的專屬字級，切換語言時會自動套用。
+- **字級**：`display d1`–`d4`（大標）、`lede`、`prose`、`tiny`、`eyebrow`。中文字比英文字視覺上大得多，因此每一級都有 `:lang(zh-Hant)` 的專屬字級，切換語言時會自動套用。全站基準字級見上方〈調整全站字級〉。
 - **格線**：`grid` 搭配 `g2` / `g3` / `g4`（等寬欄）、`g-editorial`（左窄右寬）、`g-aside`、`auto-fit`、`grid-people`（人員卡）。斷點集中在 `design/base.css`。
-- **元件**：`card`、`panel`、`tag`、`stat`、`table`、`index-row`、`btn`、`tlink`。
+- **元件**：`card`、`panel`、`tag`、`stat`、`table`、`btn`、`tlink`、人員名冊 `roster-row`。
 - **中心代表色**：來自 `data/centers.ts` 的 `color`，以 CSS 變數 `--tone` 往下傳，卡片、標籤、圖表會自動跟著變色。
 
 ### 動效與無障礙
@@ -119,6 +136,7 @@ src/
 | 網址 | 頁面 |
 |------|------|
 | `/` | 教學部首頁 |
+| `/digital-materials` | 數位教材室（建置中） |
 | `/centers/faculty-development` | 教師發展中心 |
 | `/centers/clinical-skills` | 臨床技能中心 |
 | `/centers/evidence-based-medicine` | 實證醫學中心 |
