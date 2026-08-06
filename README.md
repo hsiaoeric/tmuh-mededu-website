@@ -5,6 +5,23 @@
 
 ---
 
+## 線上版本
+
+| 版本 | 網址 | 分支 |
+| --- | --- | --- |
+| 第一版 | <https://tmuh-mededu-website.vercel.app> | `main` |
+| **第二版（改版設計）** | **<https://tmuh-mededu-living-tissue.vercel.app>** | `living-tissue` |
+
+**第二版**是在第一版之上重做視覺與互動的設計版本，也是這個分支的內容：新增 WebGL
+背景著色器、平滑捲動與逐行標題進場、章節導覽軌與橫向捲動章節，並把原本的
+`src/views/` 重整為 `src/pages/`。
+
+兩版是**各自獨立的 Vercel 專案**，共用同一個 GitHub repo：第一版跟著 `main` 自動部署，
+第二版目前以手動指令從 `living-tissue` 的內容部署（見下方〈第二版的更新方式〉）。
+所以改第二版不會動到第一版，第一版仍是對外的正式站。
+
+---
+
 ## 快速開始
 
 ```bash
@@ -142,7 +159,23 @@ git commit -m "更新說明"
 git push
 ```
 
-Vercel 會自動重新 build 並上線，無需再手動操作。
+第一版（`main`）到這裡就結束了，Vercel 會自動重新 build 並上線。
+
+### 第二版的更新方式
+
+第二版是另一個 Vercel 專案 `tmuh-mededu-living-tissue`，它的 Production Branch
+仍設定為 `main`，因此 push `living-tissue` 只會產生 Preview 部署。要更新對外網址
+<https://tmuh-mededu-living-tissue.vercel.app>，在 push 之後再執行：
+
+```bash
+vercel --prod
+```
+
+> `vercel --prod` 上傳的是**本機當下的檔案**，不是 GitHub 上的版本，
+> 所以請先 commit 再部署，線上內容才會和版本紀錄一致。
+>
+> 想改成 push 就自動上線，到該專案的 **Settings → Environments → Production →
+> Branch Tracking**，把分支改成 `living-tissue` 即可，之後就不必再手動執行。
 
 ---
 
