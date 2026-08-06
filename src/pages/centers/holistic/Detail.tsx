@@ -155,9 +155,6 @@ export function HolisticDetail() {
                   ))}
                 </div>
 
-                <p className="tiny" style={{ marginTop: 26, maxWidth: '76ch' }}>
-                  {research.sourceNote}
-                </p>
               </>
             )}
           </>

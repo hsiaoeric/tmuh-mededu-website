@@ -200,10 +200,5 @@ export function buildHolisticResearch(lang: Lang) {
       { num: 36, label: pick(lang, '篇為第一作者', 'As first author') },
       { num: 17, label: pick(lang, '篇為通訊作者', 'As corresponding author') },
     ],
-    sourceNote: pick(
-      lang,
-      '資料來源：國科會研究人才查詢（擷取日 2026-07-15）與 108–111 年全人相關論文清冊。清冊收錄至 2022 年 6 月，故 2023 年起僅列全人照護教育標注著作。',
-      'Sources: NSTC researcher records (retrieved 2026-07-15) and the 2019–2022 holistic research register. The register ends in June 2022, so 2023 onward lists tagged education papers only.',
-    ),
   };
 }

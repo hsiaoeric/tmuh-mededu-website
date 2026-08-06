@@ -176,10 +176,6 @@ export function Glance() {
           )}
         </div>
       )}
-
-      <p className="tiny" style={{ marginTop: 24 }}>
-        {t.dataSource}
-      </p>
     </Section>
   );
 }

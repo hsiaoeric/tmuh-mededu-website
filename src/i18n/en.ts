@@ -29,7 +29,6 @@ export const en: Strings = {
 
   kpiEyebrow: 'At a Glance',
   kpiTitle: 'The Department at a Glance',
-  dataSource: 'Source: Performance Mgmt · BI Team · AY114',
 
   orgTitle: 'Organizational Structure',
   orgDesc:

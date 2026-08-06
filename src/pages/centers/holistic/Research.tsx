@@ -186,10 +186,6 @@ export function Research() {
           }))}
         />
       </div>
-
-      <p className="tiny" style={{ marginTop: 26, maxWidth: '76ch' }}>
-        {r.sourceNote}
-      </p>
     </Section>
   );
 }
