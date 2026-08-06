@@ -20,7 +20,9 @@ export function Organisation() {
         title={t.orgTitle}
         desc={
           isZh
-            ? '六大功能單位環繞教學部協同運作。點擊任一節點，展開該單位的定位、面向、團隊與聯絡窗口。'
+            /* `\u2060` is a word joiner: it forbids a break inside 「窗口」 so
+               the closing character cannot be stranded on a line of its own. */
+            ? '六大功能單位環繞教學部協同運作。點擊任一節點，展開該單位的定位、面向、團隊與聯絡窗\u2060口。'
             : 'Six units orbit the department. Select any node to open its remit, facets, team and contact.'
         }
       />

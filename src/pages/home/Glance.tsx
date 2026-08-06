@@ -1,18 +1,24 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { useSite } from '@/app/site';
-import { CENTER_ORDER, centerPath } from '@/app/routes';
+import { CENTER_ORDER } from '@/app/routes';
 import { centerById, CENTER_ICON } from '@/data/centers';
 import { deptKpis } from '@/data/kpis';
 import { person, type RawPerson } from '@/data/people';
 import { Counter } from '@/motion/Counter';
 import { Reveal } from '@/motion/Reveal';
 import { Section, SectionHeader } from '@/ui/Section';
+import { CenterLink } from '@/ui/CenterLink';
 import { Icon } from '@/ui/Icon';
 import { PersonCard } from '@/ui/Person';
 
 /** Named by the English KPI caption, which is the stable key in kpis.ts. */
 const MEMBER_GROUPS: Record<string, RawPerson[]> = {
+  // Names and portraits are still to be supplied by the department.
+  'Department Advisors': [
+    person('待更新', 'To be updated', 'advisor', '', ''),
+    person('待更新', 'To be updated', 'advisor', '', ''),
+    person('待更新', 'To be updated', 'advisor', '', ''),
+  ],
   'Teaching Attendings': [
     person('邱欣怡', 'Hsin-Yi Chiu', 'lead', '', '', 'hsin-yi-chiu', 'hsin-yi-chiu'),
     person('吳政誠', 'Jeng-Cheng Wu', 'lead', '', '', 'jeng-cheng-wu', 'jeng-cheng-wu'),
@@ -26,10 +32,20 @@ const MEMBER_GROUPS: Record<string, RawPerson[]> = {
   ],
 };
 
-const GROUP_TITLE: Record<string, { zh: string; en: string }> = {
+const GROUP_TITLE: Record<string, { zh: string; en: string; descZh?: string; descEn?: string }> = {
+  'Department Advisors': { zh: '教學部顧問', en: 'Department Advisors' },
   'Teaching Attendings': { zh: '教學型主治成員', en: 'Teaching Attendings' },
-  'Teaching Allied Health': { zh: '職類教學型醫事人員成員', en: 'Teaching Allied Health' },
-  'Education Centers': { zh: '五中心專頁入口', en: 'The Five Center Pages' },
+  'Teaching Allied Health': { zh: '教學型醫事人員成員', en: 'Teaching Allied Health' },
+  'Education Centers': {
+    zh: '五大教育中心',
+    en: 'The Five Education Centers',
+    /* `\u2060` is a word joiner: it forbids a break between 「的」 and 「人」 so
+       the closing character cannot be stranded on a line of its own. */
+    descZh:
+      '每一個中心承擔一段教育旅程：從教師的養成、技能的錘鍊、證據的檢驗，到照護一個完整的\u2060人。',
+    descEn:
+      'Each center carries one stage of the journey — growing teachers, honing skills, testing evidence, and caring for the whole person.',
+  },
 };
 
 export function Glance() {
@@ -42,9 +58,9 @@ export function Glance() {
 
   return (
     <Section id="glance" tight>
-      <SectionHeader index="04" eyebrow={t.kpiEyebrow} title={t.kpiTitle} />
+      <SectionHeader index="03" eyebrow={t.kpiEyebrow} title={t.kpiTitle} />
 
-      <div className="grid g3">
+      <div className="grid g4">
         {kpis.map((k) => {
           const expandable = !!MEMBER_GROUPS[k.en] || k.en === 'Education Centers';
           const on = open === k.en;
@@ -90,6 +106,11 @@ export function Glance() {
           <span className="eyebrow">
             {isZh ? GROUP_TITLE[open].zh : GROUP_TITLE[open].en}
           </span>
+          {(isZh ? GROUP_TITLE[open].descZh : GROUP_TITLE[open].descEn) && (
+            <p className="panel-lede">
+              {isZh ? GROUP_TITLE[open].descZh : GROUP_TITLE[open].descEn}
+            </p>
+          )}
 
           {members.length > 0 && (
             <Reveal variant="up" stagger={60} className="grid grid-people">
@@ -101,37 +122,54 @@ export function Glance() {
 
           {showCenters && (
             <Reveal variant="up" stagger={60} className="grid auto-fit">
-              {CENTER_ORDER.map((id) => {
+              {CENTER_ORDER.map((id, i) => {
                 const c = centerById(id)!;
+                const external = !!c.externalUrl;
                 return (
-                  <Link
+                  <CenterLink
                     key={id}
-                    to={centerPath(id)}
+                    id={id}
                     className="card card-hover stack gap-2"
                     style={{ ['--tone' as string]: c.color }}
+                    data-cursor={external ? (isZh ? '官網' : 'Site') : isZh ? '進入' : 'Enter'}
                   >
-                    <span
-                      style={{
-                        width: 34,
-                        height: 34,
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        borderRadius: '50%',
-                        color: c.color,
-                        background: `color-mix(in srgb, ${c.color} 12%, transparent)`,
-                      }}
-                    >
-                      <Icon name={CENTER_ICON[id]} size={17} />
+                    <span className="row between baseline gap-2">
+                      <span
+                        style={{
+                          width: 34,
+                          height: 34,
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          borderRadius: '50%',
+                          color: c.color,
+                          background: `color-mix(in srgb, ${c.color} 12%, transparent)`,
+                        }}
+                      >
+                        <Icon name={CENTER_ICON[id]} size={17} />
+                      </span>
+                      <span className="mono" style={{ fontSize: '0.68rem', color: 'var(--faint)' }}>
+                        0{i + 1}
+                      </span>
                     </span>
-                    <span style={{ fontFamily: "'Noto Sans TC',sans-serif", fontWeight: 500, color: 'var(--ink)' }}>
+                    <span
+                      lang={isZh ? 'zh-Hant' : 'en'}
+                      style={{ fontFamily: "'Noto Sans TC',sans-serif", fontWeight: 500, color: 'var(--ink)' }}
+                    >
                       {isZh ? c.zh : c.en}
                     </span>
+                    <span
+                      className="mono"
+                      style={{ fontSize: '0.63rem', letterSpacing: '.1em', color: 'var(--faint)' }}
+                    >
+                      {isZh ? c.en : c.zh}
+                    </span>
+                    <p className="tiny">{isZh ? c.introZh : c.introEn}</p>
                     <span className="tlink" style={{ color: c.color, marginTop: 'auto' }}>
-                      {isZh ? '前往專頁' : 'Visit page'}
+                      {external ? (isZh ? '前往官網' : 'Official site') : isZh ? '前往專頁' : 'Visit page'}
                       <Icon name="arrowUpRight" />
                     </span>
-                  </Link>
+                  </CenterLink>
                 );
               })}
             </Reveal>

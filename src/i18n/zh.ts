@@ -22,7 +22,6 @@ export const zh = {
   heroTag:
     '以人為本的全人醫療教育，結合教師發展、臨床技能、實證醫學與全人照護，培育兼具同理心與專業能力的醫療人才。',
   ctaOrg: '探索組織架構',
-  ctaHolistic: '進入全人照護中心',
   chipCenters: '教育中心',
   chipSeed: '種子教師',
 

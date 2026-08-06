@@ -62,7 +62,7 @@ export function buildFacdev(lang: Lang) {
 
   return {
     colors: FD_COLORS,
-    eyebrow: 'Faculty Development Center',
+    eyebrow: 'Center for Faculty Development',
     heroTitle: pick(lang, '成就每一位卓越的臨床教師', 'Cultivating every outstanding clinical teacher'),
     heroTag: pick(lang, '以師資培育為根本，串連課程、評量、教職與獎勵機制，打造全院跨職類的教學卓越文化。', 'Rooted in faculty cultivation — weaving together curriculum, assessment, appointments and recognition to build a hospital-wide culture of teaching excellence.'),
     aboutEyebrow: pick(lang, '中心定位與使命', 'Mission & Positioning'),
@@ -76,7 +76,7 @@ export function buildFacdev(lang: Lang) {
     groupsEyebrow: pick(lang, '教學培育組織', 'Cultivation Structure'),
     groupsTitle: pick(lang, '六大教學培育小組', 'Six Teaching Cultivation Groups'),
     groupsDesc: pick(lang, '六個專責小組各司其職、互相協作，共同深化全院教學培育的各個面向。', 'Six dedicated groups, each with its own focus, jointly deepening every dimension of hospital-wide faculty cultivation.'),
-    groupRoot: pick(lang, '教師發展中心', 'Faculty Development Center'),
+    groupRoot: pick(lang, '教師發展中心', 'Center for Faculty Development'),
     groupLeadLabel: pick(lang, '負責人', 'Lead'),
     newsEyebrow: 'Announcements',
     newsTitle: pick(lang, '最新公告', 'Latest News'),
@@ -88,7 +88,7 @@ export function buildFacdev(lang: Lang) {
     closingBody: pick(lang, '教師發展中心以系統性培育、教職支持與六大小組協作，陸續協助全院跨職類教師成長，為醫學教育的永續發展扎下深厚根基。', 'Through systematic cultivation, appointment support and six collaborating groups, the Center helps clinical teachers across all professions grow — laying deep roots for the sustainable future of medical education.'),
     contactPerson: pick(lang, '行政專員：陳均茹', 'Administrator: Chun-Ju Chen'),
     contactExt: formatPhoneExt('3757', lang),
-    contactPlace: pick(lang, '臺北醫學大學附設醫院 · 教學部 教師發展中心', 'TMU Hospital · Faculty Development Center, Dept. of Medical Education'),
+    contactPlace: pick(lang, '臺北醫學大學附設醫院 · 教學部 教師發展中心', 'TMU Hospital · Center for Faculty Development, Dept. of Medical Education'),
     contactQuote: pick(lang, '成就教師，就是成就每一位未來的醫療人才。', 'To grow a teacher is to grow every future caregiver.'),
     kpis,
     services,

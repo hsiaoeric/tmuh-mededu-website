@@ -24,7 +24,6 @@ export const en: Strings = {
   heroTag:
     'People-centered whole-person medical education — uniting faculty development, clinical skills, evidence-based medicine and holistic care to nurture compassionate, competent clinicians.',
   ctaOrg: 'Explore the Organization',
-  ctaHolistic: 'Enter Holistic Care Center',
   chipCenters: 'Education Centers',
   chipSeed: 'Seed Teachers',
 

@@ -5,7 +5,6 @@ import { Marquee } from '@/ui/Marquee';
 import { Hero } from './home/Hero';
 import { About } from './home/About';
 import { Organisation } from './home/Organisation';
-import { Centers } from './home/Centers';
 import { Glance } from './home/Glance';
 import { News } from './home/News';
 import { Honors } from './home/Honors';
@@ -24,7 +23,6 @@ export function Home() {
       <Marquee items={ticker} />
       <About />
       <Organisation />
-      <Centers />
       <Glance />
       <News />
       <Honors />

@@ -103,6 +103,7 @@ export function HolisticDetail() {
                   {symposium.satisfaction !== undefined && (
                     <span className="tag" style={{ ['--tone' as string]: '#B69B66' }}>
                       {outcomes.satisfactionLabel} {symposium.satisfaction}
+                      {isZh ? '分' : ''}
                     </span>
                   )}
                 </span>

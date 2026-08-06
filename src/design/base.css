@@ -10,7 +10,11 @@
   padding: 0;
 }
 
+/* The whole scale is rem-based, so the root is the single lever for overall
+   text size. A percentage rather than a px value so a visitor who has raised
+   their browser's default font size still gets the larger reading size. */
 html {
+  font-size: 125%;
   -webkit-text-size-adjust: 100%;
 }
 
@@ -27,7 +31,7 @@ body {
   background: var(--bg);
   color: var(--body);
   font-family: 'Inter', 'Noto Sans TC', system-ui, sans-serif;
-  font-size: 16px;
+  font-size: 1rem;
   line-height: 1.75;
   font-weight: 400;
   -webkit-font-smoothing: antialiased;
@@ -127,7 +131,7 @@ ol {
 
 .eyebrow {
   font-family: 'IBM Plex Mono', ui-monospace, monospace;
-  font-size: 0.68rem;
+  font-size: 0.74rem;
   font-weight: 500;
   letter-spacing: 0.24em;
   text-transform: uppercase;
@@ -153,8 +157,8 @@ ol {
 }
 
 .tiny {
-  font-size: 0.78rem;
-  line-height: 1.6;
+  font-size: 0.82rem;
+  line-height: 1.62;
   color: var(--muted);
 }
 
@@ -284,6 +288,13 @@ ol {
 .hero-measure:lang(zh-Hant) {
   max-width: 9.5em;
 }
+/* Announcement headlines, which run longer than a section title. */
+.news-measure {
+  max-width: 22ch;
+}
+.news-measure:lang(zh-Hant) {
+  max-width: 15em;
+}
 .measure-sm {
   max-width: 46ch;
 }
@@ -399,13 +410,14 @@ ol {
     grid-template-columns: minmax(0, 1fr);
   }
   body {
-    font-size: 15px;
+    font-size: 0.94rem;
   }
 }
 
 /* People grids cap the card width: a portrait tile stretched across a wide
    column dwarfs the name it belongs to. */
 .grid-people {
-  grid-template-columns: repeat(auto-fill, minmax(min(148px, 100%), 186px));
+  /* Wide enough that English names like "Faith Ruofan Liao" stay on one line. */
+  grid-template-columns: repeat(auto-fill, minmax(min(168px, 100%), 220px));
   gap: clamp(16px, 2vw, 26px);
 }

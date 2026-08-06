@@ -104,8 +104,8 @@ export const CENTER_BRANCHES: Record<CenterId, CenterBranch[]> = {
       id: 'contact',
       zh: '聯絡',
       en: 'Contact',
-      descZh: '張家銘、賴哲民，分機 3770。',
-      descEn: 'Chia-Ming Chang & Che-Min Lai, ext. 3770.',
+      descZh: '張家銘、賴哲民，分機 3772。',
+      descEn: 'Chia-Ming Chang & Che-Min Lai, ext. 3772.',
       icon: 'phone',
       panelSection: 'contact',
     },
@@ -197,8 +197,8 @@ export const CENTER_BRANCHES: Record<CenterId, CenterBranch[]> = {
       id: 'contact',
       zh: '聯絡',
       en: 'Contact',
-      descZh: '行政專員陳麗玉。',
-      descEn: 'Administrator Li-Yu Chen.',
+      descZh: '行政專員陳麗玉，分機 3760。',
+      descEn: 'Administrator Li-Yu Chen, ext. 3760.',
       icon: 'phone',
       panelSection: 'contact',
     },
@@ -238,7 +238,7 @@ export const CENTERS: Center[] = [
   {
     id: 'faculty_dev',
     zh: '教師發展中心',
-    en: 'Faculty Development Center',
+    en: 'Center for Faculty Development',
     color: '#A87A6B',
     introZh:
       '全院臨床教師培育，並協助學校教職相關事務，提升整體教學品質與師資專業發展。',
@@ -256,7 +256,7 @@ export const CENTERS: Center[] = [
   {
     id: 'clinical_skills',
     zh: '臨床技能中心',
-    en: 'Clinical Skills Center',
+    en: 'Center for Clinical Skills',
     color: '#5E7A8C',
     introZh:
       '規劃並執行醫學生客觀結構式臨床測驗（OSCE）與各式模擬訓練，培養紮實的臨床技能。',
@@ -264,7 +264,7 @@ export const CENTERS: Center[] = [
       'Designing and running OSCE and simulation-based training to build solid clinical skills.',
     contactZh: '張家銘、賴哲民',
     contactEn: 'Chia-Ming Chang · Che-Min Lai',
-    ext: '3770',
+    ext: '3772',
     externalUrl: 'https://tmuh-education.tmuh.org.tw/center/about/clinical/abt02',
     people: [
       person('吳人傑', 'Jen-Chieh Wu', 'director', '西醫 · 助理教授', 'Physician · Asst. Prof.', 'jen-chieh-wu', 'jen-chieh-wu'),
@@ -276,7 +276,7 @@ export const CENTERS: Center[] = [
   {
     id: 'ebm',
     zh: '實證醫學中心',
-    en: 'Evidence-Based Medicine Center',
+    en: 'Center for Evidence-Based Medicine',
     color: '#B69B66',
     introZh:
       '推動實證醫學（EBM），將實證精神落實於醫療品質，提升臨床決策與照護成效。',
@@ -313,7 +313,7 @@ export const CENTERS: Center[] = [
   {
     id: 'med_edu_research',
     zh: '醫學教育研究中心',
-    en: 'Medical Education Research Center',
+    en: 'Center for Medical Education Research',
     color: '#6E8A77',
     introZh:
       '以實證與資料驅動的方法研究醫學教育，發展教學評量工具與成效分析，將研究成果回饋至課程設計與教師發展。',
@@ -321,7 +321,7 @@ export const CENTERS: Center[] = [
       'Studying medical education with evidence- and data-driven methods, developing assessment tools and feeding findings back into curriculum design.',
     contactZh: '陳麗玉',
     contactEn: 'Li-Yu Chen',
-    ext: '',
+    ext: '3760',
     // The centre's site reads ?lang, then falls back to whatever it stored from
     // the visitor's last visit — so the parameter has to be explicit both ways.
     externalUrl: 'https://tmuh.ai/u/jc2jc/med-ed-research-center/?lang=zh#overview',
@@ -329,7 +329,7 @@ export const CENTERS: Center[] = [
     people: [
       person('陳建宇', 'Chien-Yu Chen', 'director', '西醫 · 教授', 'Physician · Professor', 'chien-yu-chen', 'chien-yu-chen'),
       person('邱欣怡', 'Hsin-Yi Chiu', 'deputy', '西醫 · 助理教授', 'Physician · Asst. Prof.', 'hsin-yi-chiu', 'hsin-yi-chiu'),
-      person('陳麗玉', 'Li-Yu Chen', 'cadmin', '行政', 'Administration'),
+      person('陳麗玉', 'Li-Yu Chen', 'cadmin', '行政', 'Administration', '', '', '', '', '3760', '255147@h.tmu.edu.tw'),
     ],
   },
   {
@@ -347,20 +347,23 @@ export const CENTERS: Center[] = [
     people: [
       person('張君照', 'Chun-Chao Chang', 'vp', '西醫 · 教授', 'Physician · Professor', 'chun-chao-chang', 'chun-chao-chang'),
       person('葉篤學', 'Tu-Hsueh Yeh', 'ddir', '西醫 · 副教授', 'Physician · Assoc. Prof.', 'tu-hsueh-yeh', 'tu-hsueh-yeh'),
-      person('張瓈方', 'Li-Fang Chang', 'ddep', '護理 · 助理教授', 'Nursing · Asst. Prof.', 'li-fang-chang', 'li-fang-chang'),
+      person('張瓈方', 'Li-Fang Chang', 'ddep', '護理 · 助理教授', 'Nursing · Asst. Prof.', 'li-fang-chang', 'li-fang-chang', '', '', '3755'),
       person('郭淑柳', 'Shu-Liu Guo', 'ddep', '護理 · 助理教授', 'Nursing · Asst. Prof.', 'shu-liu-guo', 'shu-liu-guo'),
-      person('王怡文', 'Yi-Wen Wang', 'head', '教學部綜整', 'Department Coordination'),
-      person('楊明芳', 'Ming-Fang Yang', 'spec', 'TMS、新人訓', 'TMS · Orientation', '', '', 'TMS・新人訓', 'TMS · Orientation'),
-      person('羅翊芳', 'Yi-Fang Lo', 'spec', '職類、教學門診', 'Professions · Teaching Clinics', '', '', '職類・教學門診', 'Professions · Teaching Clinics'),
-      person('曾牧雲', 'Mu-Yun Tseng', 'spec', '實習醫學生', 'Clerkships', '', '', '實習醫學生', 'Clerkships'),
-      person('李珮暄', 'Pei-Hsuan Lee', 'spec', '住院醫師、PEC、CCC', 'Residents · PEC · CCC', '', '', '住院醫師・PEC・CCC', 'Residents · PEC · CCC'),
-      person('張筱雯', 'Hsiao-Wen Chang', 'spec', 'PGY', 'PGY', '', '', 'PGY', 'PGY'),
-      person('陳均茹', 'Chun-Ju Chen', 'spec', '教發、大人提、教職', 'Faculty Dev. · Grants · Appointments', '', '', '教發・大人提・教職', 'Faculty Dev. · Grants · Appointments'),
-      person('江明憲', 'Ming-Hsien Chiang', 'spec', '實證、全人、BI、EP', 'EBM · Holistic · BI · EP', '', '', '實證・全人・BI・EP', 'EBM · Holistic · BI · EP'),
-      person('賴哲民', 'Che-Min Lai', 'spec', '臨技、OSCE', 'Clinical Skills · OSCE', '', '', '臨技・OSCE', 'Clinical Skills · OSCE'),
-      person('張家銘', 'Chia-Ming Chang', 'spec', '臨技、OSCE', 'Clinical Skills · OSCE', '', '', '臨技・OSCE', 'Clinical Skills · OSCE'),
-      person('張淑慧', 'Shu-Hui Chang', 'spec', '美術、平面設計', 'Art · Graphic Design', '', '', '美術・平面設計', 'Art · Graphic Design'),
-      person('高偉劭', 'Wei-Shao Kao', 'spec', '影音', 'Audiovisual', '', '', '影音', 'Audiovisual'),
+      person('王怡文', 'Yi-Wen Wang', 'head', '教學部綜整', 'Department Coordination', '', '', '', '', '3752'),
+      // The last two arguments are the extension and work email; '' means still
+      // to be confirmed by the department.
+      person('楊明芳', 'Ming-Fang Yang', 'spec', 'TMS、新人訓', 'TMS · Orientation', '', '', 'TMS・新人訓', 'TMS · Orientation', '3770', '874035@h.tmu.edu.tw'),
+      person('羅翊芳', 'Yi-Fang Lo', 'spec', '職類、教學門診', 'Professions · Teaching Clinics', '', '', '職類・教學門診', 'Professions · Teaching Clinics', '3758', '225102@h.tmu.edu.tw'),
+      person('曾牧雲', 'Mu-Yun Tseng', 'spec', '實習醫學生', 'Clerkships', '', '', '實習醫學生', 'Clerkships', '', ''),
+      person('李珮暄', 'Pei-Hsuan Li', 'spec', '住院醫師、PEC、CCC', 'Residents · PEC · CCC', '', '', '住院醫師・PEC・CCC', 'Residents · PEC · CCC', '3751', '245030@h.tmu.edu.tw'),
+      person('張筱雯', 'Hsiao-Wen Chang', 'spec', 'PGY', 'PGY', '', '', 'PGY', 'PGY', '3751', '225027@h.tmu.edu.tw'),
+      person('陳均茹', 'Chun-Ju Chen', 'spec', '教發、大人提、教職', 'Faculty Dev. · Grants · Appointments', '', '', '教發・大人提・教職', 'Faculty Dev. · Grants · Appointments', '3757', '235026@h.tmu.edu.tw'),
+      person('江明憲', 'Ming-Hsien Chiang', 'spec', '實證、全人、BI、EP', 'EBM · Holistic · BI · EP', '', '', '實證・全人・BI・EP', 'EBM · Holistic · BI · EP', '3760', '235025@h.tmu.edu.tw'),
+      person('賴哲民', 'Che-Min Lai', 'spec', '臨技、OSCE', 'Clinical Skills · OSCE', '', '', '臨技・OSCE', 'Clinical Skills · OSCE', '3772', '225143@h.tmu.edu.tw'),
+      person('張家銘', 'Chia-Ming Chang', 'spec', '臨技、OSCE', 'Clinical Skills · OSCE', '', '', '臨技・OSCE', 'Clinical Skills · OSCE', '3772', '245060@h.tmu.edu.tw'),
+      person('陳麗玉', 'Li-Yu Chen', 'spec', '醫學教育研究中心', 'Medical Education Research', '', '', '醫學教育研究中心', 'Medical Education Research', '3760', '255147@h.tmu.edu.tw'),
+      person('張淑慧', 'Shu-Hui Chang', 'spec', '美術、平面設計', 'Art · Graphic Design', '', '', '美術・平面設計', 'Art · Graphic Design', '3983', '115126@h.tmu.edu.tw'),
+      person('高偉劭', 'Wei-Shao Kao', 'spec', '影音', 'Audiovisual', '', '', '影音', 'Audiovisual', '', ''),
     ],
   },
 ];

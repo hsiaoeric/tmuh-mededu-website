@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useSite } from '@/app/site';
 import { resolvePerson, type RawPerson, type ResolvedPerson } from '@/data/people';
+import { formatExtShort } from '@/utils/phone';
 import { Icon } from './Icon';
 
 /**
@@ -115,6 +116,20 @@ export function PersonCard({ person, accent, hideRole, compact }: PersonCardProp
             {p.dutyLabel}：{p.duty}
           </span>
         )}
+        {p.ext && (
+          <a
+            className="mono person-ext"
+            href={`tel:+886227372181,${p.ext}`}
+            style={{ color: accent }}
+          >
+            {formatExtShort(p.ext, lang)}
+          </a>
+        )}
+        {p.email && (
+          <a className="mono person-email" href={`mailto:${p.email}`}>
+            {p.email}
+          </a>
+        )}
         {p.profile && (
           <a
             className="tlink"
@@ -137,18 +152,21 @@ export function PersonRoster({
   people,
   accent,
   showDuty,
+  showContact,
 }: {
   people: RawPerson[];
   accent: string;
   showDuty?: boolean;
+  /** Adds an extension / email column. Rows still missing both show a dash. */
+  showContact?: boolean;
 }) {
-  const { lang } = useSite();
+  const { lang, isZh } = useSite();
   return (
     <div>
       {people.map((raw, i) => {
         const p = resolvePerson(raw, accent, lang);
         return (
-          <div className="roster-row" key={`${p.fullname}-${i}`}>
+          <div className={showContact ? 'roster-row has-contact' : 'roster-row'} key={`${p.fullname}-${i}`}>
             <div className="row gap-2" style={{ alignItems: 'baseline' }}>
               <span className="person-name" style={{ fontSize: '0.95rem' }}>
                 {p.fullname}
@@ -162,6 +180,24 @@ export function PersonRoster({
               {showDuty && p.duty && <span className="person-dept">{p.duty}</span>}
               {!showDuty && p.dept && <span className="person-dept">{p.dept}</span>}
             </div>
+            {showContact && (
+              <span className="roster-contact mono">
+                {p.ext ? (
+                  <a href={`tel:+886227372181,${p.ext}`} style={{ color: accent }}>
+                    {formatExtShort(p.ext, lang)}
+                  </a>
+                ) : (
+                  <span className="roster-contact-empty" aria-label={isZh ? '分機待更新' : 'Extension pending'}>
+                    —
+                  </span>
+                )}
+                {p.email && (
+                  <a className="roster-email" href={`mailto:${p.email}`}>
+                    {p.email}
+                  </a>
+                )}
+              </span>
+            )}
           </div>
         );
       })}

@@ -16,6 +16,12 @@ export const SLUG_TO_CENTER: Record<string, CenterId> = Object.fromEntries(
 export const centerPath = (id: Exclude<CenterId, 'admin'>) => `/centers/${CENTER_SLUG[id]}`;
 
 /**
+ * The digital learning materials studio. A department unit rather than a
+ * centre, so it sits outside `/centers` and carries its own top-level path.
+ */
+export const DIGITAL_MATERIALS_PATH = '/digital-materials';
+
+/**
  * The holistic center lists its symposia and papers as year cards; each opens a
  * detail page nested under the center's own path.
  */
@@ -44,7 +50,7 @@ export const CENTER_ORDER: Array<Exclude<CenterId, 'admin'>> = [
 export const ORG_ORDER: CenterId[] = ['admin', ...CENTER_ORDER];
 
 /** Sections on the home page that the nav can jump to. */
-export const HOME_SECTIONS = ['about', 'organisation', 'centers', 'news', 'honors', 'contact'] as const;
+export const HOME_SECTIONS = ['about', 'organisation', 'glance', 'news', 'honors', 'contact'] as const;
 export type HomeSection = (typeof HOME_SECTIONS)[number];
 
 /**

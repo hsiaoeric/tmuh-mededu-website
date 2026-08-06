@@ -14,8 +14,8 @@ const DESIGN_TEAM = [
   {
     zh: '蕭名凱',
     en: 'Ming-Kai Hsiao',
-    detailZh: '醫學二',
-    detailEn: 'Medicine, Year 2',
+    detailZh: '',
+    detailEn: '',
     email: 'hsiaoeric.dev@gmail.com',
     github: 'https://github.com/hsiaoeric',
   },

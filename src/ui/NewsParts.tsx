@@ -62,9 +62,7 @@ export function AnnouncementRow({ item }: { item: Announcement }) {
       </div>
 
       <div className="stack gap-2">
-        <h3 className="display d3" style={{ maxWidth: '22ch' }}>
-          {item.title}
-        </h3>
+        <h3 className="display d3 news-measure">{item.title}</h3>
         <ul className="stack gap-1" style={{ marginTop: 6 }}>
           {item.lines.map((line, j) => (
             <li key={j} className="row start gap-2">

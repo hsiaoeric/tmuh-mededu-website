@@ -84,10 +84,6 @@ export function Hero() {
                   {t.ctaOrg}
                   <Icon name="arrowDown" />
                 </button>
-                <Link className="btn btn-ghost" to={centerPath('holistic')}>
-                  {t.ctaHolistic}
-                  <Icon name="arrow" />
-                </Link>
               </div>
             </Reveal>
           </div>

@@ -13,7 +13,7 @@ export function News() {
   return (
     <Section id="news">
       <SectionHeader
-        index="05"
+        index="04"
         eyebrow={t.newsEn}
         title={t.newsZh}
         desc={t.newsDesc}

@@ -2,7 +2,7 @@ import { Suspense, lazy } from 'react';
 import { Navigate, Route, Routes, useParams } from 'react-router-dom';
 import { useSite } from './site';
 import { useRouteScrollReset } from './navigation';
-import { CENTER_SLUG, LEGACY_REDIRECTS, centerPath } from './routes';
+import { CENTER_SLUG, DIGITAL_MATERIALS_PATH, LEGACY_REDIRECTS, centerPath } from './routes';
 import { HolisticDetail } from '@/pages/centers/holistic/Detail';
 import type { CenterId } from '@/data/types';
 import { useSmoothScroll } from '@/motion/smoothScroll';
@@ -10,6 +10,7 @@ import { Nav } from '@/ui/Nav';
 import { Footer } from '@/ui/Footer';
 import { Cursor, RouteCurtain, ScrollProgress } from '@/ui/Chrome';
 import { Home } from '@/pages/Home';
+import { DigitalMaterialsPage } from '@/pages/DigitalMaterialsPage';
 import { NotFound } from '@/pages/NotFound';
 
 // three.js is decorative, and the center pages are a second click away — both
@@ -55,6 +56,7 @@ export function App() {
             <Route path="/" element={<Home />} />
             <Route path={`${centerPath('holistic')}/:kind/:year`} element={<HolisticDetail />} />
             <Route path="/centers/:slug" element={<CenterPage />} />
+            <Route path={DIGITAL_MATERIALS_PATH} element={<DigitalMaterialsPage />} />
             <Route path="/center/:id" element={<LegacyCenterRedirect />} />
             {Object.entries(LEGACY_REDIRECTS).map(([from, to]) => (
               <Route key={from} path={from} element={<Navigate to={to} replace />} />

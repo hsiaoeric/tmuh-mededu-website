@@ -106,12 +106,6 @@ export interface AiFlowStep {
   text: string;
   color: string;
 }
-export interface AiStep {
-  n: string;
-  title: string;
-  text: string;
-}
-
 export function buildAiEcosystem(lang: Lang) {
   return {
     title: pick(lang, 'AI 全人照護教學模擬生態系', 'AI Holistic-Care Teaching Simulation Ecosystem'),
@@ -121,20 +115,12 @@ export function buildAiEcosystem(lang: Lang) {
       'The core is not a single tool but a teaching-simulation ecosystem for repeated practice, instant feedback and an accumulating case library — connecting AI patients, AI-authored cases, tablet & VR simulation, holistic learning feedback and a Line AI ChatBot assistant.',
     ),
     problemsTitle: pick(lang, '生態系要解決什麼問題？', 'What does the ecosystem solve?'),
-    teamLabel: pick(lang, '範疇二團隊', 'Scope 2 Team'),
-    stepsLabel: pick(lang, '生態系運作流程', 'How the ecosystem runs'),
+    teamLabel: pick(lang, '健康台灣深耕計劃範疇二團隊', 'Healthy Taiwan Deep Cultivation Program · Scope 2 Team'),
     flow: [
       { role: pick(lang, '教師端', 'Faculty'), title: pick(lang, '教案 AI 化', 'AI-authored cases'), text: pick(lang, '把全人照護目標、臨床任務與討論問題轉成可互動的情境教案。', 'Turn holistic-care goals, clinical tasks and discussion prompts into interactive case scenarios.'), color: '#4f8c7d' },
       { role: pick(lang, '情境內容', 'Scenario'), title: pick(lang, '全人臨床情境', 'Whole-person clinical context'), text: pick(lang, '以醫學、人文、心理、倫理與照護脈絡設計案例。', 'Cases designed across medical, humanistic, psychological, ethical and care contexts.'), color: '#6E8A77' },
-      { role: pick(lang, '學生端', 'Student'), title: pick(lang, '平板與 VR 模擬練習', 'Tablet & VR simulation'), text: pick(lang, '學生透過問診、判斷、醫令與治療計畫練習臨床推理。', 'Students practice clinical reasoning through history-taking, judgment, orders and treatment plans.'), color: '#5E7A8C' },
-      { role: pick(lang, '回饋端', 'Feedback'), title: pick(lang, '即時回饋與 Line AI ChatBot', 'Instant feedback & Line AI ChatBot'), text: pick(lang, '提供學習歷程回饋與全人臨床隨身助教，支援課後延伸學習。', 'Learning-process feedback plus an on-the-go holistic clinical assistant for after-class study.'), color: '#B69B66' },
+      { role: pick(lang, '回饋端', 'Feedback'), title: pick(lang, 'AI即時回饋', 'AI Instant Feedback'), text: pick(lang, '提供學習歷程回饋與全人臨床隨身助教，支援課後延伸學習。', 'Learning-process feedback plus an on-the-go holistic clinical assistant for after-class study.'), color: '#B69B66' },
     ] as AiFlowStep[],
-    steps: [
-      { n: '01', title: pick(lang, '情境設計', 'Scenario design'), text: pick(lang, '教師將全人照護能力指標轉為臨床任務與討論問題', 'Faculty translate holistic-care competencies into clinical tasks and prompts') },
-      { n: '02', title: pick(lang, 'AI 病人互動', 'AI patient interaction'), text: pick(lang, '學生與 AI 病人進行問診、診斷說明與治療溝通', 'Students conduct history-taking, diagnosis and treatment communication with an AI patient') },
-      { n: '03', title: pick(lang, '模擬練習導入', 'Simulation practice'), text: pick(lang, '結合平板、VR 與小組討論，讓課程更貼近臨床現場', 'Tablet, VR and group discussion bring courses closer to the clinical floor') },
-      { n: '04', title: pick(lang, '回饋與延伸', 'Feedback & extension'), text: pick(lang, '以即時回饋與 ChatBot 協助學生整理學習成效', 'Instant feedback and the ChatBot help students consolidate learning outcomes') },
-    ] as AiStep[],
     problems: pick(
       lang,
       [
@@ -178,6 +164,7 @@ const HOLISTIC_SYMPOSIUMS_ZH: HolisticSymposium[] = [
     dates: '2022/12/03（六）– 12/04（日）',
     time: '08:00–17:00 / 08:00–12:00',
     attendees: 916,
+    satisfaction: 4.75,
   },
   {
     year: 2023,
@@ -214,6 +201,7 @@ const HOLISTIC_SYMPOSIUMS_EN: HolisticSymposium[] = [
     dates: 'Sat–Sun 2022/12/03–04',
     time: '08:00–17:00 / 08:00–12:00',
     attendees: 916,
+    satisfaction: 4.75,
   },
   {
     year: 2023,
@@ -237,7 +225,7 @@ export function buildHolisticOutcomes(lang: Lang) {
   const isZh = lang === 'zh';
   return {
     symposiumEyebrow: pick(lang, 'Symposia', 'Symposia'),
-    symposiumTitle: pick(lang, '全人研討會', 'Holistic Symposia'),
+    symposiumTitle: pick(lang, '全人研討會＆論壇', 'Holistic Symposia & Forums'),
     symposiumDesc: pick(
       lang,
       '教學部主辦之全人照護、靈性關懷與韌性相關國際研討會與論壇。',

@@ -45,7 +45,7 @@ export function AiEcosystem() {
         {ai.flow.map((f, i) => (
           <article key={f.title} className="hscroll-card card" style={{ ['--tone' as string]: f.color }}>
             <div className="row between">
-              <span className="tag">{f.role}</span>
+              {f.role ? <span className="tag">{f.role}</span> : <span />}
               <span className="mono" style={{ fontSize: '0.68rem', color: 'var(--faint)' }}>
                 0{i + 1}
               </span>
@@ -64,39 +64,6 @@ export function AiEcosystem() {
           </article>
         ))}
       </HorizontalScroll>
-
-      {/* The team behind this work is listed under 中心成員 › 研究團隊. */}
-      <div className="shell" style={{ marginTop: 'var(--gap-block)' }}>
-        <div className="stack gap-3">
-          <span className="eyebrow">{ai.stepsLabel}</span>
-
-          <div className="stack" style={{ gap: 0 }}>
-            {ai.steps.map((s) => (
-              <Reveal
-                key={s.n}
-                variant="up"
-                className="row start gap-3"
-                style={{ padding: '20px 0', borderTop: '1px solid var(--line-soft)' }}
-              >
-                <span
-                  className="mono"
-                  style={{ fontSize: '0.8rem', color: 'var(--accent)', flex: 'none', paddingTop: 2 }}
-                >
-                  {s.n}
-                </span>
-                <span className="stack gap-1">
-                  <span style={{ fontFamily: "'Noto Sans TC',sans-serif", fontWeight: 700, color: 'var(--ink)' }}>
-                    {s.title}
-                  </span>
-                  <span className="prose" style={{ fontSize: '0.92rem' }}>
-                    {s.text}
-                  </span>
-                </span>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </div>
     </section>
   );
 }

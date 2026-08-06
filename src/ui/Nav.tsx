@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useSite } from '@/app/site';
 import { useGoToSection } from '@/app/navigation';
-import { CENTER_ORDER, centerPath } from '@/app/routes';
+import { CENTER_ORDER, DIGITAL_MATERIALS_PATH, centerPath } from '@/app/routes';
 import { centerById } from '@/data/centers';
 import { setScrollLocked } from '@/motion/smoothScroll';
 import { assetUrl } from '@/utils/asset';
@@ -61,7 +61,7 @@ function CentersMenu({ onNavigate }: { onNavigate: () => void }) {
           top: 'calc(100% + 14px)',
           left: '50%',
           translate: '-50% 0',
-          width: 320,
+          width: 420,
           padding: 8,
           borderRadius: 'var(--radius-lg)',
           border: '1px solid var(--line)',
@@ -110,7 +110,8 @@ function CentersMenu({ onNavigate }: { onNavigate: () => void }) {
                   {isZh ? c.zh : c.en}
                 </span>
                 <span className="mono" style={{ fontSize: '0.6rem', color: 'var(--faint)', letterSpacing: '.1em' }}>
-                  {c.externalUrl ? (isZh ? '外部官網 ↗' : 'Official site ↗') : isZh ? c.en : c.zh}
+                  {isZh ? c.en : c.zh}
+                  {c.externalUrl && ' ↗'}
                 </span>
               </span>
             </CenterLink>
@@ -170,6 +171,13 @@ export function Nav() {
               </button>
             ))}
             <CentersMenu onNavigate={() => setSheet(false)} />
+            <Link
+              className="nav-link"
+              to={DIGITAL_MATERIALS_PATH}
+              data-active={pathname === DIGITAL_MATERIALS_PATH}
+            >
+              {isZh ? '數位教材室' : 'Digital Materials'}
+            </Link>
             {SECTIONS.slice(2).map((s) => (
               <button key={s.id} className="nav-link" onClick={() => jump(s.id)}>
                 {isZh ? s.zh : s.en}
@@ -241,6 +249,14 @@ export function Nav() {
               </CenterLink>
             );
           })}
+          <Link
+            to={DIGITAL_MATERIALS_PATH}
+            data-active={pathname === DIGITAL_MATERIALS_PATH}
+            onClick={() => setSheet(false)}
+            style={{ marginTop: 26 }}
+          >
+            {isZh ? '數位教材室' : 'Digital Materials'}
+          </Link>
         </div>
       )}
     </>

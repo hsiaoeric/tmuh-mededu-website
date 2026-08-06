@@ -90,10 +90,13 @@ export function OrgPanel({ center, onClose }: { center: Center; onClose: () => v
         </Reveal>
         {specialists.length > 0 && (
           <div className="stack gap-2" style={{ marginTop: 10 }}>
-            <span className="eyebrow" style={{ color: center.color }}>
-              {isZh ? '行政專員業務分工' : 'Specialists & Duties'}
-            </span>
-            <PersonRoster people={specialists} accent={center.color} showDuty />
+            <div className="row between baseline gap-2">
+              <span className="eyebrow" style={{ color: center.color }}>
+                {isZh ? '行政專員業務分工' : 'Specialists & Duties'}
+              </span>
+              <span className="eyebrow">{isZh ? '分機 · 信箱' : 'Ext. · Email'}</span>
+            </div>
+            <PersonRoster people={specialists} accent={center.color} showDuty showContact />
           </div>
         )}
       </div>

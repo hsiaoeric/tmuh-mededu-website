@@ -92,7 +92,7 @@ export function buildEbm(lang: Lang) {
 
   return {
     colors: EBM_COLORS,
-    eyebrow: 'Evidence-Based Medicine Center',
+    eyebrow: 'Center for Evidence-Based Medicine',
     heroTitle: pick(lang, '提升醫療品質的關鍵引擎', 'The key engine for better care quality'),
     heroTag: pick(lang, '以「實證為基礎，引領臨床實踐，提升醫療品質，創造最佳病患照護」為核心使命，推動院內實證醫學文化。', 'Anchored in evidence to lead clinical practice, raise care quality and create the best patient outcomes — advancing a hospital-wide culture of evidence-based medicine.'),
     aboutEyebrow: pick(lang, '中心定位與核心使命', 'Mission & Positioning'),

@@ -101,7 +101,7 @@
 }
 .brand-en {
   font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.6rem;
+  font-size: 0.66rem;
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--muted);
@@ -162,7 +162,7 @@
   border: 1px solid var(--line);
   border-radius: 999px;
   font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.68rem;
+  font-size: 0.72rem;
   letter-spacing: 0.1em;
   color: var(--body);
   background: color-mix(in srgb, var(--surface) 60%, transparent);
@@ -210,7 +210,9 @@
   margin-top: 26px;
 }
 
-@media (max-width: 940px) {
+/* The bar carries seven items at the larger type size; below this it would
+   start crowding the brand, so the sheet takes over. */
+@media (max-width: 1120px) {
   .nav-links {
     display: none;
   }
@@ -379,7 +381,7 @@
 /* Not scoped to `.sec-head`: `SectionTag` reuses it inside a pinned stage. */
 .index {
   font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.68rem;
+  font-size: 0.72rem;
   letter-spacing: 0.2em;
   color: var(--faint);
 }
@@ -419,6 +421,19 @@
   border-radius: var(--radius-lg);
 }
 
+/* A panel's intro line. Runs wider than `.measure`, which at this size caps
+   the Chinese sentence one character short of fitting and strands its tail;
+   balanced so the narrower viewports that do still wrap it break evenly. */
+.panel-lede {
+  max-width: 68ch;
+  font-size: 0.9rem;
+  color: var(--muted);
+  text-wrap: balance;
+}
+.panel-lede:lang(zh-Hant) {
+  max-width: 46em;
+}
+
 .sunk {
   background: var(--surface-sunk);
 }
@@ -437,7 +452,7 @@
   padding: 4px 11px;
   border-radius: 999px;
   font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.63rem;
+  font-size: 0.7rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--tone, var(--accent));
@@ -562,7 +577,7 @@
 }
 .stat-sub {
   font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.68rem;
+  font-size: 0.72rem;
   letter-spacing: 0.06em;
   color: var(--muted);
 }
@@ -693,17 +708,18 @@
 }
 .person-sub {
   font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.66rem;
+  font-size: 0.72rem;
   letter-spacing: 0.08em;
   color: var(--faint);
+  white-space: nowrap;
 }
 .person-role {
-  font-size: 0.76rem;
+  font-size: 0.8rem;
   color: var(--tone, var(--accent));
   letter-spacing: 0.02em;
 }
 .person-dept {
-  font-size: 0.78rem;
+  font-size: 0.82rem;
   color: var(--muted);
   white-space: pre-line;
   line-height: 1.5;
@@ -718,6 +734,57 @@
   padding: 14px 0;
   border-top: 1px solid var(--line-soft);
 }
+.person-ext {
+  font-size: 0.72rem;
+  letter-spacing: 0.03em;
+  align-self: flex-start;
+}
+.person-email {
+  font-size: 0.7rem;
+  color: var(--muted);
+  word-break: break-all;
+  transition: color 0.3s ease;
+}
+.person-email:hover {
+  color: var(--tone, var(--accent));
+}
+/* Each row is its own grid, so the contact column has to be a fixed width —
+   sized to `NNNNNN@h.tmu.edu.tw`. Left as `auto` the rows that are still
+   missing an email collapse that column and shunt the duty column sideways. */
+.roster-row.has-contact {
+  --roster-contact-w: 200px;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr) var(--roster-contact-w);
+}
+.roster-contact {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 3px;
+  font-size: 0.8rem;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+  text-align: right;
+}
+.roster-contact-empty {
+  color: var(--faint);
+}
+.roster-email {
+  font-size: 0.72rem;
+  color: var(--muted);
+  transition: color 0.3s ease;
+}
+.roster-email:hover {
+  color: var(--tone, var(--accent));
+}
+
+@media (max-width: 720px) {
+  .roster-row.has-contact {
+    grid-template-columns: minmax(0, 1fr) var(--roster-contact-w);
+  }
+  .roster-row.has-contact > .stack {
+    grid-column: 1 / -1;
+  }
+}
 
 /* ---------------------------------------------------------------- *
  *  Tables
@@ -726,12 +793,12 @@
 .table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 0.86rem;
+  font-size: 0.9rem;
 }
 .table th {
   text-align: left;
   font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.64rem;
+  font-size: 0.7rem;
   font-weight: 500;
   letter-spacing: 0.16em;
   text-transform: uppercase;
@@ -1138,7 +1205,7 @@
   transition: color 0.3s ease;
 }
 .sec-rail-num {
-  font-size: 0.6rem;
+  font-size: 0.66rem;
   letter-spacing: 0.1em;
   transition: transform 0.3s ease;
 }

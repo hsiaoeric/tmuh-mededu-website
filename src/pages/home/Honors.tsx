@@ -17,7 +17,7 @@ export function Honors() {
 
   return (
     <Section id="honors">
-      <SectionHeader index="06" eyebrow={a.eyebrow} title={a.title} desc={a.desc} />
+      <SectionHeader index="05" eyebrow={a.eyebrow} title={a.title} desc={a.desc} />
 
       {/* SNQ */}
       <div className="grid g-aside" style={{ alignItems: 'start' }}>

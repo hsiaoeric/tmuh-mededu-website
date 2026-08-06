@@ -10,3 +10,10 @@ export function formatPhoneExt(ext: string | number, lang: Lang): string {
     ? `${MAIN_PHONE} ＃${num}`
     : `${MAIN_PHONE} ext. ${num}`;
 }
+
+/** Extension on its own, for dense lists where the main number would repeat. */
+export function formatExtShort(ext: string | number, lang: Lang): string {
+  const num = String(ext).replace(/\D/g, '');
+  if (!num) return '';
+  return lang === 'zh' ? `＃${num}` : `ext. ${num}`;
+}

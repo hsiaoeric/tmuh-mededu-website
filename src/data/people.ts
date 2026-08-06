@@ -36,6 +36,10 @@ export interface RawPerson {
   /** Main duties (admin specialists). */
   dutyZh?: string;
   dutyEn?: string;
+  /** Hospital extension, digits only. '' while still unknown. */
+  ext?: string;
+  /** Work email. '' while still unknown. */
+  email?: string;
 }
 
 export interface ResolvedPerson {
@@ -53,6 +57,8 @@ export interface ResolvedPerson {
   profileLabel: string;
   duty: string;
   dutyLabel: string;
+  ext: string;
+  email: string;
 }
 
 /** Portraits that need a non-centered crop. */
@@ -93,8 +99,10 @@ export function person(
   hubId = '',
   dutyZh = '',
   dutyEn = '',
+  ext = '',
+  email = '',
 ): RawPerson {
-  return { zh, en, role, dZh, dEn, slug, hubId, dutyZh, dutyEn };
+  return { zh, en, role, dZh, dEn, slug, hubId, dutyZh, dutyEn, ext, email };
 }
 
 /** Localize a raw person into render-ready data. */
@@ -118,5 +126,7 @@ export function resolvePerson(
     profileLabel: isZh ? '個人學術檔案' : 'Academic Profile',
     duty: isZh ? p.dutyZh ?? '' : p.dutyEn ?? '',
     dutyLabel: isZh ? '主要業務' : 'Main Duties',
+    ext: p.ext ?? '',
+    email: p.email ?? '',
   };
 }

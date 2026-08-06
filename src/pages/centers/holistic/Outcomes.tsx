@@ -55,6 +55,7 @@ export function Symposia() {
                 {s.satisfaction !== undefined && (
                   <span className="tag" style={{ ['--tone' as string]: '#B69B66' }}>
                     {o.satisfactionLabel} {s.satisfaction}
+                    {isZh ? '分' : ''}
                   </span>
                 )}
               </span>
