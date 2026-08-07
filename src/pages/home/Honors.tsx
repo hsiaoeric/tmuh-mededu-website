@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useSite } from '@/app/site';
-import { centerPath } from '@/app/routes';
+import { HONORS_PATH, centerPath } from '@/app/routes';
 import { buildDeptAwards } from '@/data/deptAwards';
 import { Counter } from '@/motion/Counter';
 import { Reveal } from '@/motion/Reveal';
@@ -11,13 +11,69 @@ import { Icon } from '@/ui/Icon';
 export function Honors() {
   const { isZh, lang } = useSite();
   const a = buildDeptAwards(lang);
+  const featured = [...a.snqProjects].slice(-2).reverse();
+
+  return (
+    <Section id="honors">
+      <SectionHeader
+        index="05"
+        eyebrow={a.eyebrow}
+        title={a.title}
+        desc={
+          isZh
+            ? '精選教學部近期重要認證與獲獎成果。'
+            : 'Selected recent certifications and award achievements from the Department.'
+        }
+        aside={
+          <Link className="tlink" to={HONORS_PATH}>
+            {isZh ? '完整得獎紀錄' : 'Full award record'}
+            <Icon name="arrow" />
+          </Link>
+        }
+      />
+
+      <Reveal variant="up" stagger={80} className="grid g3">
+        {featured.map((project) => (
+          <article key={`${project.certYear}-${project.title}`} className="card card-hover stack gap-2">
+            <div className="row between gap-2 wrap">
+              <span className="tag">SNQ</span>
+              <span className="mono tiny">{project.certYear}</span>
+            </div>
+            <h3 className="display d4" style={{ marginTop: 8 }}>
+              {project.title}
+            </h3>
+            <span className="tiny" style={{ marginTop: 'auto' }}>
+              {project.badgeLabel}
+            </span>
+          </article>
+        ))}
+        <article className="card card-hover stack gap-2">
+          <div className="row between gap-2 wrap">
+            <span className="tag">NHQA</span>
+            <span className="mono tiny">{a.nhqa.year}</span>
+          </div>
+          <h3 className="display d4" style={{ marginTop: 8 }}>
+            {a.nhqa.project}
+          </h3>
+          <span className="tiny" style={{ marginTop: 'auto' }}>
+            {a.nhqa.awardNote}
+          </span>
+        </article>
+      </Reveal>
+    </Section>
+  );
+}
+
+export function HonorsDetail() {
+  const { isZh, lang } = useSite();
+  const a = buildDeptAwards(lang);
   const [openProject, setOpenProject] = useState<number | null>(0);
 
   const maxCount = Math.max(...a.snqYearCounts.map((y) => y.count));
 
   return (
     <Section id="honors">
-      <SectionHeader index="05" eyebrow={a.eyebrow} title={a.title} desc={a.desc} />
+      <SectionHeader eyebrow={a.eyebrow} title={a.title} desc={a.desc} />
 
       {/* SNQ */}
       <div className="grid g-aside" style={{ alignItems: 'start' }}>

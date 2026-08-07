@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useSite } from '@/app/site';
 import { useGoToSection } from '@/app/navigation';
-import { ANNOUNCEMENTS_PATH, CENTER_ORDER } from '@/app/routes';
+import { ANNOUNCEMENTS_PATH, CENTER_ORDER, HONORS_PATH } from '@/app/routes';
 import { centerById } from '@/data/centers';
 import { latestUpdate } from '@/data/news';
 import { MAIN_PHONE } from '@/utils/phone';
@@ -38,7 +38,7 @@ export function Footer() {
     { id: 'about', label: isZh ? '關於教學部' : 'About' },
     { id: 'organisation', label: isZh ? '組織架構' : 'Structure' },
     { id: 'news', label: isZh ? '最新公告' : 'News', path: ANNOUNCEMENTS_PATH },
-    { id: 'honors', label: isZh ? '品質榮譽' : 'Quality Honors' },
+    { id: 'honors', label: isZh ? '品質榮譽' : 'Quality Honors', path: HONORS_PATH },
     { id: 'contact', label: isZh ? '聯絡我們' : 'Contact' },
   ];
 

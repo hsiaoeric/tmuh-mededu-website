@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useSite } from '@/app/site';
 import { useGoToSection } from '@/app/navigation';
-import { ANNOUNCEMENTS_PATH, CENTER_ORDER, DIGITAL_MATERIALS_PATH, centerPath } from '@/app/routes';
+import { ANNOUNCEMENTS_PATH, CENTER_ORDER, DIGITAL_MATERIALS_PATH, HONORS_PATH, centerPath } from '@/app/routes';
 import { centerById } from '@/data/centers';
 import { setScrollLocked } from '@/motion/smoothScroll';
 import { assetUrl } from '@/utils/asset';
@@ -20,7 +20,7 @@ const SECTIONS: SectionItem[] = [
   { id: 'about', zh: '關於', en: 'About' },
   { id: 'organisation', zh: '組織', en: 'Structure' },
   { id: 'news', zh: '公告', en: 'News', path: ANNOUNCEMENTS_PATH },
-  { id: 'honors', zh: '榮譽', en: 'Honors' },
+  { id: 'honors', zh: '榮譽', en: 'Honors', path: HONORS_PATH },
   { id: 'contact', zh: '聯絡', en: 'Contact' },
 ];
 

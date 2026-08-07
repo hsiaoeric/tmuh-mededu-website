@@ -18,6 +18,9 @@ export const centerPath = (id: Exclude<CenterId, 'admin'>) => `/centers/${CENTER
 /** Full department announcement archive; the home page only carries highlights. */
 export const ANNOUNCEMENTS_PATH = '/announcements';
 
+/** Full award record; the home page only carries selected major honors. */
+export const HONORS_PATH = '/honors';
+
 /**
  * The digital learning materials studio. A department unit rather than a
  * centre, so it sits outside `/centers` and carries its own top-level path.
