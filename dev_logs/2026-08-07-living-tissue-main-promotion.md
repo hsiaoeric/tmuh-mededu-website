@@ -37,6 +37,14 @@ The corresponding branches were also pushed to `origin` for the seven-day retent
 - The only build warning is the existing `TissueField` chunk exceeding 500 kB.
 - Pushing `main` may trigger both Vercel projects documented as using `main` for production. It does not change the GitHub Pages deployment from `gh-pages`.
 
+## Promotion completed
+
+- On 2026-08-07, an SSH `git push --atomic` fast-forwarded both `origin/main` and `origin/worktree-living-tissue` to the Living Tissue promotion history.
+- Local `main` was then fast-forwarded to the same history; the root worktree's untracked files remained untouched.
+- GitHub's symbolic `HEAD` still points to `refs/heads/main`.
+- `gh-pages` remained at `2ad175f`. The checked-in Pages workflow is manual-dispatch only, so the `main` push did not run it.
+- An attempted HTTPS atomic push failed before changing any ref because its saved credential was unavailable. The configured GitHub SSH key succeeded and was used for the completed push.
+
 ## Remaining cleanup after 2026-08-14
 
 1. Confirm both Vercel production URLs are serving the expected Living Tissue build.
