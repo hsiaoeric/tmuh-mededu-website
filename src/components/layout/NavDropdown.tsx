@@ -109,13 +109,13 @@ export function NavDropdown({ label, scrollTarget = 'org', onNavigate }: NavDrop
           width: '100%',
           padding: '10px 12px',
           border: 'none',
-          background: hover || open ? 'var(--teal-50)' : 'none',
+          background: hover || open ? 'var(--accent-wash)' : 'none',
           cursor: 'pointer',
-          fontFamily: "'Noto Sans TC', sans-serif",
+          fontFamily: 'var(--font-ui)',
           fontWeight: 600,
           fontSize: 14,
-          color: hover || open ? 'var(--teal)' : 'var(--body)',
-          borderRadius: 8,
+          color: hover || open ? 'var(--accent)' : 'var(--body)',
+          borderRadius: 'var(--r-sm)',
           transition: 'color .2s,background .2s',
           whiteSpace: 'nowrap',
         }}
@@ -151,10 +151,10 @@ export function NavDropdown({ label, scrollTarget = 'org', onNavigate }: NavDrop
             style={{
               width: '100%',
               padding: 8,
-              borderRadius: 14,
+              borderRadius: 'var(--r-lg)',
               background: 'var(--surface)',
               border: '1px solid var(--border)',
-              boxShadow: 'var(--shadow-lift)',
+              boxShadow: 'var(--e-2)',
               display: 'flex',
               flexDirection: 'column',
               gap: 2,
@@ -218,10 +218,10 @@ function DropdownItem({
         width: '100%',
         padding: '10px 12px',
         border: 'none',
-        borderRadius: 10,
+        borderRadius: 'var(--r-md)',
         cursor: 'pointer',
         textAlign: 'left',
-        background: hover || active ? 'var(--teal-50)' : 'transparent',
+        background: hover || active ? 'var(--accent-wash)' : 'transparent',
         transition: 'background .18s',
       }}
     >
@@ -230,12 +230,12 @@ function DropdownItem({
           width: 30,
           height: 30,
           flex: 'none',
-          borderRadius: 8,
+          borderRadius: 'var(--r-sm)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          background: 'color-mix(in srgb,var(--teal) 14%,transparent)',
-          color: 'var(--teal)',
+          background: 'color-mix(in srgb,var(--accent) 14%,transparent)',
+          color: 'var(--accent)',
         }}
       >
         <span style={{ width: 17, height: 17, display: 'block' }}>
@@ -245,19 +245,19 @@ function DropdownItem({
       <span style={{ display: 'flex', flexDirection: 'column', lineHeight: 1.3 }}>
         <span
           style={{
-            fontFamily: "'Noto Sans TC', sans-serif",
+            fontFamily: 'var(--font-ui)',
             fontWeight: 600,
             fontSize: 14,
-            color: active ? 'var(--teal)' : 'var(--text)',
+            color: active ? 'var(--accent)' : 'var(--text)',
           }}
         >
           {name}
         </span>
         <span
           style={{
-            fontFamily: "'IBM Plex Sans', sans-serif",
+            fontFamily: 'var(--font-ui)',
             fontSize: 11,
-            color: ready ? 'var(--muted)' : 'var(--teal-700)',
+            color: ready ? 'var(--muted)' : 'var(--accent-strong)',
             opacity: ready ? 0.85 : 1,
           }}
         >

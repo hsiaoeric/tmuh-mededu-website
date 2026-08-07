@@ -17,28 +17,33 @@ export function SectionHeading({
   title,
   desc,
   align = 'center',
-  eyebrowColor = 'var(--teal)',
+  eyebrowColor = 'var(--indigo)',
   maxWidth = 680,
 }: SectionHeadingProps) {
   const wrap: CSSProperties =
     align === 'center'
-      ? { textAlign: 'center', maxWidth, margin: '0 auto 14px' }
-      : {};
+      ? { textAlign: 'center', maxWidth, margin: '0 auto 22px' }
+      : { marginBottom: 8 };
   return (
     <Reveal style={wrap}>
       {eyebrow && <Eyebrow color={eyebrowColor}>{eyebrow}</Eyebrow>}
       <h2
         style={{
-          fontFamily: "'Noto Sans TC', sans-serif",
-          fontWeight: 900,
+          fontFamily: 'var(--font-display)',
+          fontWeight: 700,
           fontSize: 'clamp(26px,3vw,34px)',
           color: 'var(--text)',
         }}
       >
         {title}
       </h2>
+      {/* The seal mark, directly under the title. */}
+      <div
+        className="rule-accent"
+        style={{ margin: align === 'center' ? '18px auto 0' : '18px 0 0' }}
+      />
       {desc && (
-        <p style={{ fontSize: 16, color: 'var(--muted)', marginTop: 12 }}>
+        <p style={{ fontSize: 16, color: 'var(--muted)', marginTop: 16 }}>
           {desc}
         </p>
       )}

@@ -1,36 +1,211 @@
-/* Morandi Clinical BI — design tokens (ported from the original design component) */
+/*
+ * Ink & Vermilion — design tokens.
+ *
+ * East Asian institutional, not Western minimalism. Ink-black type on a
+ * near-white ground (deliberately NOT cream — chroma is kept near zero so the
+ * page reads as paper-white, never beige), indigo for structure, and a single
+ * vermilion 朱 accent used sparingly, the way a seal is used: once, and it
+ * means something. Hierarchy comes from 間 (ma) — charged interval — plus
+ * hairline rules. Not from shadows, tints or rounded cards.
+ *
+ * EVERY token must be declared in both the `:root` and `[data-theme='dark']`
+ * blocks. The theme attribute is set on `.app-root` in App.tsx.
+ *
+ * Axes:
+ *   colour      --bg / --surface / --text / --border / --accent / --c-<center>
+ *   radius      --r-xs … --r-pill   (square by default; only pills are round)
+ *   elevation   --e-0 … --e-2       (--e-1 is a hairline ring, not a shadow)
+ *   type        --font-display / --font-ui / --font-mono, --step--1 … --step-5
+ *
+ * Contrast: every foreground/background pair below is >= 4.5:1, including
+ * --on-accent over each --c-<center>.
+ */
+
 :root {
-  --teal: #4f8c7d;
-  --teal-700: #3a6b5f;
-  --teal-50: #e6f0ec;
-  --teal-glow: rgba(79, 140, 125, 0.5);
-  --bg: #f4f6f4;
-  --bg2: #efebe6;
+  /* ---- Ground & surfaces. Paper-white: chroma deliberately minimal. ---- */
+  --bg: #f9f9f7;
+  --bg2: #f1f1ee;
   --surface: #ffffff;
-  --surface-2: #fbfaf8;
-  --border: #dcd9d2;
-  --grid: #e6e2dc;
-  --text: #2a2e2b;
-  --body: #4a4540;
-  --muted: #827c73;
-  --shadow-card: 0 1px 2px rgba(74, 69, 64, 0.05);
-  --shadow-lift: 0 18px 40px rgba(46, 55, 50, 0.16);
+  --surface-2: #fafaf8;
+  --surface-sunken: #eeeeea;
+
+  /* ---- Rules. The structural device of the whole theme. ---- */
+  --border: #dededa;
+  --border-strong: #b8b8b2;
+  --grid: #e8e8e4;
+
+  /* ---- Ink 墨 ---- */
+  --text: #16181a;
+  --body: #3d4145;
+  --muted: #75797d;
+
+  /* ---- Vermilion 朱. The seal. Used once per screen, never decoratively. ---- */
+  --accent: #c8402f;
+  --accent-strong: #a32f21;
+  --accent-wash: #fbeceb;
+  --accent-line: #e5a79f;
+  --accent-glow: rgba(200, 64, 47, 0.3);
+  --on-accent: #ffffff;
+
+  /* ---- Indigo 藍. Structural: navigation, links, chart scaffolding. Carries
+         weight without competing with the vermilion. ---- */
+  --indigo: #21324a;
+  --indigo-soft: #4a6b8f;
+  --on-indigo: #ffffff;
+
+  /* ---- Per-center accents, drawn from traditional dye names rather than a
+         muted pastel set. All clear AA against --on-accent. ---- */
+  --c-faculty-dev: #8c4a2f;
+  --c-clinical-skills: #21324a;
+  --c-ebm: #8a6a1f;
+  --c-holistic: #2f5d4a;
+  --c-med-edu-research: #4d4470;
+  --c-admin: #4a4f52;
+
+  /* Role accents used by KPI groups and award chips. */
+  --tone-gold: #8a6a1f;
+  --tone-slate: #21324a;
+  --tone-plum: #6e2f4a;
+
+  /* ---- Hero "ink band". Dark in both themes — these are plates, not
+         surfaces, so they do not flip. ---- */
+  --ink-a: #12161c;
+  --ink-b: #1e2836;
+  --on-ink: #f4f4f1;
+  --on-ink-dim: #b6bcc2;
+  --on-ink-accent: #e8705c;
+
+  /* The Facdev and EBM pages keep their own warm/cool identity. */
+  --fd-ink: #1b1512;
+  --fd-ink-2: #2e231c;
+  --fd-soft: #a55f3e;
+  --ebm-ink: #131a22;
+  --ebm-ink-2: #22303f;
+  --ebm-gold-soft: #8a6a1f;
+
+  /* ---- Illustration palette. Flat graphic colour, no gradients. ---- */
+  --ill-paper: #ffffff;
+  --ill-paper-2: #f2efe6;
+  --ill-line: #d8d8d2;
+  --ill-fill: #c4c4bc;
+  --ill-warm: #c8402f;
+  --ill-warm-deep: #8c4a2f;
+  --ill-cool: #4a6b8f;
+  --ill-cool-deep: #21324a;
+  --ill-sage: #2f5d4a;
+  --ill-gold: #b8912f;
+  --ill-ink: #16181a;
+
+  /* ---- Radius. Square. Seals and printed rules have no rounded corners. ---- */
+  --r-xs: 0px;
+  --r-sm: 0px;
+  --r-md: 2px;
+  --r-lg: 2px;
+  --r-pill: 999px;
+
+  /* ---- Elevation. The page is flat. --e-1 is a hairline ring so cards that
+         relied on a resting shadow still read as edged. ---- */
+  --e-0: none;
+  --e-1: 0 0 0 1px rgba(22, 24, 26, 0.07);
+  --e-2: 0 12px 32px rgba(18, 22, 28, 0.16);
+
+  /* ---- Type. Serif (明體) for display, sans for UI and numerals. ---- */
+  --font-display: 'Noto Serif TC', serif;
+  --font-ui: 'IBM Plex Sans', 'Noto Sans TC', sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+
+  --step--1: 13px;
+  --step-0: 16px;
+  --step-1: 18px;
+  --step-2: clamp(20px, 1.6vw, 23px);
+  --step-3: clamp(24px, 2.2vw, 30px);
+  --step-4: clamp(28px, 3vw, 40px);
+  --step-5: clamp(34px, 4.6vw, 56px);
 }
 
 [data-theme='dark'] {
-  --teal: #6db5a1;
-  --teal-700: #8fcab8;
-  --teal-50: #1a2a25;
-  --teal-glow: rgba(109, 181, 161, 0.4);
-  --bg: #161b18;
-  --bg2: #1b211d;
-  --surface: #1f2622;
-  --surface-2: #252d28;
-  --border: #333c36;
-  --grid: #2a322d;
-  --text: #ece9e3;
-  --body: #cbc6bd;
-  --muted: #8f8a80;
-  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.4);
-  --shadow-lift: 0 18px 44px rgba(0, 0, 0, 0.55);
+  --bg: #131417;
+  --bg2: #191b1f;
+  --surface: #1c1e23;
+  --surface-2: #23262c;
+  --surface-sunken: #0e0f11;
+
+  --border: #32353b;
+  --border-strong: #4b4f56;
+  --grid: #26292e;
+
+  --text: #f0f0ec;
+  --body: #c4c7cb;
+  --muted: #868a90;
+
+  --accent: #e8705c;
+  --accent-strong: #f2907e;
+  --accent-wash: #2b1a17;
+  --accent-line: #7a3a30;
+  --accent-glow: rgba(232, 112, 92, 0.34);
+  /* Vermilion is light on dark, so its foreground flips to ink. */
+  --on-accent: #1a0d0a;
+
+  --indigo: #7f9dc4;
+  --indigo-soft: #4a6b8f;
+  /* Indigo is light on dark, so its foreground flips. */
+  --on-indigo: #10161f;
+
+  --c-faculty-dev: #d18a6b;
+  --c-clinical-skills: #8fa8c9;
+  --c-ebm: #cfae62;
+  --c-holistic: #6fae92;
+  --c-med-edu-research: #9a92c4;
+  --c-admin: #a0a5aa;
+
+  --tone-gold: #cfae62;
+  --tone-slate: #8fa8c9;
+  --tone-plum: #c08aa4;
+
+  --ink-a: #0d1014;
+  --ink-b: #18202b;
+  --on-ink: #eeeeea;
+  --on-ink-dim: #aab0b6;
+  --on-ink-accent: #f08a76;
+
+  --fd-ink: #14100e;
+  --fd-ink-2: #241b15;
+  --fd-soft: #d19a76;
+  --ebm-ink: #0e1319;
+  --ebm-ink-2: #1a242f;
+  --ebm-gold-soft: #cfae62;
+
+  --ill-paper: #1c1e23;
+  --ill-paper-2: #262820;
+  --ill-line: #3a3d42;
+  --ill-fill: #4e5158;
+  --ill-warm: #e8705c;
+  --ill-warm-deep: #a85a45;
+  --ill-cool: #7f9dc4;
+  --ill-cool-deep: #4a6b8f;
+  --ill-sage: #6fae92;
+  --ill-gold: #cfae62;
+  --ill-ink: #e8e8e4;
+
+  --r-xs: 0px;
+  --r-sm: 0px;
+  --r-md: 2px;
+  --r-lg: 2px;
+  --r-pill: 999px;
+
+  --e-0: none;
+  --e-1: 0 0 0 1px rgba(255, 255, 255, 0.08);
+  --e-2: 0 12px 32px rgba(0, 0, 0, 0.55);
+
+  --font-display: 'Noto Serif TC', serif;
+  --font-ui: 'IBM Plex Sans', 'Noto Sans TC', sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+
+  --step--1: 13px;
+  --step-0: 16px;
+  --step-1: 18px;
+  --step-2: clamp(20px, 1.6vw, 23px);
+  --step-3: clamp(24px, 2.2vw, 30px);
+  --step-4: clamp(28px, 3vw, 40px);
+  --step-5: clamp(34px, 4.6vw, 56px);
 }

@@ -40,13 +40,13 @@ function TreeCenterButton({
       style={{
         position: 'relative',
         padding: '18px 12px',
-        borderRadius: 14,
+        borderRadius: 'var(--r-lg)',
         cursor: 'pointer',
         border: `1.5px solid ${lifted ? color : 'var(--border)'}`,
         background: active
           ? `color-mix(in srgb,${color} 12%,var(--surface))`
           : 'var(--surface)',
-        boxShadow: lifted ? 'var(--shadow-lift)' : 'var(--shadow-card)',
+        boxShadow: lifted ? 'var(--e-2)' : 'var(--e-1)',
         textAlign: 'center',
         transform: lifted ? 'translateY(-4px)' : 'translateY(0)',
         transition: 'transform .25s,box-shadow .25s,border-color .25s',
@@ -58,7 +58,7 @@ function TreeCenterButton({
           width: 34,
           height: 34,
           margin: '0 auto 9px',
-          borderRadius: 10,
+          borderRadius: 'var(--r-md)',
           alignItems: 'center',
           justifyContent: 'center',
           background: `color-mix(in srgb,${color} 16%,transparent)`,
@@ -70,7 +70,7 @@ function TreeCenterButton({
       <span
         style={{
           display: 'block',
-          fontFamily: "'Noto Sans TC', sans-serif",
+          fontFamily: 'var(--font-ui)',
           fontWeight: 700,
           fontSize: 14,
           color: 'var(--text)',
@@ -82,7 +82,7 @@ function TreeCenterButton({
       <span
         style={{
           display: 'block',
-          fontFamily: "'IBM Plex Sans', sans-serif",
+          fontFamily: 'var(--font-ui)',
           fontSize: 10.5,
           color: 'var(--muted)',
           marginTop: 4,
@@ -139,19 +139,19 @@ export function OrgChart({
         <div
           style={{
             padding: '14px 30px',
-            borderRadius: 14,
-            background: 'linear-gradient(140deg,var(--teal),var(--teal-700))',
-            color: '#fff',
+            borderRadius: 'var(--r-lg)',
+            background: 'var(--indigo)',
+            color: 'var(--on-indigo)',
             textAlign: 'center',
-            boxShadow: '0 12px 26px var(--teal-glow)',
+            boxShadow: 'none',
           }}
         >
-          <div style={{ fontFamily: "'Noto Sans TC', sans-serif", fontWeight: 700, fontSize: 18 }}>
+          <div style={{ fontFamily: 'var(--font-ui)', fontWeight: 700, fontSize: 18 }}>
             {t.hospital}
           </div>
           <div
             style={{
-              fontFamily: "'IBM Plex Sans', sans-serif",
+              fontFamily: 'var(--font-ui)',
               fontSize: 11,
               letterSpacing: '.08em',
               opacity: 0.9,
@@ -164,22 +164,22 @@ export function OrgChart({
         <div
           style={{
             padding: '11px 26px',
-            borderRadius: 12,
+            borderRadius: 'var(--r-md)',
             background: 'var(--surface)',
-            border: '1.5px solid var(--teal)',
+            border: '1.5px solid var(--accent)',
             color: 'var(--text)',
             textAlign: 'center',
-            fontFamily: "'Noto Sans TC', sans-serif",
+            fontFamily: 'var(--font-ui)',
             fontWeight: 700,
             fontSize: 16,
-            boxShadow: 'var(--shadow-card)',
+            boxShadow: 'var(--e-1)',
           }}
         >
           {t.dept}
           <span
             style={{
               display: 'block',
-              fontFamily: "'IBM Plex Sans', sans-serif",
+              fontFamily: 'var(--font-ui)',
               fontWeight: 500,
               fontSize: 10.5,
               letterSpacing: '.06em',

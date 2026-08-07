@@ -16,13 +16,13 @@ export function NavButton({ label, onClick }: NavButtonProps) {
       style={{
         padding: '8px 14px',
         border: 'none',
-        background: hover ? 'var(--teal-50)' : 'none',
+        background: hover ? 'var(--accent-wash)' : 'none',
         cursor: 'pointer',
-        fontFamily: "'Noto Sans TC', sans-serif",
+        fontFamily: 'var(--font-ui)',
         fontWeight: 600,
         fontSize: 14,
-        color: hover ? 'var(--teal)' : 'var(--body)',
-        borderRadius: 8,
+        color: hover ? 'var(--accent)' : 'var(--body)',
+        borderRadius: 'var(--r-sm)',
         transition: 'color .2s,background .2s',
       }}
     >

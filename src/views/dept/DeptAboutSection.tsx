@@ -47,16 +47,16 @@ export function DeptAboutSection() {
             delay={index * 80}
             style={{
               padding: '26px 24px',
-              borderRadius: 17,
+              borderRadius: 'var(--r-lg)',
               border: '1px solid var(--border)',
               background: 'var(--surface)',
-              boxShadow: 'var(--shadow-card)',
+              boxShadow: 'var(--e-1)',
             }}
           >
-            <span style={{ width: 40, height: 40, display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: 11, color: 'var(--teal)', background: 'var(--teal-50)', marginBottom: 16 }}>
+            <span style={{ width: 40, height: 40, display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: 'var(--r-md)', color: 'var(--accent)', background: 'var(--accent-wash)', marginBottom: 16 }}>
               <Icon name={card.icon} />
             </span>
-            <h3 style={{ fontFamily: "'Noto Sans TC', sans-serif", fontSize: 19, color: 'var(--text)', marginBottom: 9 }}>
+            <h3 style={{ fontFamily: 'var(--font-ui)', fontSize: 19, color: 'var(--text)', marginBottom: 9 }}>
               {card.title}
             </h3>
             <p style={{ fontSize: 14.5, lineHeight: 1.75, color: 'var(--body)' }}>{card.body}</p>

@@ -36,7 +36,7 @@ export function BackgroundFX() {
           pointerEvents: 'none',
           zIndex: 0,
           background:
-            'radial-gradient(circle,var(--teal-glow),transparent 62%)',
+            'radial-gradient(circle,var(--accent-glow),transparent 62%)',
           opacity: 0.5,
           filter: 'blur(36px)',
           transition: 'opacity .5s ease',

@@ -17,7 +17,7 @@ const mix = (color: string, pct: number, base = 'transparent') =>
 /** Team-member card: avatar (photo or initials), name, role, dept, duties. */
 export function PersonCard({
   person,
-  profileColor = 'var(--teal-700)',
+  profileColor = 'var(--accent-strong)',
   instant = false,
   hideRole = false,
 }: PersonCardProps) {
@@ -41,8 +41,8 @@ export function PersonCard({
         padding: '22px 18px 20px',
         background: 'var(--surface)',
         border: '1px solid var(--border)',
-        borderRadius: 14,
-        boxShadow: hover ? '0 16px 34px rgba(74,69,64,.16)' : 'var(--shadow-card)',
+        borderRadius: 'var(--r-lg)',
+        boxShadow: hover ? '0 16px 34px rgba(74,69,64,.16)' : 'var(--e-1)',
         borderColor: hover ? mix(accent, 45, 'var(--border)') : 'var(--border)',
         transform: hover ? 'translateY(-6px)' : 'translateY(0)',
         transition:
@@ -96,10 +96,10 @@ export function PersonCard({
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              fontFamily: "'IBM Plex Sans', sans-serif",
+              fontFamily: 'var(--font-ui)',
               fontWeight: 600,
               fontSize: 24,
-              color: '#fff',
+              color: 'var(--on-accent)',
               background: accent,
             }}
           >
@@ -109,7 +109,7 @@ export function PersonCard({
       </div>
       <div
         style={{
-          fontFamily: "'Noto Sans TC', sans-serif",
+          fontFamily: 'var(--font-ui)',
           fontWeight: 700,
           fontSize: 17,
           color: 'var(--text)',
@@ -121,7 +121,7 @@ export function PersonCard({
       </div>
       <div
         style={{
-          fontFamily: "'IBM Plex Sans', sans-serif",
+          fontFamily: 'var(--font-ui)',
           fontSize: 11.5,
           letterSpacing: '.04em',
           color: 'var(--muted)',
@@ -135,7 +135,7 @@ export function PersonCard({
           style={{
             marginTop: 4,
             padding: '3px 13px',
-            borderRadius: 999,
+            borderRadius: 'var(--r-pill)',
             fontSize: 12,
             fontWeight: 600,
             color: accent,
@@ -165,7 +165,7 @@ export function PersonCard({
             marginTop: 8,
             width: '100%',
             padding: '9px 11px',
-            borderRadius: 9,
+            borderRadius: 'var(--r-sm)',
             background: mix(accent, 8),
             border: `1px solid ${mix(accent, 18)}`,
             textAlign: 'left',
@@ -173,7 +173,7 @@ export function PersonCard({
         >
           <div
             style={{
-              fontFamily: "'IBM Plex Sans', sans-serif",
+              fontFamily: 'var(--font-ui)',
               fontSize: 9.5,
               fontWeight: 600,
               letterSpacing: '.1em',
@@ -186,7 +186,7 @@ export function PersonCard({
           </div>
           <div
             style={{
-              fontFamily: "'Noto Sans TC', sans-serif",
+              fontFamily: 'var(--font-ui)',
               fontSize: 12,
               lineHeight: 1.55,
               color: 'var(--body)',

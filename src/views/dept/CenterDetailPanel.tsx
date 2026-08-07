@@ -108,17 +108,17 @@ export function CenterDetailPanel({
                     justifyContent: 'space-between',
                     alignItems: 'center',
                     padding: '12px 16px',
-                    borderRadius: 12,
+                    borderRadius: 'var(--r-md)',
                     border: '1px solid var(--border)',
                     background: 'var(--surface-2)',
                   }}
                 >
-                  <span style={{ fontFamily: "'Noto Sans TC', sans-serif", fontSize: 14, color: 'var(--text)' }}>
+                  <span style={{ fontFamily: 'var(--font-ui)', fontSize: 14, color: 'var(--text)' }}>
                     {item.name}
                   </span>
                   <span
                     style={{
-                      fontFamily: "'IBM Plex Mono', monospace",
+                      fontFamily: 'var(--font-mono)',
                       fontSize: 13,
                       color: center.color,
                     }}
@@ -137,11 +137,11 @@ export function CenterDetailPanel({
               alignItems: 'center',
               gap: 9,
               padding: '10px 18px',
-              borderRadius: 999,
-              background: 'var(--teal-50)',
-              fontFamily: "'Noto Sans TC', sans-serif",
+              borderRadius: 'var(--r-pill)',
+              background: 'var(--accent-wash)',
+              fontFamily: 'var(--font-ui)',
               fontSize: 14,
-              color: 'var(--teal-700)',
+              color: 'var(--accent-strong)',
               fontWeight: 600,
             }}
           >
@@ -159,14 +159,14 @@ export function CenterDetailPanel({
           <div
             style={{
               padding: '18px 20px',
-              borderRadius: 14,
+              borderRadius: 'var(--r-lg)',
               border: `1px solid color-mix(in srgb,${center.color} 25%,var(--border))`,
               background: `color-mix(in srgb,${center.color} 6%,var(--surface))`,
             }}
           >
             <div
               style={{
-                fontFamily: "'Noto Sans TC', sans-serif",
+                fontFamily: 'var(--font-ui)',
                 fontWeight: 800,
                 fontSize: 17,
                 color: 'var(--text)',
@@ -185,11 +185,11 @@ export function CenterDetailPanel({
     <div
       style={{
         marginTop: 34,
-        borderRadius: 20,
+        borderRadius: 'var(--r-lg)',
         overflow: 'hidden',
         border: '1px solid var(--border)',
         background: 'var(--surface)',
-        boxShadow: 'var(--shadow-lift)',
+        boxShadow: 'var(--e-2)',
       }}
     >
       <div
@@ -206,24 +206,24 @@ export function CenterDetailPanel({
           style={{
             width: 50,
             height: 50,
-            borderRadius: 13,
+            borderRadius: 'var(--r-md)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             background: center.color,
-            color: '#fff',
+            color: 'var(--on-accent)',
             flexShrink: 0,
           }}
         >
           <Icon name={CENTER_ICON[center.id] as IconName} />
         </span>
         <div style={{ flex: 1 }}>
-          <div style={{ fontFamily: "'Noto Sans TC', sans-serif", fontWeight: 900, fontSize: 23, color: 'var(--text)' }}>
+          <div style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 23, color: 'var(--text)' }}>
             {isZh ? center.zh : center.en}
           </div>
           <div
             style={{
-              fontFamily: "'IBM Plex Sans', sans-serif",
+              fontFamily: 'var(--font-ui)',
               fontSize: 12,
               letterSpacing: '.05em',
               color: 'var(--muted)',
@@ -267,13 +267,13 @@ export function CenterDetailPanel({
                   alignItems: 'center',
                   gap: 6,
                   padding: '7px 14px',
-                  borderRadius: 999,
+                  borderRadius: 'var(--r-pill)',
                   border: `1px solid ${on ? center.color : 'var(--border)'}`,
                   background: on
                     ? `color-mix(in srgb,${center.color} 12%,var(--surface))`
                     : 'var(--surface)',
                   color: on ? center.color : 'var(--body)',
-                  fontFamily: "'Noto Sans TC', sans-serif",
+                  fontFamily: 'var(--font-ui)',
                   fontSize: 13,
                   fontWeight: 600,
                   cursor: 'pointer',
@@ -309,11 +309,11 @@ export function CenterDetailPanel({
                   alignItems: 'center',
                   gap: 8,
                   padding: '10px 18px',
-                  borderRadius: 999,
+                  borderRadius: 'var(--r-pill)',
                   border: 'none',
                   background: center.color,
-                  color: '#fff',
-                  fontFamily: "'Noto Sans TC', sans-serif",
+                  color: 'var(--on-accent)',
+                  fontFamily: 'var(--font-ui)',
                   fontSize: 13.5,
                   fontWeight: 700,
                   cursor: 'pointer',
@@ -334,9 +334,9 @@ export function CenterDetailPanel({
               textAlign: 'center',
               padding: 36,
               border: '1.5px dashed var(--border)',
-              borderRadius: 14,
+              borderRadius: 'var(--r-lg)',
               color: 'var(--muted)',
-              fontFamily: "'Noto Sans TC', sans-serif",
+              fontFamily: 'var(--font-ui)',
             }}
           >
             {t.formingTeam}

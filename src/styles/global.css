@@ -14,12 +14,49 @@ html {
 }
 
 body {
-  font-family: 'IBM Plex Sans', 'Noto Sans TC', sans-serif;
+  font-family: var(--font-ui);
+}
+
+/* Display type. Clinical Paper puts the serif on headings and keeps the sans
+   for UI chrome and numerals. Views that set an inline fontFamily still win —
+   this is the default for everything that does not. */
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  /* Looser than a Latin-only heading would want: CJK glyphs are full-width and
+     need the extra leading to breathe. This is the type half of 間. */
+  line-height: 1.45;
+  letter-spacing: 0.02em;
+  color: var(--text);
+}
+
+h4,
+h5,
+h6 {
+  font-family: var(--font-ui);
+  font-weight: 600;
+  color: var(--text);
+}
+
+/* The vermilion rule — the seal mark. Short, heavy, and rationed: at most one
+   per screen. Everything else separates with a --border hairline. */
+.rule-accent {
+  width: 40px;
+  height: 3px;
+  background: var(--accent);
+}
+
+/* Full-width hairline used to separate stacked editorial blocks. */
+.hairline {
+  height: 1px;
+  background: var(--border);
 }
 
 ::selection {
-  background: var(--teal);
-  color: #fff;
+  background: var(--accent);
+  color: var(--on-accent);
 }
 
 @keyframes draw {
@@ -87,10 +124,10 @@ body {
 @keyframes hub-glow {
   0%,
   100% {
-    box-shadow: 0 14px 32px var(--teal-glow);
+    box-shadow: 0 14px 32px var(--accent-glow);
   }
   50% {
-    box-shadow: 0 14px 42px color-mix(in srgb, var(--teal) 55%, transparent);
+    box-shadow: 0 14px 42px color-mix(in srgb, var(--accent) 55%, transparent);
   }
 }
 
@@ -106,7 +143,7 @@ body {
   position: absolute;
   inset: -6px;
   border-radius: 50%;
-  border: 1px solid color-mix(in srgb, var(--teal) 35%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
   animation: pulsering 2.8s ease-out infinite;
 }
 
@@ -128,7 +165,7 @@ body {
   min-width: 68px;
   max-width: 88px;
   padding: 7px 8px;
-  border-radius: 11px;
+  border-radius: var(--r-md);
   border: 1px solid var(--border);
   background: var(--surface);
   cursor: pointer;
@@ -149,11 +186,11 @@ body {
   width: max-content;
   max-width: 200px;
   padding: 8px 10px;
-  border-radius: 10px;
+  border-radius: var(--r-sm);
   border: 1px solid var(--border);
   background: color-mix(in srgb, var(--surface) 96%, transparent);
-  box-shadow: var(--shadow-lift);
-  font-family: 'Noto Sans TC', sans-serif;
+  box-shadow: var(--e-2);
+  font-family: var(--font-ui);
   font-size: 11px;
   line-height: 1.45;
   color: var(--body);
@@ -180,7 +217,7 @@ body {
 }
 
 .hub-line--active {
-  filter: drop-shadow(0 0 3px color-mix(in srgb, var(--teal) 40%, transparent));
+  filter: drop-shadow(0 0 3px color-mix(in srgb, var(--accent) 40%, transparent));
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -204,8 +241,8 @@ body {
   height: 11px;
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--border);
-  border-radius: 9px;
+  background: var(--border-strong);
+  border-radius: var(--r-pill);
   border: 3px solid var(--bg);
 }
 ::-webkit-scrollbar-track {
@@ -218,9 +255,9 @@ body {
   min-height: 100vh;
   background: var(--bg);
   color: var(--body);
-  font-family: 'IBM Plex Sans', 'Noto Sans TC', sans-serif;
-  font-size: 16px;
-  line-height: 1.7;
+  font-family: var(--font-ui);
+  font-size: var(--step-0);
+  line-height: 1.9;
   overflow-x: clip;
   transition:
     background 0.4s ease,

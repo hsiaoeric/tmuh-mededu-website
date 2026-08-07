@@ -29,21 +29,21 @@ export function Footer() {
             style={{
               width: 40,
               height: 40,
-              borderRadius: 11,
+              borderRadius: 'var(--r-md)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              background: 'linear-gradient(140deg,var(--teal),var(--teal-700))',
+              background: 'linear-gradient(140deg,var(--accent),var(--accent-strong))',
             }}
           >
-            <span style={{ display: 'block', width: 21, height: 21, color: '#fff' }}>
+            <span style={{ display: 'block', width: 21, height: 21, color: 'var(--on-accent)' }}>
               <Icon name="heart" />
             </span>
           </div>
           <div style={{ lineHeight: 1.4 }}>
             <div
               style={{
-                fontFamily: "'Noto Sans TC', sans-serif",
+                fontFamily: 'var(--font-ui)',
                 fontWeight: 700,
                 fontSize: 14.5,
                 color: 'var(--text)',
@@ -53,7 +53,7 @@ export function Footer() {
             </div>
             <div
               style={{
-                fontFamily: "'IBM Plex Sans', sans-serif",
+                fontFamily: 'var(--font-ui)',
                 fontSize: 11,
                 color: 'var(--muted)',
               }}
@@ -89,7 +89,7 @@ export function Footer() {
               display: 'flex',
               alignItems: 'center',
               gap: 9,
-              fontFamily: "'IBM Plex Mono', monospace",
+              fontFamily: 'var(--font-mono)',
               fontSize: 13,
               color: 'var(--body)',
             }}

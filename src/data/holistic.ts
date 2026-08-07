@@ -55,19 +55,19 @@ export function holisticKpis(lang: Lang): HolisticKpi[] {
     | { num: number; label: string; color: string; subtitle?: string }
     | { display: string; label: string; color: string }
   > = [
-    { num: 142, label: pick(lang, '全人種子教師（累計）', 'Holistic Seed Teachers (total)'), color: '#4f8c7d' },
+    { num: 142, label: pick(lang, '全人種子教師（累計）', 'Holistic Seed Teachers (total)'), color: 'var(--accent)' },
     {
       num: 87,
       label: pick(lang, '113 學年種子教師', 'AY113 Seed Teachers'),
-      color: '#6E8A77',
+      color: 'var(--c-med-edu-research)',
       subtitle: pick(lang, '醫師 40 · 醫事 14 · 護理 33', 'Physicians 40 · Allied 14 · Nursing 33'),
     },
-    { num: 11, label: pick(lang, 'MHFA 種子教師', 'MHFA Seed Teachers'), color: '#B69B66' },
-    { num: 2, label: pick(lang, 'MHFA 指導員', 'MHFA Instructors'), color: '#5E7A8C' },
+    { num: 11, label: pick(lang, 'MHFA 種子教師', 'MHFA Seed Teachers'), color: 'var(--tone-gold)' },
+    { num: 2, label: pick(lang, 'MHFA 指導員', 'MHFA Instructors'), color: 'var(--tone-slate)' },
     {
       display: '?',
       label: pick(lang, '全人照護教育相關論文', 'Holistic Care Education Papers'),
-      color: '#A87A6B',
+      color: 'var(--c-faculty-dev)',
     },
   ];
   return raw.map((k) => ({
@@ -119,10 +119,10 @@ export function buildAiEcosystem(lang: Lang) {
     problemsTitle: pick(lang, '生態系要解決什麼問題？', 'What does the ecosystem solve?'),
     teamLabel: pick(lang, '範疇二团隊', 'Scope 2 Team'),
     flow: [
-      { role: pick(lang, '教師端', 'Faculty'), title: pick(lang, '教案 AI 化', 'AI-authored cases'), text: pick(lang, '把全人照護目標、臨床任務與討論問題轉成可互動的情境教案。', 'Turn holistic-care goals, clinical tasks and discussion prompts into interactive case scenarios.'), color: '#4f8c7d' },
-      { role: pick(lang, '情境內容', 'Scenario'), title: pick(lang, '全人臨床情境', 'Whole-person clinical context'), text: pick(lang, '以醫學、人文、心理、倫理與照護脈絡設計案例。', 'Cases designed across medical, humanistic, psychological, ethical and care contexts.'), color: '#6E8A77' },
-      { role: pick(lang, '學生端', 'Student'), title: pick(lang, '平板與 VR 模擬練習', 'Tablet & VR simulation'), text: pick(lang, '學生透過問診、判斷、醫令與治療計畫練習臨床推理。', 'Students practice clinical reasoning through history-taking, judgment, orders and treatment plans.'), color: '#5E7A8C' },
-      { role: pick(lang, '回饋端', 'Feedback'), title: pick(lang, '即時回饋與 Line AI ChatBot', 'Instant feedback & Line AI ChatBot'), text: pick(lang, '提供學習歷程回饋與全人臨床隨身助教，支援課後延伸學習。', 'Learning-process feedback plus an on-the-go holistic clinical assistant for after-class study.'), color: '#B69B66' },
+      { role: pick(lang, '教師端', 'Faculty'), title: pick(lang, '教案 AI 化', 'AI-authored cases'), text: pick(lang, '把全人照護目標、臨床任務與討論問題轉成可互動的情境教案。', 'Turn holistic-care goals, clinical tasks and discussion prompts into interactive case scenarios.'), color: 'var(--accent)' },
+      { role: pick(lang, '情境內容', 'Scenario'), title: pick(lang, '全人臨床情境', 'Whole-person clinical context'), text: pick(lang, '以醫學、人文、心理、倫理與照護脈絡設計案例。', 'Cases designed across medical, humanistic, psychological, ethical and care contexts.'), color: 'var(--c-med-edu-research)' },
+      { role: pick(lang, '學生端', 'Student'), title: pick(lang, '平板與 VR 模擬練習', 'Tablet & VR simulation'), text: pick(lang, '學生透過問診、判斷、醫令與治療計畫練習臨床推理。', 'Students practice clinical reasoning through history-taking, judgment, orders and treatment plans.'), color: 'var(--tone-slate)' },
+      { role: pick(lang, '回饋端', 'Feedback'), title: pick(lang, '即時回饋與 Line AI ChatBot', 'Instant feedback & Line AI ChatBot'), text: pick(lang, '提供學習歷程回饋與全人臨床隨身助教，支援課後延伸學習。', 'Learning-process feedback plus an on-the-go holistic clinical assistant for after-class study.'), color: 'var(--tone-gold)' },
     ] as AiFlowStep[],
     steps: [
       { n: '01', title: pick(lang, '情境設計', 'Scenario design'), text: pick(lang, '教師將全人照護能力指標轉為臨床任務與討論問題', 'Faculty translate holistic-care competencies into clinical tasks and prompts') },

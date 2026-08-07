@@ -127,7 +127,7 @@ function BranchNode({
           boxShadow:
             active || hover
               ? `0 8px 22px color-mix(in srgb,${color} 28%,transparent)`
-              : 'var(--shadow-card)',
+              : 'var(--e-1)',
         }}
       >
         {branch.icon && (
@@ -138,7 +138,7 @@ function BranchNode({
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              borderRadius: 7,
+              borderRadius: 'var(--r-sm)',
               background: `color-mix(in srgb,${color} 16%,transparent)`,
               color,
               margin: '0 auto 5px',
@@ -150,7 +150,7 @@ function BranchNode({
         <span
           style={{
             display: 'block',
-            fontFamily: "'Noto Sans TC', sans-serif",
+            fontFamily: 'var(--font-ui)',
             fontWeight: 700,
             fontSize: 10.5,
             lineHeight: 1.25,
@@ -206,7 +206,7 @@ function CenterNode({
         transform: `translate(-50%,-50%) scale(${lifted ? 1.08 : 1})`,
         width: 118,
         padding: '14px 10px',
-        borderRadius: 14,
+        borderRadius: 'var(--r-lg)',
         cursor: 'pointer',
         border: `1.5px solid ${lifted ? center.color : 'var(--border)'}`,
         background: active
@@ -214,7 +214,7 @@ function CenterNode({
           : 'var(--surface)',
         boxShadow: lifted
           ? `0 14px 28px color-mix(in srgb,${center.color} 22%,transparent)`
-          : 'var(--shadow-card)',
+          : 'var(--e-1)',
         textAlign: 'center',
         zIndex: active ? 5 : 3,
         transition: 'transform .25s,box-shadow .25s,opacity .25s',
@@ -227,7 +227,7 @@ function CenterNode({
           width: 30,
           height: 30,
           margin: '0 auto 7px',
-          borderRadius: 9,
+          borderRadius: 'var(--r-sm)',
           alignItems: 'center',
           justifyContent: 'center',
           background: `color-mix(in srgb,${center.color} 16%,transparent)`,
@@ -239,7 +239,7 @@ function CenterNode({
       <span
         style={{
           display: 'block',
-          fontFamily: "'Noto Sans TC', sans-serif",
+          fontFamily: 'var(--font-ui)',
           fontWeight: 700,
           fontSize: 12.5,
           color: 'var(--text)',
@@ -314,12 +314,14 @@ export function HubOrgChart({
               y1={HUB_Y}
               x2={c.hx}
               y2={c.hy}
-              stroke={c.color}
               strokeWidth={isActive ? 0.75 : 0.4}
               strokeDasharray={isActive ? '4 2' : '60'}
               strokeDashoffset={isActive ? 0 : 60}
               className={isActive ? 'hub-line hub-line--active' : 'hub-line'}
               style={{
+                /* Set via style, not the `stroke` attribute: center colours are
+                   now CSS variables and must go through the cascade. */
+                stroke: c.color,
                 opacity: isDimmed ? 0.2 : isActive ? 0.95 : 0.55,
                 animation: isActive
                   ? 'line-flow 1.4s linear infinite'
@@ -340,10 +342,10 @@ export function HubOrgChart({
                   y1={center.hy}
                   x2={x}
                   y2={y}
-                  stroke={center.color}
                   strokeWidth={isBranchActive ? 0.55 : 0.35}
                   className="hub-line hub-line--branch"
                   style={{
+                    stroke: center.color,
                     opacity: isBranchActive ? 1 : 0.7,
                     animation: `draw 0.45s ease forwards ${i * 60}ms`,
                   }}
@@ -378,17 +380,17 @@ export function HubOrgChart({
             alignItems: 'center',
             justifyContent: 'center',
             textAlign: 'center',
-            background: 'linear-gradient(140deg,var(--teal),var(--teal-700))',
-            color: '#fff',
-            boxShadow: '0 14px 32px var(--teal-glow)',
+            background: 'var(--indigo)',
+            color: 'var(--on-indigo)',
+            boxShadow: 'none',
           }}
         >
-          <div style={{ fontFamily: "'Noto Sans TC', sans-serif", fontWeight: 800, fontSize: 18 }}>
+          <div style={{ fontFamily: 'var(--font-ui)', fontWeight: 800, fontSize: 18 }}>
             {t.deptShort}
           </div>
           <div
             style={{
-              fontFamily: "'IBM Plex Sans', sans-serif",
+              fontFamily: 'var(--font-ui)',
               fontSize: 9.5,
               letterSpacing: '.1em',
               opacity: 0.9,

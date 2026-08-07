@@ -33,12 +33,12 @@ export function BuildingView() {
             width: 74,
             height: 74,
             margin: '0 auto 22px',
-            borderRadius: 20,
+            borderRadius: 'var(--r-lg)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            background: `linear-gradient(140deg,${center.color},color-mix(in srgb,${center.color} 55%,#000))`,
-            color: '#fff',
+            background: `linear-gradient(140deg,${center.color},color-mix(in srgb,${center.color} 55%,var(--ink-a)))`,
+            color: 'var(--on-accent)',
             boxShadow: `0 14px 32px color-mix(in srgb,${center.color} 40%,transparent)`,
           }}
         >
@@ -48,7 +48,7 @@ export function BuildingView() {
         </span>
         <div
           style={{
-            fontFamily: "'IBM Plex Sans', sans-serif",
+            fontFamily: 'var(--font-ui)',
             fontSize: 12,
             fontWeight: 600,
             letterSpacing: '.14em',
@@ -61,7 +61,7 @@ export function BuildingView() {
         </div>
         <h1
           style={{
-            fontFamily: "'Noto Serif TC', serif",
+            fontFamily: 'var(--font-display)',
             fontWeight: 900,
             fontSize: 'clamp(30px,4vw,42px)',
             color: 'var(--text)',
@@ -78,8 +78,8 @@ export function BuildingView() {
             gap: 9,
             margin: '14px 0 20px',
             padding: '7px 16px',
-            borderRadius: 999,
-            background: 'color-mix(in srgb,var(--teal) 12%,transparent)',
+            borderRadius: 'var(--r-pill)',
+            background: 'color-mix(in srgb,var(--accent) 12%,transparent)',
           }}
         >
           <span
@@ -87,16 +87,16 @@ export function BuildingView() {
               width: 8,
               height: 8,
               borderRadius: '50%',
-              background: 'var(--teal)',
+              background: 'var(--accent)',
               animation: 'blink 1.8s ease-in-out infinite',
             }}
           />
           <span
             style={{
-              fontFamily: "'Noto Sans TC', sans-serif",
+              fontFamily: 'var(--font-ui)',
               fontSize: 13.5,
               fontWeight: 700,
-              color: 'var(--teal-700)',
+              color: 'var(--accent-strong)',
             }}
           >
             {title}
@@ -130,14 +130,14 @@ export function BuildingView() {
             gap: 9,
             padding: '13px 26px',
             border: 'none',
-            borderRadius: 12,
+            borderRadius: 'var(--r-md)',
             cursor: 'pointer',
-            background: 'linear-gradient(140deg,var(--teal),var(--teal-700))',
-            color: '#fff',
-            fontFamily: "'Noto Sans TC', sans-serif",
+            background: 'linear-gradient(140deg,var(--accent),var(--accent-strong))',
+            color: 'var(--on-accent)',
+            fontFamily: 'var(--font-ui)',
             fontWeight: 700,
             fontSize: 15,
-            boxShadow: '0 12px 26px var(--teal-glow)',
+            boxShadow: '0 12px 26px var(--accent-glow)',
           }}
         >
           {t.backDept}

@@ -36,11 +36,11 @@ function TeamNode({
         minWidth: compact ? 88 : 142,
         minHeight: compact ? 86 : 76,
         padding: compact ? '10px 8px' : '11px 14px',
-        borderRadius: 12,
+        borderRadius: 'var(--r-md)',
         border: `1px solid color-mix(in srgb,${color} 30%,var(--border))`,
         borderTop: `3px solid ${color}`,
         background: 'var(--surface)',
-        boxShadow: 'var(--shadow-card)',
+        boxShadow: 'var(--e-1)',
         textAlign: 'center',
         display: 'flex',
         flexDirection: 'column',
@@ -50,7 +50,7 @@ function TeamNode({
     >
       <strong
         style={{
-          fontFamily: "'Noto Sans TC', sans-serif",
+          fontFamily: 'var(--font-ui)',
           fontSize: compact ? 13 : 14.5,
           lineHeight: 1.25,
           color: 'var(--text)',
@@ -61,7 +61,7 @@ function TeamNode({
       <span
         style={{
           marginTop: 4,
-          fontFamily: "'Noto Sans TC', sans-serif",
+          fontFamily: 'var(--font-ui)',
           fontSize: compact ? 10.5 : 11.5,
           lineHeight: 1.35,
           color: 'var(--body)',
@@ -73,7 +73,7 @@ function TeamNode({
         <span
           style={{
             marginTop: 5,
-            fontFamily: "'IBM Plex Mono', monospace",
+            fontFamily: 'var(--font-mono)',
             fontSize: 10.5,
             lineHeight: 1,
             color: color,

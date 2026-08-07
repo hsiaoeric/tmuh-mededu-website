@@ -34,10 +34,10 @@ export function KpiCard({
       style={{
         position: 'relative',
         padding: '24px 22px',
-        borderRadius: 16,
+        borderRadius: 'var(--r-lg)',
         background: 'var(--surface)',
         border: `1px solid ${active ? color : 'var(--border)'}`,
-        boxShadow: active ? 'var(--shadow-lift)' : 'var(--shadow-card)',
+        boxShadow: active ? 'var(--e-2)' : 'var(--e-1)',
         overflow: 'hidden',
         cursor: clickable ? 'pointer' : 'default',
         transition: 'border-color .2s,box-shadow .2s,transform .2s',
@@ -86,7 +86,7 @@ export function KpiCard({
               ? { 'data-count': num, 'data-suffix': suffix }
               : {})}
             style={{
-              fontFamily: "'IBM Plex Sans', sans-serif",
+              fontFamily: 'var(--font-ui)',
               fontWeight: 700,
               fontSize: 54,
               lineHeight: 1,
@@ -99,7 +99,7 @@ export function KpiCard({
         </div>
         <div
           style={{
-            fontFamily: "'Noto Sans TC', sans-serif",
+            fontFamily: 'var(--font-ui)',
             fontWeight: 700,
             fontSize: 15,
             color: 'var(--text)',
@@ -111,7 +111,7 @@ export function KpiCard({
         {caption && (
           <div
             style={{
-              fontFamily: "'IBM Plex Sans', sans-serif",
+              fontFamily: 'var(--font-ui)',
               fontSize: 11.5,
               letterSpacing: '.05em',
               textTransform: 'uppercase',

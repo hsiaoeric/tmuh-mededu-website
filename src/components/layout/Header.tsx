@@ -160,7 +160,7 @@ export function Header() {
         >
           <TmuhLogo
             size={36}
-            style={{ filter: 'drop-shadow(0 3px 8px var(--teal-glow))', flexShrink: 0 }}
+            style={{ filter: 'drop-shadow(0 3px 8px var(--accent-glow))', flexShrink: 0 }}
           />
           <div
             style={{
@@ -194,7 +194,7 @@ export function Header() {
             </span>
             <span
               style={{
-                fontFamily: "'IBM Plex Sans', sans-serif",
+                fontFamily: 'var(--font-ui)',
                 fontSize: 10,
                 letterSpacing: '.1em',
                 textTransform: 'uppercase',
@@ -218,11 +218,11 @@ export function Header() {
               border: '1px solid var(--border)',
               background: 'var(--surface)',
               cursor: 'pointer',
-              borderRadius: 999,
-              fontFamily: "'IBM Plex Sans', sans-serif",
+              borderRadius: 'var(--r-pill)',
+              fontFamily: 'var(--font-ui)',
               fontWeight: 700,
               fontSize: 11.5,
-              color: 'var(--teal-700)',
+              color: 'var(--accent-strong)',
               letterSpacing: '.04em',
               display: 'flex',
               alignItems: 'center',
@@ -243,7 +243,7 @@ export function Header() {
               border: '1px solid var(--border)',
               background: 'var(--surface)',
               cursor: 'pointer',
-              borderRadius: 999,
+              borderRadius: 'var(--r-pill)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -267,10 +267,10 @@ export function Header() {
               width: 32,
               height: 32,
               border: '1px solid var(--border)',
-              background: menuOpen ? 'var(--teal-50)' : 'var(--surface)',
-              color: menuOpen ? 'var(--teal)' : 'var(--text)',
+              background: menuOpen ? 'var(--accent-wash)' : 'var(--surface)',
+              color: menuOpen ? 'var(--accent)' : 'var(--text)',
               cursor: 'pointer',
-              borderRadius: 8,
+              borderRadius: 'var(--r-sm)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -299,7 +299,7 @@ export function Header() {
             padding: 10,
             background: 'var(--surface)',
             border: '1px solid var(--border)',
-            borderRadius: 14,
+            borderRadius: 'var(--r-lg)',
             boxShadow: '0 16px 36px rgba(0,0,0,0.12)',
             display: 'flex',
             flexDirection: 'column',
@@ -325,7 +325,7 @@ export function Header() {
                     border: 'none',
                     background: 'transparent',
                     cursor: 'pointer',
-                    borderRadius: 8,
+                    borderRadius: 'var(--r-sm)',
                     fontWeight: 600,
                     fontSize: 14,
                     color: 'var(--text)',
@@ -334,7 +334,7 @@ export function Header() {
                     alignItems: 'center',
                     justifyContent: 'space-between',
                   }}
-                  onMouseEnter={(e) => (e.currentTarget.style.background = 'var(--teal-50)')}
+                  onMouseEnter={(e) => (e.currentTarget.style.background = 'var(--accent-wash)')}
                   onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
                 >
                   <span>{item.label}</span>
