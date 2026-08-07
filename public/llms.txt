@@ -1,0 +1,18 @@
+# TMUH Department of Medical Education
+
+> The bilingual website of the Department of Medical Education at Taipei Medical University Hospital, covering its organization, education centers, announcements, honors, teaching resources, and contact information.
+
+## Main pages
+
+- [Department home](https://tmuh-mededu-living-tissue.vercel.app/)
+- [Announcements](https://tmuh-mededu-living-tissue.vercel.app/announcements)
+- [Quality honors](https://tmuh-mededu-living-tissue.vercel.app/honors)
+- [Digital materials](https://tmuh-mededu-living-tissue.vercel.app/digital-materials)
+
+## Education centers
+
+- [Center for Faculty Development](https://tmuh-mededu-living-tissue.vercel.app/centers/faculty-development)
+- [Center for Clinical Skills](https://tmuh-mededu-living-tissue.vercel.app/centers/clinical-skills)
+- [Center for Evidence-Based Medicine](https://tmuh-mededu-living-tissue.vercel.app/centers/evidence-based-medicine)
+- [Center for Education in Holistic Care and Human Flourishing](https://tmuh-mededu-living-tissue.vercel.app/centers/holistic-care)
+- [Center for Research in Medical Education](https://tmuh-mededu-living-tissue.vercel.app/centers/medical-education-research)
