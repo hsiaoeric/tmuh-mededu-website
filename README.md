@@ -67,7 +67,9 @@ src/
 │  ├─ holisticPapers.ts      全院全人相關研究論文
 │  └─ holistic.ts / ebm.ts / facdev.ts   各中心專頁內容
 ├─ pages/
-│  ├─ Home.tsx + home/       首頁各區塊（Hero、About、組織、一覽、公告、榮譽、聯絡）
+│  ├─ Home.tsx + home/       首頁各區塊（Hero、About、組織、公告、一覽、榮譽、聯絡）
+│  ├─ AnnouncementsPage.tsx  完整公告列表與分類篩選
+│  ├─ HonorsPage.tsx         完整 SNQ / NHQA 得獎紀錄
 │  ├─ DigitalMaterialsPage.tsx  數位教材室（內容建置中）
 │  ├─ CenterPage.tsx         依網址分派到對應中心頁
 │  └─ centers/               HolisticPage / EbmPage / FacdevPage / GenericCenterPage
@@ -91,6 +93,7 @@ src/
 
 - `date`：發佈日期，格式 `'YYYY-MM-DD'`。網站會**自動由新到舊排序**，並用最新一則顯示「最後更新」。
 - `pinned: true`：讓這則永遠置頂。
+- `category`：公告分類；分類標籤集中在同一檔案的 `ANNOUNCEMENT_CATEGORY_LABELS`。
 - `tag` / `title` / `lines`：都各填 `zh`（中文）與 `en`（英文）。
 - `stat`：左側的數據徽章（選填）。
 
@@ -136,6 +139,8 @@ src/
 | 網址 | 頁面 |
 |------|------|
 | `/` | 教學部首頁 |
+| `/announcements` | 完整公告與分類篩選 |
+| `/honors` | 完整品質榮譽紀錄 |
 | `/digital-materials` | 數位教材室（建置中） |
 | `/centers/faculty-development` | 教師發展中心 |
 | `/centers/clinical-skills` | 臨床技能中心 |
