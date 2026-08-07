@@ -107,6 +107,9 @@
   color: var(--muted);
   white-space: nowrap;
 }
+.brand-short {
+  display: none;
+}
 
 .nav-links {
   display: flex;
@@ -264,6 +267,30 @@
   }
   .nav-burger {
     display: inline-flex;
+  }
+}
+
+@media (max-width: 520px) {
+  .nav-inner {
+    gap: 10px;
+  }
+  .brand {
+    gap: 8px;
+  }
+  .brand-mark {
+    width: 28px;
+    height: 28px;
+  }
+  .brand-full,
+  .brand-en {
+    display: none;
+  }
+  .brand-short {
+    display: inline;
+  }
+  .nav-tools {
+    flex: none;
+    gap: 4px;
   }
 }
 

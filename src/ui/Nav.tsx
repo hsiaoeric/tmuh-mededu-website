@@ -158,7 +158,10 @@ export function Nav() {
           <Link to="/" className="brand" aria-label={t.footBrand}>
             <img className="brand-mark" src={assetUrl('assets/tmuh-logo.svg')} alt="" />
             <span className="brand-text">
-              <span className="brand-zh">{isZh ? t.brand1 : 'TMU Hospital'}</span>
+              <span className="brand-zh">
+                <span className="brand-full">{isZh ? t.brand1 : 'TMU Hospital'}</span>
+                <span className="brand-short">{isZh ? '北醫附醫' : 'TMU Hospital'}</span>
+              </span>
               <span className="brand-en">
                 {isZh ? '教學部 Medical Education' : 'Dept. of Medical Education'}
               </span>
