@@ -23,8 +23,8 @@ export function Home() {
       <Marquee items={ticker} />
       <About />
       <Organisation />
-      <Glance />
       <News />
+      <Glance />
       <Honors />
       <Contact />
     </>

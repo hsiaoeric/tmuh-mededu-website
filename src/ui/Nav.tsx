@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useSite } from '@/app/site';
 import { useGoToSection } from '@/app/navigation';
-import { CENTER_ORDER, DIGITAL_MATERIALS_PATH, centerPath } from '@/app/routes';
+import { ANNOUNCEMENTS_PATH, CENTER_ORDER, DIGITAL_MATERIALS_PATH, centerPath } from '@/app/routes';
 import { centerById } from '@/data/centers';
 import { setScrollLocked } from '@/motion/smoothScroll';
 import { assetUrl } from '@/utils/asset';
@@ -13,12 +13,13 @@ interface SectionItem {
   id: string;
   zh: string;
   en: string;
+  path?: string;
 }
 
 const SECTIONS: SectionItem[] = [
   { id: 'about', zh: '關於', en: 'About' },
   { id: 'organisation', zh: '組織', en: 'Structure' },
-  { id: 'news', zh: '公告', en: 'News' },
+  { id: 'news', zh: '公告', en: 'News', path: ANNOUNCEMENTS_PATH },
   { id: 'honors', zh: '榮譽', en: 'Honors' },
   { id: 'contact', zh: '聯絡', en: 'Contact' },
 ];
@@ -178,11 +179,17 @@ export function Nav() {
             >
               {isZh ? '數位教材室' : 'Digital Materials'}
             </Link>
-            {SECTIONS.slice(2).map((s) => (
-              <button key={s.id} className="nav-link" onClick={() => jump(s.id)}>
-                {isZh ? s.zh : s.en}
-              </button>
-            ))}
+            {SECTIONS.slice(2).map((s) =>
+              s.path ? (
+                <Link key={s.id} className="nav-link" to={s.path} data-active={pathname === s.path}>
+                  {isZh ? s.zh : s.en}
+                </Link>
+              ) : (
+                <button key={s.id} className="nav-link" onClick={() => jump(s.id)}>
+                  {isZh ? s.zh : s.en}
+                </button>
+              ),
+            )}
           </nav>
 
           <div className="nav-tools">
@@ -273,19 +280,31 @@ export function Nav() {
                 {isZh ? '數位教材室' : 'Digital Materials'}
               </Link>
 
-              {SECTIONS.slice(2).map((s) => (
-                <a
-                  key={s.id}
-                  className="sheet-main"
-                  href={`/#${s.id}`}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    jump(s.id);
-                  }}
-                >
-                  {isZh ? s.zh : s.en}
-                </a>
-              ))}
+              {SECTIONS.slice(2).map((s) =>
+                s.path ? (
+                  <Link
+                    key={s.id}
+                    className="sheet-main"
+                    to={s.path}
+                    data-active={pathname === s.path}
+                    onClick={() => setSheet(false)}
+                  >
+                    {isZh ? s.zh : s.en}
+                  </Link>
+                ) : (
+                  <a
+                    key={s.id}
+                    className="sheet-main"
+                    href={`/#${s.id}`}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      jump(s.id);
+                    }}
+                  >
+                    {isZh ? s.zh : s.en}
+                  </a>
+                ),
+              )}
             </div>
           </div>
         </div>

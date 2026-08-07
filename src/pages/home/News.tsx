@@ -1,4 +1,6 @@
+import { Link } from 'react-router-dom';
 import { useSite } from '@/app/site';
+import { ANNOUNCEMENTS_PATH } from '@/app/routes';
 import { ANN_URL, buildActivities, buildAnnouncements, latestUpdate } from '@/data/news';
 import { Reveal } from '@/motion/Reveal';
 import { Section, SectionHeader } from '@/ui/Section';
@@ -7,21 +9,27 @@ import { Icon } from '@/ui/Icon';
 
 export function News() {
   const { t, isZh, lang } = useSite();
-  const announcements = buildAnnouncements(lang);
+  const announcements = buildAnnouncements(lang).slice(0, 3);
   const activities = buildActivities(lang);
 
   return (
     <Section id="news">
       <SectionHeader
-        index="04"
+        index="03"
         eyebrow={t.newsEn}
         title={t.newsZh}
         desc={t.newsDesc}
         aside={
-          <a className="tlink" href={ANN_URL} target="_blank" rel="noreferrer">
-            {isZh ? '對外看板' : 'Public board'}
-            <Icon name="arrowUpRight" />
-          </a>
+          <div className="row gap-2 wrap">
+            <Link className="tlink" to={ANNOUNCEMENTS_PATH}>
+              {isZh ? '所有公告' : 'All announcements'}
+              <Icon name="arrow" />
+            </Link>
+            <a className="tlink" href={ANN_URL} target="_blank" rel="noreferrer">
+              {isZh ? '常用看板' : 'Public board'}
+              <Icon name="arrowUpRight" />
+            </a>
+          </div>
         }
       />
 

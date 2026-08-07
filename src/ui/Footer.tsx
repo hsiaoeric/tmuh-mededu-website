@@ -1,6 +1,7 @@
+import { Link } from 'react-router-dom';
 import { useSite } from '@/app/site';
 import { useGoToSection } from '@/app/navigation';
-import { CENTER_ORDER } from '@/app/routes';
+import { ANNOUNCEMENTS_PATH, CENTER_ORDER } from '@/app/routes';
 import { centerById } from '@/data/centers';
 import { latestUpdate } from '@/data/news';
 import { MAIN_PHONE } from '@/utils/phone';
@@ -36,7 +37,7 @@ export function Footer() {
   const sections = [
     { id: 'about', label: isZh ? '關於教學部' : 'About' },
     { id: 'organisation', label: isZh ? '組織架構' : 'Structure' },
-    { id: 'news', label: isZh ? '最新公告' : 'News' },
+    { id: 'news', label: isZh ? '最新公告' : 'News', path: ANNOUNCEMENTS_PATH },
     { id: 'honors', label: isZh ? '品質榮譽' : 'Quality Honors' },
     { id: 'contact', label: isZh ? '聯絡我們' : 'Contact' },
   ];
@@ -97,17 +98,27 @@ export function Footer() {
             <div className="stack gap-2">
               <div className="eyebrow">{isZh ? '網站導覽' : 'Navigate'}</div>
               <div className="stack gap-1" style={{ alignItems: 'flex-start' }}>
-                {sections.map((s) => (
-                  <button
-                    key={s.id}
-                    onClick={() => goToSection(s.id)}
-                    style={{ fontSize: '0.86rem', color: 'var(--body)', transition: 'color .25s' }}
-                    onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--accent)')}
-                    onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--body)')}
-                  >
-                    {s.label}
-                  </button>
-                ))}
+                {sections.map((s) =>
+                  s.path ? (
+                    <Link
+                      key={s.id}
+                      to={s.path}
+                      style={{ fontSize: '0.86rem', color: 'var(--body)', transition: 'color .25s' }}
+                    >
+                      {s.label}
+                    </Link>
+                  ) : (
+                    <button
+                      key={s.id}
+                      onClick={() => goToSection(s.id)}
+                      style={{ fontSize: '0.86rem', color: 'var(--body)', transition: 'color .25s' }}
+                      onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--accent)')}
+                      onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--body)')}
+                    >
+                      {s.label}
+                    </button>
+                  ),
+                )}
               </div>
             </div>
           </div>

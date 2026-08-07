@@ -22,6 +22,13 @@ export const ANN_URL =
  * 一則只會出現在一個地方，改這個欄位就等於把它搬到另一頁。
  */
 export type NewsScope = 'dept' | 'holistic';
+export type AnnouncementCategory = 'department' | 'achievement' | 'international';
+
+const ANNOUNCEMENT_CATEGORY_LABELS: Record<AnnouncementCategory, { zh: string; en: string }> = {
+  department: { zh: '部務公告', en: 'Department' },
+  achievement: { zh: '成果榮譽', en: 'Achievements' },
+  international: { zh: '國際交流', en: 'International' },
+};
 
 interface RawAnnouncement {
   /** 發佈日期，格式 YYYY-MM-DD（用於排序與「最後更新」）。 */
@@ -29,6 +36,7 @@ interface RawAnnouncement {
   pinned?: boolean;
   /** 不填 = 'dept'（首頁）。 */
   scope?: NewsScope;
+  category: AnnouncementCategory;
   tag: { zh: string; en: string };
   title: { zh: string; en: string };
   lines: { zh: string[]; en: string[] };
@@ -47,6 +55,7 @@ const ANNOUNCEMENTS: RawAnnouncement[] = [
   {
     date: '2026-05-20',
     pinned: true,
+    category: 'achievement',
     tag: { zh: '置頂', en: 'Pinned' },
     stat: {
       top: 'Q1',
@@ -72,6 +81,7 @@ const ANNOUNCEMENTS: RawAnnouncement[] = [
     date: '2026-04-15',
     // 全人中心的國際合作，列在中心頁而非首頁。
     scope: 'holistic',
+    category: 'international',
     tag: { zh: '國際合作', en: 'International' },
     stat: {
       top: '56',
@@ -94,6 +104,7 @@ const ANNOUNCEMENTS: RawAnnouncement[] = [
   },
   {
     date: '2023-05-01',
+    category: 'department',
     tag: { zh: '公告', en: 'News' },
     stat: {
       top: '112.05.01',
@@ -115,6 +126,8 @@ const ANNOUNCEMENTS: RawAnnouncement[] = [
 ];
 
 export interface Announcement {
+  category: AnnouncementCategory;
+  categoryLabel: string;
   pinned: boolean;
   tag: string;
   date: string;
@@ -160,6 +173,8 @@ export function buildAnnouncements(lang: Lang, scope: NewsScope = 'dept'): Annou
     .sort(byPinnedThenDate)
     .map((a, i) => ({
       pinned: !!a.pinned,
+      category: a.category,
+      categoryLabel: pick(lang, ANNOUNCEMENT_CATEGORY_LABELS[a.category].zh, ANNOUNCEMENT_CATEGORY_LABELS[a.category].en),
       tag: pick(lang, a.tag.zh, a.tag.en),
       date: formatDate(a.date, lang),
       statTop: a.stat?.top,
@@ -177,6 +192,13 @@ export function buildAnnouncements(lang: Lang, scope: NewsScope = 'dept'): Annou
       statFont: a.stat?.small ? '26px' : '40px',
       delay: i * 70,
     }));
+}
+
+/** Only offer filters that currently have content in the requested section. */
+export function buildAnnouncementCategories(lang: Lang, scope: NewsScope = 'dept') {
+  return [...new Set(ANNOUNCEMENTS.filter((a) => inScope(a, scope)).map((a) => a.category))].map(
+    (id) => ({ id, label: pick(lang, ANNOUNCEMENT_CATEGORY_LABELS[id].zh, ANNOUNCEMENT_CATEGORY_LABELS[id].en) }),
+  );
 }
 
 /* ------------------------------------------------------------------ *

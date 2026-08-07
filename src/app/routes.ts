@@ -15,6 +15,9 @@ export const SLUG_TO_CENTER: Record<string, CenterId> = Object.fromEntries(
 
 export const centerPath = (id: Exclude<CenterId, 'admin'>) => `/centers/${CENTER_SLUG[id]}`;
 
+/** Full department announcement archive; the home page only carries highlights. */
+export const ANNOUNCEMENTS_PATH = '/announcements';
+
 /**
  * The digital learning materials studio. A department unit rather than a
  * centre, so it sits outside `/centers` and carries its own top-level path.

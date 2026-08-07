@@ -25,6 +25,7 @@ export function AnnouncementRow({ item }: { item: Announcement }) {
     >
       <div className="stack gap-2">
         <div className="row gap-2 wrap">
+          <span className="tag">{item.categoryLabel}</span>
           <span className="tag">
             {item.pinned && <Icon name="pin" size={11} />}
             {item.tag}

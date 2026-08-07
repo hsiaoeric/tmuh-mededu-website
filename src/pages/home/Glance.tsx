@@ -58,7 +58,7 @@ export function Glance() {
 
   return (
     <Section id="glance" tight>
-      <SectionHeader index="03" eyebrow={t.kpiEyebrow} title={t.kpiTitle} />
+      <SectionHeader index="04" eyebrow={t.kpiEyebrow} title={t.kpiTitle} />
 
       <div className="grid g4">
         {kpis.map((k) => {

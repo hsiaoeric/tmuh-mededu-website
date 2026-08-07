@@ -173,6 +173,11 @@
   border-color: var(--accent);
   background: var(--accent-veil);
 }
+.pill[aria-pressed='true'] {
+  color: var(--ink);
+  border-color: var(--accent);
+  background: var(--accent-veil);
+}
 .pill svg {
   width: 15px;
   height: 15px;
