@@ -58,6 +58,7 @@ export function SplitLines({
         linesClass: 'split-line',
         autoSplit: true,
         mask: 'lines',
+        aria: Tag === 'span' ? 'none' : 'auto',
       });
 
       gsap.from(split.lines, {
@@ -77,7 +78,7 @@ export function SplitLines({
       split?.revert();
       ctx.revert();
     };
-  }, [delay, immediate, stagger, text]);
+  }, [Tag, delay, immediate, stagger, text]);
 
   /*
    * SplitText replaces the heading's text node with per-line wrappers, so React
