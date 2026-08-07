@@ -798,7 +798,7 @@
 }
 .person-role {
   font-size: 0.8rem;
-  color: var(--tone, var(--accent));
+  color: var(--tone-text, var(--tone, var(--accent)));
   letter-spacing: 0.02em;
 }
 .person-dept {

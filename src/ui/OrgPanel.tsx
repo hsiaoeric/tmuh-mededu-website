@@ -23,12 +23,16 @@ export function OrgPanel({ center, onClose }: { center: Center; onClose: () => v
   return (
     <div
       className="panel stack gap-4"
-      style={{ ['--tone' as string]: center.color, marginTop: 40 }}
+      style={{
+        ['--tone' as string]: center.color,
+        ['--tone-text' as string]: `color-mix(in srgb, ${center.color} 60%, var(--ink))`,
+        marginTop: 40,
+      }}
       key={center.id}
     >
       <div className="row between wrap gap-3" style={{ alignItems: 'flex-start' }}>
         <div className="stack gap-2" style={{ minWidth: 0 }}>
-          <span className="eyebrow" style={{ color: center.color }}>
+          <span className="eyebrow" style={{ color: 'var(--tone-text)' }}>
             {isZh ? center.en : center.zh}
           </span>
           <h3 className="display d3">{isZh ? center.zh : center.en}</h3>
@@ -63,7 +67,7 @@ export function OrgPanel({ center, onClose }: { center: Center; onClose: () => v
           >
             <div className="row gap-2">
               {b.icon && (
-                <span style={{ color: center.color, display: 'inline-flex' }}>
+                <span style={{ color: 'var(--tone-text)', display: 'inline-flex' }}>
                   <Icon name={b.icon} size={16} />
                 </span>
               )}
@@ -78,7 +82,7 @@ export function OrgPanel({ center, onClose }: { center: Center; onClose: () => v
 
       <div className="stack gap-3">
         <div className="row between baseline">
-          <span className="eyebrow" style={{ color: center.color }}>
+          <span className="eyebrow" style={{ color: 'var(--tone-text)' }}>
             {isZh ? '團隊成員' : 'Team'}
           </span>
           <span className="mono tiny">{center.people.length}</span>
@@ -91,7 +95,7 @@ export function OrgPanel({ center, onClose }: { center: Center; onClose: () => v
         {specialists.length > 0 && (
           <div className="stack gap-2" style={{ marginTop: 10 }}>
             <div className="row between baseline gap-2">
-              <span className="eyebrow" style={{ color: center.color }}>
+              <span className="eyebrow" style={{ color: 'var(--tone-text)' }}>
                 {isZh ? '行政專員業務分工' : 'Specialists & Duties'}
               </span>
               <span className="eyebrow">{isZh ? '分機 · 信箱' : 'Ext. · Email'}</span>
@@ -109,7 +113,7 @@ export function OrgPanel({ center, onClose }: { center: Center; onClose: () => v
           <span className="tiny">
             {isZh ? '聯絡窗口' : 'Contact'} · {isZh ? center.contactZh : center.contactEn}
           </span>
-          <a className="tlink" href="tel:+886227372181" style={{ color: center.color }}>
+          <a className="tlink" href="tel:+886227372181" style={{ color: 'var(--tone-text)' }}>
             <Icon name="phone" />
             <span className="mono">{formatPhoneExt(center.ext, lang)}</span>
           </a>

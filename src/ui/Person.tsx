@@ -120,7 +120,7 @@ export function PersonCard({ person, accent, hideRole, compact }: PersonCardProp
           <a
             className="mono person-ext"
             href={`tel:+886227372181,${p.ext}`}
-            style={{ color: accent }}
+            style={{ color: `var(--tone-text, ${accent})` }}
           >
             {formatExtShort(p.ext, lang)}
           </a>
@@ -136,7 +136,7 @@ export function PersonCard({ person, accent, hideRole, compact }: PersonCardProp
             href={p.profile}
             target="_blank"
             rel="noreferrer"
-            style={{ marginTop: 6, alignSelf: 'flex-start', color: accent }}
+            style={{ marginTop: 6, alignSelf: 'flex-start', color: `var(--tone-text, ${accent})` }}
           >
             {p.profileLabel}
             <Icon name="arrowUpRight" />
@@ -183,7 +183,7 @@ export function PersonRoster({
             {showContact && (
               <span className="roster-contact mono">
                 {p.ext ? (
-                  <a href={`tel:+886227372181,${p.ext}`} style={{ color: accent }}>
+                  <a href={`tel:+886227372181,${p.ext}`} style={{ color: 'var(--tone-text)' }}>
                     {formatExtShort(p.ext, lang)}
                   </a>
                 ) : (
