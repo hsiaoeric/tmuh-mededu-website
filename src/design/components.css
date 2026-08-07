@@ -186,6 +186,13 @@
   height: 15px;
 }
 
+.announcement-row {
+  grid-template-columns: minmax(0, 200px) minmax(0, 1fr);
+  gap: clamp(18px, 3vw, 48px);
+  padding: clamp(26px, 3.4vw, 44px) 0;
+  border-top: 1px solid var(--line-soft);
+}
+
 .nav-burger {
   display: none;
 }
@@ -271,6 +278,9 @@
 }
 
 @media (max-width: 520px) {
+  .announcement-row {
+    grid-template-columns: minmax(0, 1fr);
+  }
   .nav-inner {
     gap: 10px;
   }

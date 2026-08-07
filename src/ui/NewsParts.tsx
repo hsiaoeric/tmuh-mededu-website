@@ -14,12 +14,8 @@ export function AnnouncementRow({ item }: { item: Announcement }) {
     <Reveal
       variant="up"
       delay={item.delay}
-      className="grid"
+      className="grid announcement-row"
       style={{
-        gridTemplateColumns: 'minmax(0, 200px) minmax(0, 1fr)',
-        gap: 'clamp(18px, 3vw, 48px)',
-        padding: 'clamp(26px, 3.4vw, 44px) 0',
-        borderTop: '1px solid var(--line-soft)',
         ['--tone' as string]: tone,
       }}
     >
