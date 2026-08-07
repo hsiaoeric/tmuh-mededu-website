@@ -20,13 +20,13 @@ const MEMBER_GROUPS: Record<string, RawPerson[]> = {
     person('待更新', 'To be updated', 'advisor', '', ''),
   ],
   'Teaching Attendings': [
-    person('邱欣怡', 'Hsin-Yi Chiu', 'lead', '', '', 'hsin-yi-chiu', 'hsin-yi-chiu'),
-    person('吳政誠', 'Jeng-Cheng Wu', 'lead', '', '', 'jeng-cheng-wu', 'jeng-cheng-wu'),
-    person('吳人傑', 'Jen-Chieh Wu', 'lead', '', '', 'jen-chieh-wu', 'jen-chieh-wu'),
+    person('邱欣怡', 'Hsin-Yi Chiu', 'lead', '西醫 · 助理教授', 'Physician · Asst. Prof.', 'hsin-yi-chiu', 'hsin-yi-chiu'),
+    person('吳政誠', 'Jeng-Cheng Wu', 'lead', '西醫 · 助理教授<br>泌尿科', 'Physician · Asst. Prof.<br>Urology', 'jeng-cheng-wu', 'jeng-cheng-wu'),
+    person('吳人傑', 'Jen-Chieh Wu', 'lead', '西醫 · 助理教授', 'Physician · Asst. Prof.', 'jen-chieh-wu', 'jen-chieh-wu'),
   ],
   'Teaching Allied Health': [
-    person('王莉萱', 'Li-Hsuan Wang', 'lead', '', '', 'li-hsuan-wang'),
-    person('范芳郡', 'Fang-Chun Fan', 'lead', '', '', 'fang-chun-fan'),
+    person('王莉萱', 'Li-Hsuan Wang', 'lead', '藥劑 · 教授<br>藥劑部', 'Pharmacy · Prof.<br>Pharmacy', 'li-hsuan-wang'),
+    person('范芳郡', 'Fang-Chun Fan', 'lead', '放射<br>影像醫學部', 'Radiology<br>Medical Imaging', 'fang-chun-fan'),
     person('向慧芬', 'Hui-Fen Hsiang', 'lead', '', ''),
     person('鄭憲霖', 'Hsien-Lin Cheng', 'lead', '', ''),
   ],
@@ -115,7 +115,7 @@ export function Glance() {
           {members.length > 0 && (
             <Reveal variant="up" stagger={60} className="grid grid-people">
               {members.map((p, i) => (
-                <PersonCard key={`${p.en}-${i}`} person={p} accent={kpis.find((k) => k.en === open)!.color} hideRole compact />
+                <PersonCard key={`${p.en}-${i}`} person={p} accent={kpis.find((k) => k.en === open)!.color} hideRole />
               ))}
             </Reveal>
           )}
