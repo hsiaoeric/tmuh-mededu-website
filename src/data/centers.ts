@@ -313,7 +313,7 @@ export const CENTERS: Center[] = [
   {
     id: 'med_edu_research',
     zh: '醫學教育研究中心',
-    en: 'Center for Medical Education Research',
+    en: 'Center for Research in Medical Education',
     color: '#6E8A77',
     introZh:
       '以實證與資料驅動的方法研究醫學教育，發展教學評量工具與成效分析，將研究成果回饋至課程設計與教師發展。',
@@ -361,7 +361,7 @@ export const CENTERS: Center[] = [
       person('江明憲', 'Ming-Hsien Chiang', 'spec', '實證、全人、BI、EP', 'EBM · Holistic · BI · EP', '', '', '實證・全人・BI・EP', 'EBM · Holistic · BI · EP', '3760', '235025@h.tmu.edu.tw'),
       person('賴哲民', 'Che-Min Lai', 'spec', '臨技、OSCE', 'Clinical Skills · OSCE', '', '', '臨技・OSCE', 'Clinical Skills · OSCE', '3772', '225143@h.tmu.edu.tw'),
       person('張家銘', 'Chia-Ming Chang', 'spec', '臨技、OSCE', 'Clinical Skills · OSCE', '', '', '臨技・OSCE', 'Clinical Skills · OSCE', '3772', '245060@h.tmu.edu.tw'),
-      person('陳麗玉', 'Li-Yu Chen', 'spec', '醫學教育研究中心', 'Medical Education Research', '', '', '醫學教育研究中心', 'Medical Education Research', '3760', '255147@h.tmu.edu.tw'),
+      person('陳麗玉', 'Li-Yu Chen', 'spec', '醫學教育研究中心', 'Research in Medical Education', '', '', '醫學教育研究中心', 'Research in Medical Education', '3760', '255147@h.tmu.edu.tw'),
       person('張淑慧', 'Shu-Hui Chang', 'spec', '美術、平面設計', 'Art · Graphic Design', '', '', '美術・平面設計', 'Art · Graphic Design', '3983', '115126@h.tmu.edu.tw'),
       person('高偉劭', 'Wei-Shao Kao', 'spec', '影音', 'Audiovisual', '', '', '影音', 'Audiovisual', '', ''),
     ],
