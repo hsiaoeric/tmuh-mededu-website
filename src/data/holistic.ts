@@ -228,8 +228,8 @@ export function buildHolisticOutcomes(lang: Lang) {
     symposiumTitle: pick(lang, '全人研討會＆論壇', 'Holistic Symposia & Forums'),
     symposiumDesc: pick(
       lang,
-      '教學部主辦之全人照護、靈性關懷與韌性相關研討會與論壇。',
-      'Symposia and forums on holistic care, spiritual care and resilience hosted by the Department.',
+      '教學部主辦之全人照護、靈性關懷與韌性相關研討會與論壇；活動規模依年度主題與形式調整，參與人數不宜直接跨年度比較。',
+      'Department-hosted symposia and forums on holistic care, spiritual care and resilience. Scale varies with each year’s topic and format, so attendance is not directly comparable across years.',
     ),
     symposiums: isZh ? HOLISTIC_SYMPOSIUMS_ZH : HOLISTIC_SYMPOSIUMS_EN,
     hostLabel: pick(lang, '教學部主辦', 'Hosted by Medical Education'),
