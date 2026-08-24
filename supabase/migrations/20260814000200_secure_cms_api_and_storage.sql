@@ -168,5 +168,7 @@ using (
   and (select public.is_cms_admin())
 );
 
+set local role supabase_storage_admin;
 comment on policy cms_draft_media_admin_read on storage.objects is
   'Private draft assets are hidden from both anonymous and non-admin authenticated clients.';
+reset role;
