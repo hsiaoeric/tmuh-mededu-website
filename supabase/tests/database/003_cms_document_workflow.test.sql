@@ -14,6 +14,8 @@ create temporary table cms_test_outcomes (
   detail text
 ) on commit drop;
 
+grant select, insert, update on table cms_test_outcomes to authenticated;
+
 create function pg_temp.capture_cms_outcome(p_name text, p_statement text)
 returns void
 language plpgsql
@@ -102,6 +104,8 @@ cross join (
   order by documents.stable_key
   limit 1
 ) as digital_materials;
+
+grant select on table cms_wave3_payloads to authenticated;
 
 insert into public.cms_documents (id, kind, stable_key)
 values

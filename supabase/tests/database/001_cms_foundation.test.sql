@@ -257,12 +257,13 @@ select results_eq(
 );
 select results_eq(
   $$select count(*)::integer from public.cms_revisions
-    where document_id in ('aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa', 'bbbbbbbb-bbbb-bbbb-bbbbbbbbbbbb')$$,
+    where document_id in ('aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa', 'bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb')$$,
   array[1],
   'anonymous users see only published revisions'
 );
 select results_eq(
-  $$select count(*)::integer from public.cms_published_content$$,
+  $$select count(*)::integer from public.cms_published_content
+    where document_id in ('aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa', 'bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb')$$,
   array[1],
   'public view exposes one published document'
 );
@@ -303,14 +304,12 @@ select results_eq(
   array[1],
   'non-admin authenticated users see the anonymous revision set'
 );
-select results_eq(
-  $$with changed as (
-      update public.cms_revisions
-      set payload = '{"zh":{"x":1},"en":{"x":1}}'
-      where id = 'ffffffff-ffff-ffff-ffff-ffffffffffff'
-      returning 1
-    ) select count(*)::integer from changed$$,
-  array[0],
+select throws_ok(
+  $$update public.cms_revisions
+    set payload = '{"zh":{"x":1},"en":{"x":1}}'
+    where id = 'ffffffff-ffff-ffff-ffff-ffffffffffff'$$,
+  '42501',
+  null,
   'non-admin users cannot update drafts'
 );
 select throws_ok(
