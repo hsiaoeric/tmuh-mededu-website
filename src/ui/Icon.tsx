@@ -43,6 +43,13 @@ const PATHS = {
   calendar:
     'M8 2v4 M16 2v4 M3 10h18 M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2Z',
   spark: 'M12 3v4 M12 17v4 M3 12h4 M17 12h4 M5.6 5.6l2.8 2.8 M15.6 15.6l2.8 2.8 M18.4 5.6l-2.8 2.8 M8.4 15.6l-2.8 2.8',
+  check: 'M5 12.5l4.5 4.5L19 7.5',
+  alert: 'M12 9v4 M12 17h.01 M10.3 3.7 2.2 18h19.6L13.7 3.7a2 2 0 0 0-3.4 0Z',
+  upload: 'M12 16V4 M7 9l5-5 5 5 M5 20h14',
+  image: 'M3 5h18v14H3Z M8.5 11a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z M3 16l5-4 4 3 3-2 6 4',
+  trash: 'M4 7h16 M9 7V4h6v3 M7 7l1 14h8l1-14 M10 11v6 M14 11v6',
+  refresh: 'M20 7v5h-5 M4 17v-5h5 M6.1 8a7 7 0 0 1 11.4-2.2L20 8 M4 16l2.5 2.2A7 7 0 0 0 17.9 16',
+  search: 'M11 19a8 8 0 1 0 0-16 8 8 0 0 0 0 16Z M21 21l-4.4-4.4',
 } as const;
 
 export type IconName = keyof typeof PATHS;

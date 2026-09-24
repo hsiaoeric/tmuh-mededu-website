@@ -1,8 +1,8 @@
 import { useLayoutEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { useSite } from '@/app/site';
+import { publicCenterById, usePublicCenters } from '@/app/publicCenters';
 import { CENTER_ORDER, centerPath } from '@/app/routes';
-import { centerById } from '@/data/centers';
 import { gsap, prefersReducedMotion } from '@/motion/gsap';
 import { SplitLines } from '@/motion/SplitLines';
 import { Reveal } from '@/motion/Reveal';
@@ -10,7 +10,8 @@ import { scrollToId } from '@/motion/smoothScroll';
 import { Icon } from '@/ui/Icon';
 
 export function Hero() {
-  const { isZh, t } = useSite();
+  const { isZh, lang, t } = useSite();
+  const centers = usePublicCenters(lang);
   const rootRef = useRef<HTMLDivElement>(null);
 
   // Scrub the hero out as the page leaves it: the type lifts and dissolves so
@@ -102,7 +103,7 @@ export function Hero() {
                 {isZh ? '五大中心' : 'FIVE CENTERS'}
               </span>
               {CENTER_ORDER.map((id) => {
-                const c = centerById(id)!;
+                const c = publicCenterById(centers, id);
                 return (
                   <Link
                     key={id}

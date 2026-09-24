@@ -1,12 +1,7 @@
 import { useState } from 'react';
 import { useSite, usePageTitle } from '@/app/site';
-import {
-  ANN_URL,
-  buildActivities,
-  buildAnnouncementCategories,
-  buildAnnouncements,
-  type AnnouncementCategory,
-} from '@/data/news';
+import { usePublicContentDocument } from '@/content';
+import type { AnnouncementCategory } from '@/data/news';
 import { Section, SectionHeader } from '@/ui/Section';
 import { ActivityCard, AnnouncementRow } from '@/ui/NewsParts';
 import { Reveal } from '@/motion/Reveal';
@@ -15,13 +10,14 @@ import { Icon } from '@/ui/Icon';
 export function AnnouncementsPage() {
   const { isZh, lang } = useSite();
   const [category, setCategory] = useState<AnnouncementCategory | 'all'>('all');
-  const announcements = buildAnnouncements(lang);
-  const categories = buildAnnouncementCategories(lang);
+  const news = usePublicContentDocument('news', 'announcements', lang).value;
+  const announcements = news.department;
+  const categories = news.categories.department;
   const visible =
     category === 'all'
       ? announcements
       : announcements.filter((item) => item.category === category);
-  const activities = buildActivities(lang);
+  const activities = usePublicContentDocument('activities', 'calendar', lang).value.department;
 
   usePageTitle(isZh ? '公告' : 'Announcements');
 
@@ -37,7 +33,7 @@ export function AnnouncementsPage() {
               : 'Department news, education activities and frequently used information.'
           }
           aside={
-            <a className="tlink" href={ANN_URL} target="_blank" rel="noreferrer">
+            <a className="tlink" href={news.announcementBoardUrl} target="_blank" rel="noreferrer">
               {isZh ? '對外看板' : 'Public board'}
               <Icon name="arrowUpRight" />
             </a>

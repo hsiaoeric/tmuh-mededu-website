@@ -75,10 +75,18 @@ values
     null
   );
 
-insert into storage.objects (bucket_id, name)
+insert into storage.objects (bucket_id, name, metadata)
 values
-  ('public-media', 'published/test-image.jpg'),
-  ('draft-media', 'draft/test-image.jpg');
+  (
+    'public-media',
+    'sha256/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.jpg',
+    '{"mimetype":"image/jpeg","size":1024}'
+  ),
+  (
+    'draft-media',
+    '11111111-1111-1111-1111-111111111111/bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb.jpg',
+    '{"mimetype":"image/jpeg","size":1024}'
+  );
 
 select has_table('public', 'cms_documents', 'generic document table exists');
 select has_table('public', 'cms_revisions', 'versioned revision table exists');
@@ -396,7 +404,12 @@ select results_eq(
   'administrators can read draft media metadata'
 );
 select lives_ok(
-  $$insert into storage.objects (bucket_id, name) values ('draft-media', 'draft/admin-upload.jpg')$$,
+  $$insert into storage.objects (bucket_id, name, metadata)
+    values (
+      'draft-media',
+      '11111111-1111-1111-1111-111111111111/cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc.jpg',
+      '{"mimetype":"image/jpeg","size":10485760}'
+    )$$,
   'administrators can write draft media'
 );
 reset role;

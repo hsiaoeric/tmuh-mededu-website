@@ -1,5 +1,6 @@
+import { publicCenterById, publicCenterExternalUrl, usePublicCenters } from '@/app/publicCenters';
 import { useSite, usePageTitle } from '@/app/site';
-import { CENTER_BRANCHES, CENTER_ICON, centerById, centerExternalUrl } from '@/data/centers';
+import { CENTER_ICON } from '@/data/centers';
 import type { CenterId } from '@/data/types';
 import { formatPhoneExt } from '@/utils/phone';
 import { Reveal } from '@/motion/Reveal';
@@ -14,9 +15,8 @@ import { Icon } from '@/ui/Icon';
  */
 export function GenericCenterPage({ id }: { id: CenterId }) {
   const { isZh, lang } = useSite();
-  const center = centerById(id)!;
-  const externalUrl = centerExternalUrl(id, isZh);
-  const branches = CENTER_BRANCHES[id];
+  const center = publicCenterById(usePublicCenters(lang), id);
+  const externalUrl = publicCenterExternalUrl(center, isZh);
   const name = isZh ? center.zh : center.en;
   usePageTitle(name);
 
@@ -52,7 +52,7 @@ export function GenericCenterPage({ id }: { id: CenterId }) {
           title={isZh ? '中心面向' : 'What the center covers'}
         />
         <Reveal variant="up" stagger={90} className="grid auto-fit">
-          {branches.map((b) => (
+          {center.branches.map((b) => (
             <div
               key={b.id}
               className="card card-hover stack gap-2"

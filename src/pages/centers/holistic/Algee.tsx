@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useSite } from '@/app/site';
-import { ALGEE, HOLISTIC_INSTRUCTORS, HOLISTIC_SEED } from '@/data/holistic';
+import type { PublicAdapterResultFor } from '@/content/adapters';
 import { Reveal } from '@/motion/Reveal';
 import { Section, SectionHeader } from '@/ui/Section';
 import { PersonCard } from '@/ui/Person';
@@ -13,25 +13,33 @@ const TEAL = '#4f8c7d';
  * The instructors and seed teachers used to sit in a separate section after
  * this one, which split the programme from its team.
  */
-export function Algee() {
-  const { t, isZh } = useSite();
+type HolisticStep = PublicAdapterResultFor<'holistic'>['value']['algee'][number];
+type HolisticPerson = PublicAdapterResultFor<'people'>['value']['holisticInstructors'][number];
+
+export function Algee({ steps, instructors, seedTeachers }: {
+  readonly steps: readonly HolisticStep[];
+  readonly instructors: readonly HolisticPerson[];
+  readonly seedTeachers: readonly HolisticPerson[];
+}) {
+  const { t } = useSite();
   const [step, setStep] = useState(0);
-  const active = ALGEE[step];
-  const [title, body] = isZh ? active.zh : active.en;
+  const active = steps[step];
+  const title = active.title;
+  const body = active.description;
 
   return (
     <Section id="mhfa">
       <SectionHeader index={RAIL_INDEX.mhfa} eyebrow="Mental Health First Aid" title={t.mhfaTitle} desc={t.mhfaIntro} />
 
       <Reveal variant="up" className="row gap-2 wrap" style={{ marginBottom: 40 }}>
-        {ALGEE.map((s, i) => (
+        {steps.map((s, i) => (
           <button
             key={i}
             className="algee-tile"
             data-on={i === step}
             onClick={() => setStep(i)}
             aria-pressed={i === step}
-            aria-label={`${s.letter} — ${isZh ? s.zh[0] : s.en[0]}`}
+            aria-label={`${s.letter} — ${s.title}`}
           >
             {s.letter}
           </button>
@@ -42,7 +50,7 @@ export function Algee() {
         <Reveal variant="left">
           <div className="stack gap-2">
             <span className="mono" style={{ fontSize: '0.68rem', letterSpacing: '.2em', color: 'var(--accent)' }}>
-              STEP {step + 1} / {ALGEE.length}
+              STEP {step + 1} / {steps.length}
             </span>
             <h3 className="display d3">{title}</h3>
           </div>
@@ -56,7 +64,7 @@ export function Algee() {
       <div className="stack gap-3" style={{ marginTop: 'clamp(56px, 8vw, 104px)' }}>
         <h3 className="display d3">{t.instructorsTitle}</h3>
         <Reveal variant="up" stagger={90} className="grid grid-people" style={{ maxWidth: 620 }}>
-          {HOLISTIC_INSTRUCTORS.map((p, i) => (
+          {instructors.map((p, i) => (
             <PersonCard key={`${p.en}-${i}`} person={p} accent={TEAL} />
           ))}
         </Reveal>
@@ -70,13 +78,13 @@ export function Algee() {
           </div>
           <span className="stat" style={{ ['--tone' as string]: TEAL }}>
             <span className="stat-num" style={{ fontSize: '2.6rem' }}>
-              {HOLISTIC_SEED.length}
+              {seedTeachers.length}
             </span>
           </span>
         </div>
 
         <Reveal variant="up" stagger={50} className="grid grid-people" style={{ marginTop: 12 }}>
-          {HOLISTIC_SEED.map((p, i) => (
+          {seedTeachers.map((p, i) => (
             <PersonCard key={`${p.en}-${i}`} person={p} accent={TEAL} hideRole />
           ))}
         </Reveal>

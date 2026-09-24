@@ -25,7 +25,7 @@ export function PageHero({
   scrollTo: string;
   meta?: ReactNode;
 }) {
-  const { isZh } = useSite();
+  const { isZh, t } = useSite();
 
   return (
     <header
@@ -44,7 +44,7 @@ export function PageHero({
         <Reveal variant="fade">
           <Link className="tlink" to="/" style={{ color: 'var(--muted)' }}>
             <Icon name="arrow" style={{ transform: 'rotate(180deg)' }} />
-            {isZh ? '返回教學部' : 'Back to the department'}
+            {t.backDept}
           </Link>
         </Reveal>
 

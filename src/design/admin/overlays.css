@@ -1,0 +1,41 @@
+.admin-dialog-layer,
+.admin-drawer-layer { position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; }
+.admin-dialog-backdrop,
+.admin-drawer-backdrop { position: absolute; inset: 0; inline-size: 100%; block-size: 100%; cursor: default; background: color-mix(in srgb, var(--bg-deep) 72%, transparent); animation: admin-fade-in 0.2s ease both; }
+.admin-dialog { position: relative; display: grid; grid-template-rows: auto minmax(0, 1fr) auto; inline-size: min(calc(100% - var(--admin-space-4)), 34rem); max-block-size: calc(100dvb - var(--admin-space-5)); border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--surface); box-shadow: var(--shadow-lg); animation: admin-dialog-in 0.3s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.admin-dialog > header { display: flex; justify-content: space-between; gap: var(--admin-space-3); padding: var(--admin-space-4); border-block-end: 1px solid var(--line-soft); }
+.admin-dialog h2 { color: var(--ink); font-size: 1rem; line-height: 1.4; }
+.admin-dialog header p,
+.admin-dialog-body { color: var(--muted); font-size: 0.82rem; line-height: 1.6; }
+.admin-dialog-body { min-block-size: 0; overflow: auto; padding: var(--admin-space-4); }
+.admin-dialog-actions { justify-content: flex-end; padding: var(--admin-space-3) var(--admin-space-4); border-block-start: 1px solid var(--line-soft); background: var(--surface-2); }
+.admin-toast { display: grid; grid-template-columns: var(--admin-control-h) minmax(0, 1fr) auto; align-items: center; gap: var(--admin-space-3); inline-size: min(100%, 28rem); margin-inline-start: auto; padding: var(--admin-space-3); border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--surface); box-shadow: var(--shadow-md); }
+.admin-toast > svg { justify-self: center; color: var(--accent); }
+.admin-toast-stack { display: grid; gap: var(--admin-space-2); }
+
+.admin-media-picker { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(12rem, 100%), 1fr)); gap: var(--admin-space-3); padding: var(--admin-space-3); border: 1px solid var(--line-soft); border-radius: var(--radius-lg); background: var(--surface-2); }
+.admin-media-picker[data-picker-state='disabled'] { background: var(--surface-sunk); }
+.admin-media-preview { position: relative; display: grid; place-items: center; aspect-ratio: 4 / 3; overflow: hidden; border: 1px solid var(--admin-control-line); border-radius: var(--radius); background: var(--surface-sunk); }
+.admin-media-preview img { position: absolute; inset: var(--admin-space-4); inline-size: calc(100% - var(--admin-space-4) - var(--admin-space-4)); block-size: calc(100% - var(--admin-space-4) - var(--admin-space-4)); max-inline-size: none; object-fit: contain; object-position: center; }
+.admin-media-preview > span { display: flex; flex-direction: column; align-items: center; gap: var(--admin-space-2); color: var(--faint); font-size: 0.82rem; }
+.admin-media-preview svg { font-size: 1.75rem; }
+.admin-media-copy { display: flex; flex-direction: column; justify-content: center; min-inline-size: 0; gap: var(--admin-space-3); }
+.admin-media-action:focus-within { outline: 2px solid var(--accent-bright); outline-offset: 3px; }
+.admin-media-feedback { display: flex; align-items: flex-start; align-self: stretch; gap: var(--admin-space-2); min-inline-size: 0; max-inline-size: 100%; padding: var(--admin-space-2); border: 1px solid var(--line); border-radius: var(--radius); color: var(--body); background: var(--surface); font-family: 'Inter', 'Noto Sans TC', system-ui, sans-serif; font-size: 0.7rem; line-height: 1.5; white-space: normal; overflow-wrap: anywhere; }
+.admin-media-feedback[data-media-state='success'] { color: var(--accent); border-color: color-mix(in srgb, var(--accent) 42%, var(--line)); background: var(--accent-wash); }
+.admin-media-feedback[data-media-state='error'] { color: var(--admin-warning-ink); border-color: color-mix(in srgb, var(--amber) 48%, var(--line)); background: var(--amber-wash); }
+.admin-media-feedback svg { flex: none; margin-block-start: var(--admin-space-1); }
+
+.admin-drawer-layer { display: none; place-items: stretch start; }
+.admin-drawer { position: relative; display: grid; grid-template-rows: auto minmax(0, 1fr); inline-size: min(86vw, var(--admin-nav-w)); block-size: 100%; border-inline-end: 1px solid var(--line); background: var(--surface-sunk); box-shadow: var(--shadow-lg); animation: admin-drawer-in 0.3s cubic-bezier(0.16, 1, 0.3, 1) both; overflow: hidden; }
+.admin-drawer .admin-sidenav { overflow-y: auto; overscroll-behavior: contain; }
+.admin-sidenav[data-drawer]:focus-visible { outline: 2px solid var(--accent-bright); outline-offset: -3px; }
+.admin-drawer-header { display: flex; justify-content: flex-end; padding: var(--admin-space-2) var(--admin-space-3) 0; }
+.admin-route-loading { display: grid; place-items: center; flex: 1 1 auto; min-block-size: 0; padding: var(--admin-space-5); background: var(--bg); color: var(--body); }
+.admin-route-loading-content { display: grid; justify-items: center; gap: var(--admin-space-2); max-inline-size: 28rem; text-align: center; }
+.admin-route-loading-content .admin-loading-mark { color: var(--accent); font-size: 1.5rem; }
+.admin-route-loading-content p { color: var(--muted); font-size: 0.82rem; line-height: 1.6; }
+:where(.admin-page-header p, .admin-section-heading p, .admin-notice p, .admin-state-panel p, .admin-toast p, .admin-media-copy p, .admin-sidenav-note p, .admin-dialog p):lang(zh-Hant) { word-break: auto-phrase; overflow-wrap: break-word; text-wrap: pretty; }
+@keyframes admin-fade-in { from { opacity: 0; } }
+@keyframes admin-dialog-in { from { opacity: 0; transform: scale(0.98) translateY(var(--admin-space-2)); } }
+@keyframes admin-drawer-in { from { opacity: 0; transform: translateX(-100%); } }

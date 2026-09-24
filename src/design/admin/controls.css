@@ -1,0 +1,94 @@
+.admin-button,
+.admin-icon-button { min-block-size: var(--admin-control-h); border: 1px solid var(--admin-control-line); border-radius: var(--radius); font-size: 0.82rem; font-weight: 600; line-height: 1.4; transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease, transform 0.2s ease; }
+.admin-button { display: inline-flex; align-items: center; justify-content: center; gap: var(--admin-space-2); padding-inline: var(--admin-space-3); color: var(--ink); background: var(--surface-2); white-space: nowrap; }
+.admin-button[data-variant='primary'] { color: var(--on-accent); background: var(--accent); border-color: var(--accent); }
+.admin-button[data-variant='quiet'] { color: var(--accent); background: transparent; border-color: transparent; }
+.admin-button[data-variant='warning'] { color: var(--admin-warning-ink); background: var(--amber-wash); border-color: color-mix(in srgb, var(--amber) 48%, var(--line)); }
+.admin-button:hover:not(:disabled),
+.admin-icon-button:hover:not(:disabled) { border-color: var(--accent); background: var(--accent-veil); color: var(--ink); }
+.admin-button[data-variant='primary']:hover:not(:disabled) { color: var(--on-accent); background: var(--accent-bright); border-color: var(--accent-bright); }
+.admin-button:active:not(:disabled),
+.admin-icon-button:active:not(:disabled) { color: var(--ink); background: var(--accent-wash); border-color: var(--accent-deep); box-shadow: inset 0 0 0 2px var(--accent); transform: scale(0.98); }
+.admin-button[data-variant='primary']:active:not(:disabled) { color: var(--on-accent); background: var(--accent-deep); border-color: var(--accent-deep); box-shadow: inset 0 0 0 2px color-mix(in srgb, var(--on-accent) 34%, transparent); }
+.admin-button[data-variant='quiet']:active:not(:disabled) { color: var(--accent-deep); background: var(--accent-wash); border-color: var(--accent-deep); }
+.admin-button[data-variant='warning']:active:not(:disabled) { color: var(--admin-warning-ink); background: color-mix(in srgb, var(--amber-wash) 72%, var(--amber)); border-color: var(--amber); box-shadow: inset 0 0 0 2px color-mix(in srgb, var(--amber) 52%, transparent); }
+.admin-button:disabled,
+.admin-icon-button:disabled,
+.admin-button[aria-disabled='true'] { cursor: not-allowed; color: var(--muted); background: var(--surface-sunk); border-color: var(--line-soft); }
+.admin-icon-button { display: inline-grid; place-items: center; inline-size: var(--admin-control-h); padding: 0; color: var(--body); background: var(--surface); }
+.admin-icon-button[aria-pressed='true'] { color: var(--accent); border-color: var(--accent); background: var(--accent-wash); }
+.admin-button-icon:empty { display: none; }
+.admin-loading-mark { display: block; inline-size: 1em; block-size: 1em; border: 2px solid currentColor; border-inline-end-color: transparent; border-radius: 50%; animation: admin-spin 0.8s linear infinite; }
+@keyframes admin-spin { to { transform: rotate(360deg); } }
+
+.admin-form-layout { display: flex; flex-direction: column; gap: var(--admin-space-4); }
+.admin-bilingual { min-inline-size: 0; padding: 0; border: 0; }
+.admin-bilingual legend,
+.admin-media-copy h3 { color: var(--ink); font-weight: 700; }
+.admin-bilingual-grid,
+.admin-field-grid,
+.admin-state-grid,
+.admin-media-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(18rem, 100%), 1fr)); gap: var(--admin-space-3); }
+.admin-bilingual-grid { margin-block-start: var(--admin-space-3); }
+.admin-bilingual-grid > div { min-inline-size: 0; padding: var(--admin-space-3); border-inline-start: 2px solid var(--line); background: var(--surface-2); }
+.admin-language-key { display: block; margin-block-end: var(--admin-space-2); color: var(--accent); }
+.admin-field { display: flex; flex-direction: column; min-inline-size: 0; gap: var(--admin-space-2); }
+.admin-field-label { display: flex; align-items: baseline; justify-content: space-between; gap: var(--admin-space-2); color: var(--ink); font-size: 0.82rem; font-weight: 600; line-height: 1.5; }
+.admin-required { font-family: 'IBM Plex Mono', 'Noto Sans TC', ui-monospace, monospace; font-size: 0.7rem; color: var(--admin-warning-ink); }
+.admin-control { inline-size: 100%; min-block-size: var(--admin-control-h); padding: var(--admin-space-2) var(--admin-space-3); border: 1px solid var(--admin-control-line); border-radius: var(--radius); background: var(--surface); color: var(--ink); font-family: 'Inter', 'Noto Sans TC', system-ui, sans-serif; font-size: 0.82rem; line-height: 1.5; transition: border-color 0.2s ease, background 0.2s ease; }
+.admin-control:hover:not(:disabled):not(:read-only) { border-color: var(--accent); }
+.admin-control:disabled,
+.admin-control:read-only { color: var(--faint); background: var(--surface-sunk); }
+.admin-field[data-field-state='error'] .admin-control,
+.admin-field[data-field-state='warning'] .admin-control { border-color: var(--amber); background: var(--amber-wash); }
+.admin-field[data-field-state='valid'] .admin-control { border-color: var(--accent); background: var(--accent-wash); }
+.admin-textarea { min-block-size: calc(var(--admin-control-h) * 2.5); resize: vertical; }
+.admin-textarea[lang='zh-Hant'] { overflow-wrap: break-word; word-break: auto-phrase; }
+.admin-field-message { color: var(--muted); font-size: 0.7rem; line-height: 1.5; }
+.admin-field-error { color: var(--admin-warning-ink); font-weight: 600; }
+.admin-control[type='date'] { color-scheme: light; }
+[data-theme='dark'] .admin-control[type='date'] { color-scheme: dark; }
+
+.admin-check { display: grid; grid-template-columns: var(--admin-control-h) minmax(0, 1fr); align-items: center; min-block-size: var(--admin-control-h); cursor: pointer; }
+.admin-check input { position: absolute; inline-size: 1px; block-size: 1px; overflow: hidden; clip-path: inset(50%); }
+.admin-check-mark { display: grid; place-items: center; inline-size: 1.2rem; block-size: 1.2rem; justify-self: center; border: 1px solid var(--admin-control-line); border-radius: var(--radius); background: var(--surface); }
+.admin-check-glyph { color: var(--on-accent); opacity: 0; }
+.admin-check input:checked + .admin-check-mark { border-color: var(--accent); background: var(--accent); box-shadow: inset 0 0 0 var(--admin-space-1) var(--surface); }
+.admin-check input:checked + .admin-check-mark .admin-check-glyph { opacity: 1; }
+.admin-check[data-switch] .admin-check-mark { inline-size: calc(var(--admin-control-h) - var(--admin-space-1)); border-radius: 999px; box-shadow: inset calc(var(--admin-control-h) * -0.45) 0 0 calc(var(--admin-control-h) * -0.2) var(--faint); }
+.admin-check[data-switch] input:checked + .admin-check-mark { background: var(--accent-wash); box-shadow: inset calc(var(--admin-control-h) * 0.45) 0 0 calc(var(--admin-control-h) * -0.2) var(--accent); }
+.admin-check input:focus-visible + .admin-check-mark { outline: 2px solid var(--accent-bright); outline-offset: 3px; }
+.admin-check[data-disabled='true'] { padding-inline: var(--admin-space-2); cursor: not-allowed; color: var(--faint); background: var(--surface-sunk); border: 1px solid var(--line-soft); border-radius: var(--radius); }
+.admin-check[data-disabled='true'] .admin-check-mark { color: var(--faint); background: var(--surface-sunk); border-color: var(--line-soft); box-shadow: none; }
+.admin-check[data-disabled='true'] strong,
+.admin-check[data-disabled='true'] small { color: var(--faint); }
+.admin-check strong,
+.admin-check small { display: block; line-height: 1.5; }
+.admin-check strong { color: var(--ink); font-size: 0.82rem; }
+.admin-check small { color: var(--muted); font-size: 0.7rem; }
+
+.admin-status { display: inline-flex; align-items: center; gap: var(--admin-space-1); min-block-size: calc(var(--admin-control-h) - var(--admin-space-3)); padding-inline: var(--admin-space-2); border: 1px solid var(--line); border-radius: 999px; background: var(--surface-2); color: var(--body); font-family: 'IBM Plex Mono', 'Noto Sans TC', ui-monospace, monospace; font-size: 0.7rem; line-height: 1.4; white-space: nowrap; }
+.admin-status[data-status='success'],
+.admin-status[data-status='info'] { color: var(--accent); border-color: color-mix(in srgb, var(--accent) 42%, var(--line)); background: var(--accent-wash); }
+.admin-status[data-status='warning'],
+.admin-status[data-status='error'] { color: var(--admin-warning-ink); border-color: color-mix(in srgb, var(--amber) 48%, var(--line)); background: var(--amber-wash); }
+.admin-status[data-status='disabled'] { color: var(--faint); background: var(--surface-sunk); }
+.admin-notice { display: grid; grid-template-columns: var(--admin-control-h) minmax(0, 1fr) auto; align-items: center; gap: var(--admin-space-3); padding: var(--admin-space-3); border: 1px solid var(--line); border-inline-start: var(--admin-space-1) solid var(--accent); border-radius: var(--radius); background: var(--surface); }
+.admin-notice[data-status='warning'],
+.admin-notice[data-status='error'] { border-inline-start-color: var(--amber); background: var(--amber-wash); }
+.admin-notice > svg { justify-self: center; color: var(--accent); }
+.admin-notice[data-status='warning'] > svg,
+.admin-notice[data-status='error'] > svg { color: var(--admin-warning-ink); }
+.admin-notice-copy { min-inline-size: 0; }
+.admin-notice strong,
+.admin-state-panel h3,
+.admin-toast strong { color: var(--ink); font-size: 0.82rem; }
+.admin-notice p,
+.admin-state-panel p,
+.admin-toast p,
+.admin-media-copy p { color: var(--muted); font-size: 0.7rem; line-height: 1.55; }
+.admin-state-panel { display: grid; grid-template-columns: var(--admin-control-h) minmax(0, 1fr); align-content: start; gap: var(--admin-space-3); min-block-size: 10rem; padding: var(--admin-space-3); border: 1px solid var(--line-soft); border-radius: var(--radius-lg); background: var(--surface-2); }
+.admin-state-panel .admin-button { grid-column: 1 / -1; justify-self: start; }
+.admin-state-icon { display: grid; place-items: center; inline-size: var(--admin-control-h); block-size: var(--admin-control-h); color: var(--accent); border: 1px solid var(--line); border-radius: 50%; background: var(--surface); }
+.admin-state-panel[data-state='error'] .admin-state-icon,
+.admin-state-panel[data-state='filtered-empty'] .admin-state-icon { color: var(--admin-warning-ink); background: var(--amber-wash); }

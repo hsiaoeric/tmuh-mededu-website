@@ -130,7 +130,7 @@ ol {
 }
 
 .eyebrow {
-  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-family: 'IBM Plex Mono', 'Noto Sans TC', ui-monospace, monospace;
   font-size: 0.74rem;
   font-weight: 500;
   letter-spacing: 0.24em;
@@ -139,7 +139,7 @@ ol {
 }
 
 .mono {
-  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-family: 'IBM Plex Mono', 'Noto Sans TC', ui-monospace, monospace;
   font-variant-numeric: tabular-nums;
 }
 
@@ -275,12 +275,19 @@ ol {
    sizes, which a fixed `ch` value cannot do. */
 .measure:lang(zh-Hant) {
   max-width: 42em;
+  text-wrap: pretty;
+  word-break: auto-phrase;
+}
+.lede.measure:lang(zh-Hant) {
+  text-wrap: balance;
 }
 .title-measure {
   max-width: 18ch;
 }
 .title-measure:lang(zh-Hant) {
   max-width: 13em;
+  text-wrap: balance;
+  word-break: auto-phrase;
 }
 .hero-measure {
   max-width: 14ch;
@@ -408,6 +415,11 @@ ol {
 @media (max-width: 520px) {
   .g4 {
     grid-template-columns: minmax(0, 1fr);
+  }
+  #top .lede.measure:lang(zh-Hant) {
+    text-wrap: pretty;
+    word-break: keep-all;
+    overflow-wrap: break-word;
   }
   body {
     font-size: 0.94rem;

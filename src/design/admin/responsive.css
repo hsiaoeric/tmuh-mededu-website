@@ -1,0 +1,87 @@
+@media (max-width: 900px) {
+  .admin-shell { grid-template-columns: minmax(0, 1fr); }
+  .admin-skip-slot,
+  .admin-shell-column { grid-column: 1; }
+  .admin-desktop-nav { display: none; }
+  .admin-icon-button.admin-menu-trigger,
+  .admin-drawer-layer { display: grid; }
+  .admin-page-header { grid-template-columns: minmax(0, 1fr); }
+  .admin-header-tools .admin-save-status,
+  .admin-header-location > span { display: none; }
+  .admin-mobile-label { display: inline; }
+}
+
+@media (max-width: 620px) {
+  .admin-main { padding: var(--admin-space-4) var(--admin-space-3); }
+  .admin-header-tools .admin-button[data-variant='quiet'] { min-inline-size: var(--admin-control-h); padding-inline: var(--admin-space-2); color: var(--body); border-color: var(--line); background: var(--surface); }
+  .admin-page-header,
+  .admin-showcase-section { padding-block-end: var(--admin-space-4); }
+  .admin-showcase-section { padding-block-start: var(--admin-space-4); }
+  .admin-surface { padding: var(--admin-space-3); }
+  .admin-bilingual-grid,
+  .admin-field-grid,
+  .admin-state-grid,
+  .admin-media-grid { grid-template-columns: minmax(0, 1fr); }
+  .admin-toolbar > .admin-field,
+  .admin-toolbar > .admin-button { flex-basis: 100%; }
+  .admin-toolbar > .admin-button { inline-size: 100%; }
+  .admin-table-view { display: none; }
+  .admin-record-view { display: block; }
+  .admin-record-list li { grid-template-columns: minmax(0, 1fr) var(--admin-control-h); }
+  .admin-record-list .admin-status { grid-column: 1; justify-self: start; }
+  .admin-record-list .admin-icon-button { grid-column: 2; grid-row: 1 / span 2; }
+  .admin-notice { grid-template-columns: minmax(0, 1fr); align-items: start; gap: var(--admin-space-2); }
+  .admin-notice > svg { justify-self: start; }
+  .admin-notice-copy,
+  .admin-notice-action { grid-column: 1; inline-size: 100%; }
+  .admin-media-picker { grid-template-columns: minmax(0, 1fr); }
+  .admin-toast { grid-template-columns: var(--admin-control-h) minmax(0, 1fr) var(--admin-control-h); margin-inline: 0; }
+}
+
+@media (max-width: 420px) {
+  .admin-header { flex: 0 0 auto; min-block-size: var(--admin-header-h); flex-wrap: wrap; gap: var(--admin-space-1); padding-block: var(--admin-space-2); padding-inline: var(--admin-space-2); }
+  .admin-header-location,
+  .admin-header-tools { gap: var(--admin-space-1); }
+  .admin-header-location { flex: 1 1 auto; }
+  .admin-header-tools { flex: 1 1 100%; min-inline-size: 0; justify-content: flex-end; flex-wrap: wrap; }
+  .admin-header-tools .admin-button { max-inline-size: 100%; white-space: normal; }
+  .admin-mobile-label { display: none; }
+  .admin-page-header > div:first-child,
+  .admin-page-header .admin-cluster { min-inline-size: 0; }
+  .admin-page-eyebrow { display: block; max-inline-size: 100%; overflow-wrap: anywhere; }
+  .admin-workspace-title-label { white-space: normal; }
+  .admin-page-header .admin-button { max-inline-size: 100%; white-space: normal; }
+  .admin-bilingual-grid > div { padding: var(--admin-space-2); }
+  .admin-field-label { align-items: flex-start; flex-wrap: wrap; }
+}
+
+@media (max-width: 220px) {
+  .admin-default-copy { display: none; }
+  .admin-narrow-copy { display: inline; }
+  .admin-main { padding-inline: var(--admin-space-1); }
+  .admin-notice { padding: var(--admin-space-2); }
+  .admin-button { min-inline-size: 0; max-inline-size: 100%; white-space: normal; }
+  .admin-surface,
+  .admin-media-picker,
+  .admin-state-panel,
+  .admin-toast,
+  .admin-bilingual-grid > div { padding: var(--admin-space-2); }
+  .admin-state-panel,
+  .admin-toast,
+  .admin-check { grid-template-columns: minmax(0, 1fr); }
+  .admin-state-icon,
+  .admin-toast > svg,
+  .admin-check-mark { justify-self: start; }
+  .admin-field-label { flex-wrap: wrap; }
+  .admin-media-copy h3 { overflow-wrap: anywhere; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .admin-shell,
+  .admin-shell *,
+  .admin-shell *::before,
+  .admin-shell *::after { animation: none !important; transition: none !important; }
+  .admin-main,
+  .admin-drawer .admin-sidenav { scroll-behavior: auto; }
+  .admin-loading-mark { animation: none; border-inline-end-color: currentColor; }
+}

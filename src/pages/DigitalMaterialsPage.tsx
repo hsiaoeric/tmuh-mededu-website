@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useSite, usePageTitle } from '@/app/site';
+import { usePublicContentDocument } from '@/content';
 import { SplitLines } from '@/motion/SplitLines';
 import { Reveal } from '@/motion/Reveal';
 import { Icon } from '@/ui/Icon';
@@ -9,8 +10,9 @@ import { Icon } from '@/ui/Icon';
  * plainly rather than shipping an empty shell.
  */
 export function DigitalMaterialsPage() {
-  const { isZh } = useSite();
-  usePageTitle(isZh ? '數位教材室' : 'Digital Learning Materials Studio');
+  const { lang } = useSite();
+  const content = usePublicContentDocument('digital_materials', 'page', lang).value;
+  usePageTitle(content.title);
 
   return (
     <div
@@ -22,9 +24,9 @@ export function DigitalMaterialsPage() {
       }}
     >
       <div className="shell stack gap-3">
-        <span className="eyebrow">Digital Learning Materials</span>
+        <span className="eyebrow">{content.eyebrow}</span>
         <SplitLines as="h1" className="display d2 title-measure" immediate>
-          {isZh ? '數位教材室' : 'Digital Learning Materials Studio'}
+          {content.title}
         </SplitLines>
 
         <Reveal variant="up" delay={200}>
@@ -32,20 +34,18 @@ export function DigitalMaterialsPage() {
             <span className="row gap-2" style={{ color: 'var(--accent)' }}>
               <Icon name="clipboard" size={16} />
               <span className="eyebrow" style={{ color: 'var(--accent)' }}>
-                {isZh ? '網頁建置中' : 'Page under construction'}
+                {content.status}
               </span>
             </span>
             <p className="tiny">
-              {isZh
-                ? '本頁內容仍在彙整中，完成後將於此發布。'
-                : 'The content of this page is still being gathered and will be published here once ready.'}
+              {content.body}
             </p>
           </div>
         </Reveal>
 
         <Reveal variant="up" delay={300}>
           <Link className="btn btn-ghost" to="/" style={{ alignSelf: 'flex-start' }}>
-            {isZh ? '返回教學部' : 'Back to the department'}
+            {content.backLabel}
             <Icon name="arrow" />
           </Link>
         </Reveal>

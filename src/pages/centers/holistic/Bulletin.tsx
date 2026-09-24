@@ -1,5 +1,5 @@
 import { useSite } from '@/app/site';
-import { buildActivities, buildAnnouncements } from '@/data/news';
+import type { PublicAdapterResultFor } from '@/content/adapters';
 import { Reveal } from '@/motion/Reveal';
 import { Section, SectionHeader } from '@/ui/Section';
 import { ActivityCard, AnnouncementRow } from '@/ui/NewsParts';
@@ -13,9 +13,10 @@ import { RAIL_INDEX } from './rail';
  */
 
 /** 近期活動 — courses and talks the centre is running. */
-export function Activities() {
-  const { lang, isZh } = useSite();
-  const activities = buildActivities(lang, 'holistic');
+export function Activities({ activities }: {
+  readonly activities: PublicAdapterResultFor<'activities'>['value']['holistic'];
+}) {
+  const { isZh } = useSite();
   if (!activities.length) return null;
 
   return (
@@ -40,9 +41,10 @@ export function Activities() {
 }
 
 /** 國際合作 — cross-border exchange and collaboration. */
-export function International() {
-  const { lang, isZh } = useSite();
-  const items = buildAnnouncements(lang, 'holistic');
+export function International({ items }: {
+  readonly items: PublicAdapterResultFor<'news'>['value']['holistic'];
+}) {
+  const { isZh } = useSite();
   if (!items.length) return null;
 
   return (
@@ -59,7 +61,7 @@ export function International() {
       />
       <div className="stack" style={{ gap: 0 }}>
         {items.map((a, i) => (
-          <AnnouncementRow key={`${a.title}-${i}`} item={a} />
+          <AnnouncementRow key={`${a.title}-${i}`} item={{ ...a, lines: [...a.lines] }} />
         ))}
       </div>
     </Section>

@@ -2,12 +2,16 @@ import type { Activity, Announcement } from '@/data/news';
 import { Reveal } from '@/motion/Reveal';
 import { Icon } from './Icon';
 
+type AnnouncementRowItem = Readonly<Omit<Announcement, 'lines'>> & {
+  readonly lines: readonly string[];
+};
+
 /**
  * One announcement: tags and figures in a left column, the headline and its
  * bullets alongside. Shared by the department's home listing and the centre
  * pages that carry announcements of their own.
  */
-export function AnnouncementRow({ item }: { item: Announcement }) {
+export function AnnouncementRow({ item }: { readonly item: AnnouncementRowItem }) {
   const tone = item.pinned ? 'var(--amber)' : 'var(--accent)';
 
   return (

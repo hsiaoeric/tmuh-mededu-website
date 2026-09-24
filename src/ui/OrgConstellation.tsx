@@ -1,10 +1,12 @@
 import { useMemo } from 'react';
+import { publicCenterById, type PublicCenter } from '@/app/publicCenters';
 import { useSite } from '@/app/site';
 import { ORG_ORDER } from '@/app/routes';
-import { centerById, CENTER_BRANCHES, CENTER_ICON } from '@/data/centers';
+import { CENTER_ICON } from '@/data/centers';
 import type { CenterId } from '@/data/types';
 import { Reveal } from '@/motion/Reveal';
 import { Icon } from './Icon';
+import { useMediaQuery } from './useMediaQuery';
 
 const VB = { w: 1000, h: 660 };
 const HUB = { x: 500, y: 330, r: 62 };
@@ -50,18 +52,20 @@ function filament(node: NodePos) {
 }
 
 interface Props {
-  active: CenterId | null;
-  onSelect: (id: CenterId) => void;
+  readonly centers: readonly PublicCenter[];
+  readonly active: CenterId | null;
+  readonly onSelect: (id: CenterId) => void;
 }
 
-export function OrgConstellation({ active, onSelect }: Props) {
+export function OrgConstellation({ centers, active, onSelect }: Props) {
   const { isZh, t } = useSite();
+  const narrow = useMediaQuery('(max-width: 780px)');
   const nodes = useMemo(layout, []);
 
   return (
     <>
       {/* Diagram — hidden on narrow screens in favour of the list below. */}
-      <div className="org-svg-wrap">
+      {!narrow && <div className="org-svg-wrap">
         <svg
           viewBox={`0 0 ${VB.w} ${VB.h}`}
           className="org-svg"
@@ -79,7 +83,7 @@ export function OrgConstellation({ active, onSelect }: Props) {
 
           {/* Links */}
           {nodes.map((n, i) => {
-            const center = centerById(n.id)!;
+            const center = publicCenterById(centers, n.id);
             const on = active === n.id;
             const d = filament(n);
             return (
@@ -133,7 +137,7 @@ export function OrgConstellation({ active, onSelect }: Props) {
 
           {/* Unit nodes */}
           {nodes.map((n) => {
-            const center = centerById(n.id)!;
+            const center = publicCenterById(centers, n.id);
             const on = active === n.id;
             const dim = active !== null && !on;
             const label = isZh ? center.zh : center.en;
@@ -189,13 +193,13 @@ export function OrgConstellation({ active, onSelect }: Props) {
             );
           })}
         </svg>
-      </div>
+      </div>}
 
       {/* Small-screen equivalent: the same six units as a tappable list. */}
-      <div className="org-list">
+      {narrow && <div className="org-list" id="hubGlow">
         <Reveal variant="up" stagger={60} className="stack" style={{ gap: 0 }}>
           {ORG_ORDER.map((id) => {
-            const c = centerById(id)!;
+            const c = publicCenterById(centers, id);
             const on = active === c.id;
             return (
               <button
@@ -214,7 +218,7 @@ export function OrgConstellation({ active, onSelect }: Props) {
                     {isZh ? c.zh : c.en}
                   </span>
                   <span className="mono" style={{ fontSize: '0.6rem', color: 'var(--faint)', letterSpacing: '.08em' }}>
-                    {CENTER_BRANCHES[c.id].length} {isZh ? '個面向' : 'facets'}
+                    {c.branches.length} {isZh ? '個面向' : 'facets'}
                   </span>
                 </span>
                 <Icon name={on ? 'minus' : 'plus'} size={15} style={{ marginLeft: 'auto', color: c.color }} />
@@ -222,7 +226,7 @@ export function OrgConstellation({ active, onSelect }: Props) {
             );
           })}
         </Reveal>
-      </div>
+      </div>}
     </>
   );
 }

@@ -100,7 +100,7 @@
   white-space: nowrap;
 }
 .brand-en {
-  font-family: 'IBM Plex Mono', monospace;
+  font-family: 'IBM Plex Mono', 'Noto Sans TC', monospace;
   font-size: 0.66rem;
   letter-spacing: 0.16em;
   text-transform: uppercase;
@@ -164,7 +164,7 @@
   padding-inline: 11px;
   border: 1px solid var(--line);
   border-radius: 999px;
-  font-family: 'IBM Plex Mono', monospace;
+  font-family: 'IBM Plex Mono', 'Noto Sans TC', monospace;
   font-size: 0.72rem;
   letter-spacing: 0.1em;
   color: var(--body);
@@ -199,7 +199,7 @@
 
 .nav-sheet {
   position: fixed;
-  inset: 0;
+  inset: var(--nav-h) 0 0;
   z-index: 55;
   background: color-mix(in srgb, var(--bg) 96%, transparent);
   backdrop-filter: blur(20px);
@@ -219,7 +219,7 @@
   overscroll-behavior: contain;
   -webkit-overflow-scrolling: touch;
   touch-action: pan-y;
-  padding: calc(var(--nav-h) + 24px) var(--edge) 40px;
+  padding: 24px var(--edge) 40px;
   /* Swipe still works; the gutter track itself is hidden. */
   scrollbar-width: none;
 }
@@ -534,7 +534,7 @@
   gap: 6px;
   padding: 4px 11px;
   border-radius: 999px;
-  font-family: 'IBM Plex Mono', monospace;
+  font-family: 'IBM Plex Mono', 'Noto Sans TC', ui-monospace, monospace;
   font-size: 0.7rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -659,7 +659,7 @@
   line-height: 1.5;
 }
 .stat-sub {
-  font-family: 'IBM Plex Mono', monospace;
+  font-family: 'IBM Plex Mono', 'Noto Sans TC', ui-monospace, monospace;
   font-size: 0.72rem;
   letter-spacing: 0.06em;
   color: var(--muted);
@@ -880,7 +880,7 @@
 }
 .table th {
   text-align: left;
-  font-family: 'IBM Plex Mono', monospace;
+  font-family: 'IBM Plex Mono', 'Noto Sans TC', ui-monospace, monospace;
   font-size: 0.7rem;
   font-weight: 500;
   letter-spacing: 0.16em;

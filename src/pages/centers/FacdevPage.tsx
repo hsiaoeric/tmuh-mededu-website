@@ -1,7 +1,8 @@
+import type { CSSProperties } from 'react';
 import { useSite, usePageTitle } from '@/app/site';
-import { centerById, CENTER_ICON } from '@/data/centers';
-import { buildFacdev } from '@/data/facdev';
+import { CENTER_ICON } from '@/data/centers';
 import { resolvePerson } from '@/data/people';
+import { usePublicContentDocument } from '@/content/usePublicContentDocument';
 import { Reveal } from '@/motion/Reveal';
 import { Section, SectionHeader } from '@/ui/Section';
 import { PageHero, ClosingContact } from '@/ui/PageParts';
@@ -9,13 +10,37 @@ import { Avatar, PersonCard } from '@/ui/Person';
 import { StatRow } from '@/ui/Stats';
 import { Icon, type IconName } from '@/ui/Icon';
 
-export function FacdevPage() {
-  const { isZh, lang } = useSite();
-  const f = buildFacdev(lang);
-  const center = centerById('faculty_dev')!;
-  usePageTitle(isZh ? center.zh : center.en);
+const FD_COLORS = {
+  clay: '#A87A6B', blue: '#7A95A8', sage: '#8FA898', ochre: '#B69B66',
+};
+const FD_KPI_TONES: readonly string[] = [FD_COLORS.clay, FD_COLORS.blue, FD_COLORS.sage, FD_COLORS.ochre];
+const FD_SERVICES: readonly { readonly icon: IconName; readonly tone: string }[] = [
+  { icon: 'cap', tone: FD_COLORS.clay }, { icon: 'award', tone: FD_COLORS.blue },
+  { icon: 'bulb', tone: FD_COLORS.ochre }, { icon: 'clipboard', tone: FD_COLORS.sage },
+];
+const FD_GROUP_TONES: readonly string[] = [
+  FD_COLORS.clay, FD_COLORS.blue, FD_COLORS.sage, FD_COLORS.ochre, '#9C6F8E', '#6E8A77',
+];
 
-  const tone = f.colors.clay;
+function toneStyle(tone: string): CSSProperties & { readonly '--tone': string } {
+  return { '--tone': tone };
+}
+
+function toneAt(tones: readonly string[], index: number): string {
+  return tones[index % tones.length] ?? FD_COLORS.clay;
+}
+
+export function FacdevPage() {
+  const { lang } = useSite();
+  const f = usePublicContentDocument('facdev', 'page', lang).value;
+  const centers = usePublicContentDocument('centers', 'directory', lang).value;
+  const people = usePublicContentDocument('people', 'directory', lang).value;
+  const center = centers.centers.find((candidate) => candidate.id === 'faculty_dev');
+  const centerPeople = people.centerPeople.find((group) => group.centerId === 'faculty_dev');
+  if (center === undefined || centerPeople === undefined) throw new TypeError('Missing faculty development center');
+  usePageTitle(center.name);
+
+  const tone = FD_COLORS.clay;
 
   return (
     <>
@@ -28,8 +53,8 @@ export function FacdevPage() {
         scrollTo="fd-about"
         meta={
           <div className="grid g2" style={{ gap: 18 }}>
-            {f.kpis.slice(0, 2).map((k) => (
-              <div className="stat" key={k.en} style={{ ['--tone' as string]: k.color }}>
+            {f.kpis.slice(0, 2).map((k, index) => (
+              <div className="stat" key={k.en} style={toneStyle(toneAt(FD_KPI_TONES, index))}>
                 <div className="stat-num" style={{ fontSize: 'clamp(2rem, 3.6vw, 2.8rem)' }}>
                   {k.num}
                 </div>
@@ -52,7 +77,7 @@ export function FacdevPage() {
               {f.membersTitle}
             </span>
             <Reveal variant="up" stagger={80} className="grid grid-people">
-              {center.people.map((p, i) => (
+              {centerPeople.people.map((p, i) => (
                 <PersonCard key={`${p.en}-${i}`} person={p} accent={tone} compact />
               ))}
             </Reveal>
@@ -62,12 +87,12 @@ export function FacdevPage() {
 
       <Section tight>
         <StatRow
-          items={f.kpis.map((k) => ({
+          items={f.kpis.map((k, index) => ({
             value: k.num,
             suffix: k.suffix,
             label: k.label,
             sub: k.en,
-            tone: k.color,
+            tone: toneAt(FD_KPI_TONES, index),
           }))}
         />
       </Section>
@@ -80,8 +105,10 @@ export function FacdevPage() {
           desc={f.servicesDesc}
         />
         <Reveal variant="up" stagger={90} className="grid g2">
-          {f.services.map((s, i) => (
-            <div key={s.title} className="card card-hover stack gap-2" style={{ ['--tone' as string]: s.tone }}>
+          {f.services.map((s, i) => {
+            const presentation = FD_SERVICES[i % FD_SERVICES.length] ?? FD_SERVICES[0];
+            return (
+            <div key={s.title} className="card card-hover stack gap-2" style={toneStyle(presentation.tone)}>
               <div className="row between">
                 <span
                   style={{
@@ -91,11 +118,11 @@ export function FacdevPage() {
                     alignItems: 'center',
                     justifyContent: 'center',
                     borderRadius: '50%',
-                    color: s.tone,
-                    background: `color-mix(in srgb, ${s.tone} 12%, transparent)`,
+                    color: presentation.tone,
+                    background: `color-mix(in srgb, ${presentation.tone} 12%, transparent)`,
                   }}
                 >
-                  <Icon name={s.icon as IconName} size={18} />
+                  <Icon name={presentation.icon} size={18} />
                 </span>
                 <span className="mono" style={{ fontSize: '0.68rem', color: 'var(--faint)' }}>
                   0{i + 1}
@@ -108,7 +135,8 @@ export function FacdevPage() {
                 {s.desc}
               </p>
             </div>
-          ))}
+            );
+          })}
         </Reveal>
       </Section>
 
@@ -124,7 +152,7 @@ export function FacdevPage() {
         <Reveal variant="fade" className="row center" style={{ marginBottom: 34 }}>
           <span
             className="tag"
-            style={{ ['--tone' as string]: tone, fontSize: '0.7rem', padding: '8px 18px' }}
+            style={{ ...toneStyle(tone), fontSize: '0.7rem', padding: '8px 18px' }}
           >
             <Icon name="cap" size={13} />
             {f.groupRoot}
@@ -132,10 +160,11 @@ export function FacdevPage() {
         </Reveal>
 
         <Reveal variant="up" stagger={80} className="grid g3">
-          {f.groups.map((g) => {
-            const lead = resolvePerson(g.lead, g.tone, lang);
+          {f.groups.map((g, index) => {
+            const groupTone = toneAt(FD_GROUP_TONES, index);
+            const lead = resolvePerson(g.lead, groupTone, lang);
             return (
-              <div key={g.name} className="card card-hover stack gap-2" style={{ ['--tone' as string]: g.tone }}>
+              <div key={g.name} className="card card-hover stack gap-2" style={toneStyle(groupTone)}>
                 <span className="row gap-2">
                   <span className="dot" />
                   <span style={{ fontFamily: "'Noto Sans TC',sans-serif", fontWeight: 700, color: 'var(--ink)' }}>
@@ -149,7 +178,7 @@ export function FacdevPage() {
                   className="row gap-2"
                   style={{ marginTop: 'auto', paddingTop: 16, borderTop: '1px solid var(--line-soft)' }}
                 >
-                  <Avatar person={g.lead} accent={g.tone} />
+                  <Avatar person={g.lead} accent={groupTone} />
                   <span className="stack" style={{ gap: 1, minWidth: 0 }}>
                     <span className="mono" style={{ fontSize: '0.6rem', letterSpacing: '.14em', color: 'var(--faint)' }}>
                       {f.groupLeadLabel}
@@ -178,7 +207,7 @@ export function FacdevPage() {
                 <span className="eyebrow" style={{ color: tone }}>
                   {b.eyebrow}
                 </span>
-                <span className="tag" style={{ ['--tone' as string]: 'var(--muted)' }}>
+                <span className="tag" style={toneStyle('var(--muted)')}>
                   {f.reservedTag}
                 </span>
               </div>

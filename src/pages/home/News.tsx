@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useSite } from '@/app/site';
 import { ANNOUNCEMENTS_PATH } from '@/app/routes';
-import { ANN_URL, buildActivities, buildAnnouncements, latestUpdate } from '@/data/news';
+import { usePublicContentDocument } from '@/content';
 import { Reveal } from '@/motion/Reveal';
 import { Section, SectionHeader } from '@/ui/Section';
 import { ActivityCard, AnnouncementRow } from '@/ui/NewsParts';
@@ -9,8 +9,9 @@ import { Icon } from '@/ui/Icon';
 
 export function News() {
   const { t, isZh, lang } = useSite();
-  const announcements = buildAnnouncements(lang).slice(0, 3);
-  const activities = buildActivities(lang);
+  const news = usePublicContentDocument('news', 'announcements', lang).value;
+  const announcements = news.department.slice(0, 3);
+  const activities = usePublicContentDocument('activities', 'calendar', lang).value.department;
 
   return (
     <Section id="news">
@@ -25,7 +26,7 @@ export function News() {
               {isZh ? '所有公告' : 'All announcements'}
               <Icon name="arrow" />
             </Link>
-            <a className="tlink" href={ANN_URL} target="_blank" rel="noreferrer">
+            <a className="tlink" href={news.announcementBoardUrl} target="_blank" rel="noreferrer">
               {isZh ? '常用看板' : 'Public board'}
               <Icon name="arrowUpRight" />
             </a>
@@ -49,7 +50,7 @@ export function News() {
               <h3 className="display d3">{t.eventsZh}</h3>
             </div>
             <span className="mono tiny">
-              {isZh ? '最後更新' : 'Updated'} {latestUpdate(lang)}
+              {isZh ? '最後更新' : 'Updated'} {news.latestUpdate}
             </span>
           </div>
           <p className="prose measure">{t.eventsDesc}</p>

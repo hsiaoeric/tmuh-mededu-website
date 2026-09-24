@@ -1,10 +1,9 @@
 import { Link } from 'react-router-dom';
+import { publicCenterById, publicCenterExternalUrl, usePublicCenters } from '@/app/publicCenters';
 import { useSite } from '@/app/site';
 import { useGoToSection } from '@/app/navigation';
 import { ANNOUNCEMENTS_PATH, CENTER_ORDER, HONORS_PATH } from '@/app/routes';
-import { centerById } from '@/data/centers';
-import { latestUpdate } from '@/data/news';
-import { MAIN_PHONE } from '@/utils/phone';
+import { usePublicContentDocument } from '@/content';
 import { Reveal } from '@/motion/Reveal';
 import { assetUrl } from '@/utils/asset';
 import { CenterLink } from './CenterLink';
@@ -32,14 +31,16 @@ const DESIGN_TEAM = [
 
 export function Footer() {
   const { isZh, t, lang } = useSite();
+  const centers = usePublicCenters(lang);
+  const latestUpdate = usePublicContentDocument('news', 'announcements', lang).value.latestUpdate;
   const goToSection = useGoToSection();
 
   const sections = [
-    { id: 'about', label: isZh ? '關於教學部' : 'About' },
-    { id: 'organisation', label: isZh ? '組織架構' : 'Structure' },
-    { id: 'news', label: isZh ? '最新公告' : 'News', path: ANNOUNCEMENTS_PATH },
+    { id: 'about', label: t.navAbout },
+    { id: 'organisation', label: t.navOrg },
+    { id: 'news', label: t.navNews, path: ANNOUNCEMENTS_PATH },
     { id: 'honors', label: isZh ? '品質榮譽' : 'Quality Honors', path: HONORS_PATH },
-    { id: 'contact', label: isZh ? '聯絡我們' : 'Contact' },
+    { id: 'contact', label: t.navContact },
   ];
 
   return (
@@ -59,18 +60,18 @@ export function Footer() {
               </div>
             </div>
             <div className="stack gap-1 tiny">
-              <span>{isZh ? t.footAddr : 'No. 252 Wuxing St., Xinyi Dist., Taipei 110301, Taiwan'}</span>
+              <span>{t.footAddr}</span>
               <a
                 className="tlink"
                 href={`tel:+886227372181`}
                 style={{ alignSelf: 'flex-start' }}
               >
                 <Icon name="phone" />
-                {MAIN_PHONE}
+                {t.footTel}
               </a>
             </div>
             <div className="mono" style={{ fontSize: '0.63rem', color: 'var(--faint)', letterSpacing: '.1em' }}>
-              {isZh ? '最後更新' : 'Last updated'} · {latestUpdate(lang)}
+              {isZh ? '最後更新' : 'Last updated'} · {latestUpdate}
             </div>
           </div>
 
@@ -79,17 +80,19 @@ export function Footer() {
               <div className="eyebrow">{isZh ? '五大中心' : 'The Five Centers'}</div>
               <div className="stack gap-1">
                 {CENTER_ORDER.map((id) => {
-                  const c = centerById(id)!;
+                  const c = publicCenterById(centers, id);
+                  const externalUrl = publicCenterExternalUrl(c, isZh);
                   return (
                     <CenterLink
                       key={id}
                       id={id}
+                      externalUrl={externalUrl}
                       style={{ fontSize: '0.86rem', color: 'var(--body)', transition: 'color .25s' }}
                       onMouseEnter={(e) => (e.currentTarget.style.color = c.color)}
                       onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--body)')}
                     >
                       {isZh ? c.zh : c.en}
-                      {c.externalUrl && ' ↗'}
+                      {externalUrl && ' ↗'}
                     </CenterLink>
                   );
                 })}
@@ -156,7 +159,7 @@ export function Footer() {
         </div>
 
         <div className="row between wrap gap-2" style={{ paddingTop: 22, borderTop: '1px solid var(--line-soft)' }}>
-          <span className="tiny">{isZh ? t.footNote : '© Dept. of Medical Education, TMU Hospital · For departmental presentation only.'}</span>
+          <span className="tiny">{t.footNote}</span>
           <button className="tlink" onClick={() => goToSection('top')}>
             {isZh ? '回到頂端' : 'Back to top'}
             <Icon name="arrowUpRight" />

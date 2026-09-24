@@ -2,35 +2,18 @@
 
 教學部與各中心（教師發展、臨床技能、實證醫學、全人照護、醫學教育研究）的官方網站。
 採 **React + Vite + TypeScript**，雙語（中／英）、明暗主題、響應式（手機 / 平板 / 桌機）。
+網站內容由 Supabase CMS 管理，並保留 committed snapshot 供首次顯示與逐文件回退。
 
 ---
 
-## 線上版本
+## 維運入口
 
-| 版本 | 網址 | 分支 |
-| --- | --- | --- |
-| 第一版 | <https://tmuh-mededu-website.vercel.app> | `main` |
-| **第二版（改版設計）** | **<https://tmuh-mededu-living-tissue.vercel.app>** | `living-tissue` |
+- **內容更新**：由 `/admin/login` 登入 CMS，建立或儲存草稿，確認後發佈。
+- **完整操作手冊**：[CMS 維運手冊](docs/cms-operations.md)
+- **Vercel**：使用根路徑 build，`main` push 由 Vercel 專案自動建置，`vercel.json` 提供 SPA rewrite。
+- **GitHub Pages**：目前從 `gh-pages` 分支提供，以 `npm run deploy` 發佈 repository base-path build。
 
-**第二版**是在第一版之上重做視覺與互動的設計版本，也是這個分支的內容：新增 WebGL
-背景著色器、平滑捲動與逐行標題進場、章節導覽軌與橫向捲動章節，並把原本的
-`src/views/` 重整為 `src/pages/`。
-
-目前第二版也已依教學部審稿調整：首頁「五大教育中心」併入「教學部一覽」展開卡片、
-行政專員名冊加上分機／信箱、導覽新增「數位教材室」、聯絡區改為地址與服務時間，
-並放大全站字級以利閱讀。手機漢堡選單可上下滑動瀏覽完整項目。
-
-兩版是**各自獨立的 Vercel 專案**，共用同一個 GitHub repo：第一版跟著 `main` 自動部署，
-第二版目前以手動指令從 `living-tissue` 的內容部署（見下方〈第二版的更新方式〉）。
-所以改第二版不會動到第一版，第一版仍是對外的正式站。
-
-### 倉庫與分支
-
-| 項目 | 連結 |
-| --- | --- |
-| GitHub（本 repo） | <https://github.com/michelleku0813-hub/tmuh-mededu-website> |
-| 第二版分支 | [`living-tissue`](https://github.com/michelleku0813-hub/tmuh-mededu-website/tree/living-tissue) |
-| 第二版線上預覽 | <https://tmuh-mededu-living-tissue.vercel.app> |
+目前狀態是 `offline implementation verified; production Supabase integration blocked`。這表示離線測試、內容檢查與兩種 base build 已驗證，不代表正式 Supabase 的 migration、Auth、Storage、Edge Function 或 checkpoint 已執行成功。
 
 ---
 
@@ -39,6 +22,9 @@
 ```bash
 npm install        # 安裝套件（第一次或換電腦時）
 npm run dev        # 開發模式，瀏覽器開 http://localhost:5173
+npm test           # 執行 Vitest 測試套件
+npm run content:check  # 檢查 committed snapshot 與 seed 是否符合本機產生器
+npm run typecheck  # 嚴格 TypeScript 型別檢查
 npm run build      # 產生正式版到 dist/（含型別檢查）
 npm run preview    # 在本機預覽 build 後的成果
 ```
@@ -57,8 +43,10 @@ src/
 │  ├─ site.tsx               全域狀態：語言、主題（皆會記憶在瀏覽器）
 │  ├─ routes.ts              網址 ↔ 中心的對應、舊網址轉址
 │  └─ navigation.ts          跨頁錨點跳轉、換頁捲動歸零
-├─ i18n/                     ★ 介面文字（中英）：zh.ts / en.ts
-├─ data/                     ★ 網站內容（最常更新的地方）
+├─ i18n/                     介面文字（中英）：zh.ts / en.ts
+├─ content/                  CMS contracts、Supabase repository、snapshot 與公開 adapters
+├─ admin/                    登入、權限、文件工作區、structured editors 與媒體管理
+├─ data/                     bootstrap 與本機 fallback 來源，不是上線後的日常內容入口
 │  ├─ news.ts                公告 & 活動
 │  ├─ people.ts              人員（姓名、職稱、照片、分機、信箱）
 │  ├─ centers.ts             各中心基本資料、聯絡方式、行政團隊名冊
@@ -82,36 +70,38 @@ src/
    └─ components.css         元件外觀（導覽列、卡片、表格、組織圖…）
 ```
 
-標 ★ 的是日後最常需要調整的檔案。
+另有 `supabase/` 存放 migrations、database tests、seed 與 `cms-publish` Edge Function，
+`scripts/content/` 負責 bootstrap 產生及 Supabase checkpoint，`docs/cms-operations.md` 是操作權威。
 
 ---
 
 ## 常見更新作業（給維護人員）
 
-### 1. 新增 / 修改「公告」
-編輯 `src/data/news.ts`，在 `ANNOUNCEMENTS` 陣列裡**複製一個 `{ ... }` 區塊**修改即可：
+### 1. 更新網站內容
 
-- `date`：發佈日期，格式 `'YYYY-MM-DD'`。網站會**自動由新到舊排序**，並用最新一則顯示「最後更新」。
-- `pinned: true`：讓這則永遠置頂。
-- `category`：公告分類；分類標籤集中在同一檔案的 `ANNOUNCEMENT_CATEGORY_LABELS`。
-- `tag` / `title` / `lines`：都各填 `zh`（中文）與 `en`（英文）。
-- `stat`：左側的數據徽章（選填）。
+公告、活動、人員、中心資料、首頁指標、榮譽及各專頁內容都從 CMS 管理總覽進入。儲存只更新草稿，公開站要在確認對話框完成發佈後才會讀到新修訂。圖片先上傳至私有 `draft-media`，發佈時才提升到不可變的 `public-media`。
 
-### 2. 新增 / 修改「活動」
-同樣在 `src/data/news.ts` 的 `ACTIVITIES` 陣列。`sortDate` 用 `'YYYY-MM-DD'` 排序，`date` 是顯示用字串（可含星期、時間）。
+帳號配置、衝突復原、封存、圖片清理、環境變數與 checkpoint 流程請依 [CMS 維運手冊](docs/cms-operations.md)，不要直接修改 `src/content/generated/cms-snapshot.json` 或 `supabase/seed.sql`。
 
-### 3. 修改人員
-`src/data/people.ts`（共用）或各中心的 `centers.ts` / `holistic.ts` 等。
-照片放在 `public/assets/`，檔名為 `<slug>.jpg`；`person(...)` 第 6 個參數就是這個 slug（沒有照片、或照片檔案不存在時，會自動改顯示姓名縮寫）。
-行政專員的**分機**與**信箱**是 `person(...)` 最後兩個參數（可留空字串）；組織面板名冊會顯示在右側。
+### 2. 本機 bootstrap 與離線 fallback
 
-### 4. 修改介面文字（按鈕、標題等）
-`src/i18n/zh.ts`（中文）與 `src/i18n/en.ts`（英文）。兩個檔的欄位（key）必須一致，少一個英文 build 時會報錯提醒。
+`src/data/`、`src/i18n/` 與 `scripts/content/` 仍是初始資料和本機來源開發的輸入。只有在調整來源抽取、schema、serializer 或重新建立 bootstrap 時才執行：
 
-### 5. 調整全站字級
+```bash
+npm run content:generate
+npm run content:check
+```
+
+Supabase 啟用後，日常內容以 CMS 為準；要把目前已發佈的 12 份權威內容寫回 committed snapshot，使用經管理員驗證的 `npm run content:checkpoint`。所需環境與安全規則見維運手冊。
+
+### 3. 修改非 CMS 介面與設計
+
+按鈕等共用 chrome 仍由 CMS 的 `site_copy` 文件供應，程式層的 i18n schema 位於 `src/i18n/zh.ts` 與 `src/i18n/en.ts`。兩個檔案的 key 必須一致。
+
+### 4. 調整全站字級
 根字級在 `src/design/base.css` 的 `html { font-size: …% }`。目前設為 `125%`（約等於內文 20px），全站 rem 會跟著放大。要再大／再小，只改這個百分比即可。
 
-### 6. 調整配色 / 主題
+### 5. 調整配色 / 主題
 `src/design/tokens.css`，修改 CSS 變數即可，明暗兩套都在這裡。
 注意：**每個變數在 `:root`（淺色）與 `[data-theme='dark']`（深色）兩區塊都要有**，只改一邊會讓另一個主題壞掉。
 `--field-*` 這幾個變數是背景著色器的顏色，改配色時一併調整才會協調。
@@ -156,49 +146,9 @@ src/
 
 ## 部署到 Vercel（推薦）
 
-專案已含 `vercel.json`（SPA 路由 fallback）。程式碼在 GitHub：
+專案已含 `vercel.json`，所有 SPA 路由都會 rewrite 到 `index.html`。Vercel 專案以 `npm run build` 建置、輸出 `dist/`，並在 `main` push 後自動部署。
 
-**https://github.com/michelleku0813-hub/tmuh-mededu-website**
-
-### 第一次部署（約 3 分鐘）
-
-1. 打開 [vercel.com](https://vercel.com)，用 **GitHub 帳號**登入（與上面 repo 同一個帳號）。
-2. 點 **Add New… → Project**。
-3. 在列表中找到 `tmuh-mededu-website`，點 **Import**。
-4. 設定通常不用改（Vercel 會自動偵測 Vite）：
-   - Framework Preset：**Vite**
-   - Build Command：`npm run build`
-   - Output Directory：`dist`
-5. 點 **Deploy**，等約 1–2 分鐘。
-6. 完成後會得到網址，例如 `https://tmuh-mededu-website.vercel.app`，可分享給任何人。
-
-### 之後更新網站
-
-改完程式後在本機執行：
-
-```bash
-git add .
-git commit -m "更新說明"
-git push
-```
-
-第一版（`main`）到這裡就結束了，Vercel 會自動重新 build 並上線。
-
-### 第二版的更新方式
-
-第二版是另一個 Vercel 專案 `tmuh-mededu-living-tissue`，它的 Production Branch
-仍設定為 `main`，因此 push `living-tissue` 只會產生 Preview 部署。要更新對外網址
-<https://tmuh-mededu-living-tissue.vercel.app>，在 push 之後再執行：
-
-```bash
-vercel --prod
-```
-
-> `vercel --prod` 上傳的是**本機當下的檔案**，不是 GitHub 上的版本，
-> 所以請先 commit 再部署，線上內容才會和版本紀錄一致。
->
-> 想改成 push 就自動上線，到該專案的 **Settings → Environments → Production →
-> Branch Tracking**，把分支改成 `living-tissue` 即可，之後就不必再手動執行。
+要讓公開站讀取 Supabase 並啟用管理登入，須在對應的 Vercel environment 成對設定 `VITE_SUPABASE_URL` 與 `VITE_SUPABASE_PUBLISHABLE_KEY`。前端不可設定 service-role 或任何 secret key。CMS 內容發佈、Edge Function 部署與網站程式部署是不同作業，完整釋出順序見 [CMS 維運手冊](docs/cms-operations.md)。
 
 ---
 
@@ -260,4 +210,5 @@ GitHub Pages 的網址是 `https://<帳號>.github.io/<repo>/`，多了一層 `/
 - 動效：GSAP（ScrollTrigger / SplitText）+ Lenis
 - 背景：three.js 全螢幕著色器（獨立 chunk，載入首頁後才下載）
 - 語言：TypeScript（`npm run build` 會先做型別檢查，攔截錯字／漏欄位）
-- 無後端，內容皆為前端靜態資料（見 `src/data/`）
+- 內容後端：Supabase Auth、Postgres/RLS/RPC、Storage 與 `cms-publish` Edge Function
+- 離線保護：提交的 12 文件 snapshot 先顯示，遠端內容逐文件驗證與取代

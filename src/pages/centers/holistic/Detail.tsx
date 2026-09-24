@@ -1,12 +1,7 @@
 import { Link, useParams } from 'react-router-dom';
 import { useSite, usePageTitle } from '@/app/site';
 import { centerPath, type HolisticDetailKind } from '@/app/routes';
-import { buildHolisticOutcomes } from '@/data/holistic';
-import {
-  buildHolisticResearch,
-  resolveAuthorName,
-  HOLISTIC_EDU_PAPERS,
-} from '@/data/holisticPapers';
+import { usePublicContentDocument } from '@/content/usePublicContentDocument';
 import { Reveal } from '@/motion/Reveal';
 import { SplitLines } from '@/motion/SplitLines';
 import { Icon } from '@/ui/Icon';
@@ -21,19 +16,17 @@ export function HolisticDetail() {
   const { kind, year: yearParam } = useParams();
   const { lang, isZh } = useSite();
 
-  const detailKind = (kind === 'symposia' || kind === 'research' ? kind : null) as
-    | HolisticDetailKind
-    | null;
+  const detailKind: HolisticDetailKind | null = kind === 'symposia' || kind === 'research' ? kind : null;
   const year = Number(yearParam);
 
-  const outcomes = buildHolisticOutcomes(lang);
-  const research = buildHolisticResearch(lang);
+  const outcomes = usePublicContentDocument('holistic', 'page', lang).value.outcomes;
+  const research = usePublicContentDocument('holistic_research', 'registry', lang).value;
 
   const symposium =
     detailKind === 'symposia' ? outcomes.symposiums.find((s) => s.year === year) : undefined;
   const papers =
     detailKind === 'research'
-      ? HOLISTIC_EDU_PAPERS.filter((p) => p.year === year).sort((a, b) => b.month - a.month)
+      ? research.papers.filter((paper) => Number(paper.year) === year)
       : [];
 
   const found = detailKind === 'symposia' ? !!symposium : papers.length > 0;
@@ -145,9 +138,9 @@ export function HolisticDetail() {
                         >
                           {research.authorsLabel}
                         </span>
-                        {p.authors.map((a) => (
-                          <span className="tag" key={a} style={{ ['--tone' as string]: TEAL }}>
-                            {resolveAuthorName(a, lang)}
+                        {p.authors.map((author) => (
+                          <span className="tag" key={author} style={{ ['--tone' as string]: TEAL }}>
+                            {author}
                           </span>
                         ))}
                       </span>

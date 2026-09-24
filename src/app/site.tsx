@@ -7,12 +7,31 @@ import {
   useState,
   type ReactNode,
 } from 'react';
+import type { PublishedCmsPayloadByKind } from '@/content/contracts/registry';
 import { strings, type Lang, type Strings } from '@/i18n';
 
 export type Theme = 'light' | 'dark';
 
+export type SiteStrings = Readonly<Record<Lang, Strings>>;
+export type SiteInline = PublishedCmsPayloadByKind['site_copy']['zh']['inline'];
+export type SiteInlineByLang = Readonly<Record<Lang, SiteInline>>;
+
 const LANG_KEY = 'tmuh.lang';
 const THEME_KEY = 'tmuh.theme';
+const DEFAULT_SITE_INLINE: SiteInlineByLang = {
+  zh: {
+    skipToContent: '跳到主要內容',
+    holisticAdministrativeTeam: '行政團隊',
+    holisticResearchTeam: '研究團隊',
+    holisticClosingTitle: '讓關懷成為本能',
+  },
+  en: {
+    skipToContent: 'Skip to content',
+    holisticAdministrativeTeam: 'Administrative Team',
+    holisticResearchTeam: 'Research Team',
+    holisticClosingTitle: 'Making care instinctive',
+  },
+};
 
 function readStored<T extends string>(key: string, allowed: readonly T[]): T | null {
   try {
@@ -32,6 +51,7 @@ interface SiteValue {
   lang: Lang;
   isZh: boolean;
   t: Strings;
+  inline: SiteInline;
   theme: Theme;
   toggleLang: () => void;
   toggleTheme: () => void;
@@ -39,7 +59,15 @@ interface SiteValue {
 
 const SiteCtx = createContext<SiteValue | null>(null);
 
-export function SiteProvider({ children }: { children: ReactNode }) {
+export function SiteProvider({
+  children,
+  siteStrings = strings,
+  siteInline = DEFAULT_SITE_INLINE,
+}: {
+  readonly children: ReactNode;
+  readonly siteStrings?: SiteStrings;
+  readonly siteInline?: SiteInlineByLang;
+}) {
   const [lang, setLang] = useState<Lang>(() => readStored<Lang>(LANG_KEY, ['zh', 'en']) ?? 'zh');
   const [theme, setTheme] = useState<Theme>(preferredTheme);
 
@@ -74,8 +102,8 @@ export function SiteProvider({ children }: { children: ReactNode }) {
   }, [theme]);
 
   const value = useMemo<SiteValue>(
-    () => ({ lang, isZh: lang === 'zh', t: strings[lang], theme, toggleLang, toggleTheme }),
-    [lang, theme, toggleLang, toggleTheme],
+    () => ({ lang, isZh: lang === 'zh', t: siteStrings[lang], inline: siteInline[lang], theme, toggleLang, toggleTheme }),
+    [lang, siteInline, siteStrings, theme, toggleLang, toggleTheme],
   );
 
   return <SiteCtx.Provider value={value}>{children}</SiteCtx.Provider>;

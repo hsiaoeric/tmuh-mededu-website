@@ -1,5 +1,7 @@
-import { defineConfig, type Plugin } from 'vite';
+import { type Plugin } from 'vite';
+import { configDefaults, defineConfig } from 'vitest/config';
 import react from '@vitejs/plugin-react';
+import reactScan from '@react-scan/vite-plugin-react-scan';
 import { copyFileSync } from 'node:fs';
 import { fileURLToPath, URL } from 'node:url';
 
@@ -22,18 +24,28 @@ function githubPagesFallback(): Plugin {
   };
 }
 
-export default defineConfig({
+export default defineConfig(({ command }) => ({
   /*
    * Root by default, which is what Vercel serves. The Pages workflow sets
    * VITE_BASE to the repository sub-path it publishes under. Keeping it an
    * environment variable rather than a hardcoded string means this branch can
    * still be deployed to the root of a custom domain unchanged.
-   */
+  */
   base: process.env.VITE_BASE || '/',
-  plugins: [react(), githubPagesFallback()],
+  server: { host: true },
+  plugins: [
+    react(),
+    command === 'serve' && process.env.VITE_DISABLE_REACT_DEVTOOLS !== '1'
+      ? reactScan({ enable: true, autoDisplayNames: true })
+      : null,
+    githubPagesFallback(),
+  ],
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
   },
-});
+  test: {
+    exclude: [...configDefaults.exclude, '**/.omo/**'],
+  },
+}));

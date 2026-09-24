@@ -81,9 +81,9 @@ create temporary table cms_wave3_payloads on commit drop as
 select
   news.payload as original_news,
   jsonb_set(
-    jsonb_set(news.payload, '{zh,latestUpdate}', '"Wave 3 saved"'::jsonb),
+    jsonb_set(news.payload, '{zh,latestUpdate}', '"2026/08/28"'::jsonb),
     '{en,latestUpdate}',
-    '"Wave 3 saved"'::jsonb
+    '"Aug 28, 2026"'::jsonb
   ) as saved_news,
   digital_materials.payload as wrong_kind
 from (

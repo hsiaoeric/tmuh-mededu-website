@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Overview
 
-Public website for the Department of Medical Education at Taipei Medical University Hospital (臺北醫學大學附設醫院 教學部) and its five centers. React 18 + Vite 5 + TypeScript SPA, no backend — all content is static data in `src/data/`. Bilingual (zh-Hant / en) and light/dark themed; both are runtime toggles, not build variants.
+Public website for the Department of Medical Education at Taipei Medical University Hospital (臺北醫學大學附設醫院 教學部) and its five centers. React 18 + Vite 5 + TypeScript SPA backed by Supabase Auth, Postgres/RLS/RPC, Storage, and the `cms-publish` Edge Function. Bilingual (zh-Hant / en) and light/dark themed; both are runtime toggles, not build variants.
 
 The UI language of the product is Traditional Chinese; user-facing strings, comments in data files, and README are in Chinese.
 
@@ -16,12 +16,16 @@ The visual system is called **Living Tissue**: an editorial serif/grotesque type
 npm run dev        # Vite dev server, http://localhost:5173
 npm run build      # tsc -b (typecheck) then vite build -> dist/
 npm run preview    # serve the built dist/
+npm test           # Vitest suite
 npm run typecheck  # tsc -b --noEmit
+npm run content:generate    # bootstrap/local-source snapshot and seed generation
+npm run content:check       # verify generated snapshot and seed
+npm run content:checkpoint  # authenticated Supabase-authoritative snapshot export
 ```
 
-There is **no test suite and no linter configured**. `npm run build` / `npm run typecheck` is the only automated verification — treat a clean typecheck as the gate before saying a change works. `tsconfig.app.json` enables `strict`, `noUnusedLocals`, and `noUnusedParameters`, so a leftover import or parameter fails the build.
+There is no linter configured. The current offline gate is `npm test`, `npm run content:check`, `npm run typecheck`, `npm run build`, and `VITE_BASE=/tmuh-mededu-website/ npm run build`. The verified baseline is 207 test files and 1626 tests. `tsconfig.app.json` enables `strict`, `noUnusedLocals`, and `noUnusedParameters`, so a leftover import or parameter fails the build.
 
-Because there are no tests, **visual changes need a browser check**. The Chrome DevTools MCP tools are the fastest route; check both themes and both languages, since the type scale and layout differ between them.
+Automated tests do not replace browser checks for visual or workflow changes. Check both themes and languages, relevant breakpoints, reduced motion, keyboard use, and the root and Pages base paths.
 
 Node 18+.
 
@@ -36,7 +40,20 @@ The build serves two hosts, and `vite.config.ts` keeps them compatible:
 
 **Anything pointing at `public/` must go through `assetUrl()` (`src/utils/asset.ts`).** Vite rewrites asset URLs in index.html and in bundled imports, but not strings assembled at runtime — a literal `/assets/…` builds and looks fine locally, then 404s on Pages. Portraits fail *silently* there, falling back to initials, so this does not announce itself.
 
+Browser deployments that connect to CMS require both `VITE_SUPABASE_URL` and `VITE_SUPABASE_PUBLISHABLE_KEY`. Browser code and checkpointing must never receive a service-role or secret key. See [docs/cms-operations.md](docs/cms-operations.md) for provisioning, release, recovery, and the current hosted-integration blocker.
+
 ## Architecture
+
+### Supabase CMS and committed fallback
+
+- Supabase is authoritative after bootstrap. There are exactly 12 canonical `(kind, stable_key)` document identities defined by `CMS_DOCUMENT_KINDS` and `CMS_DOCUMENT_STABLE_KEYS`; contracts, admin routes, public adapters, seed, and checkpoints must remain exhaustive over that set.
+- `ContentProvider` renders `src/content/generated/cms-snapshot.json` immediately, then anonymously requests published Supabase rows. `mergePublishedContent` validates and merges each identity independently. Missing, invalid, or older remote documents keep only their matching snapshot while valid siblings refresh.
+- Public reads use a non-persistent anonymous Supabase client. Admin auth uses a separate persistent, auto-refreshing client. UI route guards are UX only; `cms_admins`, RLS, security-definer RPCs, and Edge Function checks are the authorization boundary.
+- One manually provisioned email/password Auth user is allowlisted by exact `auth.users.id` in `public.cms_admins`. Hosted signup and anonymous sign-in stay disabled.
+- Admin edits use one active draft, optimistic `edit_version` checks, explicit publish/archive confirmations, and dirty-navigation guards. Publication goes through `cms-publish`, not a direct lifecycle update.
+- `draft-media` is private and owner-scoped. The Edge Function validates and promotes referenced JPEG/PNG/WebP files up to 10 MiB into immutable SHA-256-addressed `public-media` objects before finalizing publication. Cleanup is allowed only when no editor in the current admin page session claims the object and no saved draft claims it; unsaved references in another tab, browser, or session are outside this guard.
+- `content:generate` is for deterministic bootstrap/local-source artifacts. `content:checkpoint` authenticates with the publishable key and CMS admin credentials, requires exactly 12 valid identities, and atomically replaces the snapshot from Supabase. Never hand-edit the generated snapshot or `supabase/seed.sql`.
+- Current release status is exactly: `offline implementation verified; production Supabase integration blocked`. Do not claim hosted migration, Auth, Storage, Edge Function, or checkpoint success without a fresh approved live gate.
 
 ### Routing is ordinary react-router
 
@@ -96,9 +113,9 @@ Han glyphs are full-width and read much larger than Latin at the same point size
 
 `Center.color` from `data/centers.ts` is passed down as the `--tone` custom property. Cards, tags, dots, bars and portraits all read `var(--tone, var(--accent))`, so setting `--tone` on a container re-colours everything inside it.
 
-### People data
+### People bootstrap data
 
-`person(zh, en, role, dZh, dEn, slug, hubId, dutyZh, dutyEn)` in `data/people.ts` builds a `RawPerson`; `resolvePerson(p, accent, lang)` turns it into render-ready data. Notes:
+`person(zh, en, role, dZh, dEn, slug, hubId, dutyZh, dutyEn)` in `data/people.ts` builds bootstrap and local fallback data; public rendering receives equivalent validated CMS data through adapters. Notes:
 
 - `role` must be a key of `ROLES` (typed).
 - `slug` resolves to `<base>assets/<slug>.jpg` via `assetUrl`. **Roughly half the slugs in the data have no matching file**, so `PersonCard` / `Avatar` in `ui/Person.tsx` fall back to initials both when the slug is empty *and* when the image fails to load. Never render a portrait `<img>` without that fallback.
@@ -113,13 +130,13 @@ Phone extensions are stored bare in data and formatted at display time by `forma
 
 ### i18n: `zh.ts` is the schema
 
-`i18n/zh.ts` exports `Strings = typeof zh`; `en.ts` is annotated `: Strings`, so a key added to `zh` without an `en` counterpart is a build error. This only covers **chrome/shared strings**. Page and content copy lives either as `{ zh, en }` / `xxxZh` + `xxxEn` field pairs in `src/data/*`, or as inline `isZh ? '中文' : 'English'` ternaries in pages. All three patterns are in active use — match whatever the surrounding file does rather than migrating.
+`i18n/zh.ts` exports `Strings = typeof zh`; `en.ts` is annotated `: Strings`, so a key added to `zh` without an `en` counterpart is a build error. This defines the source schema for **chrome/shared strings**, which is included in the `site_copy` CMS document for public rendering. Bootstrap page copy still uses `{ zh, en }` / `xxxZh` + `xxxEn` pairs in `src/data/*` or inline source extractors. Match the surrounding contract rather than migrating patterns casually.
 
 `pick(lang, zhVal, enVal)` from `@/i18n` is the helper for the field-pair form.
 
 ### Content editing
 
-`src/data/` is where routine content updates land — `news.ts` (announcements auto-sort newest-first by `date`; `pinned: true` overrides), `people.ts`, `centers.ts`, `kpis.ts`, `deptAwards.ts`, `holisticPapers.ts`, and per-center `holistic.ts` / `ebm.ts` / `facdev.ts`. See the maintainer walkthrough in [README.md](README.md) (Chinese) for the per-file field conventions.
+Routine content updates go through the protected CMS at `/admin`, not direct edits to `src/data/`. The files under `src/data/`, `src/i18n/`, and `scripts/content/` remain bootstrap and local fallback inputs. After serializer or source-extraction changes, regenerate both artifacts and require `npm run content:check`; after approved live content changes, use authenticated `npm run content:checkpoint` to refresh the committed snapshot. Follow [docs/cms-operations.md](docs/cms-operations.md), and never edit generated snapshot or seed files directly.
 
 ## Conventions
 

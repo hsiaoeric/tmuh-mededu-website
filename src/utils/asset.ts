@@ -6,6 +6,6 @@
  * 404 wherever the site is served from a sub-path, as it is on GitHub Pages.
  * `BASE_URL` already ends in a slash.
  */
-export function assetUrl(path: string): string {
-  return `${import.meta.env.BASE_URL}${path.replace(/^\//, '')}`;
+export function assetUrl(path: string, baseUrl = import.meta.env.BASE_URL): string {
+  return `${baseUrl}${path.replace(/^\//, '')}`;
 }

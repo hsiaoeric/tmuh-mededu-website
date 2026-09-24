@@ -1,5 +1,5 @@
 import { useSite } from '@/app/site';
-import { buildAiEcosystem } from '@/data/holistic';
+import type { PublicAdapterResultFor } from '@/content/adapters';
 import { Reveal } from '@/motion/Reveal';
 import { HorizontalScroll } from '@/motion/HorizontalScroll';
 import { SectionHeader, SectionTag } from '@/ui/Section';
@@ -7,9 +7,10 @@ import { Icon } from '@/ui/Icon';
 import { RAIL_INDEX } from './rail';
 
 /** Healthy Taiwan Scope 2: the AI holistic-care teaching ecosystem. */
-export function AiEcosystem() {
-  const { t, lang } = useSite();
-  const ai = buildAiEcosystem(lang);
+export function AiEcosystem({ ai }: {
+  readonly ai: PublicAdapterResultFor<'holistic'>['value']['aiEcosystem'];
+}) {
+  const { t } = useSite();
 
   return (
     <section id="ai" className="section">

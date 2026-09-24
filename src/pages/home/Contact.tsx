@@ -14,9 +14,7 @@ export function Contact() {
         title={t.contactTitle}
         desc={
           <>
-            {isZh
-              ? `${t.footAddr}（第一醫療大樓七樓）`
-              : 'No. 252 Wuxing St., Xinyi Dist., Taipei 110301, Taiwan (7F, Medical Building I)'}
+            {`${t.footAddr}${isZh ? '（第一醫療大樓七樓）' : ' (7F, Medical Building I)'}`}
             <br />
             {isZh
               ? '服務時間：週一至週五 09:00 – 18:00'

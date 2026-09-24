@@ -1,7 +1,15 @@
 import type { Lang } from '@/i18n';
+import type { DepartmentMemberGroupId } from './kpis';
 import { assetUrl } from '@/utils/asset';
 
 /** Role keys mapped to [zh, en] labels. */
+export const ROLE_KEYS = [
+  'director', 'deputy', 'cadmin', 'instructor', 'seed', 'vp', 'lead', 'ddir',
+  'ddep', 'head', 'spec', 'pm', 'advisor', 'ai', 'eng',
+] as const;
+
+export type RoleKey = (typeof ROLE_KEYS)[number];
+
 export const ROLES = {
   director: ['中心主任', 'Director'],
   deputy: ['中心副主任', 'Deputy Director'],
@@ -18,14 +26,14 @@ export const ROLES = {
   advisor: ['顧問', 'Advisor'],
   ai: ['AI 專家顧問', 'AI Expert Advisor'],
   eng: ['專案工程師', 'Project Engineer'],
-} as const satisfies Record<string, readonly [string, string]>;
-
-export type RoleKey = keyof typeof ROLES;
+} as const satisfies Record<RoleKey, readonly [string, string]>;
 
 export interface RawPerson {
+  identity?: string;
   zh: string;
   en: string;
   role: RoleKey;
+  roleLabel?: string;
   /** Department / title (may contain <br> in the source). */
   dZh: string;
   dEn: string;
@@ -40,6 +48,7 @@ export interface RawPerson {
   ext?: string;
   /** Work email. '' while still unknown. */
   email?: string;
+  photoSrc?: string;
 }
 
 export interface ResolvedPerson {
@@ -101,9 +110,41 @@ export function person(
   dutyEn = '',
   ext = '',
   email = '',
+  identity = '',
 ): RawPerson {
-  return { zh, en, role, dZh, dEn, slug, hubId, dutyZh, dutyEn, ext, email };
+  return { identity: identity || undefined, zh, en, role, dZh, dEn, slug, hubId, dutyZh, dutyEn, ext, email };
 }
+
+export const DEPARTMENT_MEMBER_GROUPS = [
+  {
+    id: 'department_advisors',
+    people: [
+      person('待更新', 'To be updated', 'advisor', '', '', '', '', '', '', '', '', 'department-advisor-1'),
+      person('待更新', 'To be updated', 'advisor', '', '', '', '', '', '', '', '', 'department-advisor-2'),
+      person('待更新', 'To be updated', 'advisor', '', '', '', '', '', '', '', '', 'department-advisor-3'),
+    ],
+  },
+  {
+    id: 'teaching_attendings',
+    people: [
+      person('邱欣怡', 'Hsin-Yi Chiu', 'lead', '西醫 · 助理教授', 'Physician · Asst. Prof.', 'hsin-yi-chiu', 'hsin-yi-chiu'),
+      person('吳政誠', 'Jeng-Cheng Wu', 'lead', '西醫 · 助理教授<br>泌尿科', 'Physician · Asst. Prof.<br>Urology', 'jeng-cheng-wu', 'jeng-cheng-wu'),
+      person('吳人傑', 'Jen-Chieh Wu', 'lead', '西醫 · 助理教授', 'Physician · Asst. Prof.', 'jen-chieh-wu', 'jen-chieh-wu'),
+    ],
+  },
+  {
+    id: 'teaching_allied_health',
+    people: [
+      person('王莉萱', 'Li-Hsuan Wang', 'lead', '藥劑 · 教授<br>藥劑部', 'Pharmacy · Prof.<br>Pharmacy', 'li-hsuan-wang'),
+      person('范芳郡', 'Fang-Chun Fan', 'lead', '放射<br>影像醫學部', 'Radiology<br>Medical Imaging', 'fang-chun-fan'),
+      person('向慧芬', 'Hui-Fen Hsiang', 'lead', '', ''),
+      person('鄭憲霖', 'Hsien-Lin Cheng', 'lead', '', ''),
+    ],
+  },
+] as const satisfies readonly {
+  readonly id: DepartmentMemberGroupId;
+  readonly people: readonly RawPerson[];
+}[];
 
 /** Localize a raw person into render-ready data. */
 export function resolvePerson(
@@ -115,13 +156,13 @@ export function resolvePerson(
   return {
     fullname: isZh ? p.zh : p.en,
     sub: isZh ? p.en : p.zh,
-    role: ROLES[p.role][isZh ? 0 : 1],
+    role: p.roleLabel ?? ROLES[p.role][isZh ? 0 : 1],
     dept: (isZh ? p.dZh : p.dEn).split('<br>').join('\n'),
-    photoSrc: resourceSrc(p.slug),
+    photoSrc: p.photoSrc ?? resourceSrc(p.slug),
     objectPosition: FULL_BODY_POSITION[p.slug] ?? 'center',
     initials: initialsOf(p.en),
     accent,
-    hasPhoto: !!p.slug,
+    hasPhoto: p.photoSrc !== undefined ? Boolean(p.photoSrc) : Boolean(p.slug),
     profile: p.hubId ? `https://hub.tmu.edu.tw/zh/persons/${p.hubId}/` : '',
     profileLabel: isZh ? '個人學術檔案' : 'Academic Profile',
     duty: isZh ? p.dutyZh ?? '' : p.dutyEn ?? '',

@@ -9,3 +9,19 @@ dist-ssr
 # TypeScript incremental build cache
 *.tsbuildinfo
 .vercel
+
+# Local CMS execution and browser artifacts
+.omo/evidence/
+.omo/run-continuation/
+.omo/boulder.json
+.omo/start-work/ledger.jsonl
+.omo/ulw-execute/ledger.jsonl
+.playwright-mcp/
+supabase/.temp/
+.debug-journal.md
+wave5-activity-debug.md
+wave5-kpis-after-navigation
+
+# Local tool state
+.claude/settings.local.json
+.pi/

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useSite } from '@/app/site';
 import { HONORS_PATH, centerPath } from '@/app/routes';
-import { buildDeptAwards } from '@/data/deptAwards';
+import { usePublicContentDocument } from '@/content';
 import { Counter } from '@/motion/Counter';
 import { Reveal } from '@/motion/Reveal';
 import { Section, SectionHeader } from '@/ui/Section';
@@ -10,7 +10,7 @@ import { Icon } from '@/ui/Icon';
 
 export function Honors() {
   const { isZh, lang } = useSite();
-  const a = buildDeptAwards(lang);
+  const a = usePublicContentDocument('honors', 'department', lang).value;
   const featured = [...a.snqProjects].slice(-2).reverse();
 
   return (
@@ -66,7 +66,7 @@ export function Honors() {
 
 export function HonorsDetail() {
   const { isZh, lang } = useSite();
-  const a = buildDeptAwards(lang);
+  const a = usePublicContentDocument('honors', 'department', lang).value;
   const [openProject, setOpenProject] = useState<number | null>(0);
 
   const maxCount = Math.max(...a.snqYearCounts.map((y) => y.count));

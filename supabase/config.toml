@@ -44,3 +44,6 @@ enable_confirmations = true
 
 [analytics]
 enabled = false
+
+[functions.cms-publish]
+verify_jwt = true

@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { useSite, usePageTitle } from '@/app/site';
-import { centerById, CENTER_ICON } from '@/data/centers';
-import { buildAiEcosystem, holisticFeatures, holisticKpis, HOLISTIC_AI_TEAM } from '@/data/holistic';
+import { CENTER_ICON } from '@/data/centers';
+import { usePublicContentDocument } from '@/content/usePublicContentDocument';
 import { Reveal } from '@/motion/Reveal';
 import { Section, SectionHeader } from '@/ui/Section';
 import { PageHero, ClosingContact } from '@/ui/PageParts';
@@ -20,13 +20,19 @@ const TEAL = '#4f8c7d';
 const RESEARCH_TONE = '#5E7A8C';
 
 export function HolisticPage() {
-  const { t, isZh, lang } = useSite();
-  const center = centerById('holistic')!;
-  usePageTitle(isZh ? center.zh : center.en);
+  const { t, inline, lang } = useSite();
+  const holistic = usePublicContentDocument('holistic', 'page', lang).value;
+  const research = usePublicContentDocument('holistic_research', 'registry', lang).value;
+  const people = usePublicContentDocument('people', 'directory', lang).value;
+  const centers = usePublicContentDocument('centers', 'directory', lang).value;
+  const news = usePublicContentDocument('news', 'announcements', lang).value;
+  const activities = usePublicContentDocument('activities', 'calendar', lang).value;
+  const center = centers.centers.find((candidate) => candidate.id === 'holistic');
+  const centerPeople = people.centerPeople.find((group) => group.centerId === 'holistic');
+  if (center === undefined || centerPeople === undefined) throw new TypeError('Missing holistic care center');
+  usePageTitle(center.name);
 
-  const features = holisticFeatures(lang);
-  const kpis = holisticKpis(lang);
-  const ai = buildAiEcosystem(lang);
+  const { features, kpis, aiEcosystem: ai, outcomes, algee } = holistic;
 
   const sections = useMemo<PageSection[]>(() => railSections(lang), [lang]);
 
@@ -97,18 +103,18 @@ export function HolisticPage() {
       </Section>
 
       {/* 最新消息: what is coming up, and the symposia already held. */}
-      <Activities />
-      <Symposia />
+      <Activities activities={activities.holistic} />
+      <Symposia outcomes={outcomes} />
 
       {/* Center members, split into the two teams the rail lists separately. */}
       <Section id="h-members" tight>
         <SectionHeader
           index={RAIL_INDEX['h-members']}
           eyebrow="People"
-          title={isZh ? '行政團隊' : 'Administrative Team'}
+          title={inline.holisticAdministrativeTeam}
         />
         <Reveal variant="up" stagger={80} className="grid grid-people">
-          {center.people.map((p, i) => (
+          {centerPeople.people.map((p, i) => (
             <PersonCard key={`${p.en}-${i}`} person={p} accent={TEAL} />
           ))}
         </Reveal>
@@ -118,11 +124,11 @@ export function HolisticPage() {
         <SectionHeader
           index={RAIL_INDEX['h-research-team']}
           eyebrow="People"
-          title={isZh ? '研究團隊' : 'Research Team'}
+          title={inline.holisticResearchTeam}
           desc={ai.teamLabel}
         />
         <Reveal variant="up" stagger={80} className="grid grid-people">
-          {HOLISTIC_AI_TEAM.map((p, i) => (
+          {people.holisticAiTeam.map((p, i) => (
             <PersonCard key={`${p.en}-${i}`} person={p} accent={RESEARCH_TONE} compact />
           ))}
         </Reveal>
@@ -130,15 +136,15 @@ export function HolisticPage() {
 
       {/* 全人專案: the Scope 2 ecosystem, then MHFA — the ALGEE steps, the
           instructors and the seed teachers. */}
-      <AiEcosystem />
-      <Algee />
+      <AiEcosystem ai={ai} />
+      <Algee steps={algee} instructors={people.holisticInstructors} seedTeachers={people.holisticSeedTeachers} />
 
-      <Training />
-      <International />
-      <Research />
+      <Training outcomes={outcomes} />
+      <International items={news.holistic} />
+      <Research research={research} />
 
       <ClosingContact
-        title={isZh ? '讓關懷成為本能' : 'Making care instinctive'}
+        title={inline.holisticClosingTitle}
         body={t.hAboutBody}
         person={t.hContactPerson}
         ext={t.hContactExt}

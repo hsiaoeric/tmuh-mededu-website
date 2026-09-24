@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useSite } from '@/app/site';
 import { holisticDetailPath } from '@/app/routes';
-import { buildHolisticOutcomes } from '@/data/holistic';
+import type { PublicAdapterResultFor } from '@/content/adapters';
 import { Reveal } from '@/motion/Reveal';
 import { Section, SectionHeader } from '@/ui/Section';
 import { StatRow } from '@/ui/Stats';
@@ -9,11 +9,11 @@ import { Icon } from '@/ui/Icon';
 import { RAIL_INDEX } from './rail';
 
 const TEAL = '#4f8c7d';
+type HolisticOutcomes = PublicAdapterResultFor<'holistic'>['value']['outcomes'];
 
 /** Symposia hosted by the department. */
-export function Symposia() {
-  const { lang, isZh } = useSite();
-  const o = buildHolisticOutcomes(lang);
+export function Symposia({ outcomes: o }: { readonly outcomes: HolisticOutcomes }) {
+  const { isZh } = useSite();
 
   return (
       <Section id="symposia">
@@ -75,10 +75,7 @@ export function Symposia() {
 }
 
 /** AY113 faculty-training results. */
-export function Training() {
-  const { lang } = useSite();
-  const o = buildHolisticOutcomes(lang);
-
+export function Training({ outcomes: o }: { readonly outcomes: HolisticOutcomes }) {
   return (
       <Section id="training" tight>
         <SectionHeader

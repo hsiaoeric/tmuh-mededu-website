@@ -1,11 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useSite } from '@/app/site';
 import { holisticDetailPath } from '@/app/routes';
-import {
-  buildHolisticResearch,
-  HOLISTIC_EDU_PAPERS,
-  HOLISTIC_PAPER_TOTAL,
-} from '@/data/holisticPapers';
+import type { PublicAdapterResultFor } from '@/content/adapters';
 import { Counter } from '@/motion/Counter';
 import { Reveal } from '@/motion/Reveal';
 import { Section, SectionHeader } from '@/ui/Section';
@@ -17,11 +13,19 @@ const EDU_TONE = '#4f8c7d';
 const CLINICAL_TONE = '#A87A6B';
 const CHART_H = 190;
 
-export function Research() {
-  const { lang, isZh } = useSite();
-  const r = buildHolisticResearch(lang);
-  const peak = Math.max(...r.byYear.map((y) => y.edu + y.clinical));
-  const eduYears = [...new Set(HOLISTIC_EDU_PAPERS.map((p) => p.year))].sort((a, b) => b - a);
+export function Research({ research: r }: {
+  readonly research: PublicAdapterResultFor<'holistic_research'>['value'];
+}) {
+  const { isZh } = useSite();
+  const byYear = r.byYear.map((row) => ({
+    ...row,
+    year: Number(row.year),
+    edu: Number(row.edu),
+    clinical: Number(row.clinical),
+  }));
+  const papers = r.papers.map((paper) => ({ ...paper, year: Number(paper.year) }));
+  const peak = Math.max(...byYear.map((year) => year.edu + year.clinical));
+  const eduYears = [...new Set(papers.map((paper) => paper.year))].sort((a, b) => b - a);
 
   return (
     <Section id="research">
@@ -31,7 +35,7 @@ export function Research() {
       <div className="grid g-aside" style={{ alignItems: 'end', marginBottom: 'clamp(40px, 6vw, 76px)' }}>
         <div className="stat" style={{ ['--tone' as string]: EDU_TONE }}>
           <div className="stat-num">
-            <Counter to={HOLISTIC_PAPER_TOTAL} />
+            <Counter to={r.total} />
           </div>
           <span className="stat-label">{r.totalLabel}</span>
         </div>
@@ -68,7 +72,7 @@ export function Research() {
                 </tr>
               </thead>
               <tbody>
-                {r.byYear.map((y) => (
+                {byYear.map((y) => (
                   <tr key={y.year}>
                     <th scope="row">{y.year}</th>
                     <td>{y.edu}</td>
@@ -84,7 +88,7 @@ export function Research() {
             style={{ alignItems: 'flex-end', gap: 'clamp(6px, 1.4vw, 18px)', height: CHART_H }}
             aria-hidden="true"
           >
-            {r.byYear.map((y) => {
+            {byYear.map((y) => {
               const total = y.edu + y.clinical;
               return (
                 <div key={y.year} className="stack gap-1 grow" style={{ alignItems: 'center' }}>
@@ -142,7 +146,7 @@ export function Research() {
           }}
         >
           {eduYears.map((year) => {
-            const count = HOLISTIC_EDU_PAPERS.filter((p) => p.year === year).length;
+            const count = papers.filter((paper) => paper.year === year).length;
             return (
               <Link
                 key={year}

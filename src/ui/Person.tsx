@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSite } from '@/app/site';
 import { resolvePerson, type RawPerson, type ResolvedPerson } from '@/data/people';
 import { formatExtShort } from '@/utils/phone';
@@ -10,8 +10,12 @@ import { Icon } from './Icon';
  * to degrade to initials rather than a broken-image glyph.
  */
 function Portrait({ person, accent }: { person: ResolvedPerson; accent: string }) {
-  const [failed, setFailed] = useState(false);
-  const showImage = person.hasPhoto && !failed;
+  const [failedPhotoSrc, setFailedPhotoSrc] = useState<string | null>(null);
+  const showImage = person.hasPhoto && failedPhotoSrc !== person.photoSrc;
+
+  useEffect(() => {
+    setFailedPhotoSrc(null);
+  }, [person.photoSrc]);
 
   return (
     <div className="portrait" style={{ ['--tone' as string]: accent }}>
@@ -20,7 +24,7 @@ function Portrait({ person, accent }: { person: ResolvedPerson; accent: string }
           src={person.photoSrc}
           alt={person.fullname}
           loading="lazy"
-          onError={() => setFailed(true)}
+          onError={() => setFailedPhotoSrc(person.photoSrc)}
           style={{ objectPosition: person.objectPosition }}
         />
       ) : (
@@ -44,15 +48,19 @@ export function Avatar({
 }) {
   const { lang } = useSite();
   const p = resolvePerson(person, accent, lang);
-  const [failed, setFailed] = useState(false);
+  const [failedPhotoSrc, setFailedPhotoSrc] = useState<string | null>(null);
 
-  if (p.hasPhoto && !failed) {
+  useEffect(() => {
+    setFailedPhotoSrc(null);
+  }, [p.photoSrc]);
+
+  if (p.hasPhoto && failedPhotoSrc !== p.photoSrc) {
     return (
       <img
         src={p.photoSrc}
         alt=""
         loading="lazy"
-        onError={() => setFailed(true)}
+        onError={() => setFailedPhotoSrc(p.photoSrc)}
         style={{
           width: size,
           height: size,

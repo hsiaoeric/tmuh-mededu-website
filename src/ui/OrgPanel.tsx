@@ -1,18 +1,16 @@
 import { Link } from 'react-router-dom';
+import type { PublicCenter } from '@/app/publicCenters';
 import { useSite } from '@/app/site';
-import { CENTER_BRANCHES, type Center } from '@/data/centers';
 import { CENTER_SLUG } from '@/app/routes';
-import type { CenterId } from '@/data/types';
 import { formatPhoneExt } from '@/utils/phone';
 import { Reveal } from '@/motion/Reveal';
 import { Icon } from './Icon';
 import { PersonCard, PersonRoster } from './Person';
 
 /** Detail for the unit selected in the constellation. */
-export function OrgPanel({ center, onClose }: { center: Center; onClose: () => void }) {
-  const { isZh, lang } = useSite();
-  const branches = CENTER_BRANCHES[center.id];
-  const slug = CENTER_SLUG[center.id as Exclude<CenterId, 'admin'>];
+export function OrgPanel({ center, onClose }: { readonly center: PublicCenter; readonly onClose: () => void }) {
+  const { isZh, lang, t } = useSite();
+  const slug = center.id === 'admin' ? undefined : CENTER_SLUG[center.id];
   const isAdmin = center.id === 'admin';
 
   // The admin team is 16 people; a portrait grid would swamp the panel, so the
@@ -57,7 +55,7 @@ export function OrgPanel({ center, onClose }: { center: Center; onClose: () => v
       <p className="lede measure">{isZh ? center.introZh : center.introEn}</p>
 
       <div className="grid auto-fit">
-        {branches.map((b, i) => (
+        {center.branches.map((b, i) => (
           <Reveal
             key={b.id}
             variant="up"
@@ -83,7 +81,7 @@ export function OrgPanel({ center, onClose }: { center: Center; onClose: () => v
       <div className="stack gap-3">
         <div className="row between baseline">
           <span className="eyebrow" style={{ color: 'var(--tone-text)' }}>
-            {isZh ? '團隊成員' : 'Team'}
+            {t.members}
           </span>
           <span className="mono tiny">{center.people.length}</span>
         </div>

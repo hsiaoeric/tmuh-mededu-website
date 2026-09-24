@@ -26,6 +26,7 @@ const RESEARCHER_EN: Record<string, string> = {
 };
 
 export interface HolisticEduPaper {
+  id: string;
   year: number;
   /** Publication month, used only to order papers within a year. */
   month: number;
@@ -45,6 +46,7 @@ export interface HolisticEduPaper {
  */
 export const HOLISTIC_EDU_PAPERS: HolisticEduPaper[] = [
   {
+    id: 'future-doctors-silence-2025',
     year: 2025,
     month: 11,
     journal: 'Medical Teacher',
@@ -55,6 +57,7 @@ export const HOLISTIC_EDU_PAPERS: HolisticEduPaper[] = [
     authors: ['吳人傑'],
   },
   {
+    id: 'breaking-the-silence-2025',
     year: 2025,
     month: 9,
     journal: 'Medical Education',
@@ -65,6 +68,7 @@ export const HOLISTIC_EDU_PAPERS: HolisticEduPaper[] = [
     authors: ['吳人傑'],
   },
   {
+    id: 'person-centred-approach-2025',
     year: 2025,
     month: 4,
     journal: 'MedEdPublish',
@@ -74,6 +78,7 @@ export const HOLISTIC_EDU_PAPERS: HolisticEduPaper[] = [
     authors: ['廖若帆'],
   },
   {
+    id: 'speaking-up-simulation-2024',
     year: 2024,
     month: 8,
     journal: 'Medical Teacher',
@@ -84,6 +89,7 @@ export const HOLISTIC_EDU_PAPERS: HolisticEduPaper[] = [
     authors: ['吳人傑'],
   },
   {
+    id: 'coproduced-sdm-curriculum-2024',
     year: 2024,
     month: 7,
     journal: 'BMJ Evidence-Based Medicine',
@@ -93,6 +99,7 @@ export const HOLISTIC_EDU_PAPERS: HolisticEduPaper[] = [
     authors: ['吳政誠'],
   },
   {
+    id: 'medical-error-speaking-up-2023',
     year: 2023,
     month: 4,
     journal: 'Medical Teacher',
@@ -103,6 +110,7 @@ export const HOLISTIC_EDU_PAPERS: HolisticEduPaper[] = [
     authors: ['吳人傑'],
   },
   {
+    id: 'interprofessional-sdm-training-2022',
     year: 2022,
     month: 11,
     journal: 'Patient Education and Counseling',
@@ -112,6 +120,7 @@ export const HOLISTIC_EDU_PAPERS: HolisticEduPaper[] = [
     authors: ['吳政誠', '廖若帆', '郭淑柳'],
   },
   {
+    id: 'experiential-elearning-2022',
     year: 2022,
     month: 1,
     journal: 'BMC Medical Education',
@@ -122,6 +131,7 @@ export const HOLISTIC_EDU_PAPERS: HolisticEduPaper[] = [
     authors: ['廖若帆', '吳政誠', '陳建宇'],
   },
   {
+    id: 'speaking-up-factors-2022',
     year: 2022,
     month: 1,
     journal: 'Medical Teacher',
@@ -132,6 +142,7 @@ export const HOLISTIC_EDU_PAPERS: HolisticEduPaper[] = [
     authors: ['吳人傑'],
   },
   {
+    id: 'spiritual-care-training-2021',
     year: 2021,
     month: 6,
     journal: 'Journal of Palliative Medicine',
@@ -149,13 +160,13 @@ export const HOLISTIC_EDU_PAPERS: HolisticEduPaper[] = [
  * coverage, not a drop in output.
  */
 const PAPERS_BY_YEAR: Array<{ year: number; edu: number; clinical: number }> = [
-  { year: 2019, edu: 0, clinical: 17 },
-  { year: 2020, edu: 0, clinical: 19 },
-  { year: 2021, edu: 1, clinical: 35 },
-  { year: 2022, edu: 3, clinical: 13 },
-  { year: 2023, edu: 1, clinical: 0 },
-  { year: 2024, edu: 2, clinical: 0 },
   { year: 2025, edu: 3, clinical: 0 },
+  { year: 2024, edu: 2, clinical: 0 },
+  { year: 2023, edu: 1, clinical: 0 },
+  { year: 2022, edu: 3, clinical: 13 },
+  { year: 2021, edu: 1, clinical: 35 },
+  { year: 2020, edu: 0, clinical: 19 },
+  { year: 2019, edu: 0, clinical: 17 },
 ];
 
 /** Total distinct papers across both audits, after removing the shared paper. */
