@@ -38,7 +38,8 @@ enable_signup = false
 enable_anonymous_sign_ins = false
 
 [auth.email]
-enable_signup = false
+# Keeps the email provider on so allowlisted admins can sign in; [auth].enable_signup = false still blocks signup.
+enable_signup = true
 double_confirm_changes = true
 enable_confirmations = true
 
