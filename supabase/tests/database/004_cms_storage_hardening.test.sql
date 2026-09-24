@@ -2,6 +2,8 @@ begin;
 
 create extension if not exists pgtap with schema extensions;
 set local search_path = public, extensions;
+-- The Storage API enables this for its own deletes; RLS still decides which rows a role may remove.
+set local storage.allow_delete_query = 'true';
 set local request.jwt.claims = '{}';
 
 select plan(25);

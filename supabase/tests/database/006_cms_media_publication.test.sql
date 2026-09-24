@@ -13,12 +13,16 @@ create temporary table media_outcomes (
   detail text
 ) on commit drop;
 
+-- Only the captured RPC runs as service_role, mirroring the Edge Function. service_role holds no
+-- table grants, so fixture reads and assertions stay with the test owner.
 create function pg_temp.capture_media_outcome(p_name text, p_statement text)
 returns void language plpgsql as $$
 declare captured jsonb; state text; error_detail text;
 begin
   begin
+    set local role service_role;
     execute p_statement into captured;
+    reset role;
   exception when others then
     get stacked diagnostics state = returned_sqlstate, error_detail = pg_exception_detail;
   end;
@@ -74,11 +78,13 @@ create trigger z_test_fail_media_finalization before update on public.cms_revisi
 for each row execute function pg_temp.fail_media_finalization();
 
 insert into public.cms_documents (id, kind, stable_key) values
-  ('71000000-0000-4000-8000-000000000001', 'people', 'wave4-media');
+  ('71000000-0000-4000-8000-000000000001', 'people', 'wave4-media'),
+  -- A document holds at most one draft, so the malformed draft gets its own document.
+  ('71000000-0000-4000-8000-000000000002', 'people', 'wave4-media-malformed');
 insert into public.cms_revisions (id, document_id, version, status, payload, published_at, published_by) values
   ('71000000-0000-4000-8000-000000000011', '71000000-0000-4000-8000-000000000001', 1, 'published', (select original from media_payloads), statement_timestamp(), '77777777-7777-4777-8777-777777777777'),
   ('71000000-0000-4000-8000-000000000012', '71000000-0000-4000-8000-000000000001', 2, 'draft', (select draft_payload from media_payloads), null, null),
-  ('71000000-0000-4000-8000-000000000013', '71000000-0000-4000-8000-000000000001', 3, 'draft', jsonb_set((select draft_payload from media_payloads), '{zh,centerPeople,0,people,0,portrait,kind}', '"public"'), null, null);
+  ('71000000-0000-4000-8000-000000000013', '71000000-0000-4000-8000-000000000002', 1, 'draft', jsonb_set((select draft_payload from media_payloads), '{zh,centerPeople,0,people,0,portrait,kind}', '"public"'), null, null);
 
 select ok((select count(*) = 2 from unnest(array[
   'public.cms_prepare_media_publication(uuid,uuid,bigint,uuid)',
@@ -119,11 +125,10 @@ select throws_ok(
 );
 select throws_ok(
   $$update public.cms_revisions set publication_actor_id = '77777777-7777-4777-8777-777777777777' where id = '71000000-0000-4000-8000-000000000012'$$,
-  '55000', 'publication retry metadata is workflow-managed', 'draft update cannot mutate retry metadata'
+  '55000', 'publication retry metadata is immutable', 'draft update cannot mutate retry metadata'
 );
 
-set local role service_role;
-select pg_temp.capture_media_outcome('malformed_draft_like', $$select to_jsonb(public.cms_finalize_media_publication('71000000-0000-4000-8000-000000000001','71000000-0000-4000-8000-000000000013',1,'77777777-7777-4777-8777-777777777777',jsonb_build_object((select draft_path from media_payloads),jsonb_build_object('kind','public','bucket','public-media','path',(select public_path from media_payloads))))))$$);
+select pg_temp.capture_media_outcome('malformed_draft_like', $$select to_jsonb(public.cms_finalize_media_publication('71000000-0000-4000-8000-000000000002','71000000-0000-4000-8000-000000000013',1,'77777777-7777-4777-8777-777777777777',jsonb_build_object((select draft_path from media_payloads),jsonb_build_object('kind','public','bucket','public-media','path',(select public_path from media_payloads)))))$$);
 select is((select detail from media_outcomes where name = 'malformed_draft_like'), 'invalid_draft_reference', 'finalizer rejects malformed draft-like payload with stable validation detail');
 select pg_temp.capture_media_outcome('prepare_non_admin', $$select to_jsonb(public.cms_prepare_media_publication('71000000-0000-4000-8000-000000000001','71000000-0000-4000-8000-000000000012',1,'88888888-8888-4888-8888-888888888888'))$$);
 select is((select sqlstate from media_outcomes where name = 'prepare_non_admin'), '42501', 'prepare validates the explicit actor allowlist');
@@ -135,23 +140,23 @@ select is((select edit_version from public.cms_revisions where id = '71000000-00
 
 select pg_temp.capture_media_outcome('missing_mapping', $$select to_jsonb(public.cms_finalize_media_publication('71000000-0000-4000-8000-000000000001','71000000-0000-4000-8000-000000000012',1,'77777777-7777-4777-8777-777777777777','{}'))$$);
 select is((select detail from media_outcomes where name = 'missing_mapping'), 'replacement_set_mismatch', 'finalize rejects missing mappings');
-select pg_temp.capture_media_outcome('extra_mapping', $$select to_jsonb(public.cms_finalize_media_publication('71000000-0000-4000-8000-000000000001','71000000-0000-4000-8000-000000000012',1,'77777777-7777-4777-8777-777777777777',jsonb_build_object((select draft_path from media_payloads),jsonb_build_object('kind','public','bucket','public-media','path',(select public_path from media_payloads)),'extra/path.png',jsonb_build_object('kind','public','bucket','public-media','path',(select public_path from media_payloads))))))$$);
+select pg_temp.capture_media_outcome('extra_mapping', $$select to_jsonb(public.cms_finalize_media_publication('71000000-0000-4000-8000-000000000001','71000000-0000-4000-8000-000000000012',1,'77777777-7777-4777-8777-777777777777',jsonb_build_object((select draft_path from media_payloads),jsonb_build_object('kind','public','bucket','public-media','path',(select public_path from media_payloads)),'extra/path.png',jsonb_build_object('kind','public','bucket','public-media','path',(select public_path from media_payloads)))))$$);
 select is((select detail from media_outcomes where name = 'extra_mapping'), 'replacement_set_mismatch', 'finalize rejects extra mappings');
-select pg_temp.capture_media_outcome('malformed_mapping', $$select to_jsonb(public.cms_finalize_media_publication('71000000-0000-4000-8000-000000000001','71000000-0000-4000-8000-000000000012',1,'77777777-7777-4777-8777-777777777777',jsonb_build_object((select draft_path from media_payloads),jsonb_build_object('kind','public','bucket','wrong','path',(select public_path from media_payloads))))))$$);
+select pg_temp.capture_media_outcome('malformed_mapping', $$select to_jsonb(public.cms_finalize_media_publication('71000000-0000-4000-8000-000000000001','71000000-0000-4000-8000-000000000012',1,'77777777-7777-4777-8777-777777777777',jsonb_build_object((select draft_path from media_payloads),jsonb_build_object('kind','public','bucket','wrong','path',(select public_path from media_payloads)))))$$);
 select is((select detail from media_outcomes where name = 'malformed_mapping'), 'invalid_replacement', 'finalize rejects malformed replacement values');
-select pg_temp.capture_media_outcome('cross_owner', $$select to_jsonb(public.cms_finalize_media_publication('71000000-0000-4000-8000-000000000001','71000000-0000-4000-8000-000000000012',1,'99999999-9999-4999-8999-999999999999',jsonb_build_object((select draft_path from media_payloads),jsonb_build_object('kind','public','bucket','public-media','path',(select public_path from media_payloads))))))$$);
+select pg_temp.capture_media_outcome('cross_owner', $$select to_jsonb(public.cms_finalize_media_publication('71000000-0000-4000-8000-000000000001','71000000-0000-4000-8000-000000000012',1,'99999999-9999-4999-8999-999999999999',jsonb_build_object((select draft_path from media_payloads),jsonb_build_object('kind','public','bucket','public-media','path',(select public_path from media_payloads)))))$$);
 select is((select sqlstate from media_outcomes where name = 'cross_owner'), '42501', 'finalize rejects an allowlisted actor for another owner namespace');
 select is((select detail from media_outcomes where name = 'cross_owner'), 'draft_owner_mismatch', 'cross-owner rejection has a stable detail code');
-select pg_temp.capture_media_outcome('stale_finalize', $$select to_jsonb(public.cms_finalize_media_publication('71000000-0000-4000-8000-000000000001','71000000-0000-4000-8000-000000000012',2,'77777777-7777-4777-8777-777777777777',jsonb_build_object((select draft_path from media_payloads),jsonb_build_object('kind','public','bucket','public-media','path',(select public_path from media_payloads))))))$$);
+select pg_temp.capture_media_outcome('stale_finalize', $$select to_jsonb(public.cms_finalize_media_publication('71000000-0000-4000-8000-000000000001','71000000-0000-4000-8000-000000000012',2,'77777777-7777-4777-8777-777777777777',jsonb_build_object((select draft_path from media_payloads),jsonb_build_object('kind','public','bucket','public-media','path',(select public_path from media_payloads)))))$$);
 select is((select detail from media_outcomes where name = 'stale_finalize'), 'stale_edit_version', 'finalize enforces the expected CAS token');
 select set_config('app.test_fail_media_finalize', 'on', true);
-select pg_temp.capture_media_outcome('forced_finalize_failure', $$select to_jsonb(public.cms_finalize_media_publication('71000000-0000-4000-8000-000000000001','71000000-0000-4000-8000-000000000012',1,'77777777-7777-4777-8777-777777777777',jsonb_build_object((select draft_path from media_payloads),jsonb_build_object('kind','public','bucket','public-media','path',(select public_path from media_payloads))))))$$);
+select pg_temp.capture_media_outcome('forced_finalize_failure', $$select to_jsonb(public.cms_finalize_media_publication('71000000-0000-4000-8000-000000000001','71000000-0000-4000-8000-000000000012',1,'77777777-7777-4777-8777-777777777777',jsonb_build_object((select draft_path from media_payloads),jsonb_build_object('kind','public','bucket','public-media','path',(select public_path from media_payloads)))))$$);
 select is((select detail from media_outcomes where name = 'forced_finalize_failure'), 'forced_finalization_failure', 'forced failure reaches the final draft update after prior archive work');
 select is((select status::text from public.cms_revisions where id = '71000000-0000-4000-8000-000000000011'), 'published', 'failed finalization rolls back the prior publication archive');
 select is((select status::text from public.cms_revisions where id = '71000000-0000-4000-8000-000000000012'), 'draft', 'failed finalization leaves the chosen draft unchanged');
 select set_config('app.test_fail_media_finalize', 'off', true);
 drop trigger z_test_fail_media_finalization on public.cms_revisions;
-select pg_temp.capture_media_outcome('finalize_success', $$select to_jsonb(public.cms_finalize_media_publication('71000000-0000-4000-8000-000000000001','71000000-0000-4000-8000-000000000012',1,'77777777-7777-4777-8777-777777777777',jsonb_build_object((select draft_path from media_payloads),jsonb_build_object('kind','public','bucket','public-media','path',(select public_path from media_payloads))))))$$);
+select pg_temp.capture_media_outcome('finalize_success', $$select to_jsonb(public.cms_finalize_media_publication('71000000-0000-4000-8000-000000000001','71000000-0000-4000-8000-000000000012',1,'77777777-7777-4777-8777-777777777777',jsonb_build_object((select draft_path from media_payloads),jsonb_build_object('kind','public','bucket','public-media','path',(select public_path from media_payloads)))))$$);
 select is((select sqlstate from media_outcomes where name = 'finalize_success'), null::text, 'finalize publishes through one CAS transaction');
 select is((select status::text from public.cms_revisions where id = '71000000-0000-4000-8000-000000000012'), 'published', 'chosen revision is published');
 select ok(not public.cms_payload_has_draft_media((select payload from public.cms_revisions where id = '71000000-0000-4000-8000-000000000012')), 'published payload has no draft references');
@@ -159,11 +164,11 @@ select is((select updated_by from public.cms_revisions where id = '71000000-0000
 select is((select status::text from public.cms_revisions where id = '71000000-0000-4000-8000-000000000011'), 'archived', 'prior publication is archived atomically');
 select is((select publication_actor_id from public.cms_revisions where id = '71000000-0000-4000-8000-000000000012'), '77777777-7777-4777-8777-777777777777'::uuid, 'publication persists exact actor identity');
 select is((select publication_replacements from public.cms_revisions where id = '71000000-0000-4000-8000-000000000012'), jsonb_build_object((select draft_path from media_payloads),jsonb_build_object('kind','public','bucket','public-media','path',(select public_path from media_payloads))), 'publication persists exact replacement mapping');
-select pg_temp.capture_media_outcome('response_loss_retry', $$select to_jsonb(public.cms_finalize_media_publication('71000000-0000-4000-8000-000000000001','71000000-0000-4000-8000-000000000012',1,'77777777-7777-4777-8777-777777777777',jsonb_build_object((select draft_path from media_payloads),jsonb_build_object('kind','public','bucket','public-media','path',(select public_path from media_payloads))))))$$);
+select pg_temp.capture_media_outcome('response_loss_retry', $$select to_jsonb(public.cms_finalize_media_publication('71000000-0000-4000-8000-000000000001','71000000-0000-4000-8000-000000000012',1,'77777777-7777-4777-8777-777777777777',jsonb_build_object((select draft_path from media_payloads),jsonb_build_object('kind','public','bucket','public-media','path',(select public_path from media_payloads)))))$$);
 select is((select returned ->> 'id' from media_outcomes where name = 'response_loss_retry'), '71000000-0000-4000-8000-000000000012', 'response-loss retry returns the same publication');
-select pg_temp.capture_media_outcome('wrong_mapping_retry', $$select to_jsonb(public.cms_finalize_media_publication('71000000-0000-4000-8000-000000000001','71000000-0000-4000-8000-000000000012',1,'77777777-7777-4777-8777-777777777777',jsonb_build_object((select draft_path from media_payloads),jsonb_build_object('kind','public','bucket','public-media','path',repeat('b',64)||'/'||repeat('b',64)||'.png')))))$$);
+select pg_temp.capture_media_outcome('wrong_mapping_retry', $$select to_jsonb(public.cms_finalize_media_publication('71000000-0000-4000-8000-000000000001','71000000-0000-4000-8000-000000000012',1,'77777777-7777-4777-8777-777777777777',jsonb_build_object((select draft_path from media_payloads),jsonb_build_object('kind','public','bucket','public-media','path',repeat('b',64)||'/'||repeat('b',64)||'.png'))))$$);
 select is((select detail from media_outcomes where name = 'wrong_mapping_retry'), 'stale_edit_version', 'published retry rejects a different exact mapping');
-select pg_temp.capture_media_outcome('wrong_actor_retry', $$select to_jsonb(public.cms_finalize_media_publication('71000000-0000-4000-8000-000000000001','71000000-0000-4000-8000-000000000012',1,'99999999-9999-4999-8999-999999999999',jsonb_build_object((select draft_path from media_payloads),jsonb_build_object('kind','public','bucket','public-media','path',(select public_path from media_payloads))))))$$);
+select pg_temp.capture_media_outcome('wrong_actor_retry', $$select to_jsonb(public.cms_finalize_media_publication('71000000-0000-4000-8000-000000000001','71000000-0000-4000-8000-000000000012',1,'99999999-9999-4999-8999-999999999999',jsonb_build_object((select draft_path from media_payloads),jsonb_build_object('kind','public','bucket','public-media','path',(select public_path from media_payloads)))))$$);
 select is((select detail from media_outcomes where name = 'wrong_actor_retry'), 'stale_edit_version', 'published retry rejects a different actor identity');
 select throws_ok(
   $$update public.cms_revisions set publication_replacements = '{}'::jsonb where id = '71000000-0000-4000-8000-000000000012'$$,
@@ -173,11 +178,10 @@ update public.cms_revisions set status = 'archived', archived_at = statement_tim
 select is((select publication_actor_id from public.cms_revisions where id = '71000000-0000-4000-8000-000000000012'), '77777777-7777-4777-8777-777777777777'::uuid, 'archive transition preserves retry metadata');
 select throws_ok(
   $$update public.cms_revisions set publication_actor_id = '99999999-9999-4999-8999-999999999999' where id = '71000000-0000-4000-8000-000000000012'$$,
-  '55000', 'archived revisions are immutable', 'archived retry metadata cannot be altered'
+  '55000', 'publication retry metadata is immutable', 'archived retry metadata cannot be altered'
 );
-select pg_temp.capture_media_outcome('superseded_retry', $$select to_jsonb(public.cms_finalize_media_publication('71000000-0000-4000-8000-000000000001','71000000-0000-4000-8000-000000000012',1,'77777777-7777-4777-8777-777777777777',jsonb_build_object((select draft_path from media_payloads),jsonb_build_object('kind','public','bucket','public-media','path',(select public_path from media_payloads))))))$$);
+select pg_temp.capture_media_outcome('superseded_retry', $$select to_jsonb(public.cms_finalize_media_publication('71000000-0000-4000-8000-000000000001','71000000-0000-4000-8000-000000000012',1,'77777777-7777-4777-8777-777777777777',jsonb_build_object((select draft_path from media_payloads),jsonb_build_object('kind','public','bucket','public-media','path',(select public_path from media_payloads)))))$$);
 select is((select detail from media_outcomes where name = 'superseded_retry'), 'superseded_revision', 'retry never falsely accepts a superseded revision');
-reset role;
 
 select * from finish();
 rollback;

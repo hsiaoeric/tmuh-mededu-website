@@ -8,7 +8,7 @@ select plan(8);
 -- A fresh reset has no platform-owned storage.objects policies. Keep this exact
 -- inventory so stale or manually-added policies cannot silently widen access.
 select results_eq(
-  $$select policyname::text || '|' || cmd || '|' || array_to_string(roles::text[], ',')
+  $$select (policyname::text || '|' || cmd || '|' || array_to_string(roles::text[], ',')) collate "default"
     from pg_policies
     where schemaname = 'storage'
       and tablename = 'objects'
@@ -23,7 +23,7 @@ select results_eq(
 );
 
 select results_eq(
-  $$select cmd || '|' || policyname::text
+  $$select (cmd || '|' || policyname::text) collate "default"
     from pg_policies
     where schemaname = 'storage'
       and tablename = 'objects'

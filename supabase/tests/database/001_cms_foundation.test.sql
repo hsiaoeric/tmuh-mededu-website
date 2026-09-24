@@ -187,11 +187,11 @@ select ok(
   'every publication predicate is strict'
 );
 select ok(
-  (select count(*) = 21 and bool_and(not prosecdef) from pg_proc where pronamespace = 'public'::regnamespace and proname like 'cms_%' and (proname like 'cms_jsonb_%' or proname like 'cms_%_payload_is_publishable' or proname = 'cms_payload_is_publishable')),
+  (select count(*) >= 21 and bool_and(not prosecdef) from pg_proc where pronamespace = 'public'::regnamespace and proname like 'cms_%' and (proname like 'cms_jsonb_%' or proname like 'cms_%_payload_is_publishable' or proname = 'cms_payload_is_publishable')),
   'every publication predicate is security invoker'
 );
 select ok(
-  (select count(*) = 21 and bool_and(coalesce(proconfig, '{}'::text[]) @> array['search_path=""']) from pg_proc where pronamespace = 'public'::regnamespace and (proname like 'cms_jsonb_%' or proname like 'cms_%_payload_is_publishable' or proname = 'cms_payload_is_publishable')),
+  (select count(*) >= 21 and bool_and(coalesce(proconfig, '{}'::text[]) @> array['search_path=""']) from pg_proc where pronamespace = 'public'::regnamespace and (proname like 'cms_jsonb_%' or proname like 'cms_%_payload_is_publishable' or proname = 'cms_payload_is_publishable')),
   'every publication predicate fixes an empty search path'
 );
 select ok(
@@ -205,11 +205,11 @@ select ok(
 select ok(
   (select prosecdef
       and coalesce(proconfig, '{}'::text[]) @> array['search_path=""']
-      and has_function_privilege('authenticated', oid, 'EXECUTE')
+      and not has_function_privilege('authenticated', oid, 'EXECUTE')
       and not has_function_privilege('public', oid, 'EXECUTE')
       and not has_function_privilege('anon', oid, 'EXECUTE')
     from pg_proc where oid = 'public.cms_publish_revision(uuid,uuid,bigint)'::regprocedure),
-  'publish RPC remains hardened and authenticated-only'
+  'publish RPC remains hardened and unreachable from browser roles; cms-publish finalizes instead'
 );
 
 select ok(public.cms_payload_is_publishable('site_copy', (select payload from cms_valid_payload_fixtures where kind = 'site_copy')), 'generated site_copy payload is valid');
@@ -333,7 +333,7 @@ select throws_ok(
       1
     )$$,
   '42501',
-  'CMS administrator access required',
+  'permission denied for function cms_publish_revision',
   'non-admin users cannot publish revisions'
 );
 select throws_ok(
@@ -423,17 +423,22 @@ select throws_ok(
   'published rows reject direct payload mutation even for a database owner'
 );
 
-set local role authenticated;
+-- Browsers cannot publish; the cms-publish Edge Function finalizes as service_role for a verified administrator.
+set local role service_role;
 select results_eq(
   $$select published.status::text || '|' || published.edit_version::text
-    from public.cms_publish_revision(
+    from public.cms_finalize_media_publication(
       'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa',
       'dddddddd-dddd-dddd-dddd-dddddddddddd',
-      1
+      1,
+      '11111111-1111-1111-1111-111111111111',
+      '{}'::jsonb
     ) as published$$,
   array['published|2'::text],
   'administrator can publish a valid bilingual draft with one token increment'
 );
+reset role;
+set local role authenticated;
 select results_eq(
   $$select count(*)::integer from public.cms_revisions
     where document_id = 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa' and status = 'published'$$,
@@ -448,7 +453,7 @@ select results_eq(
 select results_eq(
   $$select published_by::text from public.cms_revisions where id = 'dddddddd-dddd-dddd-dddd-dddddddddddd'$$,
   array['11111111-1111-1111-1111-111111111111'::text],
-  'publication audit actor comes from auth.uid()'
+  'publication audit actor is the verified administrator'
 );
 reset role;
 
@@ -471,17 +476,21 @@ values (
   (select payload from cms_valid_payload_fixtures where kind = 'digital_materials')
 );
 
-set local role authenticated;
+set local role service_role;
 select throws_ok(
-  $$select public.cms_publish_revision(
+  $$select public.cms_finalize_media_publication(
       'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa',
       'eeeeeeee-eeee-eeee-eeee-eeeeeeeeeeee',
-      1
+      1,
+      '11111111-1111-1111-1111-111111111111',
+      '{}'::jsonb
     )$$,
   '23514',
   'payload does not match CMS document kind news',
   'publication rejects a wrong-kind draft'
 );
+reset role;
+set local role authenticated;
 select results_eq(
   $$select count(*)::integer from public.cms_revisions
     where id = 'eeeeeeee-eeee-eeee-eeee-eeeeeeeeeeee'

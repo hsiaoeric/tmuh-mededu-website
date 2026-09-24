@@ -14,7 +14,7 @@ create temporary table cms_test_outcomes (
   detail text
 ) on commit drop;
 
-grant select, insert, update on table cms_test_outcomes to authenticated;
+grant select, insert, update on table cms_test_outcomes to authenticated, service_role;
 
 create function pg_temp.capture_cms_outcome(p_name text, p_statement text)
 returns void
@@ -45,6 +45,27 @@ begin
       sqlstate = excluded.sqlstate,
       message = excluded.message,
       detail = excluded.detail;
+end;
+$$;
+
+-- Browsers cannot publish; the cms-publish Edge Function finalizes as service_role for the verified
+-- administrator. Callers resolve revision ids first because service_role holds no table grants.
+create function pg_temp.capture_finalize_outcome(
+  p_name text,
+  p_document_id uuid,
+  p_revision_id uuid,
+  p_expected_edit_version bigint
+)
+returns void
+language plpgsql
+as $$
+begin
+  set local role service_role;
+  perform pg_temp.capture_cms_outcome(p_name, format(
+    'select (public.cms_finalize_media_publication(%L::uuid, %L::uuid, %s, %L::uuid, %L::jsonb)).id::text',
+    p_document_id, p_revision_id, p_expected_edit_version, '33333333-3333-3333-3333-333333333333', '{}'
+  ));
+  set local role authenticated;
 end;
 $$;
 
@@ -81,9 +102,9 @@ create temporary table cms_wave3_payloads on commit drop as
 select
   news.payload as original_news,
   jsonb_set(
-    jsonb_set(news.payload, '{zh,latestUpdate}', '"2026/08/28"'::jsonb),
-    '{en,latestUpdate}',
-    '"Aug 28, 2026"'::jsonb
+    jsonb_set(news.payload, '{zh,department,0,title}', '"2026 年度更新"'::jsonb),
+    '{en,department,0,title}',
+    '"2026 annual update"'::jsonb
   ) as saved_news,
   digital_materials.payload as wrong_kind
 from (
@@ -297,7 +318,7 @@ select ok(
 );
 select ok(
   (
-    select count(*) = 4 and bool_and(
+    select count(*) = 3 and bool_and(
       has_function_privilege('postgres', oid, 'EXECUTE')
         and has_function_privilege('authenticated', oid, 'EXECUTE')
         and not has_function_privilege('public', oid, 'EXECUTE')
@@ -316,11 +337,18 @@ select ok(
     where oid = any(array[
       to_regprocedure('public.cms_clone_revision(uuid,uuid)'),
       to_regprocedure('public.cms_save_draft(uuid,uuid,bigint,jsonb)'),
-      to_regprocedure('public.cms_publish_revision(uuid,uuid,bigint)'),
       to_regprocedure('public.cms_archive_revision(uuid,uuid,bigint)')
     ]::oid[])
+  )
+  and not exists (
+    select 1
+    from pg_proc,
+      aclexplode(coalesce(proacl, acldefault('f', proowner))) as privilege
+    where pg_proc.oid = to_regprocedure('public.cms_publish_revision(uuid,uuid,bigint)')
+      and privilege.privilege_type = 'EXECUTE'
+      and privilege.grantee <> proowner
   ),
-  'only the owner and authenticated role can execute Wave 3 RPCs'
+  'only the owner and authenticated role can execute browser Wave 3 RPCs, and only the owner can publish directly'
 );
 
 set local role anon;
@@ -566,17 +594,15 @@ select is(
   'denied direct update leaves token and payload unchanged'
 );
 
-select pg_temp.capture_cms_outcome(
+select pg_temp.capture_finalize_outcome(
   'publish_stale',
-  $sql$select public.cms_publish_revision(
-    '31000000-0000-0000-0000-000000000001',
-    (
-      select id from public.cms_revisions
-      where document_id = '31000000-0000-0000-0000-000000000001'
-        and status = 'draft'
-    ),
-    1
-  )$sql$
+  '31000000-0000-0000-0000-000000000001',
+  (
+    select id from public.cms_revisions
+    where document_id = '31000000-0000-0000-0000-000000000001'
+      and status = 'draft'
+  ),
+  1
 );
 select is((select sqlstate from cms_test_outcomes where name = 'publish_stale'), 'PT409', 'publish rejects a stale edit token');
 select is((select detail from cms_test_outcomes where name = 'publish_stale'), 'stale_edit_version', 'publish conflict exposes a stable detail code');
@@ -592,17 +618,15 @@ select is(
   'stale publish atomically preserves the publication and draft'
 );
 
-select pg_temp.capture_cms_outcome(
+select pg_temp.capture_finalize_outcome(
   'publish_success',
-  $sql$select public.cms_publish_revision(
-    '31000000-0000-0000-0000-000000000001',
-    (
-      select id from public.cms_revisions
-      where document_id = '31000000-0000-0000-0000-000000000001'
-        and status = 'draft'
-    ),
-    2
-  )$sql$
+  '31000000-0000-0000-0000-000000000001',
+  (
+    select id from public.cms_revisions
+    where document_id = '31000000-0000-0000-0000-000000000001'
+      and status = 'draft'
+  ),
+  2
 );
 select is((select sqlstate from cms_test_outcomes where name = 'publish_success'), null::text, 'an administrator can publish with the current edit token');
 select is(
@@ -632,13 +656,11 @@ select is(
   'valid publish atomically archives the prior publication'
 );
 
-select pg_temp.capture_cms_outcome(
+select pg_temp.capture_finalize_outcome(
   'publish_wrong_kind',
-  $sql$select public.cms_publish_revision(
-    '32000000-0000-0000-0000-000000000002',
-    '32000000-0000-0000-0000-000000000022',
-    1
-  )$sql$
+  '32000000-0000-0000-0000-000000000002',
+  '32000000-0000-0000-0000-000000000022',
+  1
 );
 select is((select sqlstate from cms_test_outcomes where name = 'publish_wrong_kind'), '23514', 'publish rejects a payload for the wrong document kind');
 select is(

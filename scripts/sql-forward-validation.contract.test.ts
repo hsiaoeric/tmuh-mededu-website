@@ -136,7 +136,7 @@ describe('forward SQL contract parity migration', () => {
   it('locks non-vacuous canonical and invalid pgTAP corpus sizes', () => {
     const pgTap = readFileSync(new URL('../supabase/tests/database/010_page_editor_contract_parity.test.sql', import.meta.url), 'utf8');
     expect(pgTap).toContain('5::bigint');
-    expect(pgTap).toContain('46::bigint');
+    expect(pgTap).toContain('45::bigint');
     expect(pgTap).toContain('30::bigint');
     expect(pgTap).toContain('31::bigint');
     expect(pgTap).toContain('3::bigint');

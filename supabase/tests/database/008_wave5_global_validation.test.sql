@@ -33,109 +33,109 @@ with fixture as (
   select payload from wave5_valid_payloads where kind = 'news'
 )
 insert into wave5_invalid_payloads (name, kind, payload)
-select 'news_wrong_locale_date', 'news', jsonb_set(payload, '{zh,department,0,date}', payload #> '{en,department,0,date}') from fixture
+select 'news_wrong_locale_date', 'news'::public.cms_document_kind, jsonb_set(payload, '{zh,department,0,publishedOn}', '"2020-01-01"') from fixture
 union all
-select 'news_wrong_english_locale_date', 'news', jsonb_set(payload, '{en,department,0,date}', payload #> '{zh,department,0,date}') from fixture
+select 'news_wrong_english_locale_date', 'news'::public.cms_document_kind, jsonb_set(payload, '{en,department,0,publishedOn}', '"2020-01-01"') from fixture
 union all
-select 'news_wrong_zh_latest_update', 'news', jsonb_set(payload, '{zh,latestUpdate}', payload #> '{en,latestUpdate}') from fixture
+select 'news_wrong_zh_latest_update', 'news'::public.cms_document_kind, jsonb_set(payload, '{zh,latestUpdate}', '"1999/01/01"') from fixture
 union all
-select 'news_wrong_en_latest_update', 'news', jsonb_set(payload, '{en,latestUpdate}', payload #> '{zh,latestUpdate}') from fixture
+select 'news_wrong_en_latest_update', 'news'::public.cms_document_kind, jsonb_set(payload, '{en,latestUpdate}', '"Jan 1, 1999"') from fixture
 union all
-select 'news_invalid_calendar_date', 'news', jsonb_set(payload, '{zh,department,0,date}', '"2026/02/30"') from fixture
+select 'news_invalid_calendar_date', 'news'::public.cms_document_kind, jsonb_set(payload, '{zh,department,0,publishedOn}', '"2026-02-30"') from fixture
 union all
-select 'news_non_string_title', 'news', jsonb_set(payload, '{zh,department,0,title}', '42') from fixture
+select 'news_non_string_title', 'news'::public.cms_document_kind, jsonb_set(payload, '{zh,department,0,title}', '42') from fixture
 union all
-select 'news_department_parity', 'news', payload #- '{en,department,0}' from fixture
+select 'news_department_parity', 'news'::public.cms_document_kind, payload #- '{en,department,0}' from fixture
 union all
-select 'news_holistic_parity', 'news', payload #- '{en,holistic,0}' from fixture
+select 'news_holistic_parity', 'news'::public.cms_document_kind, payload #- '{en,holistic,0}' from fixture
 union all
-select 'news_department_category_parity', 'news', payload #- '{en,categories,department,0}' from fixture
+select 'news_department_category_parity', 'news'::public.cms_document_kind, jsonb_set(payload, '{en,department}', (select coalesce(jsonb_agg(item.value order by item.ordinality desc), '[]'::jsonb) from jsonb_array_elements(payload #> '{en,department}') with ordinality as item(value, ordinality))) from fixture
 union all
-select 'news_holistic_category_parity', 'news', payload #- '{en,categories,holistic,0}' from fixture;
+select 'news_holistic_category_parity', 'news'::public.cms_document_kind, jsonb_set(payload, '{en,holistic}', (select coalesce(jsonb_agg(jsonb_set(item.value, '{category}', '"department"') order by item.ordinality), '[]'::jsonb) from jsonb_array_elements(payload #> '{en,holistic}') with ordinality as item(value, ordinality))) from fixture;
 
 with fixture as (
   select payload from wave5_valid_payloads where kind = 'activities'
 )
 insert into wave5_invalid_payloads (name, kind, payload)
-select 'activities_wrong_locale_date', 'activities', jsonb_set(payload, '{zh,holistic,0,date}', payload #> '{en,holistic,0,date}') from fixture
+select 'activities_wrong_locale_date', 'activities'::public.cms_document_kind, jsonb_set(payload, '{zh,holistic,0,date}', payload #> '{en,holistic,0,date}') from fixture
 union all
-select 'activities_wrong_english_locale_date', 'activities', jsonb_set(payload, '{en,holistic,0,date}', payload #> '{zh,holistic,0,date}') from fixture
+select 'activities_wrong_english_locale_date', 'activities'::public.cms_document_kind, jsonb_set(payload, '{en,holistic,0,date}', payload #> '{zh,holistic,0,date}') from fixture
 union all
-select 'activities_invalid_calendar_date', 'activities', jsonb_set(payload, '{zh,holistic,0,date}', '"2026/02/30（一）12:30–13:30"') from fixture
+select 'activities_invalid_calendar_date', 'activities'::public.cms_document_kind, jsonb_set(payload, '{zh,holistic,0,date}', '"2026/02/30（一）12:30–13:30"') from fixture
 union all
-select 'activities_invalid_clock', 'activities', jsonb_set(payload, '{en,holistic,0,date}', '"Wed 2026/07/22 12:70–13:30"') from fixture
+select 'activities_invalid_clock', 'activities'::public.cms_document_kind, jsonb_set(payload, '{en,holistic,0,date}', '"Wed 2026/07/22 12:70–13:30"') from fixture
 union all
-select 'activities_reversed_time', 'activities', jsonb_set(payload, '{zh,holistic,0,date}', '"2026/07/22（三）13:30–12:30"') from fixture
+select 'activities_reversed_time', 'activities'::public.cms_document_kind, jsonb_set(payload, '{zh,holistic,0,date}', '"2026/07/22（三）13:30–12:30"') from fixture
 union all
-select 'activities_http_url', 'activities', jsonb_set(payload, '{zh,holistic,0,link}', '"http://example.test/course"') from fixture
+select 'activities_http_url', 'activities'::public.cms_document_kind, jsonb_set(payload, '{zh,holistic,0,link}', '"http://example.test/course"') from fixture
 union all
-select 'activities_credentialed_url', 'activities', jsonb_set(payload, '{zh,holistic,0,link}', '"https://user:secret@example.test/course"') from fixture
+select 'activities_credentialed_url', 'activities'::public.cms_document_kind, jsonb_set(payload, '{zh,holistic,0,link}', '"https://user:secret@example.test/course"') from fixture
 union all
-select 'activities_whitespace_url', 'activities', jsonb_set(payload, '{zh,holistic,0,link}', '" https://example.test/course"') from fixture
+select 'activities_whitespace_url', 'activities'::public.cms_document_kind, jsonb_set(payload, '{zh,holistic,0,link}', '" https://example.test/course"') from fixture
 union all
-select 'activities_embedded_whitespace_url', 'activities', jsonb_set(payload, '{zh,holistic,0,link}', to_jsonb(E'https://exam\tple.test/course')) from fixture
+select 'activities_embedded_whitespace_url', 'activities'::public.cms_document_kind, jsonb_set(payload, '{zh,holistic,0,link}', to_jsonb(E'https://exam\tple.test/course'::text)) from fixture
 union all
-select 'activities_malformed_percent_host_url', 'activities', jsonb_set(payload, '{zh,holistic,0,link}', '"https://%zz/course"') from fixture
+select 'activities_malformed_percent_host_url', 'activities'::public.cms_document_kind, jsonb_set(payload, '{zh,holistic,0,link}', '"https://%zz/course"') from fixture
 union all
-select 'activities_malformed_ipv6_url', 'activities', jsonb_set(payload, '{zh,holistic,0,link}', '"https://[:::]/course"') from fixture
+select 'activities_malformed_ipv6_url', 'activities'::public.cms_document_kind, jsonb_set(payload, '{zh,holistic,0,link}', '"https://[:::]/course"') from fixture
 union all
-select 'activities_department_parity', 'activities', jsonb_set(payload, '{en,department}', jsonb_build_array(payload #> '{en,holistic,0}')) from fixture
+select 'activities_department_parity', 'activities'::public.cms_document_kind, jsonb_set(payload, '{en,department}', jsonb_build_array(payload #> '{en,holistic,0}')) from fixture
 union all
-select 'activities_holistic_parity', 'activities', payload #- '{en,holistic,0}' from fixture;
+select 'activities_holistic_parity', 'activities'::public.cms_document_kind, payload #- '{en,holistic,0}' from fixture;
 
 with fixture as (
   select payload from wave5_valid_payloads where kind = 'centers'
 )
 insert into wave5_invalid_payloads (name, kind, payload)
-select 'centers_http_url', 'centers', jsonb_set(payload, '{zh,centers,0,externalUrl}', '"http://example.test/center"') from fixture
+select 'centers_http_url', 'centers'::public.cms_document_kind, jsonb_set(payload, '{zh,centers,0,externalUrl}', '"http://example.test/center"') from fixture
 union all
-select 'centers_credentialed_url', 'centers', jsonb_set(payload, '{zh,centers,0,externalUrl}', '"https://user:secret@example.test/center"') from fixture
+select 'centers_credentialed_url', 'centers'::public.cms_document_kind, jsonb_set(payload, '{zh,centers,0,externalUrl}', '"https://user:secret@example.test/center"') from fixture
 union all
-select 'centers_whitespace_url', 'centers', jsonb_set(payload, '{zh,centers,0,externalUrl}', '"https://example.test/center "') from fixture
+select 'centers_whitespace_url', 'centers'::public.cms_document_kind, jsonb_set(payload, '{zh,centers,0,externalUrl}', '"https://example.test/center "') from fixture
 union all
-select 'centers_malformed_port_url', 'centers', jsonb_set(payload, '{zh,centers,0,externalUrl}', '"https://example.test:not-a-port/center"') from fixture
+select 'centers_malformed_port_url', 'centers'::public.cms_document_kind, jsonb_set(payload, '{zh,centers,0,externalUrl}', '"https://example.test:not-a-port/center"') from fixture
 union all
-select 'centers_empty_port_url', 'centers', jsonb_set(payload, '{zh,centers,0,externalUrl}', '"https://example.test:/center"') from fixture
+select 'centers_empty_port_url', 'centers'::public.cms_document_kind, jsonb_set(payload, '{zh,centers,0,externalUrl}', '"https://example.test:/center"') from fixture
 union all
-select 'centers_out_of_range_port_url', 'centers', jsonb_set(payload, '{zh,centers,0,externalUrl}', '"https://example.test:65536/center"') from fixture
+select 'centers_out_of_range_port_url', 'centers'::public.cms_document_kind, jsonb_set(payload, '{zh,centers,0,externalUrl}', '"https://example.test:65536/center"') from fixture
 union all
-select 'centers_ordered_id_parity', 'centers', jsonb_set(payload, '{en,centers,0,id}', '"mismatch"') from fixture
+select 'centers_ordered_id_parity', 'centers'::public.cms_document_kind, jsonb_set(payload, '{en,centers,0,id}', '"mismatch"') from fixture
 union all
-select 'centers_branch_id_parity', 'centers', payload #- '{en,centers,0,branches,0}' from fixture;
+select 'centers_branch_id_parity', 'centers'::public.cms_document_kind, payload #- '{en,centers,0,branches,0}' from fixture;
 
 with fixture as (
   select payload from wave5_valid_payloads where kind = 'people'
 )
 insert into wave5_invalid_payloads (name, kind, payload)
-select 'people_group_id_parity', 'people', jsonb_set(payload, '{en,centerPeople,0,centerId}', '"mismatch"') from fixture
+select 'people_group_id_parity', 'people'::public.cms_document_kind, jsonb_set(payload, '{en,centerPeople,0,centerId}', '"mismatch"') from fixture
 union all
-select 'people_nested_people_parity', 'people', payload #- '{en,centerPeople,0,people,0}' from fixture
+select 'people_nested_people_parity', 'people'::public.cms_document_kind, payload #- '{en,centerPeople,0,people,0}' from fixture
 union all
-select 'people_holistic_instructors_parity', 'people', payload #- '{en,holisticInstructors,0}' from fixture
+select 'people_holistic_instructors_parity', 'people'::public.cms_document_kind, payload #- '{en,holisticInstructors,0}' from fixture
 union all
-select 'people_holistic_seed_teachers_parity', 'people', payload #- '{en,holisticSeedTeachers,0}' from fixture
+select 'people_holistic_seed_teachers_parity', 'people'::public.cms_document_kind, payload #- '{en,holisticSeedTeachers,0}' from fixture
 union all
-select 'people_holistic_ai_team_parity', 'people', payload #- '{en,holisticAiTeam,0}' from fixture;
+select 'people_holistic_ai_team_parity', 'people'::public.cms_document_kind, payload #- '{en,holisticAiTeam,0}' from fixture;
 
 with fixture as (
   select payload from wave5_valid_payloads where kind = 'kpis'
 )
 insert into wave5_invalid_payloads (name, kind, payload)
-select 'kpis_items_parity', 'kpis', payload #- '{en,items,0}' from fixture;
+select 'kpis_items_parity', 'kpis'::public.cms_document_kind, payload #- '{en,items,0}' from fixture;
 
 with fixture as (
   select payload from wave5_valid_payloads where kind = 'honors'
 )
 insert into wave5_invalid_payloads (name, kind, payload)
-select 'honors_projects_parity', 'honors', payload #- '{en,snqProjects,0}' from fixture
+select 'honors_projects_parity', 'honors'::public.cms_document_kind, payload #- '{en,snqProjects,0}' from fixture
 union all
-select 'honors_members_parity', 'honors', payload #- '{en,snqProjects,0,members,0}' from fixture
+select 'honors_members_parity', 'honors'::public.cms_document_kind, payload #- '{en,snqProjects,0,members,0}' from fixture
 union all
-select 'honors_year_counts_parity', 'honors', payload #- '{en,snqYearCounts,0}' from fixture
+select 'honors_year_counts_parity', 'honors'::public.cms_document_kind, payload #- '{en,snqYearCounts,0}' from fixture
 union all
-select 'honors_leads_parity', 'honors', payload #- '{en,nhqa,leads,0}' from fixture
+select 'honors_leads_parity', 'honors'::public.cms_document_kind, payload #- '{en,nhqa,leads,0}' from fixture
 union all
-select 'honors_keywords_parity', 'honors', payload #- '{en,nhqa,keywords,0}' from fixture;
+select 'honors_keywords_parity', 'honors'::public.cms_document_kind, payload #- '{en,nhqa,keywords,0}' from fixture;
 
 create temporary table wave5_save_outcomes (
   name text primary key,
@@ -303,9 +303,10 @@ select results_eq(
   'HTTPS helper matches the supported credential-free URL corpus'
 );
 select results_eq(
-  $$select kind::text from wave5_valid_payloads where not public.cms_wave5_global_payload_is_valid(kind, payload) order by kind$$,
+  -- centers, news, and activities bypass the Wave 5 predicate in the dispatcher; their dedicated validators own those shapes.
+  $$select kind::text from wave5_valid_payloads where kind not in ('centers', 'news', 'activities') and not public.cms_wave5_global_payload_is_valid(kind, payload) order by kind$$,
   array[]::text[],
-  'Wave 5 predicate accepts every current global snapshot'
+  'Wave 5 predicate accepts every current global snapshot it still governs'
 );
 select results_eq(
   $$select kind::text from wave5_valid_payloads where not public.cms_payload_is_publishable(kind, payload) order by kind$$,

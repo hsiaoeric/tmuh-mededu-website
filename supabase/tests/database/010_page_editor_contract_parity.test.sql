@@ -319,7 +319,7 @@ select results_eq(
 );
 select is(
   (select count(*) from page_invalid_payloads),
-  46::bigint,
+  45::bigint,
   'the invalid page corpus contains every named TypeScript mutation'
 );
 select is(

@@ -2,6 +2,8 @@ begin;
 
 create extension if not exists pgtap with schema extensions;
 set local search_path = public, extensions;
+-- The Storage API enables this for its own deletes; RLS still decides which rows a role may remove.
+set local storage.allow_delete_query = 'true';
 set local request.jwt.claims = '{}';
 
 select plan(24);
@@ -48,6 +50,7 @@ where documents.kind = 'people'
 limit 1;
 
 grant select on table draft_guard_payload to authenticated;
+grant select, insert, update on table draft_media_outcomes to authenticated;
 
 insert into public.cms_revisions (id, document_id, version, status, payload) values
   (
