@@ -92,10 +92,12 @@ type ConfirmDialogProps = Omit<AdminDialogProps, 'children' | 'actions'> & {
   readonly confirming?: boolean;
   readonly warning?: boolean;
   readonly body?: string;
+  /** Extra content under the body, such as a summary of what the action changes. */
+  readonly details?: ReactNode;
 };
 
-export function ConfirmDialog({ confirmLabel, cancelLabel, onConfirm, onClose, confirming = false, warning = false, body = '請先確認這項操作的影響，再決定是否繼續。', ...dialogProps }: ConfirmDialogProps) {
-  return <AdminDialog {...dialogProps} onClose={onClose} actions={<><AdminButton disabled={confirming} onClick={onClose}>{cancelLabel}</AdminButton><AdminButton variant={warning ? 'warning' : 'primary'} loading={confirming} onClick={onConfirm}>{confirmLabel}</AdminButton></>}><p>{body}</p></AdminDialog>;
+export function ConfirmDialog({ confirmLabel, cancelLabel, onConfirm, onClose, confirming = false, warning = false, body = '請先確認這項操作的影響，再決定是否繼續。', details, ...dialogProps }: ConfirmDialogProps) {
+  return <AdminDialog {...dialogProps} onClose={onClose} actions={<><AdminButton disabled={confirming} onClick={onClose}>{cancelLabel}</AdminButton><AdminButton variant={warning ? 'warning' : 'primary'} loading={confirming} onClick={onConfirm}>{confirmLabel}</AdminButton></>}><p>{body}</p>{details}</AdminDialog>;
 }
 
 type AdminToastProps = {

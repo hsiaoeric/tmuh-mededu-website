@@ -10,6 +10,7 @@ import { ConfirmDialog } from '@/admin/AdminOverlays';
 import { CMS_DOCUMENT_METADATA, getAdminDocumentFailureCopy, getWorkspaceCapabilities, isWorkspaceDirty, pendingDocumentMutation, type DocumentMutation, type DocumentOperationState, type DocumentWorkspace } from '@/admin/documents';
 import { assertNever } from '@/admin/documents/assertNever';
 import { publicDocumentHref } from '@/admin/documents/publicLocation';
+import { PublishChanges } from '@/admin/documents/PublishChanges';
 import { Icon } from '@/ui/Icon';
 import { DirtyNavigationGuard, type DocumentWorkspaceController } from '@/admin/workflows';
 import type { CmsDocumentKind } from '@/content/contracts/kinds';
@@ -184,6 +185,9 @@ export function AdminDocumentWorkspaceView({ kind, controller, workspace }: Admi
         title={confirmation === 'archive' ? (isZh ? '確認封存文件？' : 'Archive this document?') : (isZh ? '確認發布文件？' : 'Publish this document?')}
         description={confirmation === 'archive' ? (isZh ? '封存後，這份文件將不再作為目前內容使用。' : 'The document will no longer be used as current content after archival.') : (isZh ? '目前修訂版本將成為公開網站使用的內容。' : 'The current revision will become the content used by the public site.')}
         confirmLabel={confirmation === 'archive' ? (isZh ? '確認封存' : 'Archive') : (isZh ? '確認發佈' : 'Publish')}
+        details={confirmation === 'publish' && workspace.actionableRevision !== null
+          ? <PublishChanges published={publishedRevision?.payload ?? null} next={workspace.actionableRevision.payload} isZh={isZh} />
+          : undefined}
         cancelLabel={isZh ? '取消' : 'Cancel'}
         closeLabel={isZh ? '關閉確認對話框' : 'Close confirmation dialog'}
         onConfirm={() => {

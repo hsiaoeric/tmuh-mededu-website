@@ -128,6 +128,9 @@ export function EditorCollection({ id, title, description, itemCount, revisionKe
     setCollapsed((current) => current ?? nextCollapsible.map((canCollapse) => collapseItemsByDefault && itemCount > 1 && canCollapse));
   }, [collapseItemsByDefault, isZh, itemCount]);
 
+  // Re-measure after every render. Accepted edits re-render the collection, so summaries stay
+  // current without listening to raw input events, which would re-render a controlled field
+  // before React's own change handler runs and drop the keystroke.
   useLayoutEffect(() => { measure(); });
 
   useLayoutEffect(() => {
@@ -144,13 +147,11 @@ export function EditorCollection({ id, title, description, itemCount, revisionKe
     };
     root.addEventListener(EDITOR_REVEAL_EVENT, reveal);
     root.addEventListener('beforematch', reveal);
-    root.addEventListener('input', measure);
     return () => {
       root.removeEventListener(EDITOR_REVEAL_EVENT, reveal);
       root.removeEventListener('beforematch', reveal);
-      root.removeEventListener('input', measure);
     };
-  }, [measure]);
+  }, []);
 
   // `hidden="until-found"` keeps collapsed text reachable by the browser's find-in-page, which
   // fires `beforematch` to open the item. React only writes boolean `hidden`, so set it here.

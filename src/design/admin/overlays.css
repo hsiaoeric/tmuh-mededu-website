@@ -39,3 +39,13 @@
 @keyframes admin-fade-in { from { opacity: 0; } }
 @keyframes admin-dialog-in { from { opacity: 0; transform: scale(0.98) translateY(var(--admin-space-2)); } }
 @keyframes admin-drawer-in { from { opacity: 0; transform: translateX(-100%); } }
+.admin-publish-changes { display: grid; gap: var(--admin-space-2); margin-block-start: var(--admin-space-3); }
+.admin-publish-changes > p,
+.admin-publish-changes-note { color: var(--muted); font-size: 0.78rem; line-height: 1.55; }
+.admin-publish-changes-note { margin-block-start: var(--admin-space-3); }
+.admin-publish-changes ul { display: grid; gap: var(--admin-space-2); max-block-size: 18rem; margin: 0; padding: var(--admin-space-2); overflow: auto; list-style: none; border: 1px solid var(--line-soft); border-radius: var(--radius); background: var(--surface-2); }
+.admin-publish-changes li { display: grid; gap: 2px; min-inline-size: 0; font-size: 0.76rem; line-height: 1.5; }
+.admin-publish-change-path { color: var(--faint); font-family: 'IBM Plex Mono', 'Noto Sans TC', ui-monospace, monospace; font-size: 0.68rem; overflow-wrap: anywhere; }
+.admin-publish-change-values { overflow-wrap: anywhere; }
+.admin-publish-change-values del { padding-inline: 2px; color: var(--admin-warning-ink); background: var(--amber-wash); }
+.admin-publish-change-values ins { padding-inline: 2px; color: var(--ink); background: var(--accent-wash); text-decoration: none; }
