@@ -35,6 +35,7 @@ Supabase 中已發佈的內容是上線後的權威來源。網站固定管理�
 
 1. 到 Authentication 設定關閉公開 email signup。
 2. 關閉 anonymous sign-in。
+   - 洩漏密碼檢查（HaveIBeenPwned）僅限 Pro 以上方案，目前方案無法啟用，Security Advisor 會持續顯示此警告。替代做法：在 Authentication 的密碼設定把最短長度設為至少 12 字元並要求大小寫、數字與符號，且每位管理員使用密碼管理器產生的唯一密碼。升級方案後應立即啟用此檢查。
 3. 確認 Site URL 與允許的 redirect URL 只包含受信任的管理站來源。
 4. 到 Authentication 的 Users 頁面，為每位內容管理員以 email/password 手動建立各自的 Auth user。每人一個帳號、不可共用，修訂紀錄的 actor 欄位才能對應到實際操作者。不要開放訪客自行註冊。
 5. 逐一複製各使用者頁面顯示的 Auth UUID。加入 allowlist 時必須使用這個完整值，不能使用 email、另行產生的 UUID 或 CMS 文件 UUID。
