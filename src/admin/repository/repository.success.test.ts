@@ -53,6 +53,30 @@ describe('createAdminDocumentRepository success paths', () => {
     });
   });
 
+  it('lists payload-free revision statuses only when the operations support it', async () => {
+    // Given
+    const withStatuses = createAdminDocumentRepository(operations({
+      listRevisionStatuses: () => success([
+        { document_id: DOCUMENT_ID, version: 2, status: 'draft', updated_at: '2026-08-22T02:00:00Z' },
+      ]),
+    }), publicationClient());
+    const withoutStatuses = createAdminDocumentRepository(operations(), publicationClient());
+    const malformed = createAdminDocumentRepository(operations({
+      listRevisionStatuses: () => success([{ document_id: DOCUMENT_ID, version: 2, status: 'draft', updated_at: 'yesterday' }]),
+    }), publicationClient());
+
+    // When
+    const result = await withStatuses.listRevisionStatuses?.();
+
+    // Then
+    expect(result).toEqual({
+      ok: true,
+      value: [{ documentId: DOCUMENT_ID, version: 2, status: 'draft', updatedAt: '2026-08-22T02:00:00Z' }],
+    });
+    expect(withoutStatuses.listRevisionStatuses).toBeUndefined();
+    expect(await malformed.listRevisionStatuses?.()).toEqual({ ok: false, failure: { kind: 'malformed-payload' } });
+  });
+
   it('reads a canonical document with parsed revisions and edit versions', async () => {
     // Given
     const readDocument = vi.fn(() => success({ document: DOCUMENT_ROW, revisions: [REVISION_ROW] }));

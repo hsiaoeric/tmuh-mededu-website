@@ -10,6 +10,7 @@ import {
   type DraftMediaOwnershipScope,
 } from '@/admin/media';
 import { AdminProtectedLayout } from './AdminProtectedLayout';
+import { SiteProvider } from './site';
 
 const authHarness = vi.hoisted(() => {
   let state: unknown = { status: 'booting' };
@@ -30,13 +31,11 @@ vi.mock('@/admin/auth', async (importOriginal) => {
 });
 
 const FAIL_CLOSED_STATES = [
-  { name: 'booting', state: { status: 'booting' } },
   { name: 'disabled configuration', state: { status: 'config-error', failure: { kind: 'disabled' } } },
   { name: 'partial configuration', state: { status: 'config-error', failure: { kind: 'invalid', reason: 'partial' } } },
   { name: 'invalid configuration', state: { status: 'config-error', failure: { kind: 'invalid', reason: 'invalid' } } },
   { name: 'anonymous', state: { status: 'anonymous' } },
   { name: 'authenticating', state: { status: 'authenticating' } },
-  { name: 'verifying', state: { status: 'verifying' } },
   { name: 'denied', state: { status: 'denied' } },
   { name: 'expired', state: { status: 'expired' } },
   { name: 'client unavailable', state: { status: 'error', failure: 'client-unavailable' } },
@@ -44,6 +43,12 @@ const FAIL_CLOSED_STATES = [
   { name: 'identity check failed', state: { status: 'error', failure: 'identity-check-failed' } },
   { name: 'allowlist check failed', state: { status: 'error', failure: 'allowlist-check-failed' } },
   { name: 'unsupported event', state: { status: 'error', failure: 'unsupported-auth-event' } },
+] as const satisfies readonly { readonly name: string; readonly state: AdminAuthState }[];
+
+/** A stored session is still being checked: wait in place instead of flashing the login page. */
+const SESSION_CHECK_STATES = [
+  { name: 'booting', state: { status: 'booting' } },
+  { name: 'verifying', state: { status: 'verifying' } },
 ] as const satisfies readonly { readonly name: string; readonly state: AdminAuthState }[];
 
 function LocationProbe() {
@@ -112,6 +117,31 @@ describe('AdminProtectedLayout', () => {
     expect(location.getAttribute('data-state')).toBe(
       JSON.stringify({ returnTo: '/admin/content/news?draft=1#translation' }),
     );
+    expect(protectedMount).not.toHaveBeenCalled();
+  });
+
+  it.each(SESSION_CHECK_STATES)('waits without redirecting or mounting protected content while $name', ({ state }) => {
+    // Given
+    authHarness.setState(state);
+    const protectedMount = vi.fn();
+
+    // When
+    const view = render(
+      <SiteProvider>
+        <MemoryRouter initialEntries={['/admin/content/news?draft=1#translation']}>
+          <Routes>
+            <Route path="/admin/login" element={<LocationProbe />} />
+            <Route element={<AdminProtectedLayout />}>
+              <Route path="*" element={<span ref={() => protectedMount()}>Protected</span>} />
+            </Route>
+          </Routes>
+        </MemoryRouter>
+      </SiteProvider>,
+    );
+
+    // Then
+    expect(view.getByRole('status').textContent).toContain('正在確認登入狀態');
+    expect(view.queryByTestId('location')).toBeNull();
     expect(protectedMount).not.toHaveBeenCalled();
   });
 

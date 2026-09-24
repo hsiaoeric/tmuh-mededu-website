@@ -65,6 +65,14 @@ export type CmsAdminRevision = {
   readonly publicationActorId: string | null;
 };
 
+/** One revision's lifecycle status without its payload, for dashboard overviews. */
+export type CmsRevisionStatusSummary = {
+  readonly documentId: CmsDocumentId;
+  readonly version: number;
+  readonly status: Database['public']['Enums']['cms_revision_status'];
+  readonly updatedAt: string;
+};
+
 export type CmsAdminDocumentDetail = {
   readonly document: CmsAdminDocument;
   readonly revisions: readonly CmsAdminRevision[];
@@ -87,6 +95,8 @@ export type SaveDraftInput = RevisionMutationInput & {
 
 export interface AdminDocumentRepository {
   listDocuments(signal?: AbortSignal): Promise<RepositoryResult<readonly CmsAdminDocument[]>>;
+  /** Optional: draft and published revision statuses across all documents, without payloads. */
+  listRevisionStatuses?(signal?: AbortSignal): Promise<RepositoryResult<readonly CmsRevisionStatusSummary[]>>;
   readDocument(documentId: CmsDocumentId, signal?: AbortSignal): Promise<RepositoryResult<CmsAdminDocumentDetail>>;
   clone(input: CloneRevisionInput, signal?: AbortSignal): Promise<RepositoryResult<CmsAdminRevision>>;
   save(input: SaveDraftInput, signal?: AbortSignal): Promise<RepositoryResult<CmsAdminRevision>>;
@@ -109,6 +119,7 @@ export type Wave3RpcArgs<Name extends Wave3RpcName> =
 
 export interface AdminDocumentOperations {
   listDocuments(signal?: AbortSignal): Promise<OperationResponse>;
+  listRevisionStatuses?(signal?: AbortSignal): Promise<OperationResponse>;
   readDocument(documentId: CmsDocumentId, signal?: AbortSignal): Promise<OperationResponse>;
   rpc<Name extends Wave3RpcName>(
     name: Name,

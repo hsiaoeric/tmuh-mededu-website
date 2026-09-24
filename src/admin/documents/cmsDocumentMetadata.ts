@@ -96,3 +96,20 @@ export const CMS_DOCUMENT_METADATA = {
     },
   },
 } as const satisfies Readonly<Record<CmsDocumentKind, CmsDocumentMetadata>>;
+
+export type CmsDocumentGroup = {
+  readonly id: string;
+  readonly label: BilingualText;
+  readonly kinds: readonly CmsDocumentKind[];
+};
+
+/**
+ * Navigation groups for the 12 documents, in the order editors reach for them.
+ * Every kind appears exactly once (checked by a test).
+ */
+export const CMS_DOCUMENT_GROUPS: readonly CmsDocumentGroup[] = [
+  { id: 'updates', label: { zh: '公告與活動', en: 'News & activities' }, kinds: ['news', 'activities'] },
+  { id: 'people', label: { zh: '人員與中心', en: 'People & centers' }, kinds: ['people', 'centers'] },
+  { id: 'department', label: { zh: '教學部', en: 'Department' }, kinds: ['kpis', 'honors', 'site_copy'] },
+  { id: 'pages', label: { zh: '中心專頁', en: 'Center pages' }, kinds: ['facdev', 'ebm', 'holistic', 'holistic_research', 'digital_materials'] },
+];

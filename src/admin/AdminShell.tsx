@@ -6,6 +6,7 @@ import { Icon } from '@/ui/Icon';
 import { AdminButton, AdminIconButton } from './AdminButton';
 import { InlineNotice, StatusBadge } from './AdminFeedback';
 import { getFocusableElements } from './focus';
+import { CMS_DOCUMENT_GROUPS, CMS_DOCUMENT_METADATA } from './documents/cmsDocumentMetadata';
 
 const NAV_ITEMS = [
   { id: 'foundation', zh: '基礎與操作', en: 'Foundation & controls', icon: 'skills' },
@@ -15,11 +16,6 @@ const NAV_ITEMS = [
   { id: 'overlays', zh: '覆層與媒體', en: 'Overlays & media', icon: 'image' },
 ] as const;
 
-const ADMIN_ROUTE_ITEMS = [
-  { to: '/admin', zh: '管理總覽', en: 'Dashboard', icon: 'chart', end: true },
-  { to: '/admin/content/news', zh: '公告內容', en: 'News content', icon: 'clipboard', end: false },
-  { to: '/admin/design-system', zh: '元件展示', en: 'Primitive showcase', icon: 'skills', end: false },
-] as const;
 
 type AdminSectionId = (typeof NAV_ITEMS)[number]['id'];
 
@@ -47,7 +43,17 @@ function AdminSideNav({ activeId, drawer, onNavigate, onSelect, showcaseNavigati
   return (
     <nav className="admin-sidenav" aria-label={isZh ? '管理介面導覽' : 'Admin navigation'} data-drawer={drawer || undefined} tabIndex={drawer ? 0 : undefined}>
       <div className="admin-brand"><span className="admin-brand-mark"><Icon name="admin" /></span><span><strong>{isZh ? '教學部內容管理' : 'Medical Education CMS'}</strong><small className="mono">LIVING TISSUE / ADMIN</small></span></div>
-      <div className="admin-nav-group"><span className="admin-nav-label">{isZh ? '管理工作區' : 'Admin workspace'}</span>{ADMIN_ROUTE_ITEMS.map((item, index) => <NavLink key={item.to} to={item.to} end={item.end} onClick={onNavigate}><Icon name={item.icon} /><span>{isZh ? item.zh : item.en}</span><small className="mono" aria-hidden="true">0{index + 1}</small></NavLink>)}</div>
+      <div className="admin-nav-group"><NavLink to="/admin" end onClick={onNavigate}><Icon name="chart" /><span>{isZh ? '管理總覽' : 'Dashboard'}</span></NavLink></div>
+      {CMS_DOCUMENT_GROUPS.map((group) => (
+        <div key={group.id} className="admin-nav-group admin-nav-documents" role="group" aria-label={isZh ? group.label.zh : group.label.en}>
+          <span className="admin-nav-label" aria-hidden="true">{isZh ? group.label.zh : group.label.en}</span>
+          {group.kinds.map((kind) => {
+            const label = CMS_DOCUMENT_METADATA[kind].label;
+            return <NavLink key={kind} to={`/admin/content/${kind}`} onClick={onNavigate}><span className="admin-nav-dot" aria-hidden="true" /><span>{isZh ? label.zh : label.en}</span></NavLink>;
+          })}
+        </div>
+      ))}
+      {showcaseNavigation ? null : <NavLink className="admin-nav-footer" to="/admin/design-system" onClick={onNavigate}>{isZh ? '元件展示（開發用）' : 'Component showcase (dev)'}</NavLink>}
       {showcaseNavigation ? <><div className="admin-nav-group"><span className="admin-nav-label">{isZh ? '元件展示章節' : 'Showcase sections'}</span>{NAV_ITEMS.map((item, index) => <a key={item.id} href={`#${item.id}`} aria-current={item.id === activeId ? 'location' : undefined} onClick={(event: MouseEvent<HTMLAnchorElement>) => { event.preventDefault(); onSelect(item.id); onNavigate?.(); }}><Icon name={item.icon} /><span>{isZh ? item.zh : item.en}</span><small className="mono" aria-hidden="true">0{index + 1}</small></a>)}</div><div className="admin-sidenav-note"><StatusBadge status="info">SHOWCASE ONLY</StatusBadge><p>{isZh ? '此頁僅展示元件，不提供內容異動。' : 'This page demonstrates primitives without content mutations.'}</p></div></> : null}
     </nav>
   );

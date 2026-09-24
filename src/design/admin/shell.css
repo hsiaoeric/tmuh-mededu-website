@@ -58,7 +58,7 @@ body.admin-route #root {
 .admin-desktop-nav,
 .admin-sidenav { min-block-size: 0; }
 .admin-desktop-nav { border-inline-end: 1px solid var(--line); background: var(--surface-sunk); }
-.admin-sidenav { display: flex; flex-direction: column; block-size: 100%; padding: var(--admin-space-4) var(--admin-space-3); background: var(--surface-sunk); }
+.admin-sidenav { display: flex; flex-direction: column; block-size: 100%; overflow: auto; overscroll-behavior: contain; padding: var(--admin-space-4) var(--admin-space-3); background: var(--surface-sunk); }
 .admin-brand { display: flex; align-items: center; gap: var(--admin-space-3); padding: 0 var(--admin-space-2) var(--admin-space-4); border-block-end: 1px solid var(--line); }
 .admin-brand-mark { display: grid; place-items: center; inline-size: var(--admin-control-h); block-size: var(--admin-control-h); flex: none; border-radius: var(--radius-lg); background: var(--accent); color: var(--on-accent); }
 .admin-brand > span:last-child,
@@ -82,6 +82,14 @@ body.admin-route #root {
 .admin-nav-group a small { position: absolute; inset-inline-end: var(--admin-space-2); justify-self: end; color: color-mix(in srgb, var(--muted) 80%, var(--ink)); }
 .admin-sidenav[data-drawer] .admin-nav-group a { padding-inline-end: 0; }
 .admin-sidenav[data-drawer] .admin-nav-group a small { display: none; }
+.admin-nav-group a[aria-current='page'] { color: var(--ink); background: var(--accent-wash); font-weight: 600; }
+.admin-nav-group a[aria-current='page'] .admin-nav-dot { background: var(--accent); border-color: var(--accent); }
+.admin-nav-documents { gap: 1px; padding-block: var(--admin-space-2); }
+.admin-nav-documents .admin-nav-label { padding-block-end: var(--admin-space-1); }
+.admin-nav-documents a { min-block-size: calc(var(--admin-control-h) - var(--admin-space-2)); padding-inline-end: var(--admin-space-2); font-size: 0.8rem; }
+.admin-nav-dot { justify-self: center; inline-size: 0.45rem; block-size: 0.45rem; border: 1px solid var(--line); border-radius: 50%; background: var(--surface); }
+.admin-nav-footer { margin-block-start: auto; padding: var(--admin-space-3) var(--admin-space-2) 0; color: var(--faint); font-size: 0.7rem; }
+.admin-nav-footer:hover { color: var(--accent); }
 .admin-sidenav-note { margin-block-start: auto; padding: var(--admin-space-3); border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--surface); }
 .admin-sidenav-note p { margin-block-start: var(--admin-space-2); font-size: 0.7rem; line-height: 1.5; color: var(--muted); }
 

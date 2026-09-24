@@ -1,16 +1,18 @@
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { usePageTitle, useSite } from '@/app/site';
 import { AdminAppShell, AdminPageHeader } from '@/admin/AdminShell';
 import { StatePanel, StatusBadge } from '@/admin/AdminFeedback';
-import { StableKey } from '@/admin/StableKey';
-import { CMS_DOCUMENT_METADATA } from '@/admin/documents/cmsDocumentMetadata';
+import { CMS_DOCUMENT_GROUPS, CMS_DOCUMENT_METADATA } from '@/admin/documents/cmsDocumentMetadata';
 import { formatAdminTimestamp } from '@/admin/documents/formatAdminTimestamp';
 import {
   useAdminDocumentList,
   useAdminDocumentRepository,
+  type AdminDocumentRepository,
   type CmsAdminDocument,
 } from '@/admin/repository';
-import { CMS_DOCUMENT_KINDS, CMS_DOCUMENT_STABLE_KEYS, type CmsDocumentKind } from '@/content/contracts/kinds';
+import type { CmsRevisionStatusSummary } from '@/admin/repository/types';
+import { CMS_DOCUMENT_STABLE_KEYS, type CmsDocumentKind } from '@/content/contracts/kinds';
 import '@/design/admin.css';
 
 function canonicalDocument(
@@ -22,9 +24,45 @@ function canonicalDocument(
   ));
 }
 
-function DashboardList({ repository }: { readonly repository: Parameters<typeof useAdminDocumentList>[0] }) {
+/** Draft and published statuses when the repository can provide them; the dashboard works without. */
+function useRevisionStatuses(repository: AdminDocumentRepository): readonly CmsRevisionStatusSummary[] | null {
+  const [statuses, setStatuses] = useState<readonly CmsRevisionStatusSummary[] | null>(null);
+  useEffect(() => {
+    const list = repository.listRevisionStatuses?.bind(repository);
+    if (list === undefined) return undefined;
+    const controller = new AbortController();
+    void list(controller.signal).then((result) => {
+      if (!controller.signal.aborted && result.ok) setStatuses(result.value);
+    });
+    return () => controller.abort();
+  }, [repository]);
+  return statuses;
+}
+
+function DocumentStatus({ document, statuses }: {
+  readonly document: CmsAdminDocument | undefined;
+  readonly statuses: readonly CmsRevisionStatusSummary[] | null;
+}) {
+  const { isZh } = useSite();
+  if (document === undefined) return <StatusBadge status="disabled">{isZh ? '尚未建立' : 'Missing'}</StatusBadge>;
+  if (statuses === null) return <StatusBadge status="success">{isZh ? '可用' : 'Available'}</StatusBadge>;
+  const own = statuses.filter((status) => status.documentId === document.id);
+  const published = own.find((status) => status.status === 'published');
+  const draft = own.find((status) => status.status === 'draft');
+  return (
+    <span className="admin-document-card-status">
+      {published === undefined
+        ? <StatusBadge status="warning">{isZh ? '尚未發布' : 'Unpublished'}</StatusBadge>
+        : <StatusBadge status="success">{isZh ? `已發布 · 版本 ${published.version}` : `Published · v${published.version}`}</StatusBadge>}
+      {draft === undefined ? null : <StatusBadge status="info">{isZh ? '有未發布草稿' : 'Unpublished draft'}</StatusBadge>}
+    </span>
+  );
+}
+
+function DashboardList({ repository }: { readonly repository: AdminDocumentRepository }) {
   const { isZh, lang } = useSite();
   const { state, retry } = useAdminDocumentList(repository);
+  const statuses = useRevisionStatuses(repository);
   if (state.status === 'loading') {
     return (
       <StatePanel
@@ -46,34 +84,37 @@ function DashboardList({ repository }: { readonly repository: Parameters<typeof 
     );
   }
   return (
-    <ul className="admin-document-grid">
-      {CMS_DOCUMENT_KINDS.map((kind) => {
-        const metadata = CMS_DOCUMENT_METADATA[kind];
-        const document = canonicalDocument(state.documents, kind);
-        const label = isZh ? metadata.label.zh : metadata.label.en;
+    <div className="admin-dashboard-groups">
+      {CMS_DOCUMENT_GROUPS.map((group) => {
+        const groupLabel = isZh ? group.label.zh : group.label.en;
         return (
-          <li key={kind}>
-            <Link className="admin-document-card" to={`/admin/content/${kind}`} aria-label={isZh ? `開啟${label}` : `Open ${label}`}>
-              <div className="admin-document-card-heading">
-                <StableKey value={kind} />
-                <StatusBadge status={document === undefined ? 'disabled' : 'success'}>
-                  {document === undefined ? (isZh ? '尚未建立' : 'Missing') : (isZh ? '可用' : 'Available')}
-                </StatusBadge>
-              </div>
-              <div>
-                <h2>{label}</h2>
-                <p lang={isZh ? 'zh-Hant' : 'en'}>{isZh ? metadata.description.zh : metadata.description.en}</p>
-              </div>
-              <dl className="admin-document-context">
-                <div><dt>{isZh ? '穩定鍵' : 'Stable key'}</dt><dd><StableKey value={CMS_DOCUMENT_STABLE_KEYS[kind]} /></dd></div>
-                <div><dt>{isZh ? '最後更新' : 'Last updated'}</dt><dd>{document === undefined ? (isZh ? '尚無資料' : 'No document') : formatAdminTimestamp(document.updatedAt, lang)}</dd></div>
-              </dl>
-              <span className="admin-document-open">{isZh ? '開啟工作區' : 'Open workspace'}</span>
-            </Link>
-          </li>
+          <section key={group.id} className="admin-dashboard-group" aria-label={groupLabel}>
+            <h2>{groupLabel}</h2>
+            <ul className="admin-document-grid">
+              {group.kinds.map((kind) => {
+                const metadata = CMS_DOCUMENT_METADATA[kind];
+                const document = canonicalDocument(state.documents, kind);
+                const label = isZh ? metadata.label.zh : metadata.label.en;
+                return (
+                  <li key={kind}>
+                    <Link className="admin-document-card" to={`/admin/content/${kind}`} aria-label={isZh ? `開啟${label}` : `Open ${label}`}>
+                      <div>
+                        <h3>{label}</h3>
+                        <p lang={isZh ? 'zh-Hant' : 'en'}>{isZh ? metadata.description.zh : metadata.description.en}</p>
+                      </div>
+                      <div className="admin-document-card-footer">
+                        <DocumentStatus document={document} statuses={statuses} />
+                        <small>{document === undefined ? (isZh ? '尚無資料' : 'No document') : `${isZh ? '更新於' : 'Updated'} ${formatAdminTimestamp(document.updatedAt, lang)}`}</small>
+                      </div>
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+          </section>
         );
       })}
-    </ul>
+    </div>
   );
 }
 
@@ -84,15 +125,15 @@ export function AdminDashboardPage() {
   usePageTitle(title);
 
   return (
-    <AdminAppShell eyebrow="ADMIN / DASHBOARD" title={title} status={isZh ? '內容儲存庫狀態' : 'Repository status'} showcaseNavigation={false}>
+    <AdminAppShell eyebrow="ADMIN / DASHBOARD" title={title} status={null} showcaseNavigation={false}>
       <div className="admin-content-limiter admin-workspace-page">
         <AdminPageHeader
-          eyebrow="ADMIN / 12 CONTENT KINDS"
+          eyebrow={isZh ? '內容管理' : 'CONTENT'}
           title={title}
-          description={isZh ? '依網站內容架構進入各文件工作區；未建立的類型仍保留固定入口。' : 'Open each document workspace from the canonical site structure. Missing documents keep a stable entry point.'}
+          description={isZh ? '選擇要編輯的內容。儲存草稿不會影響網站，按下發佈後才會公開。' : 'Choose what to edit. Saved drafts do not change the site until you publish.'}
           descriptionLang={isZh ? 'zh-Hant' : 'en'}
         />
-        <section className="admin-surface admin-stack" aria-label={isZh ? '內容類型' : 'Content types'}>
+        <section className="admin-stack" aria-label={isZh ? '內容類型' : 'Content types'}>
           {repositoryContext.state.status === 'loading' ? (
             <StatePanel kind="loading" title={isZh ? '正在準備內容儲存庫' : 'Preparing content repository'} description={isZh ? '完成驗證後即可讀取管理文件。' : 'Management documents will be available after provisioning.'} />
           ) : repositoryContext.state.status === 'error' ? (

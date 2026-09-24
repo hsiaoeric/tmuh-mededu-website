@@ -83,6 +83,18 @@ export const AdminDocumentRowsSchema = z.array(AdminDocumentRowSchema).transform
   ),
 );
 
+export const AdminRevisionStatusRowsSchema = z.array(z.strictObject({
+  document_id: CmsDocumentIdSchema,
+  version: z.number().int().positive(),
+  status: z.enum(['draft', 'published', 'archived']),
+  updated_at: CalendarDateTimeSchema,
+}).transform((row) => ({
+  documentId: row.document_id,
+  version: row.version,
+  status: row.status,
+  updatedAt: row.updated_at,
+})));
+
 export const AdminDocumentDetailSchema = z.strictObject({
   document: AdminDocumentRowSchema,
   revisions: z.array(AdminRevisionRowSchema),

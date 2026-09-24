@@ -328,7 +328,7 @@ describe('administrator route topology', () => {
     await view.findByRole('heading', { name: '內容管理總覽' });
 
     // When
-    fireEvent.click(view.getByRole('link', { name: '公告內容' }));
+    fireEvent.click(view.getByRole('link', { name: '公告' }));
 
     // Then
     const destination = await view.findByRole('heading', { name: '公告 JSON 工作區' });

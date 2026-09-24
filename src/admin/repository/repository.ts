@@ -3,6 +3,7 @@ import {
   AdminDocumentDetailSchema,
   AdminDocumentRowsSchema,
   AdminRevisionRowSchema,
+  AdminRevisionStatusRowsSchema,
 } from './schemas';
 import { mapPostgrestFailure, mapThrownFailure } from './failures';
 import type { PublicationClient } from './publicationClient';
@@ -40,10 +41,16 @@ export function createAdminDocumentRepository(
   operations: AdminDocumentOperations,
   publicationClient: PublicationClient,
 ): AdminDocumentRepository {
+  const listRevisionStatuses = operations.listRevisionStatuses?.bind(operations);
   return {
     listDocuments(signal) {
       return execute(() => operations.listDocuments(signal), AdminDocumentRowsSchema, signal);
     },
+    ...(listRevisionStatuses === undefined ? {} : {
+      listRevisionStatuses(signal?: AbortSignal) {
+        return execute(() => listRevisionStatuses(signal), AdminRevisionStatusRowsSchema, signal);
+      },
+    }),
     readDocument(documentId, signal) {
       return execute(
         () => operations.readDocument(documentId, signal),

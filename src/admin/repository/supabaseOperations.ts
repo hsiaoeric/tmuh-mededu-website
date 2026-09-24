@@ -22,6 +22,14 @@ export function createAdminDocumentOperations(
       const response = await query;
       return { data: response.data, error: response.error };
     },
+    async listRevisionStatuses(signal): Promise<OperationResponse> {
+      const query = client.from('cms_revisions')
+        .select('document_id, version, status, updated_at')
+        .in('status', ['draft', 'published']);
+      if (signal !== undefined) query.abortSignal(signal);
+      const response = await query;
+      return { data: response.data, error: response.error };
+    },
     async readDocument(documentId, signal): Promise<OperationResponse> {
       const documentQuery = client.from('cms_documents').select('*').eq('id', documentId);
       if (signal !== undefined) documentQuery.abortSignal(signal);

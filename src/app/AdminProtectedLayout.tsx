@@ -1,4 +1,5 @@
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
+import { useSite } from '@/app/site';
 import {
   AdminProtectedAccessProvider,
   resolveAdminReturnPath,
@@ -20,6 +21,19 @@ const PROTECTED_OUTLET = (
     </AdminMediaOwnershipProvider>
   </AdminMediaRuntimeProvider>
 );
+
+/** Shown while a stored session is still being checked, so a reload does not flash the login page. */
+function SessionCheck() {
+  const { isZh } = useSite();
+  return (
+    <main className="admin-route-loading" role="status" aria-busy="true">
+      <div className="admin-route-loading-content">
+        <span className="admin-loading-mark" aria-hidden="true" />
+        <strong>{isZh ? '正在確認登入狀態' : 'Checking your session'}</strong>
+      </div>
+    </main>
+  );
+}
 
 export function AdminProtectedLayout() {
   const { state } = useAdminAuth();
@@ -55,10 +69,11 @@ export function AdminProtectedLayout() {
       }
     }
     case 'booting':
+    case 'verifying':
+      return <SessionCheck />;
     case 'config-error':
     case 'anonymous':
     case 'authenticating':
-    case 'verifying':
     case 'denied':
     case 'expired':
       return <Navigate to="/admin/login" replace state={{ returnTo }} />;

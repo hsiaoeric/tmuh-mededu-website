@@ -6,7 +6,7 @@
 
 .admin-document-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(18rem, 100%), 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(15rem, 100%), 1fr));
   gap: var(--admin-space-3);
   margin: 0;
   padding: 0;
@@ -49,7 +49,14 @@
   font-size: 0.7rem;
 }
 
-.admin-document-card h2 {
+.admin-dashboard-groups { display: grid; gap: var(--admin-space-5); }
+.admin-dashboard-group { display: grid; gap: var(--admin-space-3); }
+.admin-dashboard-group > h2 { color: var(--faint); font-family: 'IBM Plex Mono', 'Noto Sans TC', ui-monospace, monospace; font-size: 0.72rem; font-weight: 500; letter-spacing: 0.12em; }
+.admin-document-card-footer { display: grid; gap: var(--admin-space-2); margin-block-start: auto; padding-block-start: var(--admin-space-2); border-block-start: 1px solid var(--line-soft); }
+.admin-document-card-footer small { color: var(--faint); font-size: 0.7rem; }
+.admin-document-card-status { display: flex; flex-wrap: wrap; gap: var(--admin-space-1); }
+
+.admin-document-card h3 {
   margin-block-end: var(--admin-space-2);
   color: var(--ink);
   font-size: 1rem;
