@@ -18,6 +18,7 @@ dist-ssr
 .omo/ulw-execute/ledger.jsonl
 .playwright-mcp/
 supabase/.temp/
+supabase/.branches/
 .debug-journal.md
 wave5-activity-debug.md
 wave5-kpis-after-navigation
