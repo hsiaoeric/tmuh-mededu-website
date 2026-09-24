@@ -23,7 +23,7 @@ npm run content:check       # verify generated snapshot and seed
 npm run content:checkpoint  # authenticated Supabase-authoritative snapshot export
 ```
 
-There is no linter configured. The current offline gate is `npm test`, `npm run content:check`, `npm run typecheck`, `npm run build`, and `VITE_BASE=/tmuh-mededu-website/ npm run build`. The verified baseline is 207 test files and 1626 tests. `tsconfig.app.json` enables `strict`, `noUnusedLocals`, and `noUnusedParameters`, so a leftover import or parameter fails the build.
+There is no linter configured. The current offline gate is `npm test`, `npm run content:check`, `npm run typecheck`, `npm run build`, and `VITE_BASE=/tmuh-mededu-website/ npm run build`. The verified baseline is 210 test files and 1659 tests. `tsconfig.app.json` enables `strict`, `noUnusedLocals`, and `noUnusedParameters`, so a leftover import or parameter fails the build.
 
 Automated tests do not replace browser checks for visual or workflow changes. Check both themes and languages, relevant breakpoints, reduced motion, keyboard use, and the root and Pages base paths.
 
@@ -49,7 +49,7 @@ Browser deployments that connect to CMS require both `VITE_SUPABASE_URL` and `VI
 - Supabase is authoritative after bootstrap. There are exactly 12 canonical `(kind, stable_key)` document identities defined by `CMS_DOCUMENT_KINDS` and `CMS_DOCUMENT_STABLE_KEYS`; contracts, admin routes, public adapters, seed, and checkpoints must remain exhaustive over that set.
 - `ContentProvider` renders `src/content/generated/cms-snapshot.json` immediately, then anonymously requests published Supabase rows. `mergePublishedContent` validates and merges each identity independently. Missing, invalid, or older remote documents keep only their matching snapshot while valid siblings refresh.
 - Public reads use a non-persistent anonymous Supabase client. Admin auth uses a separate persistent, auto-refreshing client. UI route guards are UX only; `cms_admins`, RLS, security-definer RPCs, and Edge Function checks are the authorization boundary.
-- One manually provisioned email/password Auth user is allowlisted by exact `auth.users.id` in `public.cms_admins`. Hosted signup and anonymous sign-in stay disabled.
+- Each CMS editor gets their own manually provisioned email/password Auth user, allowlisted by exact `auth.users.id` in `public.cms_admins`. Accounts are never shared, so revision actor columns identify who did what. Hosted signup and anonymous sign-in stay disabled.
 - Admin edits use one active draft, optimistic `edit_version` checks, explicit publish/archive confirmations, and dirty-navigation guards. Publication goes through `cms-publish`, not a direct lifecycle update.
 - `draft-media` is private and owner-scoped. The Edge Function validates and promotes referenced JPEG/PNG/WebP files up to 10 MiB into immutable SHA-256-addressed `public-media` objects before finalizing publication. Cleanup is allowed only when no editor in the current admin page session claims the object and no saved draft claims it; unsaved references in another tab, browser, or session are outside this guard.
 - `content:generate` is for deterministic bootstrap/local-source artifacts. `content:checkpoint` authenticates with the publishable key and CMS admin credentials, requires exactly 12 valid identities, and atomically replaces the snapshot from Supabase. Never hand-edit the generated snapshot or `supabase/seed.sql`.

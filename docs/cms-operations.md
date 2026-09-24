@@ -36,8 +36,8 @@ Supabase 中已發佈的內容是上線後的權威來源。網站固定管理�
 1. 到 Authentication 設定關閉公開 email signup。
 2. 關閉 anonymous sign-in。
 3. 確認 Site URL 與允許的 redirect URL 只包含受信任的管理站來源。
-4. 到 Authentication 的 Users 頁面，以 email/password 手動建立唯一一位 Auth user。不要開放訪客自行註冊。
-5. 複製該使用者頁面顯示的 Auth UUID。加入 allowlist 時必須使用這個完整值，不能使用 email、另行產生的 UUID 或 CMS 文件 UUID。
+4. 到 Authentication 的 Users 頁面，為每位內容管理員以 email/password 手動建立各自的 Auth user。每人一個帳號、不可共用，修訂紀錄的 actor 欄位才能對應到實際操作者。不要開放訪客自行註冊。
+5. 逐一複製各使用者頁面顯示的 Auth UUID。加入 allowlist 時必須使用這個完整值，不能使用 email、另行產生的 UUID 或 CMS 文件 UUID。
 
 本機 `supabase/config.toml` 也將 signup 與 anonymous sign-in 設為關閉，但 hosted 專案必須在 Dashboard 另行確認，提交本機設定不會自動改掉 hosted Auth 設定。
 
@@ -94,8 +94,8 @@ commit;
 
 1. 疑似外洩時，先按上一節撤銷 allowlist 與工作階段。
 2. 若 hosted Dashboard 提供管理既有使用者密碼的操作，由專案擁有者在 Dashboard 完成，並確認 Auth UUID 沒有改變，再重新加入 allowlist。
-3. 若 Dashboard 無法直接完成密碼管理，刪除舊 Auth user，手動建立新的單一 email/password user，再把新使用者的精確 UUID 加入 allowlist。
-4. 以新密碼登入並確認管理總覽後，檢查 allowlist 只剩一列且對應目前唯一帳號。
+3. 若 Dashboard 無法直接完成密碼管理，刪除舊 Auth user，為同一人手動建立新的 email/password user，再把新使用者的精確 UUID 加入 allowlist。
+4. 以新密碼登入並確認管理總覽後，檢查 allowlist 每一列都對應一位目前在職的管理員，且沒有殘留舊帳號。
 
 ## 環境變數與金鑰界線
 
@@ -139,7 +139,7 @@ Checkpoint 會以該管理員登入、確認 Auth 身分、呼叫 `is_cms_admin(
 
 ## 日常內容操作
 
-1. 前往 `/admin/login`，使用唯一管理員帳號登入。
+1. 前往 `/admin/login`，以自己的管理員帳號登入，不共用他人帳號。
 2. 從管理總覽選擇 12 種內容之一。先看狀態、版本與 edit token，再開始修改中英文欄位。
 3. 按「儲存草稿」。若目前沒有 active draft，系統會從可用的目前修訂自動建立草稿，再儲存本次內容。儲存草稿不會改變公開站。
 4. 看到「草稿已儲存」後再發佈。按「發佈」會先開確認對話框，只有按「確認發佈」才會送出。成功訊息出現後，該修訂才成為 Supabase 公開內容。
@@ -217,7 +217,7 @@ test -f dist/index.html
 test -f dist/404.html
 ```
 
-目前已驗證的基準是 207 個測試檔、1626 個測試，以及 content check、typecheck、根路徑 build 與 Pages base-path build。改動可見介面後仍需以瀏覽器檢查中英文、明暗主題、手機與桌機。
+目前已驗證的基準是 210 個測試檔、1659 個測試，以及 content check、typecheck、根路徑 build 與 Pages base-path build。改動可見介面後仍需以瀏覽器檢查中英文、明暗主題、手機與桌機。
 
 ### 本機資料庫
 
