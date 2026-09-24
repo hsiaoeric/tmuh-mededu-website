@@ -71,7 +71,7 @@ function AdminHeader({ onOpenDrawer, drawerTriggerRef, eyebrow, title, status, s
   return (
     <header className="admin-header">
       <div className="admin-header-location"><AdminIconButton ref={drawerTriggerRef} className="admin-menu-trigger" icon="menu" label={isZh ? '開啟導覽' : 'Open navigation'} onClick={onOpenDrawer} /><b className="admin-mobile-label">{isZh ? '管理' : 'Admin'}</b><span><small className="mono">{eyebrow}</small><strong>{title}</strong></span></div>
-      <div className="admin-header-tools">{isValidElement(status) ? status : <AdminSaveStatus state="ready">{status}</AdminSaveStatus>}{sessionAction}<AdminButton variant="quiet" onClick={toggleLang}>{isZh ? 'EN' : '中'}</AdminButton><AdminIconButton icon={theme === 'dark' ? 'sun' : 'moon'} label={isZh ? '切換明暗主題' : 'Toggle theme'} onClick={toggleTheme} /></div>
+      <div className="admin-header-tools">{status === null ? null : isValidElement(status) ? status : <AdminSaveStatus state="ready">{status}</AdminSaveStatus>}{sessionAction}<AdminButton variant="quiet" onClick={toggleLang}>{isZh ? 'EN' : '中'}</AdminButton><AdminIconButton icon={theme === 'dark' ? 'sun' : 'moon'} label={isZh ? '切換明暗主題' : 'Toggle theme'} onClick={toggleTheme} /></div>
     </header>
   );
 }
@@ -89,7 +89,7 @@ export function AdminAppShell({ children, notices = [], eyebrow = 'ADMIN / DESIG
   const drawerTriggerRef = useRef<HTMLButtonElement>(null);
   const mainRef = useRef<HTMLElement>(null);
   const headerTitle = title ?? (isZh ? '管理元件展示' : 'Admin primitive showcase');
-  const headerStatus = status ?? (isZh ? '展示資料已就緒' : 'Showcase ready');
+  const headerStatus = status === undefined ? (isZh ? '展示資料已就緒' : 'Showcase ready') : status;
   let sessionAction: ReactNode = null;
   let sessionNotice: ReactNode = null;
   if (auth !== null) {

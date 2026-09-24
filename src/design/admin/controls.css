@@ -29,9 +29,14 @@
 .admin-field-grid,
 .admin-state-grid,
 .admin-media-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(18rem, 100%), 1fr)); gap: var(--admin-space-3); }
-.admin-bilingual-grid { margin-block-start: var(--admin-space-3); }
-.admin-bilingual-grid > div { min-inline-size: 0; padding: var(--admin-space-3); border-inline-start: 2px solid var(--line); background: var(--surface-2); }
-.admin-language-key { display: block; margin-block-end: var(--admin-space-2); color: var(--accent); }
+.admin-bilingual { container-type: inline-size; }
+.admin-bilingual-grid { margin-block-start: var(--admin-space-2); gap: var(--admin-space-2); }
+.admin-bilingual-grid > div { min-inline-size: 0; padding: var(--admin-space-2) var(--admin-space-3); border-inline-start: 2px solid var(--line); background: var(--surface-2); }
+.admin-language-key { display: block; margin-block-end: var(--admin-space-1); color: var(--accent); font-size: 0.62rem; }
+/* Chinese and English sit side by side whenever the group itself has room, at any nesting depth. */
+@container (min-width: 30rem) {
+  .admin-bilingual-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+}
 .admin-field { display: flex; flex-direction: column; min-inline-size: 0; gap: var(--admin-space-2); }
 .admin-field-label { display: flex; align-items: baseline; justify-content: space-between; gap: var(--admin-space-2); color: var(--ink); font-size: 0.82rem; font-weight: 600; line-height: 1.5; }
 .admin-required { font-family: 'IBM Plex Mono', 'Noto Sans TC', ui-monospace, monospace; font-size: 0.7rem; color: var(--admin-warning-ink); }
@@ -42,7 +47,7 @@
 .admin-field[data-field-state='error'] .admin-control,
 .admin-field[data-field-state='warning'] .admin-control { border-color: var(--amber); background: var(--amber-wash); }
 .admin-field[data-field-state='valid'] .admin-control { border-color: var(--accent); background: var(--accent-wash); }
-.admin-textarea { min-block-size: calc(var(--admin-control-h) * 2.5); resize: vertical; }
+.admin-textarea { min-block-size: calc(var(--admin-control-h) * 1.6); max-block-size: 60vh; resize: vertical; field-sizing: content; }
 .admin-textarea[lang='zh-Hant'] { overflow-wrap: break-word; word-break: auto-phrase; }
 .admin-field-message { color: var(--muted); font-size: 0.7rem; line-height: 1.5; }
 .admin-field-error { color: var(--admin-warning-ink); font-weight: 600; }

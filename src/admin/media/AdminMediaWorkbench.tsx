@@ -1,6 +1,7 @@
-import { useLayoutEffect, useRef, type ReactElement } from 'react';
+import { useLayoutEffect, useRef, useState, type ReactElement } from 'react';
 import { useSite } from '@/app/site';
 import { InlineNotice } from '@/admin/AdminFeedback';
+import { AdminField } from '@/admin/AdminFields';
 import type { Json } from '@/content/database.types';
 import type { CmsDocumentId } from '@/content/contracts/primitives';
 import { useAdminMediaOwnershipScope } from './AdminMediaOwnershipProvider';
@@ -53,10 +54,27 @@ function ReadyWorkbench(props: AdminMediaWorkbenchProps & {
   readonly client: DraftMediaClient;
   readonly editorRevision: number;
 }): ReactElement {
+  const { isZh } = useSite();
+  const [query, setQuery] = useState('');
+  const needle = query.trim().toLocaleLowerCase();
+  const visibleSlots = needle === ''
+    ? props.slots
+    : props.slots.filter((slot) => `${slot.personName} ${slot.contextLabel}`.toLocaleLowerCase().includes(needle));
   return (
     <>
+      {props.slots.length > 6 ? (
+        <div className="admin-media-filter">
+          <AdminField
+            label={isZh ? '搜尋姓名或單位' : 'Filter by name or unit'}
+            type="search"
+            value={query}
+            onChange={(event) => setQuery(event.currentTarget.value)}
+            helper={isZh ? `顯示 ${visibleSlots.length} / ${props.slots.length} 張照片` : `Showing ${visibleSlots.length} of ${props.slots.length} portraits`}
+          />
+        </div>
+      ) : null}
       <div className="admin-media-slot-grid">
-        {props.slots.map((slot) => (
+        {visibleSlots.map((slot) => (
           <AdminMediaPortraitField
             key={slot.key}
             kind={props.kind}
@@ -95,6 +113,7 @@ export function AdminMediaWorkbench(props: AdminMediaWorkbenchProps): ReactEleme
       <header>
         <h2 id="admin-media-workbench-title">{isZh ? '視覺媒體工作區' : 'Visual media workbench'}</h2>
         <p>{isZh ? '直接管理雙語內容中的人物照片連結。' : 'Manage portrait links in bilingual content directly.'}</p>
+        <p className="admin-field-message mono">{isZh ? 'JPEG / PNG / WebP · 最大 10 MiB · 替代文字使用姓名' : 'JPEG / PNG / WebP · 10 MiB max · alt text uses the person’s name'}</p>
       </header>
       {workbench.status === 'invalid' ? (
         <InlineNotice status="warning" title={isZh ? '請先修正 JSON' : 'Fix the JSON first'}>

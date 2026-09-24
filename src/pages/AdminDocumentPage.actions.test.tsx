@@ -122,7 +122,7 @@ describe('AdminDocumentPage lifecycle actions', () => {
     await user.click(view.getByRole('button', { name: '確認發佈' }));
     const publish = view.getByRole('button', { name: '發佈' });
     expect(publish.getAttribute('aria-busy')).toBe('true');
-    expect(globalThis.document.activeElement).toBe(view.getByRole('link', { name: '返回總覽' }));
+    expect(globalThis.document.activeElement).toBe(view.getByRole('heading', { level: 1 }));
     await user.click(publish);
     expect(repository.publishCalls).toHaveLength(1);
     await act(() => pending.resolve({
@@ -153,7 +153,7 @@ describe('AdminDocumentPage lifecycle actions', () => {
     await user.click(view.getByRole('button', { name: '確認封存' }));
     const archive = view.getByRole('button', { name: '封存' });
     expect(archive.getAttribute('aria-busy')).toBe('true');
-    expect(globalThis.document.activeElement).toBe(view.getByRole('link', { name: '返回總覽' }));
+    expect(globalThis.document.activeElement).toBe(view.getByRole('heading', { level: 1 }));
     await user.click(archive);
     expect(repository.archiveCalls).toHaveLength(1);
     await act(() => pending.resolve({
@@ -219,6 +219,6 @@ describe('AdminDocumentPage lifecycle actions', () => {
 
     // Then
     expect(view.queryByText('published')).toBeNull();
-    expect(view.getAllByText('已發布')).toHaveLength(2);
+    expect(view.getAllByText('已發布')).toHaveLength(1);
   });
 });

@@ -51,7 +51,8 @@ function toolbar(view: RenderResult, label: '文件作業' | '編輯模式'): HT
 }
 
 function actionButton(view: RenderResult, name: string): HTMLElement {
-  return within(toolbar(view, '文件作業')).getByRole('button', { name });
+  // Save and publish live in the sticky document toolbar; archive sits in the side rail.
+  return view.getByRole('button', { name });
 }
 
 async function advancedText(view: RenderResult): Promise<string> {
@@ -200,7 +201,7 @@ describe('AdminDocumentPage structured global lifecycle', () => {
     fireEvent.click(view.getByRole('button', { name: '重新載入並保留編輯內容' }));
 
     // Then
-    await waitFor(() => expect(view.getByText('編輯權杖 8')).toBeTruthy());
+    await waitFor(() => expect(view.container.querySelector('.admin-document-details')?.textContent).toContain('編輯權杖8'));
     expect(await advancedText(view)).toBe(emittedText);
     expect(view.getByText('尚有未儲存變更')).toBeTruthy();
   });
@@ -224,7 +225,7 @@ describe('AdminDocumentPage structured global lifecycle', () => {
     fireEvent.click(view.getByRole('button', { name: '重新載入並保留編輯內容' }));
 
     // Then
-    await waitFor(() => expect(view.getByText('編輯權杖 9')).toBeTruthy());
+    await waitFor(() => expect(view.container.querySelector('.admin-document-details')?.textContent).toContain('編輯權杖9'));
     expect(await advancedText(view)).toBe('{"raw":\n');
     expect(view.getByText('無法開啟結構化編輯器')).toBeTruthy();
   });
@@ -239,7 +240,7 @@ describe('AdminDocumentPage structured global lifecycle', () => {
 
     // When
     window.dispatchEvent(dirtyUnload);
-    await user.click(view.getByRole('link', { name: '返回總覽' }));
+    await user.click(view.getByRole('link', { name: /管理總覽/u }));
 
     // Then
     expect(dirtyUnload.defaultPrevented).toBe(true);

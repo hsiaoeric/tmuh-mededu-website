@@ -74,14 +74,14 @@ describe('AdminDocumentPage editor integration', () => {
     await waitFor(() => expect(view.container.querySelector('#site-copy-strings')).toBeTruthy());
 
     // Then
-    expect(await view.findByRole('heading', { name: '全站共用文案 JSON 工作區' })).toBeTruthy();
+    expect(await view.findByRole('heading', { name: '全站共用文案' })).toBeTruthy();
   });
 
   it('renders the localized site-copy label as a dedicated non-breaking phrase', async () => {
     // Given / When
     const view = await readyDocument('site_copy');
     await waitFor(() => expect(view.container.querySelector('#site-copy-strings')).toBeTruthy());
-    const heading = await view.findByRole('heading', { name: '全站共用文案 JSON 工作區' });
+    const heading = await view.findByRole('heading', { name: '全站共用文案' });
 
     // Then
     expect(heading.querySelector('.admin-workspace-title-label')?.textContent).toBe('全站共用文案');

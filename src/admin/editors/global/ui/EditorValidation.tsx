@@ -2,6 +2,7 @@ import type { MouseEvent } from 'react';
 import { AdminButton } from '@/admin/AdminButton';
 import { InlineNotice } from '@/admin/AdminFeedback';
 import type { StructuredEditorIssueSummary as GlobalEditorIssueSummary } from '@/admin/editors/shared';
+import { revealAndFocus } from './EditorDensity';
 
 type EditorValidationProps = {
   readonly issues: readonly GlobalEditorIssueSummary[];
@@ -10,7 +11,7 @@ type EditorValidationProps = {
 };
 
 function focusField(fieldId: string): void {
-  document.getElementById(fieldId)?.focus();
+  revealAndFocus(document.getElementById(fieldId));
 }
 
 export function EditorValidation({ issues, title, firstInvalidLabel }: EditorValidationProps) {

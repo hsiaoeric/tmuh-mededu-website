@@ -109,6 +109,8 @@ describe('AdminDocumentPage people media coexistence', () => {
     const collection = centerPeopleCollection(view);
     const firstRow = collection.querySelector('[data-editor-item-index="0"]');
     if (!(firstRow instanceof HTMLElement)) throw new TypeError('Missing first person row');
+    const expand = within(firstRow).queryByRole('button', { name: /^展開/u });
+    if (expand !== null) fireEvent.click(expand);
     fireEvent.change(within(firstRow).getByRole('textbox', { name: '繁體中文職務' }), {
       target: { value: '媒體後編輯' },
     });

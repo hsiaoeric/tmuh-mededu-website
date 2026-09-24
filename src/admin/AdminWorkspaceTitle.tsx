@@ -21,17 +21,17 @@ type AdminWorkspaceTitleProps = {
 
 export function AdminWorkspaceTitle({ isZh, kind, label }: AdminWorkspaceTitleProps) {
   if (!isZh) {
-    return <><span className="admin-workspace-title-label" lang="en">{label}</span>{' JSON workspace'}</>;
+    return <span className="admin-workspace-title-label" lang="en">{label}</span>;
   }
 
   const segment = PAGE_WORKSPACE_TITLE_SEGMENTS[kind];
   if (segment === undefined) {
-    return <><span className="admin-workspace-title-label" lang="zh-Hant">{label}</span>{' JSON 工作區'}</>;
+    return <span className="admin-workspace-title-label" lang="zh-Hant">{label}</span>;
   }
 
   return (
-    <span className="admin-workspace-title-label" lang="zh-Hant" aria-label={`${label} JSON 工作區`}>
-      {segment.lead}<wbr /><span className="admin-workspace-title-tail">{segment.tail}</span>{' JSON 工作區'}
+    <span className="admin-workspace-title-label" lang="zh-Hant" aria-label={label}>
+      {segment.lead}<wbr /><span className="admin-workspace-title-tail">{segment.tail}</span>
     </span>
   );
 }

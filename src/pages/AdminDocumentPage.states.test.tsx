@@ -122,9 +122,10 @@ describe('AdminDocumentPage states', () => {
     // Then
     expect(await view.findByRole('button', { name: '進階 JSON' })).toBeTruthy();
     expect(view.queryByRole('textbox', { name: '雙語 JSON 內容' })).toBeNull();
-    expect(view.getByText('版本 3')).toBeTruthy();
-    expect(view.getByText('編輯權杖 2')).toBeTruthy();
-    expect(view.getByText('草稿')).toBeTruthy();
+    expect(view.getByText('草稿 · 版本 3')).toBeTruthy();
+    const details = view.container.querySelector('.admin-document-details');
+    expect(details?.textContent).toContain('目前版本3');
+    expect(details?.textContent).toContain('編輯權杖2');
   });
 
   it.each(PAGE_EDITOR_KINDS)('renders a stable archived-only state without mounting the %s editor', async (kind) => {

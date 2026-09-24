@@ -78,7 +78,7 @@ describe('admin typography and reflow contracts', () => {
     const wrapsHeader = narrowRules.includes('.admin-header') && narrowRules.includes('flex-wrap: wrap');
     const wrapsTools = narrowRules.includes('.admin-header-tools') && narrowRules.includes('flex-wrap: wrap');
     const wrapsTitle = narrowRules.includes('.admin-workspace-title-label') && narrowRules.includes('white-space: normal');
-    const collapsesWorkspaceTrack = workspaceCss.includes('minmax(min(16rem, 100%), 1fr)');
+    const collapsesWorkspaceTrack = workspaceCss.includes('minmax(min(14rem, 100%), 17rem)');
 
     // Then
     expect(wrapsHeader).toBe(true);
@@ -126,7 +126,7 @@ describe('admin typography and reflow contracts', () => {
     ['holistic_research', '全人', '照護研究', '全人照護研究'],
   ] as const)('preserves the %s workspace title while keeping only its semantic tail atomic', (kind, lead, tail, label) => {
     // Given
-    const expectedTitle = `${label} JSON 工作區`;
+    const expectedTitle = label;
 
     // When
     const renderedTitle = renderToStaticMarkup(createElement(AdminWorkspaceTitle, { isZh: true, kind, label }));
@@ -136,7 +136,7 @@ describe('admin typography and reflow contracts', () => {
     expect(renderedText).toBe(expectedTitle);
     expect(renderedTitle).toContain(`aria-label="${expectedTitle}"`);
     expect(renderedTitle.match(/<wbr\/>/gu)).toHaveLength(1);
-    expect(renderedTitle).toContain(`${lead}<wbr/><span class="admin-workspace-title-tail">${tail}</span> JSON 工作區`);
+    expect(renderedTitle).toContain(`${lead}<wbr/><span class="admin-workspace-title-tail">${tail}</span></span>`);
     expect(shellCss).toContain('.admin-workspace-title-tail { display: inline-block; max-inline-size: 100%; white-space: nowrap; }');
   });
 
@@ -153,8 +153,8 @@ describe('admin typography and reflow contracts', () => {
     const renderedText = renderedTitle.replace(/<[^>]*>/gu, '');
 
     // Then
-    expect(renderedText).toBe('Digital materials JSON workspace');
-    expect(renderedTitle).toBe('<span class="admin-workspace-title-label" lang="en">Digital materials</span> JSON workspace');
+    expect(renderedText).toBe('Digital materials');
+    expect(renderedTitle).toBe('<span class="admin-workspace-title-label" lang="en">Digital materials</span>');
   });
 
   it.each([

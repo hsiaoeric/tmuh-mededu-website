@@ -21,6 +21,14 @@
 .admin-editor-collection-list { display: grid; gap: var(--admin-space-3); margin: 0; padding: 0; list-style: none; }
 .admin-editor-collection-item { display: grid; gap: var(--admin-space-3); padding: var(--admin-space-3); border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); overflow-wrap: anywhere; }
 .admin-editor-collection-item-header { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: var(--admin-space-2); }
+.admin-editor-collection-item-header[data-collapsible] { grid-template-columns: auto minmax(0, 1fr) auto; cursor: pointer; }
+.admin-editor-collection-item-title { min-inline-size: 0; }
+.admin-editor-collection-summary { margin-block-start: 2px; color: var(--muted); font-size: 0.78rem; line-height: 1.45; overflow-wrap: anywhere; }
+.admin-editor-collapse svg { transition: transform 0.2s ease; }
+.admin-editor-collection-item[data-collapsed] .admin-editor-collapse svg { transform: rotate(-90deg); }
+.admin-editor-collection-item[data-collapsed] { gap: 0; background: var(--surface-2); }
+.admin-editor-collection-item[data-collapsed]:hover { border-color: var(--accent); }
+.admin-editor-collection-tools { display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: var(--admin-space-2); }
 .admin-editor-collection-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: var(--admin-space-1); }
 .admin-editor-move-up svg { transform: rotate(180deg); }
 .admin-editor-collection-item-content { display: grid; gap: var(--admin-space-3); }
@@ -34,5 +42,8 @@
   .admin-editor-collection-header,
   .admin-editor-collection-item-header { grid-template-columns: minmax(0, 1fr); }
   .admin-editor-section-actions,
-  .admin-editor-collection-actions { justify-content: flex-start; }
+  .admin-editor-collection-actions,
+  .admin-editor-collection-tools { justify-content: flex-start; }
+  .admin-editor-collection-item-header[data-collapsible] { grid-template-columns: auto minmax(0, 1fr); }
+  .admin-editor-collection-item-header[data-collapsible] .admin-editor-collection-actions { grid-column: 1 / -1; }
 }

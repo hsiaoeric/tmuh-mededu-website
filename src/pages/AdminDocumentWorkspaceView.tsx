@@ -1,15 +1,16 @@
-import { useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useEffect, useRef, useState } from 'react';
 import { useSite } from '@/app/site';
 import { useAdminProtectedAccess } from '@/admin/auth';
 import { AdminButton } from '@/admin/AdminButton';
-import { AdminAppShell, AdminPageHeader, AdminSaveStatus, AdminToolbar, type AdminSaveState } from '@/admin/AdminShell';
+import { AdminAppShell, AdminPageHeader, AdminSaveStatus, type AdminSaveState } from '@/admin/AdminShell';
 import { AdminWorkspaceDescription, isPageWorkspaceDescriptionKind } from '@/admin/AdminWorkspaceDescription';
 import { AdminWorkspaceTitle } from '@/admin/AdminWorkspaceTitle';
 import { InlineNotice, StatePanel, StatusBadge } from '@/admin/AdminFeedback';
 import { ConfirmDialog } from '@/admin/AdminOverlays';
 import { CMS_DOCUMENT_METADATA, getAdminDocumentFailureCopy, getWorkspaceCapabilities, isWorkspaceDirty, pendingDocumentMutation, type DocumentMutation, type DocumentOperationState, type DocumentWorkspace } from '@/admin/documents';
 import { assertNever } from '@/admin/documents/assertNever';
+import { publicDocumentHref } from '@/admin/documents/publicLocation';
+import { Icon } from '@/ui/Icon';
 import { DirtyNavigationGuard, type DocumentWorkspaceController } from '@/admin/workflows';
 import type { CmsDocumentKind } from '@/content/contracts/kinds';
 import { AdminWorkspaceEditorRegion } from './AdminWorkspaceEditorRegion';
@@ -59,18 +60,6 @@ function saveStatusText(workspace: DocumentWorkspace, isZh: boolean): string {
   }
 }
 
-function revisionStatusText(
-  status: NonNullable<DocumentWorkspace['actionableRevision']>['status'],
-  isZh: boolean,
-): string {
-  switch (status) {
-    case 'draft': return isZh ? '草稿' : 'Draft';
-    case 'published': return isZh ? '已發布' : 'Published';
-    case 'archived': return isZh ? '已封存' : 'Archived';
-    default: return assertNever(status, 'document revision status');
-  }
-}
-
 function OperationNotice({
   mutationsAllowed,
   workspace,
@@ -105,7 +94,6 @@ export function AdminDocumentWorkspaceView({ kind, controller, workspace }: Admi
   const { mutationsAllowed } = useAdminProtectedAccess();
   const metadata = CMS_DOCUMENT_METADATA[kind];
   const [confirmation, setConfirmation] = useState<Exclude<DocumentMutation, 'save'> | null>(null);
-  const dashboardLinkRef = useRef<HTMLAnchorElement>(null);
   const confirmationReturnFocusRef = useRef<HTMLElement | null>(null);
   const label = isZh ? metadata.label.zh : metadata.label.en;
   const description = isZh && isPageWorkspaceDescriptionKind(kind)
@@ -116,39 +104,62 @@ export function AdminDocumentWorkspaceView({ kind, controller, workspace }: Admi
   const referenceRevision = workspace.referenceRevision;
   const hasActionableRevision = workspace.actionableRevision !== null;
   const title = <AdminWorkspaceTitle isZh={isZh} kind={kind} label={label} />;
+  const canSave = mutationsAllowed && capabilities.canSave;
+  const saveRef = useRef(controller.save);
+  saveRef.current = controller.save;
+
+  useEffect(() => {
+    if (!canSave) return undefined;
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key.toLowerCase() !== 's' || !(event.metaKey || event.ctrlKey) || event.altKey || event.shiftKey) return;
+      event.preventDefault();
+      void saveRef.current();
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [canSave]);
+
+  const railActions = hasActionableRevision ? (
+    <div className="admin-surface admin-rail-actions">
+      <a className="admin-button" data-variant="secondary" href={publicDocumentHref(kind)} target="_blank" rel="noreferrer">
+        <Icon name="arrowUpRight" />{isZh ? '在網站上查看' : 'View on site'}
+      </a>
+      <AdminButton variant="warning" loading={workspace.operation.status === 'archiving'} disabled={!mutationsAllowed || !capabilities.canArchive} onClick={(event) => { confirmationReturnFocusRef.current = event.currentTarget; setConfirmation('archive'); }}>{isZh ? '封存' : 'Archive'}</AdminButton>
+      <p>{isZh ? '封存後此文件不再作為公開內容，請僅在確定要下架時使用。' : 'Archiving removes this document from the public site. Use it only to take content down.'}</p>
+    </div>
+  ) : null;
 
   return (
-    <AdminAppShell eyebrow={`ADMIN / ${kind.toUpperCase()}`} title={title} status={<AdminSaveStatus state={operationSaveState(workspace.operation)}>{saveStatusText(workspace, isZh)}</AdminSaveStatus>} showcaseNavigation={false}>
+    <AdminAppShell eyebrow={`ADMIN / ${kind.toUpperCase()}`} title={title} status={null} showcaseNavigation={false}>
       <DirtyNavigationGuard dirty={hasActionableRevision && isWorkspaceDirty(workspace)} pendingOperation={pendingDocumentMutation(workspace.operation)} />
-      <div className="admin-content-limiter admin-workspace-page">
+      <div className="admin-content-limiter admin-content-limiter-wide admin-workspace-page">
         <AdminPageHeader
-          eyebrow={`CONTENT / ${kind}`}
+          eyebrow={isZh ? '內容編輯' : 'CONTENT'}
           title={title}
           description={description}
           descriptionLang={isZh ? 'zh-Hant' : 'en'}
-          actions={<Link ref={dashboardLinkRef} className="admin-button" data-variant="secondary" to="/admin">{isZh ? '返回總覽' : 'Back to dashboard'}</Link>}
         />
-        <AdminToolbar label={isZh ? '文件作業' : 'Document actions'}>
-          {hasActionableRevision ? <>
-            <StatusBadge status={publishedRevision === undefined ? 'warning' : 'success'}>{publishedRevision === undefined ? (isZh ? '尚未發布' : 'Unpublished') : (isZh ? '已發布' : 'Published')}</StatusBadge>
-            <span>{isZh ? `版本 ${workspace.actionableRevision.version}` : `Version ${workspace.actionableRevision.version}`}</span>
-            <span>{isZh ? `編輯權杖 ${workspace.expectedEditVersion}` : `Edit token ${workspace.expectedEditVersion}`}</span>
-            <span>{revisionStatusText(workspace.actionableRevision.status, isZh)}</span>
-          </> : <>
-            <StatusBadge status="disabled">{referenceRevision === null ? (isZh ? '無目前修訂' : 'No current revision') : (isZh ? '已封存' : 'Archived')}</StatusBadge>
-            {referenceRevision === null ? null : <span>{isZh ? `封存版本 ${referenceRevision.version}` : `Archived version ${referenceRevision.version}`}</span>}
-            <span>{isZh ? '無目前修訂' : 'No current revision'}</span>
-          </>}
-          <span className="admin-toolbar-spacer" />
-          {hasActionableRevision ? <>
-            <AdminButton variant="secondary" loading={workspace.operation.status === 'archiving'} disabled={!mutationsAllowed || !capabilities.canArchive} onClick={(event) => { confirmationReturnFocusRef.current = event.currentTarget; setConfirmation('archive'); }}>{isZh ? '封存' : 'Archive'}</AdminButton>
-            <AdminButton variant="secondary" loading={workspace.operation.status === 'publishing'} disabled={!mutationsAllowed || !capabilities.canPublish} onClick={(event) => { confirmationReturnFocusRef.current = event.currentTarget; setConfirmation('publish'); }}>{isZh ? '發佈' : 'Publish'}</AdminButton>
-            <AdminButton loading={workspace.operation.status === 'saving'} disabled={!mutationsAllowed || !capabilities.canSave} onClick={() => void controller.save()}>{isZh ? '儲存草稿' : 'Save draft'}</AdminButton>
-          </> : null}
-        </AdminToolbar>
+        <div className="admin-action-bar" role="toolbar" aria-label={isZh ? '文件作業' : 'Document actions'}>
+          <div className="admin-action-bar-status">
+            {hasActionableRevision ? <>
+              <StatusBadge status={publishedRevision === undefined ? 'warning' : 'success'}>{publishedRevision === undefined ? (isZh ? '尚未發布' : 'Unpublished') : (isZh ? '已發布' : 'Published')}</StatusBadge>
+              {workspace.actionableRevision.status === 'draft' ? <StatusBadge status="info">{isZh ? `草稿 · 版本 ${workspace.actionableRevision.version}` : `Draft · version ${workspace.actionableRevision.version}`}</StatusBadge> : null}
+            </> : <>
+              <StatusBadge status="disabled">{referenceRevision === null ? (isZh ? '無目前修訂' : 'No current revision') : (isZh ? '已封存' : 'Archived')}</StatusBadge>
+              {referenceRevision === null ? null : <span>{isZh ? `封存版本 ${referenceRevision.version}` : `Archived version ${referenceRevision.version}`}</span>}
+            </>}
+            <AdminSaveStatus state={operationSaveState(workspace.operation)}>{saveStatusText(workspace, isZh)}</AdminSaveStatus>
+          </div>
+          {hasActionableRevision ? (
+            <div className="admin-action-bar-actions">
+              <AdminButton variant="secondary" loading={workspace.operation.status === 'publishing'} disabled={!mutationsAllowed || !capabilities.canPublish} onClick={(event) => { confirmationReturnFocusRef.current = event.currentTarget; setConfirmation('publish'); }}>{isZh ? '發佈' : 'Publish'}</AdminButton>
+              <AdminButton variant="primary" loading={workspace.operation.status === 'saving'} disabled={!canSave} aria-keyshortcuts="Control+S Meta+S" title={isZh ? '儲存草稿（Ctrl/⌘ + S）' : 'Save draft (Ctrl/⌘ + S)'} onClick={() => void controller.save()}>{isZh ? '儲存草稿' : 'Save draft'}</AdminButton>
+            </div>
+          ) : null}
+        </div>
         <OperationNotice mutationsAllowed={mutationsAllowed} workspace={workspace} onRecoverConflict={() => void controller.recoverConflict()} />
         {hasActionableRevision ? (
-          <AdminWorkspaceEditorRegion workspace={workspace} kind={kind} onChange={controller.setEditorText} />
+          <AdminWorkspaceEditorRegion workspace={workspace} kind={kind} onChange={controller.setEditorText} railActions={railActions} />
         ) : (
           <section className="admin-surface">
             <StatePanel
@@ -177,7 +188,8 @@ export function AdminDocumentWorkspaceView({ kind, controller, workspace }: Admi
         closeLabel={isZh ? '關閉確認對話框' : 'Close confirmation dialog'}
         onConfirm={() => {
           const operation = confirmation;
-          confirmationReturnFocusRef.current = dashboardLinkRef.current;
+          // The trigger may be disabled once the operation lands, so return focus to the stable page heading.
+          confirmationReturnFocusRef.current = globalThis.document.querySelector<HTMLElement>('.admin-page-header h1');
           setConfirmation(null);
           if (operation === 'publish') void controller.publish();
           if (operation === 'archive') void controller.archive();

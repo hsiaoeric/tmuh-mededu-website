@@ -14,7 +14,7 @@ export function EditorSection({ id, title, description, actions, children }: Edi
     <section id={id} className="admin-editor-section admin-surface" aria-labelledby={titleId}>
       <header className="admin-editor-section-header">
         <div className="admin-section-heading">
-          <h2 id={titleId}>{title}</h2>
+          <h2 id={titleId} tabIndex={-1}>{title}</h2>
           {description ? <p>{description}</p> : null}
         </div>
         {actions ? <div className="admin-editor-section-actions">{actions}</div> : null}
