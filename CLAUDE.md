@@ -23,7 +23,7 @@ npm run content:check       # verify generated snapshot and seed
 npm run content:checkpoint  # authenticated Supabase-authoritative snapshot export
 ```
 
-There is no linter configured. The current offline gate is `npm test`, `npm run content:check`, `npm run typecheck`, `npm run build`, and `VITE_BASE=/tmuh-mededu-website/ npm run build`. The verified baseline is 210 test files and 1659 tests. `tsconfig.app.json` enables `strict`, `noUnusedLocals`, and `noUnusedParameters`, so a leftover import or parameter fails the build.
+There is no linter configured. The current offline gate is `npm test`, `npm run content:check`, `npm run typecheck`, `npm run build`, and `VITE_BASE=/tmuh-mededu-website/ npm run build`. The verified baseline is 213 test files and 1677 tests. `tsconfig.app.json` enables `strict`, `noUnusedLocals`, and `noUnusedParameters`, so a leftover import or parameter fails the build.
 
 Automated tests do not replace browser checks for visual or workflow changes. Check both themes and languages, relevant breakpoints, reduced motion, keyboard use, and the root and Pages base paths.
 
@@ -87,7 +87,7 @@ Cross-page anchors go through `src/app/navigation.ts`: `useGoToSection` scrolls 
 Two rules everything here follows, and new motion must too:
 
 1. **Content is visible by default.** Animations hide elements from inside a `useLayoutEffect` and animate them back, so a JS failure or a disabled effect never leaves a blank page.
-2. **`prefersReducedMotion()` short-circuits every effect** (`src/motion/gsap.ts`). Under reduced motion Lenis is not installed, ScrollTriggers are not created, counters print their final value, and the WebGL field renders one static frame.
+2. **Reduced motion short-circuits every effect.** Components read `useReducedMotion()` (`src/motion/MotionPreference.tsx`), which is `prefersReducedMotion()` (`src/motion/gsap.ts`) or an enclosing `<StillMotion>`. Under reduced motion Lenis is not installed, ScrollTriggers are not created, counters print their final value, and the WebGL field renders one static frame. `StillMotion` exists for embedding public sections where the window does not scroll, such as the admin preview; new motion components must use the hook, not the bare function.
 
 ### The WebGL field
 

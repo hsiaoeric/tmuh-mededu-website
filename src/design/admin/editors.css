@@ -34,6 +34,11 @@
 .admin-editor-collection-item-content { display: grid; gap: var(--admin-space-3); }
 .admin-editor-collection .admin-state-panel { min-block-size: 0; }
 
+.admin-editor-mode > .admin-toolbar { justify-content: flex-end; align-items: center; gap: var(--admin-space-1); padding-block-end: 0; border-block-end: 0; }
+.admin-editor-mode-label { color: var(--faint); font-size: 0.7rem; }
+.admin-editor-mode .admin-button { min-block-size: calc(var(--admin-control-h) - var(--admin-space-2)); padding-inline: var(--admin-space-2); font-size: 0.74rem; }
+.admin-editor-mode .admin-button[aria-pressed='true'] { color: var(--ink); background: var(--accent-wash); border-color: color-mix(in srgb, var(--accent) 42%, var(--line)); }
+
 .admin-editor-validation-list { display: grid; gap: var(--admin-space-1); margin-block-start: var(--admin-space-2); }
 .admin-editor-validation-list a { display: inline-block; max-inline-size: 100%; color: var(--admin-warning-ink); text-decoration: underline; text-underline-offset: var(--admin-space-1); overflow-wrap: anywhere; }
 

@@ -162,3 +162,24 @@ export function useContentDocument(
     (content) => content.kind === kind && content.stableKey === stableKey,
   );
 }
+
+/**
+ * Renders children against the current published content with one document replaced, so public
+ * components can show an unpublished draft exactly as they would render it live.
+ */
+export function ContentPreviewProvider({ override, children }: {
+  readonly override: PublishedContent;
+  readonly children: ReactNode;
+}) {
+  const parent = useContentContext();
+  const value = useMemo<ContentContextValue>(() => ({
+    media: parent.media,
+    state: {
+      ...parent.state,
+      content: parent.state.content.map((content) => (
+        content.kind === override.kind && content.stableKey === override.stableKey ? override : content
+      )),
+    },
+  }), [override, parent]);
+  return <ContentContext.Provider value={value}>{children}</ContentContext.Provider>;
+}

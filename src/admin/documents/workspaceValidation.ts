@@ -15,7 +15,7 @@ const PUBLISHED_MEDIA_PLACEHOLDER = {
   path: 'assets/validation-placeholder.jpg',
 } as const;
 
-function withPublishableMediaReferences(value: Json): Json {
+export function withPublishableMediaReferences(value: Json): Json {
   if (DraftMediaReferenceSchema.safeParse(value).success) return PUBLISHED_MEDIA_PLACEHOLDER;
   if (Array.isArray(value)) return value.map(withPublishableMediaReferences);
   if (value === null || typeof value !== 'object') return value;

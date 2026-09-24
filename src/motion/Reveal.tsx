@@ -1,5 +1,6 @@
 import { useLayoutEffect, useRef, type CSSProperties, type ElementType, type ReactNode } from 'react';
-import { gsap, ScrollTrigger, EASE, prefersReducedMotion } from './gsap';
+import { gsap, ScrollTrigger, EASE } from './gsap';
+import { useReducedMotion } from './MotionPreference';
 
 type Variant = 'up' | 'fade' | 'clip' | 'scale' | 'left';
 
@@ -48,10 +49,11 @@ export function Reveal({
   id,
 }: RevealProps) {
   const ref = useRef<HTMLElement>(null);
+  const reduced = useReducedMotion();
 
   useLayoutEffect(() => {
     const el = ref.current;
-    if (!el || prefersReducedMotion()) return;
+    if (!el || reduced) return;
 
     const ctx = gsap.context(() => {
       const targets: gsap.TweenTarget =
@@ -74,7 +76,7 @@ export function Reveal({
 
     ScrollTrigger.refresh();
     return () => ctx.revert();
-  }, [variant, delay, stagger]);
+  }, [variant, delay, stagger, reduced]);
 
   return (
     <Tag ref={ref} className={className} style={style} id={id}>

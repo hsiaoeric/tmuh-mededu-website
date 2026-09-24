@@ -11,6 +11,7 @@ import { CMS_DOCUMENT_METADATA, getAdminDocumentFailureCopy, getWorkspaceCapabil
 import { assertNever } from '@/admin/documents/assertNever';
 import { publicDocumentHref } from '@/admin/documents/publicLocation';
 import { PublishChanges } from '@/admin/documents/PublishChanges';
+import { isPreviewableKind } from '@/admin/preview/previewKinds';
 import { Icon } from '@/ui/Icon';
 import { DirtyNavigationGuard, type DocumentWorkspaceController } from '@/admin/workflows';
 import type { CmsDocumentKind } from '@/content/contracts/kinds';
@@ -95,6 +96,8 @@ export function AdminDocumentWorkspaceView({ kind, controller, workspace }: Admi
   const { mutationsAllowed } = useAdminProtectedAccess();
   const metadata = CMS_DOCUMENT_METADATA[kind];
   const [confirmation, setConfirmation] = useState<Exclude<DocumentMutation, 'save'> | null>(null);
+  const [previewing, setPreviewing] = useState(false);
+  const previewable = isPreviewableKind(kind);
   const confirmationReturnFocusRef = useRef<HTMLElement | null>(null);
   const label = isZh ? metadata.label.zh : metadata.label.en;
   const description = isZh && isPageWorkspaceDescriptionKind(kind)
@@ -153,6 +156,11 @@ export function AdminDocumentWorkspaceView({ kind, controller, workspace }: Admi
           </div>
           {hasActionableRevision ? (
             <div className="admin-action-bar-actions">
+              {previewable ? (
+                <AdminButton variant="quiet" icon={previewing ? 'clipboard' : 'image'} aria-pressed={previewing} onClick={() => setPreviewing((current) => !current)}>
+                  {previewing ? (isZh ? '返回編輯' : 'Back to editing') : (isZh ? '預覽' : 'Preview')}
+                </AdminButton>
+              ) : null}
               <AdminButton variant="secondary" loading={workspace.operation.status === 'publishing'} disabled={!mutationsAllowed || !capabilities.canPublish} onClick={(event) => { confirmationReturnFocusRef.current = event.currentTarget; setConfirmation('publish'); }}>{isZh ? '發佈' : 'Publish'}</AdminButton>
               <AdminButton variant="primary" loading={workspace.operation.status === 'saving'} disabled={!canSave} aria-keyshortcuts="Control+S Meta+S" title={isZh ? '儲存草稿（Ctrl/⌘ + S）' : 'Save draft (Ctrl/⌘ + S)'} onClick={() => void controller.save()}>{isZh ? '儲存草稿' : 'Save draft'}</AdminButton>
             </div>
@@ -160,7 +168,7 @@ export function AdminDocumentWorkspaceView({ kind, controller, workspace }: Admi
         </div>
         <OperationNotice mutationsAllowed={mutationsAllowed} workspace={workspace} onRecoverConflict={() => void controller.recoverConflict()} />
         {hasActionableRevision ? (
-          <AdminWorkspaceEditorRegion workspace={workspace} kind={kind} onChange={controller.setEditorText} railActions={railActions} />
+          <AdminWorkspaceEditorRegion workspace={workspace} kind={kind} onChange={controller.setEditorText} railActions={railActions} previewing={previewable && previewing} />
         ) : (
           <section className="admin-surface">
             <StatePanel

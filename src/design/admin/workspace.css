@@ -146,6 +146,13 @@
 }
 
 .admin-workspace-editor { display: flex; flex-direction: column; gap: var(--admin-space-4); min-inline-size: 0; }
+.admin-workspace-editor[hidden] { display: none; }
+
+.admin-preview { display: grid; gap: var(--admin-space-3); min-inline-size: 0; }
+.admin-preview-note { color: var(--muted); font-size: 0.78rem; line-height: 1.55; }
+/* The public section at its real size, framed so it reads as the site rather than the admin. */
+.admin-preview-frame { min-inline-size: 0; overflow: hidden; border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--bg); box-shadow: var(--shadow-sm); }
+.admin-preview-frame > * { margin: 0; }
 
 .admin-workspace-rail {
   position: sticky;

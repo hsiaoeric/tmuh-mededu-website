@@ -7,7 +7,8 @@ import {
   type ReactNode,
 } from 'react';
 import { SplitText } from 'gsap/SplitText';
-import { gsap, ScrollTrigger, EASE, prefersReducedMotion } from './gsap';
+import { gsap, ScrollTrigger, EASE } from './gsap';
+import { useReducedMotion } from './MotionPreference';
 
 gsap.registerPlugin(SplitText);
 
@@ -47,9 +48,11 @@ export function SplitLines({
   const ref = useRef<HTMLElement>(null);
   const text = textOf(children);
 
+  const reduced = useReducedMotion();
+
   useLayoutEffect(() => {
     const el = ref.current;
-    if (!el || prefersReducedMotion()) return;
+    if (!el || reduced) return;
 
     let split: SplitText | null = null;
     const ctx = gsap.context(() => {
@@ -78,7 +81,7 @@ export function SplitLines({
       split?.revert();
       ctx.revert();
     };
-  }, [Tag, delay, immediate, stagger, text]);
+  }, [Tag, delay, immediate, stagger, text, reduced]);
 
   /*
    * SplitText replaces the heading's text node with per-line wrappers, so React

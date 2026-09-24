@@ -1,5 +1,6 @@
 import { useLayoutEffect, useRef, useState, type ReactNode } from 'react';
-import { gsap, ScrollTrigger, prefersReducedMotion } from './gsap';
+import { gsap, ScrollTrigger } from './gsap';
+import { useReducedMotion } from './MotionPreference';
 
 
 /**
@@ -27,6 +28,8 @@ export function HorizontalScroll({
   const outerRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const [pinned, setPinned] = useState(false);
+
+  const reduced = useReducedMotion();
 
   useLayoutEffect(() => {
     const outer = outerRef.current;
@@ -57,7 +60,7 @@ export function HorizontalScroll({
     // which React has yet to re-render into place.
     outer.dataset.pinned = 'true';
     const pin =
-      !prefersReducedMotion() && window.innerWidth >= minWidth && hidden() >= cardWidth / 2;
+      !reduced && window.innerWidth >= minWidth && hidden() >= cardWidth / 2;
 
     if (!pin) {
       outer.dataset.pinned = 'false';
@@ -92,7 +95,7 @@ export function HorizontalScroll({
       cancelAnimationFrame(frame);
       ctx.revert();
     };
-  }, [minWidth]);
+  }, [minWidth, reduced]);
 
   return (
     <div className={`hscroll ${className}`} ref={outerRef} data-pinned={pinned}>

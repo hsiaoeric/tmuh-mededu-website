@@ -1,5 +1,6 @@
 import { useLayoutEffect, useRef, type CSSProperties, type ReactNode } from 'react';
-import { gsap, prefersReducedMotion } from './gsap';
+import { gsap } from './gsap';
+import { useReducedMotion } from './MotionPreference';
 
 interface ParallaxProps {
   children: ReactNode;
@@ -13,9 +14,11 @@ interface ParallaxProps {
 export function Parallax({ children, distance = 90, className, style }: ParallaxProps) {
   const ref = useRef<HTMLDivElement>(null);
 
+  const reduced = useReducedMotion();
+
   useLayoutEffect(() => {
     const el = ref.current;
-    if (!el || prefersReducedMotion()) return;
+    if (!el || reduced) return;
 
     const ctx = gsap.context(() => {
       gsap.fromTo(
@@ -35,7 +38,7 @@ export function Parallax({ children, distance = 90, className, style }: Parallax
     }, el);
 
     return () => ctx.revert();
-  }, [distance]);
+  }, [distance, reduced]);
 
   return (
     <div ref={ref} className={className} style={style}>

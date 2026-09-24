@@ -49,9 +49,11 @@ export function StructuredEditorFrame<K extends CmsDocumentKind>({
 
   return (
     <div className="admin-stack">
+      <div className="admin-editor-mode">
       <AdminToolbar label={isZh ? '編輯模式' : 'Editor mode'}>
+        <span className="admin-editor-mode-label" aria-hidden="true">{isZh ? '編輯方式' : 'Edit as'}</span>
         <AdminButton
-          variant="secondary"
+          variant="quiet"
           aria-pressed={!advanced}
           disabled={recoveryRequired || mode === 'structured'}
           onClick={() => setMode('structured')}
@@ -59,7 +61,7 @@ export function StructuredEditorFrame<K extends CmsDocumentKind>({
           {isZh ? '結構化編輯' : 'Structured editor'}
         </AdminButton>
         <AdminButton
-          variant="secondary"
+          variant="quiet"
           aria-pressed={advanced}
           disabled={advanced}
           onClick={() => setMode('advanced')}
@@ -67,6 +69,7 @@ export function StructuredEditorFrame<K extends CmsDocumentKind>({
           {isZh ? '進階 JSON' : 'Advanced JSON'}
         </AdminButton>
       </AdminToolbar>
+      </div>
       {recoveryRequired ? (
         <InlineNotice
           status="error"

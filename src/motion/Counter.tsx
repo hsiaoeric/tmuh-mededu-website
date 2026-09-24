@@ -1,5 +1,6 @@
 import { useLayoutEffect, useRef } from 'react';
-import { gsap, prefersReducedMotion } from './gsap';
+import { gsap } from './gsap';
+import { useReducedMotion } from './MotionPreference';
 
 interface CounterProps {
   to: number;
@@ -11,11 +12,12 @@ interface CounterProps {
 /** Counts up to a number when it scrolls into view. */
 export function Counter({ to, decimals = 0, duration = 1.9 }: CounterProps) {
   const ref = useRef<HTMLSpanElement>(null);
+  const reduced = useReducedMotion();
 
   useLayoutEffect(() => {
     const el = ref.current;
     if (!el) return;
-    if (prefersReducedMotion()) {
+    if (reduced) {
       el.textContent = to.toFixed(decimals);
       return;
     }
@@ -34,7 +36,7 @@ export function Counter({ to, decimals = 0, duration = 1.9 }: CounterProps) {
     }, el);
 
     return () => ctx.revert();
-  }, [to, decimals, duration]);
+  }, [to, decimals, duration, reduced]);
 
-  return <span ref={ref}>{prefersReducedMotion() ? to.toFixed(decimals) : '0'}</span>;
+  return <span ref={ref}>{reduced ? to.toFixed(decimals) : '0'}</span>;
 }
