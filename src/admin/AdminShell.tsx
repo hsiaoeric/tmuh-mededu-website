@@ -23,6 +23,10 @@ const ADMIN_ROUTE_ITEMS = [
 
 type AdminSectionId = (typeof NAV_ITEMS)[number]['id'];
 
+function unexpectedAuthValue(label: string, value: never): never {
+  throw new TypeError(`Unexpected administrator auth ${label}: ${JSON.stringify(value)}`);
+}
+
 function scrollToAdminSection(main: HTMLElement, id: AdminSectionId): void {
   const section = document.getElementById(id);
   if (section === null) return;
@@ -89,15 +93,18 @@ export function AdminAppShell({ children, notices = [], eyebrow = 'ADMIN / DESIG
   let sessionAction: ReactNode = null;
   let sessionNotice: ReactNode = null;
   if (auth !== null) {
-    switch (auth.state.status) {
+    const state = auth.state;
+    switch (state.status) {
       case 'authorized':
+      // A refreshed session is re-verified in place; the protected layout already pauses mutations.
+      case 'reauthorizing':
         sessionAction = <AdminButton variant="quiet" onClick={() => void auth.signOut()}>{isZh ? '登出' : 'Sign out'}</AdminButton>;
         break;
       case 'signing-out':
         sessionAction = <AdminButton variant="quiet" loading>{isZh ? '登出' : 'Sign out'}</AdminButton>;
         break;
       case 'error': {
-        const failure = auth.state.failure;
+        const failure = state.failure;
         switch (failure) {
           case 'sign-out-failed':
             sessionAction = <AdminButton variant="quiet" onClick={() => void auth.signOut()}>{isZh ? '登出' : 'Sign out'}</AdminButton>;
@@ -119,7 +126,7 @@ export function AdminAppShell({ children, notices = [], eyebrow = 'ADMIN / DESIG
           case 'unsupported-auth-event':
             break;
           default:
-            throw new TypeError(`Unexpected administrator auth failure: ${JSON.stringify(failure)}`);
+            unexpectedAuthValue('failure', failure);
         }
         break;
       }
@@ -132,7 +139,7 @@ export function AdminAppShell({ children, notices = [], eyebrow = 'ADMIN / DESIG
       case 'expired':
         break;
       default:
-        throw new TypeError(`Unexpected administrator auth state: ${JSON.stringify(auth.state)}`);
+        unexpectedAuthValue('state', state);
     }
   }
   const selectSection = (id: AdminSectionId) => {

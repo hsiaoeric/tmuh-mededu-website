@@ -118,6 +118,31 @@ describe('AdminAppShell authorized session controls', () => {
     expect(view.getByRole('button', { name: recovery })).toBeTruthy();
   });
 
+  it('keeps the shell and sign-out available while a refreshed session is re-verified', async () => {
+    // Given
+    const client = new FakeAdminAuthClient();
+    const view = renderProtectedShell(client);
+    await authorize(client);
+    await view.findByRole('button', { name: '登出' });
+    const pendingUser = deferred<{ readonly kind: 'authenticated'; readonly user: { readonly id: string; readonly email: string } }>();
+    client.userResults.push(pendingUser.promise);
+    client.allowlistResults.push(Promise.resolve({ kind: 'allowed' }));
+
+    // When
+    vi.useFakeTimers();
+    act(() => client.emit(authEvent('TOKEN_REFRESHED', 'admin-id')));
+    await act(async () => vi.runOnlyPendingTimersAsync());
+    vi.useRealTimers();
+
+    // Then
+    expect(view.getByRole('heading', { name: 'Protected workspace' })).toBeTruthy();
+    expect(view.getByRole('button', { name: '登出' }).hasAttribute('disabled')).toBe(false);
+    expect(view.getByTestId('location').textContent).toBe('/admin');
+
+    pendingUser.resolve({ kind: 'authenticated', user: { id: 'admin-id', email: 'admin@example.test' } });
+    await waitFor(() => expect(view.getByRole('button', { name: '登出' })).toBeTruthy());
+  });
+
   it('retries local sign-out from the recovery action', async () => {
     // Given
     const client = new FakeAdminAuthClient();
