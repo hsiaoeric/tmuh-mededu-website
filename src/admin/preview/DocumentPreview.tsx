@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState, type ReactElement, type RefObject } from 'react';
-import { KeepPageTitle, useSite } from '@/app/site';
+import { KeepPageTitle, SiteLanguage, useSite } from '@/app/site';
+import type { Lang } from '@/i18n';
 import { InlineNotice } from '@/admin/AdminFeedback';
 import type { DocumentWorkspace } from '@/admin/documents';
 import { parseDraftPayload, withPublishableMediaReferences } from '@/admin/documents/workspaceValidation';
@@ -113,7 +114,7 @@ function hostPosition(frameDocument: Document, rect: DOMRect): { left: number; t
 }
 
 /** Hover and click in the preview point at the editor field that supplies the text. */
-function usePreviewToEditorLinks(frameDocument: Document | null, editorRef: RefObject<HTMLElement> | undefined, isZh: boolean) {
+function usePreviewToEditorLinks(frameDocument: Document | null, editorRef: RefObject<HTMLElement> | undefined, isZh: boolean, previewIsZh: boolean) {
   const [hint, setHint] = useState<Hint | null>(null);
   useEffect(() => {
     if (frameDocument === null) return undefined;
@@ -127,7 +128,7 @@ function usePreviewToEditorLinks(frameDocument: Document | null, editorRef: RefO
     const find = (target: EventTarget | null) => {
       const editor = editorRef?.current;
       if (editor === null || editor === undefined || !(target instanceof frameDocument.defaultView!.Element)) return null;
-      return controlForPreviewTarget(target, frameDocument.body, editorControls(editor, isZh));
+      return controlForPreviewTarget(target, frameDocument.body, editorControls(editor, previewIsZh));
     };
     const handleOver = (event: PointerEvent) => {
       const match = find(event.target);
@@ -172,7 +173,7 @@ function usePreviewToEditorLinks(frameDocument: Document | null, editorRef: RefO
       frameDocument.documentElement.removeEventListener('pointerleave', clear);
       frameDocument.defaultView?.removeEventListener('scroll', clear);
     };
-  }, [editorRef, frameDocument, isZh]);
+  }, [editorRef, frameDocument, isZh, previewIsZh]);
   return hint;
 }
 
@@ -215,9 +216,26 @@ function useEditorToPreviewLocate(
   }, [content, frameDocument, locate]);
 }
 
+/** The language a field is written in, or `null` for fields shared by both languages. */
+function fieldLanguage(control: Element): Lang | null {
+  const marked = control.closest('[lang]');
+  if (marked === null || marked === control.ownerDocument.documentElement) return null;
+  const lang = marked.getAttribute('lang') ?? '';
+  if (lang.startsWith('zh')) return 'zh';
+  if (lang.startsWith('en')) return 'en';
+  return null;
+}
+
 /** The current editor text rendered by the live public components, before saving or publishing. */
 export function DocumentPreview({ kind, workspace, editorRef, locate }: DocumentPreviewProps) {
-  const { isZh } = useSite();
+  const { isZh, lang: siteLang } = useSite();
+  // The preview follows the language of the field being edited; the switch overrides it until the
+  // next field in the other language. Derived during render so the page never flashes the wrong one.
+  const [previewLanguage, setPreviewLanguage] = useState<{ readonly lang: Lang; readonly nonce: number }>({ lang: siteLang, nonce: -1 });
+  if (locate !== null && locate !== undefined && locate.nonce !== previewLanguage.nonce) {
+    setPreviewLanguage({ lang: fieldLanguage(locate.control) ?? previewLanguage.lang, nonce: locate.nonce });
+  }
+  const previewLang = previewLanguage.lang;
   const surfaces = PREVIEW_SURFACES[kind] ?? [];
   const [surfaceIndex, setSurfaceIndex] = useState(0);
   const current = surfaces[Math.min(surfaceIndex, surfaces.length - 1)];
@@ -228,7 +246,7 @@ export function DocumentPreview({ kind, workspace, editorRef, locate }: Document
   const shown = result.ok ? result.content : lastGood.current;
   const [device, setDevice] = useState<PreviewDevice>('desktop');
   const [frameDocument, setFrameDocument] = useState<Document | null>(null);
-  const hint = usePreviewToEditorLinks(frameDocument, editorRef, isZh);
+  const hint = usePreviewToEditorLinks(frameDocument, editorRef, isZh, previewLang === 'zh');
   // A located field not on this page moves through the document's other pages once each.
   const search = useRef<{ nonce: number; remaining: number } | null>(null);
   const [missing, setMissing] = useState(false);
@@ -245,7 +263,7 @@ export function DocumentPreview({ kind, workspace, editorRef, locate }: Document
   useEffect(() => {
     frameDocument?.scrollingElement?.scrollTo({ top: 0 });
   }, [frameDocument, surfaceIndex]);
-  const rendered = useMemo(() => ({ surfaceIndex, shown }), [surfaceIndex, shown]);
+  const rendered = useMemo(() => ({ surfaceIndex, shown, previewLang }), [surfaceIndex, shown, previewLang]);
   useEditorToPreviewLocate(frameDocument, locate, rendered, (outcome) => {
     if (outcome === 'found') {
       search.current = null;
@@ -282,6 +300,11 @@ export function DocumentPreview({ kind, workspace, editorRef, locate }: Document
             {surfaces.map((option) => <option key={option.id} value={option.id}>{isZh ? option.zh : option.en}</option>)}
           </select>
         ) : null}
+        <div className="admin-preview-devices" role="group" aria-label={isZh ? '預覽語言' : 'Preview language'}>
+          {(['zh', 'en'] as const).map((option) => (
+            <button key={option} type="button" lang={option === 'zh' ? 'zh-Hant' : 'en'} aria-pressed={previewLang === option} onClick={() => setPreviewLanguage((current) => ({ ...current, lang: option }))}>{option === 'zh' ? '中' : 'EN'}</button>
+          ))}
+        </div>
         <div className="admin-preview-devices" role="group" aria-label={isZh ? '預覽裝置寬度' : 'Preview device width'}>
           {devices.map((option) => (
             <button key={option.id} type="button" aria-pressed={device === option.id} title={`${option.label} · ${PREVIEW_DEVICE_WIDTH[option.id]}px`} onClick={() => setDevice(option.id)}>{option.label}</button>
@@ -296,6 +319,7 @@ export function DocumentPreview({ kind, workspace, editorRef, locate }: Document
       )}
       {missing ? <p className="admin-preview-missing" role="status">{isZh ? '這個欄位目前沒有顯示在任何預覽頁面中。' : 'This field is not shown on any preview page right now.'}</p> : null}
       {shown !== null ? (
+        <SiteLanguage lang={previewLang}>
         <PreviewFrame device={device} title={isZh ? '網站預覽' : 'Site preview'} onDocument={setFrameDocument}>
           {/* Scroll-triggered reveals watch the admin window, not this frame, so motion stays still. */}
           <KeepPageTitle>
@@ -306,6 +330,7 @@ export function DocumentPreview({ kind, workspace, editorRef, locate }: Document
             </StillMotion>
           </KeepPageTitle>
         </PreviewFrame>
+        </SiteLanguage>
       ) : null}
       {hint === null ? null : (
         <div className="admin-preview-hint" role="presentation" style={{ left: hint.left, top: hint.top }}>{hint.label}</div>

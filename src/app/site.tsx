@@ -55,6 +55,9 @@ interface SiteValue {
   theme: Theme;
   toggleLang: () => void;
   toggleTheme: () => void;
+  /** Both languages' copy, so a subtree can render in the other language (see `SiteLanguage`). */
+  siteStrings: SiteStrings;
+  siteInline: SiteInlineByLang;
 }
 
 const SiteCtx = createContext<SiteValue | null>(null);
@@ -102,10 +105,20 @@ export function SiteProvider({
   }, [theme]);
 
   const value = useMemo<SiteValue>(
-    () => ({ lang, isZh: lang === 'zh', t: siteStrings[lang], inline: siteInline[lang], theme, toggleLang, toggleTheme }),
+    () => ({ lang, isZh: lang === 'zh', t: siteStrings[lang], inline: siteInline[lang], theme, toggleLang, toggleTheme, siteStrings, siteInline }),
     [lang, siteInline, siteStrings, theme, toggleLang, toggleTheme],
   );
 
+  return <SiteCtx.Provider value={value}>{children}</SiteCtx.Provider>;
+}
+
+/** Renders a subtree, such as the admin preview, in a language other than the page's own. */
+export function SiteLanguage({ lang, children }: { readonly lang: Lang; readonly children: ReactNode }) {
+  const parent = useSite();
+  const value = useMemo<SiteValue>(
+    () => ({ ...parent, lang, isZh: lang === 'zh', t: parent.siteStrings[lang], inline: parent.siteInline[lang] }),
+    [lang, parent],
+  );
   return <SiteCtx.Provider value={value}>{children}</SiteCtx.Provider>;
 }
 

@@ -151,6 +151,10 @@
 
 .admin-popover { position: relative; }
 .admin-undo-group { display: inline-flex; gap: 2px; }
+.admin-changed-nav { display: inline-flex; align-items: center; gap: 2px; padding-inline-start: var(--admin-space-2); border: 1px solid color-mix(in srgb, var(--amber) 40%, var(--line)); border-radius: 999px; background: var(--amber-wash); }
+.admin-changed-nav-count { margin-inline: 4px 2px; color: var(--admin-warning-ink); font-size: 0.72rem; font-weight: 600; white-space: nowrap; }
+.admin-changed-nav .admin-icon-button { inline-size: 30px; min-block-size: 30px; border-color: transparent; border-radius: 999px; background: transparent; color: var(--admin-warning-ink); }
+.admin-changed-nav-prev svg { transform: rotate(180deg); }
 .admin-undo-group .admin-icon-button { border-color: transparent; background: transparent; }
 .admin-undo-group .admin-icon-button:disabled { background: transparent; border-color: transparent; opacity: 0.45; }
 .admin-popover-panel { position: absolute; inset-block-start: calc(100% + var(--admin-space-2)); inset-inline-end: 0; z-index: 20; display: grid; gap: var(--admin-space-3); inline-size: min(20rem, calc(100vw - var(--admin-space-4))); padding: var(--admin-space-3); border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--surface); box-shadow: var(--shadow-lg); animation: admin-dialog-in 0.2s cubic-bezier(0.16, 1, 0.3, 1) both; }
@@ -195,7 +199,8 @@
 
 .admin-preview { display: flex; flex-direction: column; gap: var(--admin-space-2); min-inline-size: 0; }
 .admin-preview-note { color: var(--muted); font-size: 0.78rem; line-height: 1.55; }
-.admin-preview-toolbar { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--admin-space-2); }
+.admin-preview-toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: var(--admin-space-2); }
+.admin-preview-toolbar > .admin-preview-note { flex: 1 1 100%; }
 .admin-workspace-rail .admin-preview-note { font-size: 0.7rem; }
 .admin-preview-surface { flex: none; max-inline-size: 11rem; min-block-size: 26px; padding: 0 var(--admin-space-2); border: 1px solid var(--line); border-radius: 999px; color: var(--ink); background: var(--surface-2); font: inherit; font-size: 0.72rem; cursor: pointer; }
 .admin-preview-surface:hover { border-color: var(--accent); }

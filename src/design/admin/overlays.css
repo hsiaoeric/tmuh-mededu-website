@@ -67,3 +67,25 @@
 .admin-history-changes summary { color: var(--accent); font-size: 0.74rem; font-weight: 600; cursor: pointer; }
 .admin-history-changes[open] summary { margin-block-end: var(--admin-space-2); }
 .admin-dialog:has(.admin-history) { inline-size: min(calc(100% - var(--admin-space-4)), 42rem); }
+.admin-history-tabs { display: inline-flex; gap: 2px; margin-block-end: var(--admin-space-3); padding: 2px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface-2); }
+.admin-history-tabs button { padding: 4px var(--admin-space-3); border: 0; border-radius: 999px; color: var(--muted); background: transparent; font-size: 0.76rem; cursor: pointer; }
+.admin-history-tabs button[aria-selected='true'] { color: var(--on-accent); background: var(--accent); }
+.admin-dialog:has(.admin-compare) { inline-size: min(calc(100% - var(--admin-space-4)), 64rem); }
+.admin-compare { display: grid; gap: var(--admin-space-3); }
+.admin-compare-head { position: sticky; inset-block-start: calc(var(--admin-space-4) * -1); z-index: 1; display: grid; grid-template-columns: 1fr 1fr; gap: var(--admin-space-3); padding-block: var(--admin-space-2); background: var(--surface); }
+.admin-compare-pick { display: grid; gap: 4px; color: var(--faint); font-size: 0.7rem; }
+.admin-compare-pick select { min-block-size: 34px; padding-inline: var(--admin-space-2); border: 1px solid var(--admin-control-line); border-radius: var(--radius); color: var(--ink); background: var(--surface); font: inherit; font-size: 0.8rem; }
+.admin-compare-rows { display: grid; gap: var(--admin-space-2); margin: 0; padding: 0; list-style: none; }
+/* Path on its own line, then the two sides aligned in the same columns as the pickers above. */
+.admin-compare-rows li { display: grid; grid-template-columns: 1fr 1fr; gap: 4px var(--admin-space-3); padding-block: var(--admin-space-2); border-block-start: 1px solid var(--line-soft); }
+.admin-compare-rows li > .admin-publish-change-path { grid-column: 1 / -1; }
+.admin-compare-cell { min-inline-size: 0; padding: var(--admin-space-2); border-radius: var(--radius); color: var(--body); background: var(--surface-2); font-size: 0.8rem; line-height: 1.6; white-space: pre-wrap; overflow-wrap: anywhere; }
+.admin-compare-cell[data-side='before'] { background: color-mix(in srgb, var(--amber-wash) 45%, var(--surface-2)); }
+.admin-compare-cell[data-side='after'] { background: color-mix(in srgb, var(--accent-wash) 55%, var(--surface-2)); }
+.admin-compare-cell[data-empty] { color: var(--faint); background: transparent; border: 1px dashed var(--line); }
+.admin-compare-cell del { color: var(--admin-warning-ink); background: color-mix(in srgb, var(--amber) 28%, transparent); text-decoration: line-through; }
+.admin-compare-cell ins { color: var(--ink); background: color-mix(in srgb, var(--accent) 24%, transparent); text-decoration: none; }
+@media (max-width: 620px) {
+  .admin-compare-head,
+  .admin-compare-rows li { grid-template-columns: minmax(0, 1fr); }
+}

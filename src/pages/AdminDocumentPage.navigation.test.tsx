@@ -139,4 +139,26 @@ describe('AdminDocumentPage navigation aids', () => {
 
     expect(await view.findByRole('button', { name: '預覽' })).toBeTruthy();
   });
+
+  it('compares any two versions side by side with the changed characters marked', async () => {
+    const view = await readyStructured(new FakeDocumentRepository(), historyDetail());
+    fireEvent.click(view.getByRole('button', { name: /查看編輯紀錄/ }));
+    const dialog = await view.findByRole('dialog', { name: '編輯紀錄' });
+
+    fireEvent.click(within(dialog).getByRole('tab', { name: '並排比較' }));
+
+    expect((within(dialog).getByRole('combobox', { name: '比較基準' }) as HTMLSelectElement).selectedOptions[0]?.textContent).toBe('版本 2 · 已發布');
+    expect(within(dialog).getByText('共 1 處不同')).toBeTruthy();
+    expect(dialog.querySelector('.admin-compare-cell[data-side="after"] ins')?.textContent).toBe('更新後的');
+  });
+
+  it('counts the changes from the published version and steps to them', async () => {
+    const view = await readyStructured(new FakeDocumentRepository(), historyDetail());
+    const edited = await view.findByDisplayValue('更新後的公告');
+
+    expect(view.getByText('1 處變更')).toBeTruthy();
+    fireEvent.click(view.getByRole('button', { name: '下一個變更' }));
+
+    await waitFor(() => expect(globalThis.document.activeElement).toBe(edited));
+  });
 });

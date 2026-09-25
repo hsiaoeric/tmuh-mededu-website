@@ -1,4 +1,4 @@
-import type { RefObject } from 'react';
+import { useId, useState, type RefObject } from 'react';
 import { useSite } from '@/app/site';
 import { useOptionalAdminAuth } from '@/admin/auth';
 import { StatusBadge, type AdminStatus } from '@/admin/AdminFeedback';
@@ -6,7 +6,8 @@ import { AdminDialog } from '@/admin/AdminOverlays';
 import type { CmsAdminRevision } from '@/admin/repository';
 import type { Json } from '@/content/database.types';
 import { formatAdminTimestamp } from './formatAdminTimestamp';
-import { diffPayloads, type PayloadChange } from './payloadDiff';
+import { diffPayloads, formatChangePath, type PayloadChange } from './payloadDiff';
+import { diffText } from './textDiff';
 import { PayloadChangeList } from './PublishChanges';
 import { isWorkspaceDirty } from './workspaceState';
 import type { DocumentWorkspace } from './workspaceTypes';
@@ -64,6 +65,8 @@ export function RevisionHistoryDialog({ open, workspace, triggerRef, onClose }: 
     }
   };
 
+  const [view, setView] = useState<'timeline' | 'compare'>('timeline');
+  const tabId = useId();
   const dirty = workspace.actionableRevision !== null && isWorkspaceDirty(workspace);
   const baseline = dirty ? parseJson(workspace.baselineText) : undefined;
   const editing = dirty ? parseJson(workspace.editorText) : undefined;
@@ -79,6 +82,12 @@ export function RevisionHistoryDialog({ open, workspace, triggerRef, onClose }: 
       closeLabel={isZh ? '關閉編輯紀錄' : 'Close edit history'}
       onClose={onClose}
     >
+      <div className="admin-history-tabs" role="tablist" aria-label={isZh ? '檢視方式' : 'View'}>
+        <button type="button" role="tab" id={`${tabId}-timeline`} aria-selected={view === 'timeline'} aria-controls={`${tabId}-panel`} onClick={() => setView('timeline')}>{isZh ? '時間軸' : 'Timeline'}</button>
+        <button type="button" role="tab" id={`${tabId}-compare`} aria-selected={view === 'compare'} aria-controls={`${tabId}-panel`} onClick={() => setView('compare')}>{isZh ? '並排比較' : 'Side by side'}</button>
+      </div>
+      <div id={`${tabId}-panel`} role="tabpanel" aria-labelledby={`${tabId}-${view}`}>
+      {view === 'compare' ? <RevisionCompare workspace={workspace} revisions={revisions} statusLabel={statusLabel} /> : (
       <ol className="admin-history">
         {dirty ? (
           <li className="admin-history-entry" data-unsaved>
@@ -112,6 +121,88 @@ export function RevisionHistoryDialog({ open, workspace, triggerRef, onClose }: 
           );
         })}
       </ol>
+      )}
+      </div>
     </AdminDialog>
+  );
+}
+
+const COMPARE_LIMIT = 200;
+const EDITING = 'editing';
+
+function valueText(value: Json | undefined): string {
+  if (value === undefined) return '';
+  return typeof value === 'string' ? value : JSON.stringify(value, null, 1);
+}
+
+/** One side of a changed value, with the characters that differ from the other side marked. */
+function DiffCell({ before, after, side }: { readonly before: string; readonly after: string; readonly side: 'before' | 'after' }) {
+  const own = side === 'before' ? before : after;
+  if (own === '') return <div className="admin-compare-cell" data-empty>—</div>;
+  const other = side === 'before' ? after : before;
+  if (other === '') return <div className="admin-compare-cell" data-side={side}>{side === 'before' ? <del>{own}</del> : <ins>{own}</ins>}</div>;
+  return (
+    <div className="admin-compare-cell" data-side={side}>
+      {diffText(before, after).map((segment, index) => {
+        if (segment.kind === 'same') return <span key={index}>{segment.text}</span>;
+        if (segment.kind === 'removed') return side === 'before' ? <del key={index}>{segment.text}</del> : null;
+        return side === 'after' ? <ins key={index}>{segment.text}</ins> : null;
+      })}
+    </div>
+  );
+}
+
+/** Any two versions, or the unsaved editor text, compared field by field in two columns. */
+function RevisionCompare({ workspace, revisions, statusLabel }: {
+  readonly workspace: DocumentWorkspace;
+  readonly revisions: readonly CmsAdminRevision[];
+  readonly statusLabel: (status: CmsAdminRevision['status']) => string;
+}) {
+  const { isZh } = useSite();
+  const editing = workspace.actionableRevision === null ? undefined : parseJson(workspace.editorText);
+  const sources = [
+    ...(editing === undefined ? [] : [{ id: EDITING, label: isZh ? '目前編輯中（含未儲存）' : 'Editing now (incl. unsaved)', payload: editing }]),
+    ...revisions.map((revision) => ({ id: revision.id as string, label: `${isZh ? '版本' : 'v'} ${revision.version} · ${statusLabel(revision.status)}`, payload: revision.payload })),
+  ];
+  const published = revisions.find((revision) => revision.status === 'published');
+  const [newerId, setNewerId] = useState(sources[0]?.id ?? '');
+  const [olderId, setOlderId] = useState(published?.id ?? sources[1]?.id ?? sources[0]?.id ?? '');
+  const older = sources.find((source) => source.id === olderId);
+  const newer = sources.find((source) => source.id === newerId);
+  const changes = older === undefined || newer === undefined ? [] : diffPayloads(older.payload, newer.payload);
+  const picker = (label: string, value: string, onChange: (id: string) => void) => (
+    <label className="admin-compare-pick">
+      <span>{label}</span>
+      <select value={value} onChange={(event) => onChange(event.target.value)}>
+        {sources.map((source) => <option key={source.id} value={source.id}>{source.label}</option>)}
+      </select>
+    </label>
+  );
+  return (
+    <div className="admin-compare">
+      <div className="admin-compare-head">
+        {picker(isZh ? '比較基準' : 'From', olderId, setOlderId)}
+        {picker(isZh ? '比較對象' : 'To', newerId, setNewerId)}
+      </div>
+      {changes.length === 0 ? <p className="admin-history-note">{isZh ? '兩個版本內容相同。' : 'The two versions are identical.'}</p> : (
+        <>
+          <p className="admin-history-note">{isZh ? `共 ${changes.length} 處不同` : `${changes.length} difference${changes.length === 1 ? '' : 's'}`}</p>
+          <ol className="admin-compare-rows">
+            {changes.slice(0, COMPARE_LIMIT).map((change) => {
+              const before = valueText(change.kind === 'added' ? undefined : change.before);
+              const after = valueText(change.kind === 'removed' ? undefined : change.after);
+              return (
+                <li key={change.path.join('/')}>
+                  <span className="admin-publish-change-path">{formatChangePath(change.path, isZh)}</span>
+                  <DiffCell before={before} after={after} side="before" />
+                  <DiffCell before={before} after={after} side="after" />
+                </li>
+              );
+            })}
+          </ol>
+          {changes.length > COMPARE_LIMIT ? <p className="admin-history-note">{isZh ? `還有 ${changes.length - COMPARE_LIMIT} 處未列出。` : `${changes.length - COMPARE_LIMIT} more not shown.`}</p> : null}
+        </>
+      )}
+    </div>
   );
 }

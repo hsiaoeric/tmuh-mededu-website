@@ -7,7 +7,7 @@ import { GlobalDocumentEditor } from '@/admin/editors/global';
 import { PageDocumentEditor } from '@/admin/editors/pages';
 import { EditorDensityProvider } from '@/admin/editors/global/ui/EditorDensity';
 import { AdminMediaWorkbench } from '@/admin/media';
-import { changedFieldIds, isFieldChanged } from '@/admin/documents/changedFields';
+import { isFieldChanged } from '@/admin/documents/changedFields';
 import { FieldDecorationsProvider, type FieldDecorations } from '@/admin/fieldDecorations';
 import type { PreviewLocateRequest } from '@/admin/preview/DocumentPreview';
 import type { EditorControl } from '@/admin/preview/previewLinking';
@@ -24,10 +24,13 @@ export type AdminWorkspaceEditorRegionProps = {
   readonly onChange: (editorText: string) => void;
   /** Show the live public preview beside the editor, in place of the full outline. */
   readonly previewing?: boolean;
+  /** Field ids that differ from the published revision (see `changedFieldIds`). */
+  readonly changedIds?: readonly string[];
   /** Opens the preview, for a field's "show in preview" button; absent when there is no preview. */
   readonly onRequestPreview?: () => void;
 };
 
+const NO_CHANGES: readonly string[] = [];
 const EDITABLE_TEXT = 'input:not([type="checkbox"]):not([type="radio"]):not([type="file"]):not([type="hidden"]), textarea';
 const RELOCATE_DELAY_MS = 350;
 
@@ -93,6 +96,7 @@ export function AdminWorkspaceEditorRegion({
   kind,
   onChange,
   previewing = false,
+  changedIds = NO_CHANGES,
   onRequestPreview,
 }: AdminWorkspaceEditorRegionProps) {
   const { isZh } = useSite();
@@ -100,10 +104,9 @@ export function AdminWorkspaceEditorRegion({
   const { locate, request } = usePreviewLocate(editorRef, previewing);
   const requestRef = useRef(request);
   requestRef.current = request;
-  const published = workspace.revisions.find((revision) => revision.status === 'published')?.payload ?? null;
   // Keyed by content, not identity: most keystrokes leave the set of changed fields as it was, and
   // a new context value would re-render every field in the document.
-  const changedKey = useMemo(() => changedFieldIds(published, workspace.editorText).join('\n'), [published, workspace.editorText]);
+  const changedKey = changedIds.join('\n');
   const decorations = useMemo<FieldDecorations>(() => {
     const changed = changedKey === '' ? [] : changedKey.split('\n');
     return {

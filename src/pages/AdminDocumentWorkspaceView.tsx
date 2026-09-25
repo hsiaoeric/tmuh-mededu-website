@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useSite } from '@/app/site';
 import { useAdminProtectedAccess } from '@/admin/auth';
 import { AdminButton, AdminIconButton } from '@/admin/AdminButton';
@@ -10,6 +10,8 @@ import { ConfirmDialog } from '@/admin/AdminOverlays';
 import { AdminIcon } from '@/admin/AdminIcon';
 import { announceDocumentsChanged } from '@/admin/documentDraftStatus';
 import { AdminPopover } from '@/admin/AdminPopover';
+import { ChangedFieldNavigator } from '@/admin/ChangedFieldNavigator';
+import { changedFieldIds } from '@/admin/documents/changedFields';
 import { CMS_DOCUMENT_METADATA, formatAdminTimestamp, getAdminDocumentFailureCopy, getWorkspaceCapabilities, isWorkspaceDirty, pendingDocumentMutation, type DocumentMutation, type DocumentOperationState, type DocumentWorkspace } from '@/admin/documents';
 import { assertNever } from '@/admin/documents/assertNever';
 import { publicDocumentHref } from '@/admin/documents/publicLocation';
@@ -117,6 +119,10 @@ export function AdminDocumentWorkspaceView({ kind, controller, workspace }: Admi
   const hasActionableRevision = workspace.actionableRevision !== null;
   const title = <AdminWorkspaceTitle isZh={isZh} kind={kind} label={label} />;
   const canSave = mutationsAllowed && capabilities.canSave;
+  const changedIds = useMemo(
+    () => changedFieldIds(publishedRevision?.payload ?? null, workspace.editorText),
+    [publishedRevision, workspace.editorText],
+  );
   const history = useEditorHistory(workspace.editorText, controller.setEditorText, workspace.document.id);
   const historyRef = useRef(history);
   historyRef.current = history;
@@ -186,6 +192,7 @@ export function AdminDocumentWorkspaceView({ kind, controller, workspace }: Admi
             <span className="admin-action-bar-meta">{isZh ? '更新於 ' : 'Updated '}<time dateTime={workspace.document.updatedAt}>{formatAdminTimestamp(workspace.document.updatedAt, lang)}</time></span>
           </div>
           <div className="admin-action-bar-actions">
+            {hasActionableRevision ? <ChangedFieldNavigator count={changedIds.length} /> : null}
             {hasActionableRevision ? (
               <div className="admin-undo-group" role="group" aria-label={isZh ? '復原與重做' : 'Undo and redo'}>
                 <AdminIconButton icon="undo" label={isZh ? '復原（Ctrl/⌘ + Z）' : 'Undo (Ctrl/⌘ + Z)'} aria-keyshortcuts="Control+Z Meta+Z" disabled={!editable || !history.canUndo} onClick={history.undo} />
@@ -222,7 +229,7 @@ export function AdminDocumentWorkspaceView({ kind, controller, workspace }: Admi
         </div>
         <OperationNotice mutationsAllowed={mutationsAllowed} workspace={workspace} onRecoverConflict={() => void controller.recoverConflict()} />
         {hasActionableRevision ? (
-          <AdminWorkspaceEditorRegion workspace={workspace} kind={kind} onChange={history.change} previewing={previewable && previewing} onRequestPreview={previewable ? openPreview : undefined} />
+          <AdminWorkspaceEditorRegion workspace={workspace} kind={kind} onChange={history.change} previewing={previewable && previewing} changedIds={changedIds} onRequestPreview={previewable ? openPreview : undefined} />
         ) : (
           <section className="admin-surface">
             <StatePanel
