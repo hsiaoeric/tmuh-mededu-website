@@ -197,6 +197,8 @@
 .admin-preview-note { color: var(--muted); font-size: 0.78rem; line-height: 1.55; }
 .admin-preview-toolbar { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--admin-space-2); }
 .admin-workspace-rail .admin-preview-note { font-size: 0.7rem; }
+.admin-preview-surface { flex: none; max-inline-size: 11rem; min-block-size: 26px; padding: 0 var(--admin-space-2); border: 1px solid var(--line); border-radius: 999px; color: var(--ink); background: var(--surface-2); font: inherit; font-size: 0.72rem; cursor: pointer; }
+.admin-preview-surface:hover { border-color: var(--accent); }
 .admin-preview-devices { display: inline-flex; flex: none; padding: 2px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface-2); }
 .admin-preview-devices button { padding: 2px var(--admin-space-2); border: 0; border-radius: 999px; color: var(--muted); background: transparent; font-size: 0.7rem; cursor: pointer; }
 .admin-preview-devices button[aria-pressed='true'] { color: var(--on-accent); background: var(--accent); }

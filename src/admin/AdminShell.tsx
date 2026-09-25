@@ -5,6 +5,7 @@ import { useSite } from '@/app/site';
 import { Icon } from '@/ui/Icon';
 import { AdminButton, AdminIconButton } from './AdminButton';
 import { InlineNotice, StatusBadge } from './AdminFeedback';
+import { AdminIcon } from './AdminIcon';
 import { AdminSearch } from './AdminSearch';
 import { useUnpublishedDraftKinds } from './documentDraftStatus';
 import { ADMIN_TEXT_SIZES, useAdminNavCollapsed, useAdminTextSize, type AdminTextSize } from './adminPreferences';
@@ -67,8 +68,6 @@ function AdminSideNav({ activeId, drawer, onNavigate, onSelect, showcaseNavigati
 type AdminHeaderProps = {
   readonly onOpenDrawer: () => void;
   readonly drawerTriggerRef: RefObject<HTMLButtonElement>;
-  readonly navCollapsed: boolean;
-  readonly onToggleNav: () => void;
   readonly textSize: AdminTextSize;
   readonly onTextSize: (size: AdminTextSize) => void;
   readonly eyebrow: string;
@@ -86,6 +85,31 @@ const SAVE_STATUS_ICON: Readonly<Record<AdminSaveState, 'check' | 'refresh' | 'a
 
 export function AdminSaveStatus({ state, children }: { readonly state: AdminSaveState; readonly children: ReactNode }) {
   return <span className="admin-save-status" data-save-state={state} role={state === 'error' ? 'alert' : 'status'}><Icon name={SAVE_STATUS_ICON[state]} />{children}</span>;
+}
+
+/**
+ * The sidebar's show/hide control lives on the border between sidebar and content: a handle that
+ * appears under the pointer and follows it along the edge, instead of a permanent header icon.
+ * It stays a real button, so keyboard users reach it by Tab and see it while it has focus.
+ */
+function AdminNavEdge({ collapsed, onToggle }: { readonly collapsed: boolean; readonly onToggle: () => void }) {
+  const { isZh } = useSite();
+  const edgeRef = useRef<HTMLDivElement>(null);
+  const label = collapsed ? (isZh ? '顯示側邊欄' : 'Show sidebar') : (isZh ? '隱藏側邊欄' : 'Hide sidebar');
+  return (
+    <div
+      ref={edgeRef}
+      className="admin-nav-edge"
+      onPointerMove={(event) => {
+        const edge = edgeRef.current;
+        if (edge !== null) edge.style.setProperty('--edge-y', `${event.clientY - edge.getBoundingClientRect().top}px`);
+      }}
+    >
+      <button type="button" className="admin-nav-edge-button" aria-label={label} title={label} aria-expanded={!collapsed} aria-controls="admin-desktop-nav" onClick={onToggle}>
+        <AdminIcon name="chevronLeft" />
+      </button>
+    </div>
+  );
 }
 
 const TEXT_SIZE_LABELS: Readonly<Record<AdminTextSize, { readonly zh: string; readonly en: string; readonly short: string }>> = {
@@ -107,13 +131,12 @@ function AdminTextSizeControl({ value, onChange }: { readonly value: AdminTextSi
   );
 }
 
-function AdminHeader({ onOpenDrawer, drawerTriggerRef, navCollapsed, onToggleNav, textSize, onTextSize, eyebrow, title, status, sessionAction }: AdminHeaderProps) {
+function AdminHeader({ onOpenDrawer, drawerTriggerRef, textSize, onTextSize, eyebrow, title, status, sessionAction }: AdminHeaderProps) {
   const { isZh, theme, toggleLang, toggleTheme } = useSite();
   return (
     <header className="admin-header">
       <div className="admin-header-location">
         <AdminIconButton ref={drawerTriggerRef} className="admin-menu-trigger" icon="menu" label={isZh ? '開啟導覽' : 'Open navigation'} onClick={onOpenDrawer} />
-        <AdminIconButton className="admin-nav-toggle" icon="chevronLeft" label={navCollapsed ? (isZh ? '顯示側邊欄' : 'Show sidebar') : (isZh ? '隱藏側邊欄' : 'Hide sidebar')} aria-expanded={!navCollapsed} aria-controls="admin-desktop-nav" onClick={onToggleNav} />
         <b className="admin-mobile-label">{isZh ? '管理' : 'Admin'}</b>
         <span><small className="mono">{eyebrow}</small><strong>{title}</strong></span>
       </div>
@@ -253,7 +276,7 @@ export function AdminAppShell({ children, notices = [], eyebrow = 'ADMIN / DESIG
     <div className="admin-shell" data-nav-collapsed={navCollapsed || undefined} data-text-size={textSize}>
       <div className="admin-skip-slot"><a className="skip-link" href="#admin-main">{isZh ? '跳到管理內容' : 'Skip to admin content'}</a></div>
       <div className="admin-desktop-nav" id="admin-desktop-nav" hidden={navCollapsed}><AdminSideNav activeId={activeId} drawer={false} onSelect={selectSection} showcaseNavigation={showcaseNavigation} /></div>
-      <div className="admin-shell-column"><AdminHeader onOpenDrawer={() => setDrawerOpen(true)} drawerTriggerRef={drawerTriggerRef} navCollapsed={navCollapsed} onToggleNav={() => setNavCollapsed(!navCollapsed)} textSize={textSize} onTextSize={setTextSize} eyebrow={eyebrow} title={headerTitle} status={headerStatus} sessionAction={sessionAction} />{notices.length || sessionNotice ? <div className="admin-shell-notices">{sessionNotice}{notices.map((notice, index) => <InlineNotice key={`${notice.status}-${index}`} status={notice.status} title={notice.title} lang={isZh ? 'zh-Hant' : 'en'}>{notice.description}</InlineNotice>)}</div> : null}<main ref={mainRef} id="admin-main" className="admin-main" tabIndex={-1} data-lenis-prevent>{children}</main></div>
+      <AdminNavEdge collapsed={navCollapsed} onToggle={() => setNavCollapsed(!navCollapsed)} /><div className="admin-shell-column"><AdminHeader onOpenDrawer={() => setDrawerOpen(true)} drawerTriggerRef={drawerTriggerRef} textSize={textSize} onTextSize={setTextSize} eyebrow={eyebrow} title={headerTitle} status={headerStatus} sessionAction={sessionAction} />{notices.length || sessionNotice ? <div className="admin-shell-notices">{sessionNotice}{notices.map((notice, index) => <InlineNotice key={`${notice.status}-${index}`} status={notice.status} title={notice.title} lang={isZh ? 'zh-Hant' : 'en'}>{notice.description}</InlineNotice>)}</div> : null}<main ref={mainRef} id="admin-main" className="admin-main" tabIndex={-1} data-lenis-prevent>{children}</main></div>
       {drawerOpen ? <div className="admin-drawer-layer"><button type="button" className="admin-drawer-backdrop" aria-label={isZh ? '關閉導覽' : 'Close navigation'} onClick={() => setDrawerOpen(false)} /><div ref={drawerRef} className="admin-drawer" role="dialog" aria-modal="true" aria-label={isZh ? '管理介面導覽' : 'Admin navigation'}><div className="admin-drawer-header"><AdminIconButton icon="close" label={isZh ? '關閉導覽' : 'Close navigation'} onClick={() => setDrawerOpen(false)} /></div><AdminSideNav activeId={activeId} drawer onNavigate={() => setDrawerOpen(false)} onSelect={selectSection} showcaseNavigation={showcaseNavigation} /></div></div> : null}
     </div>
   );

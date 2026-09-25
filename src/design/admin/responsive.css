@@ -3,7 +3,7 @@
   .admin-skip-slot,
   .admin-shell-column { grid-column: 1; }
   .admin-desktop-nav,
-  .admin-icon-button.admin-nav-toggle,
+  .admin-nav-edge,
   .admin-text-size { display: none; }
   .admin-icon-button.admin-menu-trigger,
   .admin-drawer-layer { display: grid; }

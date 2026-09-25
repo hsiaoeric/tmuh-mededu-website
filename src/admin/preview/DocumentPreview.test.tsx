@@ -73,6 +73,22 @@ describe('DocumentPreview', () => {
     expect(view.queryByText('目前無法預覽')).toBeNull();
   });
 
+  it('offers every page a document appears on, fullest first', () => {
+    const workspace = createDocumentWorkspace({ document: document('honors'), revisions: [revision()] });
+    const view = render(
+      <ContentProvider configuration={OFFLINE}>
+        <SiteProvider>
+          <MemoryRouter>
+            <DocumentPreview kind="honors" workspace={workspace} />
+          </MemoryRouter>
+        </SiteProvider>
+      </ContentProvider>,
+    );
+
+    const pages = view.getByRole('combobox', { name: '預覽頁面' });
+    expect(within(pages).getAllByRole('option').map((option) => option.textContent)).toEqual(['品質榮譽頁', '首頁榮譽']);
+  });
+
   it('explains instead of rendering when the draft fails the publication check', () => {
     const view = renderPreview(newsWorkspace('{"zh": {}}'));
 
@@ -84,7 +100,7 @@ describe('DocumentPreview', () => {
     expect(isPreviewableKind('people')).toBe(true);
     expect(isPreviewableKind('site_copy')).toBe(false);
     expect(isPreviewableKind('holistic')).toBe(true);
-    expect(isPreviewableKind('centers')).toBe(false);
+    expect(isPreviewableKind('site_copy')).toBe(false);
     for (const kind of CMS_DOCUMENT_KINDS) {
       expect(isPreviewableKind(kind), kind).toBe(PREVIEW_SECTION_KINDS.includes(kind));
     }
