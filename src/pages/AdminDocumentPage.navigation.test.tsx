@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
 
-import { act, cleanup, fireEvent, within } from '@testing-library/react';
+import { act, cleanup, fireEvent, waitFor, within } from '@testing-library/react';
 import { afterEach, describe, expect, it } from 'vitest';
 import type { CmsAdminDocumentDetail } from '@/admin/repository';
 import { detail, document, FakeDocumentRepository, revision } from '@/admin/workflows/testHarness';
@@ -102,5 +102,41 @@ describe('AdminDocumentPage navigation aids', () => {
     expect(editor?.hasAttribute('hidden')).toBe(false);
     expect(view.container.querySelector('.admin-workspace-grid')?.hasAttribute('data-previewing')).toBe(true);
     expect(view.getByRole('button', { name: '關閉預覽' }).getAttribute('aria-pressed')).toBe('true');
+  });
+
+  it('marks fields and outline entries that differ from the published version', async () => {
+    const view = await readyStructured(new FakeDocumentRepository(), historyDetail());
+
+    const edited = await view.findByDisplayValue('更新後的公告');
+
+    expect(edited.closest('.admin-field')?.hasAttribute('data-changed')).toBe(true);
+    for (const unchanged of view.getAllByDisplayValue('News')) expect(unchanged.closest('.admin-field')?.hasAttribute('data-changed')).toBe(false);
+    const outline = view.getByRole('navigation', { name: '本頁章節' });
+    expect(within(outline).getByRole('link', { name: /教學部公告.*有變更/ })).toBeTruthy();
+  });
+
+  it('undoes and redoes editor changes from the action bar', async () => {
+    const view = await readyStructured(new FakeDocumentRepository());
+    const undo = view.getByRole('button', { name: /^復原/ });
+    expect(undo.hasAttribute('disabled')).toBe(true);
+    const originals = view.getAllByDisplayValue('公告');
+
+    fireEvent.change(originals[0]!, { target: { value: '改過的標題' } });
+    expect(await view.findByDisplayValue('改過的標題')).toBeTruthy();
+    fireEvent.click(view.getByRole('button', { name: /^復原/ }));
+
+    await waitFor(() => expect(view.queryByDisplayValue('改過的標題')).toBeNull());
+    expect(view.getAllByDisplayValue('公告')).toHaveLength(originals.length);
+    fireEvent.click(view.getByRole('button', { name: /^重做/ }));
+    expect(await view.findByDisplayValue('改過的標題')).toBeTruthy();
+  });
+
+  it('offers the preview for center page documents', async () => {
+    const repository = new FakeDocumentRepository();
+    repository.listResults.push(Promise.resolve({ ok: true, value: [document('facdev')] }));
+    repository.readResults.push(Promise.resolve({ ok: true, value: detail('facdev') }));
+    const view = renderDocumentRoute(repository, '/admin/content/facdev');
+
+    expect(await view.findByRole('button', { name: '預覽' })).toBeTruthy();
   });
 });

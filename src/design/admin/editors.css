@@ -54,3 +54,6 @@
   .admin-editor-collection-item-header[data-collapsible] { grid-template-columns: auto minmax(0, 1fr); }
   .admin-editor-collection-item-header[data-collapsible] .admin-editor-collection-actions { grid-column: 1 / -1; }
 }
+
+/* A collapsed item hides its fields, so its header carries their changed marker. */
+.admin-editor-collection-item[data-collapsed]:has([data-changed]) > .admin-editor-collection-item-header h4::after { content: ''; display: inline-block; inline-size: 7px; block-size: 7px; margin-inline-start: 6px; vertical-align: middle; border-radius: 50%; background: var(--amber); }

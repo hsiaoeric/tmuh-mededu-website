@@ -37,7 +37,13 @@
 @container (min-width: 30rem) {
   .admin-bilingual-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
 }
-.admin-field { display: flex; flex-direction: column; min-inline-size: 0; gap: var(--admin-space-2); }
+.admin-field { position: relative; display: flex; flex-direction: column; min-inline-size: 0; gap: var(--admin-space-2); }
+/* With a changed dot the label has three parts; keep the text beside the dot, the marker at the end. */
+.admin-field-label:has(> .admin-changed-dot) { justify-content: flex-start; align-items: center; }
+.admin-field-label:has(> .admin-changed-dot) > .admin-required:last-child { margin-inline-start: auto; }
+/* Differs from the published revision: the same amber dot marks fields, outline entries and items. */
+.admin-changed-dot { display: inline-block; flex: none; inline-size: 7px; block-size: 7px; border-radius: 50%; background: var(--amber); box-shadow: 0 0 0 2px var(--amber-wash); }
+
 .admin-field-label { display: flex; align-items: baseline; justify-content: space-between; gap: var(--admin-space-2); color: var(--ink); font-size: 0.82rem; font-weight: 600; line-height: 1.5; }
 .admin-required { font-family: 'IBM Plex Mono', 'Noto Sans TC', ui-monospace, monospace; font-size: 0.7rem; color: var(--admin-warning-ink); }
 .admin-control { inline-size: 100%; min-block-size: var(--admin-control-h); padding: var(--admin-space-2) var(--admin-space-3); border: 1px solid var(--admin-control-line); border-radius: var(--radius); background: var(--surface); color: var(--ink); font-family: 'Inter', 'Noto Sans TC', system-ui, sans-serif; font-size: 0.82rem; line-height: 1.5; transition: border-color 0.2s ease, background 0.2s ease; }

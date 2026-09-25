@@ -148,7 +148,13 @@ code.admin-stable-key { white-space: nowrap; }
 }
 .admin-desktop-nav[hidden] { display: none; }
 .admin-icon-button.admin-nav-toggle { flex: none; }
-.admin-shell:not([data-nav-collapsed]) .admin-nav-toggle { color: var(--accent); }
+.admin-nav-toggle svg { font-size: 1.15rem; transform: scale(0.9); transition: transform 150ms ease; }
+.admin-nav-toggle:hover svg { transform: scale(1); }
+.admin-shell[data-nav-collapsed] .admin-nav-toggle svg { transform: scale(0.9) rotate(180deg); }
+.admin-shell[data-nav-collapsed] .admin-nav-toggle:hover svg { transform: scale(1) rotate(180deg); }
+/* A saved draft that is not published yet. */
+.admin-nav-group a[data-pending] .admin-nav-dot { background: var(--amber); border-color: var(--amber); }
+.admin-outline .admin-changed-dot { margin-inline-start: auto; align-self: center; }
 
 /* Header search: a combobox whose results drop below the header. */
 .admin-search { position: relative; display: flex; align-items: center; flex: 1 1 18rem; min-inline-size: 10rem; max-inline-size: 30rem; }

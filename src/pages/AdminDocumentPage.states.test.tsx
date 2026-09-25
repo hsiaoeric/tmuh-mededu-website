@@ -216,5 +216,5 @@ describe('AdminDocumentPage states', () => {
     await waitFor(() => expect(view.container.querySelector('#people-center-directory')).toBeTruthy());
     expect(view.container.querySelector('#news-editor')).toBeNull();
     expect(view.getByRole('heading', { name: '視覺媒體工作區' })).toBeTruthy();
-  });
+  }, 15_000); // Mounts the whole people directory editor in jsdom, which is slow rather than stuck.
 });

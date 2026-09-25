@@ -6,6 +6,7 @@ import { Icon } from '@/ui/Icon';
 import { AdminButton, AdminIconButton } from './AdminButton';
 import { InlineNotice, StatusBadge } from './AdminFeedback';
 import { AdminSearch } from './AdminSearch';
+import { useUnpublishedDraftKinds } from './documentDraftStatus';
 import { ADMIN_TEXT_SIZES, useAdminNavCollapsed, useAdminTextSize, type AdminTextSize } from './adminPreferences';
 import { getFocusableElements } from './focus';
 import { CMS_DOCUMENT_GROUPS, CMS_DOCUMENT_METADATA } from './documents/cmsDocumentMetadata';
@@ -42,6 +43,7 @@ type AdminSideNavProps = {
 
 function AdminSideNav({ activeId, drawer, onNavigate, onSelect, showcaseNavigation }: AdminSideNavProps) {
   const { isZh } = useSite();
+  const drafted = useUnpublishedDraftKinds();
   return (
     <nav className="admin-sidenav" aria-label={isZh ? '管理介面導覽' : 'Admin navigation'} data-drawer={drawer || undefined} tabIndex={drawer ? 0 : undefined}>
       <div className="admin-brand"><span className="admin-brand-mark"><Icon name="admin" /></span><span><strong>{isZh ? '教學部內容管理' : 'Medical Education CMS'}</strong><small className="mono">LIVING TISSUE / ADMIN</small></span></div>
@@ -51,7 +53,8 @@ function AdminSideNav({ activeId, drawer, onNavigate, onSelect, showcaseNavigati
           <span className="admin-nav-label" aria-hidden="true">{isZh ? group.label.zh : group.label.en}</span>
           {group.kinds.map((kind) => {
             const label = CMS_DOCUMENT_METADATA[kind].label;
-            return <NavLink key={kind} to={`/admin/content/${kind}`} onClick={onNavigate}><span className="admin-nav-dot" aria-hidden="true" /><span>{isZh ? label.zh : label.en}</span></NavLink>;
+            const pending = drafted.has(kind);
+            return <NavLink key={kind} to={`/admin/content/${kind}`} onClick={onNavigate} data-pending={pending || undefined} title={pending ? (isZh ? '有尚未發布的草稿' : 'Has an unpublished draft') : undefined}><span className="admin-nav-dot" aria-hidden="true" /><span>{isZh ? label.zh : label.en}{pending ? <span className="sr-only">{isZh ? '（有未發布草稿）' : ' (unpublished draft)'}</span> : null}</span></NavLink>;
           })}
         </div>
       ))}
@@ -110,7 +113,7 @@ function AdminHeader({ onOpenDrawer, drawerTriggerRef, navCollapsed, onToggleNav
     <header className="admin-header">
       <div className="admin-header-location">
         <AdminIconButton ref={drawerTriggerRef} className="admin-menu-trigger" icon="menu" label={isZh ? '開啟導覽' : 'Open navigation'} onClick={onOpenDrawer} />
-        <AdminIconButton className="admin-nav-toggle" icon="sidebar" label={navCollapsed ? (isZh ? '顯示側邊欄' : 'Show sidebar') : (isZh ? '隱藏側邊欄' : 'Hide sidebar')} aria-expanded={!navCollapsed} aria-controls="admin-desktop-nav" onClick={onToggleNav} />
+        <AdminIconButton className="admin-nav-toggle" icon="chevronLeft" label={navCollapsed ? (isZh ? '顯示側邊欄' : 'Show sidebar') : (isZh ? '隱藏側邊欄' : 'Hide sidebar')} aria-expanded={!navCollapsed} aria-controls="admin-desktop-nav" onClick={onToggleNav} />
         <b className="admin-mobile-label">{isZh ? '管理' : 'Admin'}</b>
         <span><small className="mono">{eyebrow}</small><strong>{title}</strong></span>
       </div>

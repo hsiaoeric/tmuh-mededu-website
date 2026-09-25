@@ -115,11 +115,20 @@ export function useSite(): SiteValue {
   return ctx;
 }
 
+const PageTitleCtx = createContext(true);
+
+/** Pages rendered inside, such as the admin preview, leave the document title alone. */
+export function KeepPageTitle({ children }: { children: ReactNode }) {
+  return <PageTitleCtx.Provider value={false}>{children}</PageTitleCtx.Provider>;
+}
+
 /** Set the document title for a page. */
 export function usePageTitle(title: string) {
   const { isZh } = useSite();
+  const owns = useContext(PageTitleCtx);
   useEffect(() => {
+    if (!owns) return;
     const site = isZh ? '北醫附醫教學部' : 'TMUH Medical Education';
     document.title = title ? `${title} — ${site}` : site;
-  }, [title, isZh]);
+  }, [owns, title, isZh]);
 }

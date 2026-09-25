@@ -1,19 +1,21 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useSite } from '@/app/site';
 import { useAdminProtectedAccess } from '@/admin/auth';
-import { AdminButton } from '@/admin/AdminButton';
+import { AdminButton, AdminIconButton } from '@/admin/AdminButton';
 import { AdminAppShell, AdminPageHeader, AdminSaveStatus, type AdminSaveState } from '@/admin/AdminShell';
 import { AdminWorkspaceDescription, isPageWorkspaceDescriptionKind } from '@/admin/AdminWorkspaceDescription';
 import { AdminWorkspaceTitle } from '@/admin/AdminWorkspaceTitle';
 import { InlineNotice, StatePanel, StatusBadge } from '@/admin/AdminFeedback';
 import { ConfirmDialog } from '@/admin/AdminOverlays';
 import { AdminIcon } from '@/admin/AdminIcon';
+import { announceDocumentsChanged } from '@/admin/documentDraftStatus';
 import { AdminPopover } from '@/admin/AdminPopover';
 import { CMS_DOCUMENT_METADATA, formatAdminTimestamp, getAdminDocumentFailureCopy, getWorkspaceCapabilities, isWorkspaceDirty, pendingDocumentMutation, type DocumentMutation, type DocumentOperationState, type DocumentWorkspace } from '@/admin/documents';
 import { assertNever } from '@/admin/documents/assertNever';
 import { publicDocumentHref } from '@/admin/documents/publicLocation';
 import { PublishChanges } from '@/admin/documents/PublishChanges';
 import { RevisionHistoryDialog } from '@/admin/documents/RevisionHistory';
+import { useEditorHistory } from '@/admin/documents/useEditorHistory';
 import { isPreviewableKind } from '@/admin/preview/previewKinds';
 import { Icon } from '@/ui/Icon';
 import { DirtyNavigationGuard, type DocumentWorkspaceController } from '@/admin/workflows';
@@ -100,6 +102,7 @@ export function AdminDocumentWorkspaceView({ kind, controller, workspace }: Admi
   const metadata = CMS_DOCUMENT_METADATA[kind];
   const [confirmation, setConfirmation] = useState<Exclude<DocumentMutation, 'save'> | null>(null);
   const [previewing, setPreviewing] = useState(false);
+  const openPreview = useCallback(() => setPreviewing(true), []);
   const [historyOpen, setHistoryOpen] = useState(false);
   const historyTriggerRef = useRef<HTMLButtonElement>(null);
   const previewable = isPreviewableKind(kind);
@@ -114,8 +117,36 @@ export function AdminDocumentWorkspaceView({ kind, controller, workspace }: Admi
   const hasActionableRevision = workspace.actionableRevision !== null;
   const title = <AdminWorkspaceTitle isZh={isZh} kind={kind} label={label} />;
   const canSave = mutationsAllowed && capabilities.canSave;
+  const history = useEditorHistory(workspace.editorText, controller.setEditorText, workspace.document.id);
+  const historyRef = useRef(history);
+  historyRef.current = history;
+  const editable = mutationsAllowed && hasActionableRevision;
+
+  // Undo outside a text field reaches document-wide history; inside one, the field's own undo runs.
+  useEffect(() => {
+    if (!editable) return undefined;
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (!(event.metaKey || event.ctrlKey) || event.altKey) return;
+      const key = event.key.toLowerCase();
+      const redo = (key === 'z' && event.shiftKey) || (key === 'y' && !event.shiftKey);
+      const undo = key === 'z' && !event.shiftKey;
+      if (!undo && !redo) return;
+      const target = event.target;
+      if (target instanceof HTMLElement && (target.isContentEditable || target.matches('input, textarea, select'))) return;
+      event.preventDefault();
+      if (undo) historyRef.current.undo();
+      else historyRef.current.redo();
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [editable]);
   const saveRef = useRef(controller.save);
   saveRef.current = controller.save;
+
+  const operationStatus = workspace.operation.status;
+  useEffect(() => {
+    if (operationStatus === 'saved') announceDocumentsChanged();
+  }, [operationStatus]);
 
   useEffect(() => {
     if (!canSave) return undefined;
@@ -155,6 +186,12 @@ export function AdminDocumentWorkspaceView({ kind, controller, workspace }: Admi
             <span className="admin-action-bar-meta">{isZh ? '更新於 ' : 'Updated '}<time dateTime={workspace.document.updatedAt}>{formatAdminTimestamp(workspace.document.updatedAt, lang)}</time></span>
           </div>
           <div className="admin-action-bar-actions">
+            {hasActionableRevision ? (
+              <div className="admin-undo-group" role="group" aria-label={isZh ? '復原與重做' : 'Undo and redo'}>
+                <AdminIconButton icon="undo" label={isZh ? '復原（Ctrl/⌘ + Z）' : 'Undo (Ctrl/⌘ + Z)'} aria-keyshortcuts="Control+Z Meta+Z" disabled={!editable || !history.canUndo} onClick={history.undo} />
+                <AdminIconButton icon="redo" label={isZh ? '重做（Ctrl/⌘ + Shift + Z）' : 'Redo (Ctrl/⌘ + Shift + Z)'} aria-keyshortcuts="Control+Shift+Z Meta+Shift+Z Control+Y" disabled={!editable || !history.canRedo} onClick={history.redo} />
+              </div>
+            ) : null}
             {hasActionableRevision && previewable ? (
               <AdminButton variant="quiet" icon="image" aria-pressed={previewing} onClick={() => setPreviewing((current) => !current)}>
                 {previewing ? (isZh ? '關閉預覽' : 'Close preview') : (isZh ? '預覽' : 'Preview')}
@@ -185,7 +222,7 @@ export function AdminDocumentWorkspaceView({ kind, controller, workspace }: Admi
         </div>
         <OperationNotice mutationsAllowed={mutationsAllowed} workspace={workspace} onRecoverConflict={() => void controller.recoverConflict()} />
         {hasActionableRevision ? (
-          <AdminWorkspaceEditorRegion workspace={workspace} kind={kind} onChange={controller.setEditorText} previewing={previewable && previewing} />
+          <AdminWorkspaceEditorRegion workspace={workspace} kind={kind} onChange={history.change} previewing={previewable && previewing} onRequestPreview={previewable ? openPreview : undefined} />
         ) : (
           <section className="admin-surface">
             <StatePanel

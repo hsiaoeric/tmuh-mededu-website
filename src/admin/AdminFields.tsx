@@ -1,5 +1,6 @@
 import { useId, type InputHTMLAttributes, type ReactNode, type SelectHTMLAttributes, type TextareaHTMLAttributes } from 'react';
 import { Icon } from '@/ui/Icon';
+import { useFieldDecorations } from './fieldDecorations';
 
 type FieldFrameProps = {
   readonly id: string;
@@ -14,9 +15,12 @@ type FieldFrameProps = {
 
 function FieldFrame({ id, label, helper, error, status, required, requiredText = '必填', children }: FieldFrameProps) {
   const messageId = `${id}-${error ? 'error' : 'help'}`;
+  const decorations = useFieldDecorations();
+  const changed = decorations?.isChanged?.(id) === true;
   return (
-    <div className="admin-field" data-field-state={error ? 'error' : status}>
+    <div className="admin-field" data-field-state={error ? 'error' : status} data-changed={changed || undefined}>
       <label htmlFor={id} className="admin-field-label">
+        {changed ? <span className="admin-changed-dot" title={decorations?.isZh === false ? 'Changed since publishing' : '與已發布版本不同'}><span className="sr-only">{decorations?.isZh === false ? '(changed) ' : '（已變更）'}</span></span> : null}
         {label}{required ? <span className="admin-required">{requiredText}</span> : null}
       </label>
       {children}

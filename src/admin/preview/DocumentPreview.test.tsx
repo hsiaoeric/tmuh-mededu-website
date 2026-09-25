@@ -1,5 +1,5 @@
 // @vitest-environment jsdom
-import { cleanup, render } from '@testing-library/react';
+import { cleanup, render, waitFor, within } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { SiteProvider } from '@/app/site';
@@ -57,14 +57,19 @@ afterEach(() => {
 });
 
 describe('DocumentPreview', () => {
-  it('renders the unsaved editor text through the live public news section', () => {
+  it('renders the unsaved editor text through the live public news section', async () => {
     const base = newsWorkspace();
     const payload = JSON.parse(base.editorText) as { zh: { department: { title: string }[] } };
     payload.zh.department[0]!.title = '尚未發佈的新標題';
 
     const view = renderPreview({ ...base, editorText: JSON.stringify(payload) });
 
-    expect(view.getByText('尚未發佈的新標題')).toBeTruthy();
+    // The section renders inside an iframe so the site's own breakpoints follow the device width.
+    await waitFor(() => {
+      const frame = view.container.querySelector('iframe')?.contentDocument?.body;
+      expect(frame).toBeTruthy();
+      expect(within(frame!).getByText('尚未發佈的新標題')).toBeTruthy();
+    });
     expect(view.queryByText('目前無法預覽')).toBeNull();
   });
 
@@ -78,7 +83,8 @@ describe('DocumentPreview', () => {
     expect(isPreviewableKind('news')).toBe(true);
     expect(isPreviewableKind('people')).toBe(true);
     expect(isPreviewableKind('site_copy')).toBe(false);
-    expect(isPreviewableKind('holistic')).toBe(false);
+    expect(isPreviewableKind('holistic')).toBe(true);
+    expect(isPreviewableKind('centers')).toBe(false);
     for (const kind of CMS_DOCUMENT_KINDS) {
       expect(isPreviewableKind(kind), kind).toBe(PREVIEW_SECTION_KINDS.includes(kind));
     }

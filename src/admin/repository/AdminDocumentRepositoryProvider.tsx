@@ -96,6 +96,11 @@ export function AdminDocumentRepositoryProvider({
   );
 }
 
+/** The repository context, or `null` on admin pages rendered without one (such as the showcase). */
+export function useOptionalAdminDocumentRepository(): AdminDocumentRepositoryContextValue | null {
+  return useContext(AdminDocumentRepositoryContext);
+}
+
 export function useAdminDocumentRepository(): AdminDocumentRepositoryContextValue {
   const value = useContext(AdminDocumentRepositoryContext);
   if (value === null) {

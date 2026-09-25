@@ -4,11 +4,15 @@ import { jumpToEditorElement, readOutline, visibleTop, type OutlineNode, type Ou
 
 function sameNodes(left: readonly OutlineNode[], right: readonly OutlineNode[]): boolean {
   return left.length === right.length
-    && left.every((node, index) => node.element === right[index]?.element && node.title === right[index]?.title && node.count === right[index]?.count);
+    && left.every((node, index) => node.element === right[index]?.element && node.title === right[index]?.title && node.count === right[index]?.count && node.changed === right[index]?.changed);
 }
 
 function sameSections(left: readonly OutlineSection[], right: readonly OutlineSection[]): boolean {
   return sameNodes(left, right) && left.every((section, index) => sameNodes(section.children, right[index]?.children ?? []));
+}
+
+function ChangedDot({ isZh }: { readonly isZh: boolean }) {
+  return <span className="admin-changed-dot" title={isZh ? '含未發布的變更' : 'Has unpublished changes'}><span className="sr-only">{isZh ? '（有變更）' : '(changed)'}</span></span>;
 }
 
 type DocumentOutlineProps = {
@@ -73,7 +77,8 @@ export function DocumentOutline({ editorRef, revision, compact = false }: Docume
             data-within={section === activeSection || undefined}
             onClick={(event) => { event.preventDefault(); jumpTo(section.element); }}
           >
-            {section.title}
+            <span>{section.title}</span>
+            {section.changed ? <ChangedDot isZh={isZh} /> : null}
           </a>
           {section.children.length > 0 ? (
             <ol>
@@ -81,6 +86,7 @@ export function DocumentOutline({ editorRef, revision, compact = false }: Docume
                 <li key={`${section.id}-${index}`}>
                   <button type="button" aria-current={child.element === active ? 'location' : undefined} onClick={() => jumpTo(child.element)}>
                     <span>{child.title}</span>
+                    {child.changed ? <ChangedDot isZh={isZh} /> : null}
                     {child.count === null ? null : <small className="mono" aria-label={isZh ? `${child.count} 項` : `${child.count} items`}>{child.count}</small>}
                   </button>
                 </li>

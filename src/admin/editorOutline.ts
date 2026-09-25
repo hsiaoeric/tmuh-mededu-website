@@ -1,4 +1,5 @@
 import { EDITOR_REVEAL_EVENT } from './editors/global/ui/EditorDensity';
+import { fieldLabelText } from './preview/previewLinking';
 
 /** A heading-level place in the editor: a section, a nested section, or a collection. */
 export type OutlineNode = {
@@ -6,6 +7,8 @@ export type OutlineNode = {
   readonly title: string;
   /** Items in a collection; `null` for sections. */
   readonly count: number | null;
+  /** Holds a field that differs from the published revision. */
+  readonly changed: boolean;
 };
 
 export type OutlineSection = OutlineNode & {
@@ -50,6 +53,10 @@ function collectionCount(collection: HTMLElement): number {
   return collection.querySelectorAll(':scope > .admin-editor-collection-list > [data-editor-item-index]').length;
 }
 
+function hasChanges(element: HTMLElement): boolean {
+  return element.querySelector('[data-changed]') !== null;
+}
+
 /**
  * Top-level editor sections with their direct sub-sections and collections, read from the
  * rendered editor so every document kind gets an outline without per-editor wiring.
@@ -61,10 +68,10 @@ export function readOutline(root: HTMLElement): OutlineSection[] {
     const children = [...section.querySelectorAll<HTMLElement>(`${SECTION}, ${COLLECTION}`)]
       .filter((child) => parentNode(child) === section)
       .map((child): OutlineNode => (child.matches(SECTION)
-        ? { element: child, title: sectionTitle(child), count: null }
-        : { element: child, title: collectionTitle(child), count: collectionCount(child) }))
+        ? { element: child, title: sectionTitle(child), count: null, changed: hasChanges(child) }
+        : { element: child, title: collectionTitle(child), count: collectionCount(child), changed: hasChanges(child) }))
       .filter((child) => child.title !== '' && child.title !== title);
-    return { id: section.id, element: section, title, count: null, children };
+    return { id: section.id, element: section, title, count: null, changed: hasChanges(section), children };
   });
 }
 
@@ -80,8 +87,7 @@ function contextOf(element: HTMLElement): string {
 }
 
 function fieldLabel(control: HTMLElement): string {
-  const field = control.closest('.admin-field');
-  const label = text(field?.querySelector('.admin-field-label'));
+  const label = fieldLabelText(control.closest('.admin-field'));
   const lang = control.closest('[lang]')?.getAttribute('lang');
   const bilingual = control.closest('.admin-bilingual');
   const legend = text(bilingual?.querySelector('legend'));
@@ -138,8 +144,14 @@ export function jumpToEditorElement(element: HTMLElement): void {
   const main = scrollContainer(element);
   if (main === null) return;
   element.dispatchEvent(new CustomEvent(EDITOR_REVEAL_EVENT, { bubbles: true }));
-  // A collapsed item re-renders open on the next frame; measure after it has.
-  window.requestAnimationFrame(() => {
+  // A collapsed item re-renders open in a later task, not always by the next frame; wait for it.
+  let frames = 0;
+  const settle = () => {
+    if (element.closest('[hidden]') !== null && frames < 12) {
+      frames += 1;
+      window.requestAnimationFrame(settle);
+      return;
+    }
     const anchor = element.matches(FIELD_CONTROL) ? (element.closest<HTMLElement>('.admin-field') ?? element) : element;
     main.scrollTop += anchor.getBoundingClientRect().top - main.getBoundingClientRect().top - stickyOffset(main) - 12;
     if (element.matches(FIELD_CONTROL)) {
@@ -150,5 +162,6 @@ export function jumpToEditorElement(element: HTMLElement): void {
     if (heading === null) return;
     if (!heading.hasAttribute('tabindex')) heading.setAttribute('tabindex', '-1');
     heading.focus({ preventScroll: true });
-  });
+  };
+  window.requestAnimationFrame(settle);
 }

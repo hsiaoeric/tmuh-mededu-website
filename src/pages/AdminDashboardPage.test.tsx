@@ -68,7 +68,8 @@ describe('AdminDashboardPage', () => {
       }
     }
     const repository = new StatusRepository();
-    repository.listResults.push(Promise.resolve({ ok: true, value: [document('news')] }));
+    // One list for the dashboard, one for the navigation's unpublished-draft markers.
+    repository.listResults.push(Promise.resolve({ ok: true, value: [document('news')] }), Promise.resolve({ ok: true, value: [document('news')] }));
 
     // When
     const view = renderDashboard(repository);
@@ -77,6 +78,8 @@ describe('AdminDashboardPage', () => {
     // Then
     expect(await within(newsCard).findByText('已發布 · 版本 4')).toBeTruthy();
     expect(within(newsCard).getByText('有未發布草稿')).toBeTruthy();
+    const navNews = await view.findByRole('link', { name: /公告.*有未發布草稿/ });
+    expect(navNews.hasAttribute('data-pending')).toBe(true);
   });
 
   it('retries a failed document listing without hiding canonical kinds', async () => {

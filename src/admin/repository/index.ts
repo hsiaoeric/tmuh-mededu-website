@@ -10,6 +10,7 @@ export {
 export {
   AdminDocumentRepositoryProvider,
   useAdminDocumentRepository,
+  useOptionalAdminDocumentRepository,
   type AdminDocumentRepositoryLoader,
   type AdminDocumentRepositoryProviderProps,
   type AdminDocumentRepositoryState,
