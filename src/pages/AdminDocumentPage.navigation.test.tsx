@@ -161,4 +161,41 @@ describe('AdminDocumentPage navigation aids', () => {
 
     await waitFor(() => expect(globalThis.document.activeElement).toBe(edited));
   });
+
+  it('offers edits autosaved in this browser and restores them only when asked', async () => {
+    const draft = historyDetail().revisions[0]!;
+    const autosaved = JSON.stringify({ ...(draft.payload as object), announcementBoardUrl: 'https://example.test/autosaved' }, null, 2);
+    localStorage.setItem(`tmuh-admin-autosave:local:${draft.documentId}`, JSON.stringify({
+      editorText: autosaved, baseRevisionId: draft.id, baseEditVersion: draft.editVersion, savedAt: '2026-09-25T00:00:00Z',
+    }));
+    const view = await readyStructured(new FakeDocumentRepository(), historyDetail());
+
+    expect(await view.findByText(/找到尚未儲存的編輯/)).toBeTruthy();
+    expect(view.queryByDisplayValue('https://example.test/autosaved')).toBeNull();
+    fireEvent.click(view.getByRole('button', { name: '還原' }));
+
+    expect(await view.findByDisplayValue('https://example.test/autosaved')).toBeTruthy();
+    expect(view.queryByText(/找到尚未儲存的編輯/)).toBeNull();
+  });
+
+  it('forgets a discarded autosave', async () => {
+    const draft = historyDetail().revisions[0]!;
+    const key = `tmuh-admin-autosave:local:${draft.documentId}`;
+    localStorage.setItem(key, JSON.stringify({ editorText: '{"other":true}', baseRevisionId: null, baseEditVersion: null, savedAt: '2026-09-25T00:00:00Z' }));
+    const view = await readyStructured(new FakeDocumentRepository(), historyDetail());
+
+    fireEvent.click(await view.findByRole('button', { name: '捨棄' }));
+
+    expect(view.queryByText(/找到尚未儲存的編輯/)).toBeNull();
+    expect(localStorage.getItem(key)).toBeNull();
+  });
+
+  it('shows bilingual pairs as one labelled row with language tags, keeping full names accessible', async () => {
+    const view = await readyStructured(new FakeDocumentRepository());
+
+    const zhTitle = view.getAllByLabelText(/繁體中文標題/)[0]!;
+    expect(zhTitle.closest('.admin-field')?.querySelector('.admin-field-lang')?.textContent).toBe('中');
+    expect(zhTitle.closest('.admin-field')?.querySelector('label')?.classList.contains('sr-only')).toBe(true);
+    expect(view.container.querySelector('.admin-language-key')).toBeNull();
+  });
 });

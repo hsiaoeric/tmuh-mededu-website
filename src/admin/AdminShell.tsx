@@ -6,6 +6,7 @@ import { Icon } from '@/ui/Icon';
 import { AdminButton, AdminIconButton } from './AdminButton';
 import { InlineNotice, StatusBadge } from './AdminFeedback';
 import { AdminIcon } from './AdminIcon';
+import { clearAllAutosaves } from './documents/useAutosave';
 import { AdminSearch } from './AdminSearch';
 import { useUnpublishedDraftKinds } from './documentDraftStatus';
 import { ADMIN_TEXT_SIZES, useAdminNavCollapsed, useAdminTextSize, type AdminTextSize } from './adminPreferences';
@@ -164,13 +165,18 @@ export function AdminAppShell({ children, notices = [], eyebrow = 'ADMIN / DESIG
   const headerStatus = status === undefined ? (isZh ? '展示資料已就緒' : 'Showcase ready') : status;
   let sessionAction: ReactNode = null;
   let sessionNotice: ReactNode = null;
+  // Autosaved drafts stay in this browser; signing out on a shared computer should not leave them.
+  const signOut = () => {
+    clearAllAutosaves();
+    void auth?.signOut();
+  };
   if (auth !== null) {
     const state = auth.state;
     switch (state.status) {
       case 'authorized':
       // A refreshed session is re-verified in place; the protected layout already pauses mutations.
       case 'reauthorizing':
-        sessionAction = <AdminButton variant="quiet" onClick={() => void auth.signOut()}>{isZh ? '登出' : 'Sign out'}</AdminButton>;
+        sessionAction = <AdminButton variant="quiet" onClick={signOut}>{isZh ? '登出' : 'Sign out'}</AdminButton>;
         break;
       case 'signing-out':
         sessionAction = <AdminButton variant="quiet" loading>{isZh ? '登出' : 'Sign out'}</AdminButton>;
@@ -179,13 +185,13 @@ export function AdminAppShell({ children, notices = [], eyebrow = 'ADMIN / DESIG
         const failure = state.failure;
         switch (failure) {
           case 'sign-out-failed':
-            sessionAction = <AdminButton variant="quiet" onClick={() => void auth.signOut()}>{isZh ? '登出' : 'Sign out'}</AdminButton>;
+            sessionAction = <AdminButton variant="quiet" onClick={signOut}>{isZh ? '登出' : 'Sign out'}</AdminButton>;
             sessionNotice = (
               <InlineNotice
                 status="error"
                 title={isZh ? '無法登出' : 'Unable to sign out'}
                 lang={isZh ? 'zh-Hant' : 'en'}
-                action={<AdminButton variant="secondary" onClick={() => void auth.signOut()}>{isZh ? '重試登出' : 'Retry sign out'}</AdminButton>}
+                action={<AdminButton variant="secondary" onClick={signOut}>{isZh ? '重試登出' : 'Retry sign out'}</AdminButton>}
               >
                 {isZh ? '請再試一次；目前工作內容仍保留。' : 'Please try again. Your current work remains available.'}
               </InlineNotice>

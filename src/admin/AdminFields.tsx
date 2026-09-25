@@ -1,6 +1,7 @@
 import { useId, type InputHTMLAttributes, type ReactNode, type SelectHTMLAttributes, type TextareaHTMLAttributes } from 'react';
 import { Icon } from '@/ui/Icon';
 import { useFieldDecorations } from './fieldDecorations';
+import { FieldLanguageProvider, useFieldLabel, type FieldLabelPresentation } from './fieldLabels';
 
 type FieldFrameProps = {
   readonly id: string;
@@ -10,20 +11,27 @@ type FieldFrameProps = {
   readonly status?: 'valid' | 'warning';
   readonly required?: boolean;
   readonly requiredText?: string;
+  readonly presentation: FieldLabelPresentation;
   readonly children: ReactNode;
 };
 
-function FieldFrame({ id, label, helper, error, status, required, requiredText = '必填', children }: FieldFrameProps) {
+function FieldFrame({ id, label, helper, error, status, required, requiredText = '必填', presentation, children }: FieldFrameProps) {
   const messageId = `${id}-${error ? 'error' : 'help'}`;
   const decorations = useFieldDecorations();
   const changed = decorations?.isChanged?.(id) === true;
   return (
-    <div className="admin-field" data-field-state={error ? 'error' : status} data-changed={changed || undefined}>
-      <label htmlFor={id} className="admin-field-label">
+    <div className="admin-field" data-field-state={error ? 'error' : status} data-changed={changed || undefined} data-lang={presentation.lang ?? undefined}>
+      {/* Inside a bilingual pair the label is for screen readers; the pair's title and a language tag show instead. */}
+      <label htmlFor={id} className={presentation.visible === null ? 'admin-field-label sr-only' : 'admin-field-label'}>
         {changed ? <span className="admin-changed-dot" title={decorations?.isZh === false ? 'Changed since publishing' : '與已發布版本不同'}><span className="sr-only">{decorations?.isZh === false ? '(changed) ' : '（已變更）'}</span></span> : null}
-        {label}{required ? <span className="admin-required">{requiredText}</span> : null}
+        {presentation.visible ?? label}{required ? <span className="admin-required">{requiredText}</span> : null}
       </label>
-      {children}
+      {presentation.lang === null ? children : (
+        <div className="admin-field-control">
+          <span className="admin-field-lang" aria-hidden="true" data-required={required || undefined}>{presentation.lang === 'zh' ? '中' : 'EN'}</span>
+          {children}
+        </div>
+      )}
       {error ? <p id={messageId} className="admin-field-message admin-field-error" role="alert">{error}</p> : helper ? <p id={messageId} className="admin-field-message">{helper}</p> : null}
     </div>
   );
@@ -42,9 +50,10 @@ export function AdminField({ label, helper, error, status, requiredText, id: sup
   const id = suppliedId ?? generatedId;
   const fieldMessageId = error || helper ? `${id}-${error ? 'error' : 'help'}` : undefined;
   const describedBy = [externalDescribedBy, fieldMessageId].filter(Boolean).join(' ') || undefined;
+  const presentation = useFieldLabel(label);
   return (
-    <FieldFrame id={id} label={label} helper={helper} error={error} status={status} required={required} requiredText={requiredText}>
-      <input {...inputProps} id={id} required={required} readOnly={readOnly} aria-invalid={Boolean(error) || undefined} aria-describedby={describedBy} className={`admin-control ${className}`} />
+    <FieldFrame id={id} label={label} helper={helper} error={error} status={status} required={required} requiredText={requiredText} presentation={presentation}>
+      <input aria-label={presentation.accessibleName} {...inputProps} id={id} required={required} readOnly={readOnly} aria-invalid={Boolean(error) || undefined} aria-describedby={describedBy} className={`admin-control ${className}`} />
     </FieldFrame>
   );
 }
@@ -60,9 +69,10 @@ export function AdminTextarea({ label, helper, error, requiredText, id: supplied
   const generatedId = useId();
   const id = suppliedId ?? generatedId;
   const describedBy = error || helper ? `${id}-${error ? 'error' : 'help'}` : undefined;
+  const presentation = useFieldLabel(label);
   return (
-    <FieldFrame id={id} label={label} helper={helper} error={error} required={required} requiredText={requiredText}>
-      <textarea {...textareaProps} id={id} required={required} aria-invalid={Boolean(error) || undefined} aria-describedby={describedBy} className={`admin-control admin-textarea ${className}`} />
+    <FieldFrame id={id} label={label} helper={helper} error={error} required={required} requiredText={requiredText} presentation={presentation}>
+      <textarea aria-label={presentation.accessibleName} {...textareaProps} id={id} required={required} aria-invalid={Boolean(error) || undefined} aria-describedby={describedBy} className={`admin-control admin-textarea ${className}`} />
     </FieldFrame>
   );
 }
@@ -81,9 +91,10 @@ export function AdminSelect({ label, helper, error, options, loadingOptions = fa
   const generatedId = useId();
   const id = suppliedId ?? generatedId;
   const describedBy = error || helper ? `${id}-${error ? 'error' : 'help'}` : undefined;
+  const presentation = useFieldLabel(label);
   return (
-    <FieldFrame id={id} label={label} helper={helper} error={error} required={selectProps.required}>
-      <select {...selectProps} id={id} disabled={selectProps.disabled || loadingOptions} aria-busy={loadingOptions || undefined} aria-invalid={Boolean(error) || undefined} aria-describedby={describedBy} className={`admin-control admin-select ${className}`}>
+    <FieldFrame id={id} label={label} helper={helper} error={error} required={selectProps.required} presentation={presentation}>
+      <select aria-label={presentation.accessibleName} {...selectProps} id={id} disabled={selectProps.disabled || loadingOptions} aria-busy={loadingOptions || undefined} aria-invalid={Boolean(error) || undefined} aria-describedby={describedBy} className={`admin-control admin-select ${className}`}>
         {loadingOptions ? <option>{loadingLabel}</option> : options.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}
       </select>
     </FieldFrame>
@@ -121,8 +132,8 @@ export function BilingualFieldPair({ label, description, zh, en }: BilingualFiel
       <legend>{label}</legend>
       {description ? <p className="admin-field-message">{description}</p> : null}
       <div className="admin-bilingual-grid">
-        <div lang="zh-Hant"><span className="admin-language-key">ZH-HANT</span>{zh}</div>
-        <div lang="en"><span className="admin-language-key">ENGLISH</span>{en}</div>
+        <div lang="zh-Hant"><FieldLanguageProvider lang="zh">{zh}</FieldLanguageProvider></div>
+        <div lang="en"><FieldLanguageProvider lang="en">{en}</FieldLanguageProvider></div>
       </div>
     </fieldset>
   );

@@ -6,6 +6,7 @@ import {
   isStructuredEditorCommitAccepted as isGlobalEditorCommitAccepted,
   type StructuredEditorCommitResult as GlobalEditorCommitResult,
 } from '@/admin/editors/shared';
+import { FieldItemProvider } from '@/admin/fieldLabels';
 import { EDITOR_REVEAL_EVENT, useEditorDensity } from './EditorDensity';
 
 export type EditorCollectionCopy = {
@@ -281,7 +282,7 @@ export function EditorCollection({ id, title, description, itemCount, revisionKe
                     <AdminIconButton data-editor-action="remove" icon="trash" label={copy.removeLabel(position)} onClick={(event) => requestRemoval(index, event.currentTarget)} />
                   </div>
                 </div>
-                <div id={contentId} className="admin-editor-collection-item-content">{renderItem(index)}</div>
+                <div id={contentId} className="admin-editor-collection-item-content"><FieldItemProvider position={position}>{renderItem(index)}</FieldItemProvider></div>
               </li>
             );
           })}

@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useSite } from '@/app/site';
-import { useAdminProtectedAccess } from '@/admin/auth';
+import { useAdminProtectedAccess, useOptionalAdminAuth } from '@/admin/auth';
 import { AdminButton, AdminIconButton } from '@/admin/AdminButton';
 import { AdminAppShell, AdminPageHeader, AdminSaveStatus, type AdminSaveState } from '@/admin/AdminShell';
 import { AdminWorkspaceDescription, isPageWorkspaceDescriptionKind } from '@/admin/AdminWorkspaceDescription';
@@ -17,7 +17,9 @@ import { assertNever } from '@/admin/documents/assertNever';
 import { publicDocumentHref } from '@/admin/documents/publicLocation';
 import { PublishChanges } from '@/admin/documents/PublishChanges';
 import { RevisionHistoryDialog } from '@/admin/documents/RevisionHistory';
+import { useAutosave } from '@/admin/documents/useAutosave';
 import { useEditorHistory } from '@/admin/documents/useEditorHistory';
+import type { Json } from '@/content/database.types';
 import { isPreviewableKind } from '@/admin/preview/previewKinds';
 import { Icon } from '@/ui/Icon';
 import { DirtyNavigationGuard, type DocumentWorkspaceController } from '@/admin/workflows';
@@ -106,7 +108,21 @@ export function AdminDocumentWorkspaceView({ kind, controller, workspace }: Admi
   const [previewing, setPreviewing] = useState(false);
   const openPreview = useCallback(() => setPreviewing(true), []);
   const [historyOpen, setHistoryOpen] = useState(false);
-  const historyTriggerRef = useRef<HTMLButtonElement>(null);
+  const [compareAutosave, setCompareAutosave] = useState(false);
+  // Whichever button opened the history (status badges or the autosave notice) gets focus back.
+  const historyTriggerRef = useRef<HTMLElement | null>(null);
+  const auth = useOptionalAdminAuth();
+  const authState = auth?.state;
+  const userId = authState !== undefined && (authState.status === 'authorized' || authState.status === 'reauthorizing') ? authState.user.id : null;
+  const autosave = useAutosave(workspace, userId);
+  const autosavePayload = useMemo(() => {
+    if (autosave.offer === null) return undefined;
+    try {
+      return JSON.parse(autosave.offer.editorText) as Json;
+    } catch {
+      return undefined;
+    }
+  }, [autosave.offer]);
   const previewable = isPreviewableKind(kind);
   const confirmationReturnFocusRef = useRef<HTMLElement | null>(null);
   const label = isZh ? metadata.label.zh : metadata.label.en;
@@ -177,7 +193,7 @@ export function AdminDocumentWorkspaceView({ kind, controller, workspace }: Admi
         />
         <div className="admin-action-bar" role="toolbar" aria-label={isZh ? '文件作業' : 'Document actions'}>
           <div className="admin-action-bar-status">
-            <button ref={historyTriggerRef} type="button" className="admin-history-trigger" aria-haspopup="dialog" title={isZh ? '查看編輯紀錄' : 'View edit history'} onClick={() => setHistoryOpen(true)}>
+            <button type="button" className="admin-history-trigger" aria-haspopup="dialog" title={isZh ? '查看編輯紀錄' : 'View edit history'} onClick={(event) => { historyTriggerRef.current = event.currentTarget; setHistoryOpen(true); }}>
               {hasActionableRevision ? <>
                 <StatusBadge status={publishedRevision === undefined ? 'warning' : 'success'}>{publishedRevision === undefined ? (isZh ? '尚未發布' : 'Unpublished') : (isZh ? '已發布' : 'Published')}</StatusBadge>
                 {workspace.actionableRevision.status === 'draft' ? <StatusBadge status="info">{isZh ? `草稿 · 版本 ${workspace.actionableRevision.version}` : `Draft · version ${workspace.actionableRevision.version}`}</StatusBadge> : null}
@@ -228,6 +244,27 @@ export function AdminDocumentWorkspaceView({ kind, controller, workspace }: Admi
           </div>
         </div>
         <OperationNotice mutationsAllowed={mutationsAllowed} workspace={workspace} onRecoverConflict={() => void controller.recoverConflict()} />
+        {autosave.offer === null ? null : (
+          <InlineNotice
+            status={autosave.stale ? 'warning' : 'info'}
+            title={isZh ? `找到尚未儲存的編輯（${formatAdminTimestamp(autosave.offer.savedAt, lang)}）` : `Unsaved edits found (${formatAdminTimestamp(autosave.offer.savedAt, lang)})`}
+            lang={isZh ? 'zh-Hant' : 'en'}
+            action={<span className="admin-cluster">
+              <AdminButton variant="primary" icon="refresh" onClick={() => { const text = autosave.accept(); if (text !== null) history.change(text); }}>{isZh ? '還原' : 'Restore'}</AdminButton>
+              <AdminButton variant="secondary" onClick={(event) => { historyTriggerRef.current = event.currentTarget; setCompareAutosave(true); setHistoryOpen(true); }}>{isZh ? '比較' : 'Compare'}</AdminButton>
+              <AdminButton variant="quiet" onClick={autosave.discard}>{isZh ? '捨棄' : 'Discard'}</AdminButton>
+            </span>}
+          >
+            {autosave.stale
+              ? (isZh ? '這些編輯根據較舊的草稿版本；還原後儲存時仍會檢查版本，不會覆蓋他人的變更。' : 'These edits were made on an older draft; saving after restoring still checks versions, so no one else’s changes are overwritten.')
+              : (isZh ? '上次離開前的編輯保留在這個瀏覽器中，可還原後繼續。' : 'Edits from your last visit were kept in this browser; restore them to continue.')}
+          </InlineNotice>
+        )}
+        {autosave.otherTab ? (
+          <InlineNotice status="warning" title={isZh ? '這份文件正在另一個分頁中編輯' : 'This document is being edited in another tab'} lang={isZh ? 'zh-Hant' : 'en'}>
+            {isZh ? '兩個分頁各自儲存時，較晚的一方會遇到版本衝突。建議只在一個分頁編輯。' : 'If both tabs save, the later one will hit a version conflict. Edit in one tab only.'}
+          </InlineNotice>
+        ) : null}
         {hasActionableRevision ? (
           <AdminWorkspaceEditorRegion workspace={workspace} kind={kind} onChange={history.change} previewing={previewable && previewing} changedIds={changedIds} onRequestPreview={previewable ? openPreview : undefined} />
         ) : (
@@ -269,7 +306,15 @@ export function AdminDocumentWorkspaceView({ kind, controller, workspace }: Admi
         }}
         onClose={() => setConfirmation(null)}
       />
-      <RevisionHistoryDialog open={historyOpen} workspace={workspace} triggerRef={historyTriggerRef} onClose={() => setHistoryOpen(false)} />
+      <RevisionHistoryDialog
+        open={historyOpen}
+        workspace={workspace}
+        triggerRef={historyTriggerRef}
+        compareWith={compareAutosave && autosavePayload !== undefined && autosave.offer !== null
+          ? { id: 'autosave', label: isZh ? `瀏覽器暫存（${formatAdminTimestamp(autosave.offer.savedAt, lang)}）` : `Browser copy (${formatAdminTimestamp(autosave.offer.savedAt, lang)})`, payload: autosavePayload }
+          : undefined}
+        onClose={() => { setHistoryOpen(false); setCompareAutosave(false); }}
+      />
     </AdminAppShell>
   );
 }

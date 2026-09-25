@@ -54,7 +54,6 @@
   .admin-page-eyebrow { display: block; max-inline-size: 100%; overflow-wrap: anywhere; }
   .admin-workspace-title-label { white-space: normal; }
   .admin-page-header .admin-button { max-inline-size: 100%; white-space: normal; }
-  .admin-bilingual-grid > div { padding: var(--admin-space-2); }
   .admin-field-label { align-items: flex-start; flex-wrap: wrap; }
 }
 
@@ -68,7 +67,6 @@
   .admin-media-picker,
   .admin-state-panel,
   .admin-toast,
-  .admin-bilingual-grid > div { padding: var(--admin-space-2); }
   .admin-state-panel,
   .admin-toast,
   .admin-check { grid-template-columns: minmax(0, 1fr); }

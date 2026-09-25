@@ -57,3 +57,9 @@
 
 /* A collapsed item hides its fields, so its header carries their changed marker. */
 .admin-editor-collection-item[data-collapsed]:has([data-changed]) > .admin-editor-collection-item-header h4::after { content: ''; display: inline-block; inline-size: 7px; block-size: 7px; margin-inline-start: 6px; vertical-align: middle; border-radius: 50%; background: var(--amber); }
+
+/* Helper text shows while its field is in use; the rest of the time it only repeats itself. */
+.admin-workspace-editor .admin-field > .admin-field-message:not(.admin-field-error),
+.admin-workspace-editor .admin-bilingual > .admin-field-message { display: none; }
+.admin-workspace-editor .admin-field:focus-within > .admin-field-message,
+.admin-workspace-editor .admin-bilingual:focus-within > .admin-field-message { display: block; }

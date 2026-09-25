@@ -31,7 +31,15 @@
 .admin-media-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(18rem, 100%), 1fr)); gap: var(--admin-space-3); }
 .admin-bilingual { container-type: inline-size; }
 .admin-bilingual-grid { margin-block-start: var(--admin-space-2); gap: var(--admin-space-2); }
-.admin-bilingual-grid > div { min-inline-size: 0; padding: var(--admin-space-2) var(--admin-space-3); border-inline-start: 2px solid var(--line); background: var(--surface-2); }
+.admin-bilingual-grid > div { min-inline-size: 0; }
+/* The pair's title reads as the field label; each input carries its language as a tag. */
+.admin-bilingual > legend { padding: 0; color: var(--ink); font-size: 0.82rem; font-weight: 600; line-height: 1.5; }
+.admin-field-label.sr-only { position: absolute; display: block; inline-size: 1px; block-size: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.admin-field-control { position: relative; min-inline-size: 0; }
+.admin-field-lang { position: absolute; z-index: 1; inset-block: 1px; inset-inline-start: 1px; display: grid; place-items: center; inline-size: 2.2rem; max-block-size: calc(var(--admin-control-h) + 8px); border-inline-end: 1px solid var(--line-soft); border-radius: var(--radius) 0 0 var(--radius); color: var(--accent); font-family: 'IBM Plex Mono', 'Noto Sans TC', ui-monospace, monospace; font-size: 0.68rem; font-weight: 600; pointer-events: none; }
+.admin-field-lang[data-required]::after { content: '*'; color: var(--admin-warning-ink); }
+.admin-field[data-changed] .admin-field-lang { color: var(--admin-warning-ink); background: var(--amber-wash); }
+.admin-field-control > .admin-control { padding-inline-start: calc(2.2rem + var(--admin-space-2)); }
 .admin-language-key { display: block; margin-block-end: var(--admin-space-1); color: var(--accent); font-size: 0.62rem; }
 /* Chinese and English sit side by side whenever the group itself has room, at any nesting depth. */
 @container (min-width: 30rem) {

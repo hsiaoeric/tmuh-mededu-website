@@ -1,4 +1,4 @@
-import { useId, useState, type RefObject } from 'react';
+import { useEffect, useId, useState, type RefObject } from 'react';
 import { useSite } from '@/app/site';
 import { useOptionalAdminAuth } from '@/admin/auth';
 import { StatusBadge, type AdminStatus } from '@/admin/AdminFeedback';
@@ -43,10 +43,15 @@ type RevisionHistoryDialogProps = {
   readonly workspace: DocumentWorkspace;
   readonly triggerRef: RefObject<HTMLElement>;
   readonly onClose: () => void;
+  /** Opens straight into the side-by-side view, comparing the editor with this extra version. */
+  readonly compareWith?: CompareSource;
 };
 
+/** A version to compare that is not a saved revision, such as an autosaved edit. */
+export type CompareSource = { readonly id: string; readonly label: string; readonly payload: Json };
+
 /** Every revision of the document, newest first, each summarised against the one before it. */
-export function RevisionHistoryDialog({ open, workspace, triggerRef, onClose }: RevisionHistoryDialogProps) {
+export function RevisionHistoryDialog({ open, workspace, triggerRef, onClose, compareWith }: RevisionHistoryDialogProps) {
   const { isZh, lang } = useSite();
   const auth = useOptionalAdminAuth();
   const state = auth?.state;
@@ -66,6 +71,9 @@ export function RevisionHistoryDialog({ open, workspace, triggerRef, onClose }: 
   };
 
   const [view, setView] = useState<'timeline' | 'compare'>('timeline');
+  useEffect(() => {
+    if (open) setView(compareWith === undefined ? 'timeline' : 'compare');
+  }, [compareWith, open]);
   const tabId = useId();
   const dirty = workspace.actionableRevision !== null && isWorkspaceDirty(workspace);
   const baseline = dirty ? parseJson(workspace.baselineText) : undefined;
@@ -87,7 +95,7 @@ export function RevisionHistoryDialog({ open, workspace, triggerRef, onClose }: 
         <button type="button" role="tab" id={`${tabId}-compare`} aria-selected={view === 'compare'} aria-controls={`${tabId}-panel`} onClick={() => setView('compare')}>{isZh ? '並排比較' : 'Side by side'}</button>
       </div>
       <div id={`${tabId}-panel`} role="tabpanel" aria-labelledby={`${tabId}-${view}`}>
-      {view === 'compare' ? <RevisionCompare workspace={workspace} revisions={revisions} statusLabel={statusLabel} /> : (
+      {view === 'compare' ? <RevisionCompare key={compareWith?.id ?? 'revisions'} workspace={workspace} revisions={revisions} statusLabel={statusLabel} extra={compareWith} /> : (
       <ol className="admin-history">
         {dirty ? (
           <li className="admin-history-entry" data-unsaved>
@@ -153,20 +161,23 @@ function DiffCell({ before, after, side }: { readonly before: string; readonly a
 }
 
 /** Any two versions, or the unsaved editor text, compared field by field in two columns. */
-function RevisionCompare({ workspace, revisions, statusLabel }: {
+function RevisionCompare({ workspace, revisions, statusLabel, extra }: {
   readonly workspace: DocumentWorkspace;
   readonly revisions: readonly CmsAdminRevision[];
   readonly statusLabel: (status: CmsAdminRevision['status']) => string;
+  readonly extra?: CompareSource;
 }) {
   const { isZh } = useSite();
   const editing = workspace.actionableRevision === null ? undefined : parseJson(workspace.editorText);
   const sources = [
+    ...(extra === undefined ? [] : [extra]),
     ...(editing === undefined ? [] : [{ id: EDITING, label: isZh ? '目前編輯中（含未儲存）' : 'Editing now (incl. unsaved)', payload: editing }]),
     ...revisions.map((revision) => ({ id: revision.id as string, label: `${isZh ? '版本' : 'v'} ${revision.version} · ${statusLabel(revision.status)}`, payload: revision.payload })),
   ];
   const published = revisions.find((revision) => revision.status === 'published');
   const [newerId, setNewerId] = useState(sources[0]?.id ?? '');
-  const [olderId, setOlderId] = useState(published?.id ?? sources[1]?.id ?? sources[0]?.id ?? '');
+  // Against an extra version (an autosave), the natural question is how it differs from the editor.
+  const [olderId, setOlderId] = useState(extra !== undefined && editing !== undefined ? EDITING : (published?.id ?? sources[1]?.id ?? sources[0]?.id ?? ''));
   const older = sources.find((source) => source.id === olderId);
   const newer = sources.find((source) => source.id === newerId);
   const changes = older === undefined || newer === undefined ? [] : diffPayloads(older.payload, newer.payload);
