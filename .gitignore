@@ -26,3 +26,8 @@ wave5-kpis-after-navigation
 # Local tool state
 .claude/settings.local.json
 .pi/
+# MCP servers are per machine (browser paths) and per person (hosted project access).
+.mcp.json
+
+# Edge Function secrets for `supabase functions serve`
+supabase/functions/.env
