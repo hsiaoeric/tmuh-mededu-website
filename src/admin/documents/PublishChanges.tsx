@@ -1,5 +1,5 @@
 import type { Json } from '@/content/database.types';
-import { diffPayloads, formatChangePath, formatChangeValue } from './payloadDiff';
+import { diffPayloads, formatChangePath, formatChangeValue, type PayloadChange } from './payloadDiff';
 
 const VISIBLE_CHANGES = 12;
 
@@ -19,11 +19,20 @@ export function PublishChanges({ published, next, isZh }: PublishChangesProps) {
   if (changes.length === 0) {
     return <p className="admin-publish-changes-note">{isZh ? '與目前公開內容相同，沒有文字變更。' : 'Identical to the live content; no text changes.'}</p>;
   }
-  const visible = changes.slice(0, VISIBLE_CHANGES);
   return (
     <div className="admin-publish-changes">
       <p>{isZh ? `將變更 ${changes.length} 處：` : `${changes.length} change${changes.length === 1 ? '' : 's'} will go live:`}</p>
-      <ul>
+      <PayloadChangeList changes={changes} isZh={isZh} />
+    </div>
+  );
+}
+
+/** Old → new lines for a list of payload changes, truncated after `limit` entries. */
+export function PayloadChangeList({ changes, isZh, limit = VISIBLE_CHANGES }: { readonly changes: readonly PayloadChange[]; readonly isZh: boolean; readonly limit?: number }) {
+  const visible = changes.slice(0, limit);
+  return (
+    <>
+      <ul className="admin-change-list">
         {visible.map((change) => (
           <li key={change.path.join('/')}>
             <span className="admin-publish-change-path">{formatChangePath(change.path, isZh)}</span>
@@ -41,7 +50,7 @@ export function PublishChanges({ published, next, isZh }: PublishChangesProps) {
           </li>
         ))}
       </ul>
-      {changes.length > VISIBLE_CHANGES ? <p>{isZh ? `還有 ${changes.length - VISIBLE_CHANGES} 處變更未列出。` : `${changes.length - VISIBLE_CHANGES} more not shown.`}</p> : null}
-    </div>
+      {changes.length > limit ? <p className="admin-change-list-more">{isZh ? `還有 ${changes.length - limit} 處變更未列出。` : `${changes.length - limit} more not shown.`}</p> : null}
+    </>
   );
 }

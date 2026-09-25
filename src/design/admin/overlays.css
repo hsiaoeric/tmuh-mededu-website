@@ -41,11 +41,29 @@
 @keyframes admin-drawer-in { from { opacity: 0; transform: translateX(-100%); } }
 .admin-publish-changes { display: grid; gap: var(--admin-space-2); margin-block-start: var(--admin-space-3); }
 .admin-publish-changes > p,
+.admin-change-list-more,
 .admin-publish-changes-note { color: var(--muted); font-size: 0.78rem; line-height: 1.55; }
 .admin-publish-changes-note { margin-block-start: var(--admin-space-3); }
-.admin-publish-changes ul { display: grid; gap: var(--admin-space-2); max-block-size: 18rem; margin: 0; padding: var(--admin-space-2); overflow: auto; list-style: none; border: 1px solid var(--line-soft); border-radius: var(--radius); background: var(--surface-2); }
-.admin-publish-changes li { display: grid; gap: 2px; min-inline-size: 0; font-size: 0.76rem; line-height: 1.5; }
+.admin-change-list { display: grid; gap: var(--admin-space-2); max-block-size: 18rem; margin: 0; padding: var(--admin-space-2); overflow: auto; list-style: none; border: 1px solid var(--line-soft); border-radius: var(--radius); background: var(--surface-2); }
+.admin-change-list li { display: grid; gap: 2px; min-inline-size: 0; font-size: 0.76rem; line-height: 1.5; }
 .admin-publish-change-path { color: var(--faint); font-family: 'IBM Plex Mono', 'Noto Sans TC', ui-monospace, monospace; font-size: 0.68rem; overflow-wrap: anywhere; }
 .admin-publish-change-values { overflow-wrap: anywhere; }
 .admin-publish-change-values del { padding-inline: 2px; color: var(--admin-warning-ink); background: var(--amber-wash); }
 .admin-publish-change-values ins { padding-inline: 2px; color: var(--ink); background: var(--accent-wash); text-decoration: none; }
+
+/* Edit history: one entry per revision, newest first, each with what it changed. */
+.admin-history { display: grid; gap: var(--admin-space-3); margin: 0; padding: 0; list-style: none; }
+.admin-history-entry { display: grid; gap: var(--admin-space-2); padding: var(--admin-space-3); border: 1px solid var(--line-soft); border-radius: var(--radius-lg); background: var(--surface-2); }
+.admin-history-entry[data-current] { border-color: color-mix(in srgb, var(--accent) 42%, var(--line)); }
+.admin-history-entry[data-unsaved] { border-style: dashed; border-color: color-mix(in srgb, var(--amber) 48%, var(--line)); background: var(--surface); }
+.admin-history-entry > header { display: flex; flex-wrap: wrap; align-items: center; gap: var(--admin-space-2); color: var(--body); font-size: 0.76rem; }
+.admin-history-current { color: var(--accent); font-size: 0.7rem; font-weight: 600; }
+.admin-history-meta { display: grid; gap: 2px; margin: 0; }
+.admin-history-meta > div { display: flex; flex-wrap: wrap; gap: var(--admin-space-2); font-size: 0.72rem; line-height: 1.5; }
+.admin-history-meta dt { min-inline-size: 4.5em; color: var(--faint); }
+.admin-history-meta dd { margin: 0; color: var(--body); }
+.admin-history-note { color: var(--muted); font-size: 0.72rem; }
+.admin-history-changes { display: grid; gap: var(--admin-space-2); }
+.admin-history-changes summary { color: var(--accent); font-size: 0.74rem; font-weight: 600; cursor: pointer; }
+.admin-history-changes[open] summary { margin-block-end: var(--admin-space-2); }
+.admin-dialog:has(.admin-history) { inline-size: min(calc(100% - var(--admin-space-4)), 42rem); }

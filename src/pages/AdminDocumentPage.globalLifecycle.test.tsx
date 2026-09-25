@@ -51,9 +51,16 @@ function toolbar(view: RenderResult, label: '文件作業' | '編輯模式'): HT
 }
 
 function actionButton(view: RenderResult, name: string): HTMLElement {
-  // Save and publish live in the sticky document toolbar; archive sits in the side rail.
+  // Save and publish live in the sticky document toolbar; archive sits behind its overflow menu.
+  if (name === '封存') openDocumentMenu(view);
   return view.getByRole('button', { name });
 }
+/** Archive and the technical details sit behind the action bar's overflow menu. */
+function openDocumentMenu(view: RenderResult): void {
+  const trigger = view.getByRole('button', { name: '更多文件作業' });
+  if (trigger.getAttribute('aria-expanded') !== 'true') fireEvent.click(trigger);
+}
+
 
 async function advancedText(view: RenderResult): Promise<string> {
   const existing = view.container.querySelector('textarea');
@@ -250,7 +257,7 @@ describe('AdminDocumentPage structured global lifecycle', () => {
     const raw = view.getByRole('textbox', { name: '雙語 JSON 內容' });
     fireEvent.change(raw, { target: { value: '{broken' } });
     expect(view.getByRole('button', { name: '發佈' }).hasAttribute('disabled')).toBe(true);
-    expect(view.getByRole('button', { name: '封存' }).hasAttribute('disabled')).toBe(true);
+    expect(actionButton(view, '封存').hasAttribute('disabled')).toBe(true);
     expect(await advancedText(view)).toBe('{broken');
   });
 });

@@ -1,0 +1,46 @@
+import { useCallback, useState } from 'react';
+
+export const ADMIN_TEXT_SIZES = ['sm', 'md', 'lg'] as const;
+export type AdminTextSize = (typeof ADMIN_TEXT_SIZES)[number];
+
+const TEXT_SIZE_KEY = 'tmuh-admin-text-size';
+const NAV_COLLAPSED_KEY = 'tmuh-admin-nav-collapsed';
+
+function read(key: string): string | null {
+  try {
+    return localStorage.getItem(key);
+  } catch {
+    return null;
+  }
+}
+
+function write(key: string, value: string): void {
+  try {
+    localStorage.setItem(key, value);
+  } catch {
+    // Storage can be unavailable (private mode); the choice then lasts for this page only.
+  }
+}
+
+/** A per-browser admin preference that survives reloads when storage is available. */
+function usePersistentPreference<T>(key: string, parse: (stored: string | null) => T, serialize: (value: T) => string): [T, (next: T) => void] {
+  const [value, setValue] = useState<T>(() => parse(read(key)));
+  const update = useCallback((next: T) => {
+    setValue(next);
+    write(key, serialize(next));
+  }, [key, serialize]);
+  return [value, update];
+}
+
+const parseTextSize = (stored: string | null): AdminTextSize => ADMIN_TEXT_SIZES.find((size) => size === stored) ?? 'md';
+const parseCollapsed = (stored: string | null): boolean => stored === 'true';
+const identity = (value: AdminTextSize) => value;
+const serializeBoolean = (value: boolean) => String(value);
+
+export function useAdminTextSize(): [AdminTextSize, (next: AdminTextSize) => void] {
+  return usePersistentPreference(TEXT_SIZE_KEY, parseTextSize, identity);
+}
+
+export function useAdminNavCollapsed(): [boolean, (next: boolean) => void] {
+  return usePersistentPreference(NAV_COLLAPSED_KEY, parseCollapsed, serializeBoolean);
+}

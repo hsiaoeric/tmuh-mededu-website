@@ -148,12 +148,14 @@ describe('AdminDocumentPage lifecycle actions', () => {
     const view = await readyDocument(repository);
 
     // When
+    await user.click(view.getByRole('button', { name: '更多文件作業' }));
     await user.click(view.getByRole('button', { name: '封存' }));
     expect(repository.archiveCalls).toHaveLength(0);
     await user.click(view.getByRole('button', { name: '確認封存' }));
+    expect(globalThis.document.activeElement).toBe(view.getByRole('heading', { level: 1 }));
+    await user.click(view.getByRole('button', { name: '更多文件作業' }));
     const archive = view.getByRole('button', { name: '封存' });
     expect(archive.getAttribute('aria-busy')).toBe('true');
-    expect(globalThis.document.activeElement).toBe(view.getByRole('heading', { level: 1 }));
     await user.click(archive);
     expect(repository.archiveCalls).toHaveLength(1);
     await act(() => pending.resolve({

@@ -78,7 +78,7 @@ describe('admin typography and reflow contracts', () => {
     const wrapsHeader = narrowRules.includes('.admin-header') && narrowRules.includes('flex-wrap: wrap');
     const wrapsTools = narrowRules.includes('.admin-header-tools') && narrowRules.includes('flex-wrap: wrap');
     const wrapsTitle = narrowRules.includes('.admin-workspace-title-label') && narrowRules.includes('white-space: normal');
-    const collapsesWorkspaceTrack = workspaceCss.includes('minmax(min(14rem, 100%), 17rem)');
+    const collapsesWorkspaceTrack = workspaceCss.includes('minmax(min(13rem, 100%), 16rem)');
 
     // Then
     expect(wrapsHeader).toBe(true);

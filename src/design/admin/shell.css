@@ -141,3 +141,43 @@ code.admin-stable-key { white-space: nowrap; }
 .admin-stack > * { min-inline-size: 0; }
 .admin-demo-group { display: flex; flex-direction: column; gap: var(--admin-space-2); }
 .admin-demo-group > span { color: var(--muted); font-size: 0.7rem; letter-spacing: 0.08em; }
+
+/* Desktop sidebar can be hidden to give long documents the full width. */
+@media (min-width: 901px) {
+  .admin-shell[data-nav-collapsed] { grid-template-columns: 0 minmax(0, 1fr); }
+}
+.admin-desktop-nav[hidden] { display: none; }
+.admin-icon-button.admin-nav-toggle { flex: none; }
+.admin-shell:not([data-nav-collapsed]) .admin-nav-toggle { color: var(--accent); }
+
+/* Header search: a combobox whose results drop below the header. */
+.admin-search { position: relative; display: flex; align-items: center; flex: 1 1 18rem; min-inline-size: 10rem; max-inline-size: 30rem; }
+.admin-search > svg { position: absolute; inset-inline-start: var(--admin-space-3); color: var(--faint); pointer-events: none; }
+.admin-search input { inline-size: 100%; min-block-size: calc(var(--admin-control-h) - var(--admin-space-1)); padding: var(--admin-space-1) 4.5rem var(--admin-space-1) calc(var(--admin-space-3) + 1.5em); border: 1px solid var(--line); border-radius: 999px; background: var(--surface-2); color: var(--ink); font-family: 'Inter', 'Noto Sans TC', system-ui, sans-serif; font-size: 0.8rem; line-height: 1.5; transition: border-color 0.2s ease, background 0.2s ease; }
+.admin-search input::placeholder { color: var(--faint); }
+.admin-search input::-webkit-search-cancel-button { display: none; }
+.admin-search input:hover { border-color: var(--admin-control-line); }
+.admin-search input:focus { border-color: var(--accent); background: var(--surface); outline: none; box-shadow: 0 0 0 3px var(--accent-veil); }
+.admin-search kbd { position: absolute; inset-inline-end: var(--admin-space-2); padding: 1px var(--admin-space-2); border: 1px solid var(--line); border-radius: var(--radius); color: var(--faint); background: var(--surface); font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 0.64rem; pointer-events: none; }
+.admin-search:focus-within kbd { display: none; }
+.admin-search-results { position: absolute; inset-block-start: calc(100% + var(--admin-space-2)); inset-inline: 0; z-index: 30; display: grid; gap: var(--admin-space-2); min-inline-size: min(26rem, calc(100vw - var(--admin-space-4))); max-block-size: min(70vh, 34rem); overflow: auto; overscroll-behavior: contain; padding: var(--admin-space-2); border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--surface); box-shadow: var(--shadow-lg); }
+.admin-search-results[hidden] { display: none; }
+.admin-search-group { padding: var(--admin-space-1) var(--admin-space-2); color: var(--faint); font-family: 'IBM Plex Mono', 'Noto Sans TC', ui-monospace, monospace; font-size: 0.64rem; letter-spacing: 0.12em; }
+.admin-search-option { display: grid; grid-template-columns: 1.25rem minmax(0, 1fr); align-items: start; gap: var(--admin-space-2); padding: var(--admin-space-2); border-radius: var(--radius); cursor: pointer; }
+.admin-search-option > svg { margin-block-start: 3px; color: var(--accent); }
+.admin-search-option > span { display: grid; gap: 1px; min-inline-size: 0; }
+.admin-search-option strong { color: var(--ink); font-size: 0.8rem; font-weight: 600; line-height: 1.4; overflow-wrap: anywhere; }
+.admin-search-option small { overflow: hidden; color: var(--muted); font-size: 0.7rem; line-height: 1.45; text-overflow: ellipsis; white-space: nowrap; }
+.admin-search-option .admin-search-snippet { color: var(--body); white-space: normal; }
+.admin-search-option[aria-selected='true'] { background: var(--accent-veil); box-shadow: inset 2px 0 0 var(--accent); }
+.admin-search-option mark { padding-inline: 1px; border-radius: 2px; color: var(--ink); background: var(--accent-wash); }
+.admin-search-empty { padding: var(--admin-space-3); color: var(--muted); font-size: 0.78rem; text-align: center; }
+
+/* Editor text size: three "A"s of increasing size, one pressed. */
+.admin-text-size { display: inline-flex; align-items: center; padding: 2px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface-2); }
+.admin-text-size button { display: grid; place-items: center; inline-size: 1.9rem; block-size: 1.9rem; border: 0; border-radius: 999px; color: var(--muted); background: transparent; font-family: 'Instrument Serif', Georgia, serif; line-height: 1; cursor: pointer; transition: color 0.2s ease, background 0.2s ease; }
+.admin-text-size button[data-size='sm'] { font-size: 0.78rem; }
+.admin-text-size button[data-size='md'] { font-size: 0.98rem; }
+.admin-text-size button[data-size='lg'] { font-size: 1.2rem; }
+.admin-text-size button:hover { color: var(--ink); }
+.admin-text-size button[aria-pressed='true'] { color: var(--on-accent); background: var(--accent); }

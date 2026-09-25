@@ -7,15 +7,18 @@ import { AdminWorkspaceDescription, isPageWorkspaceDescriptionKind } from '@/adm
 import { AdminWorkspaceTitle } from '@/admin/AdminWorkspaceTitle';
 import { InlineNotice, StatePanel, StatusBadge } from '@/admin/AdminFeedback';
 import { ConfirmDialog } from '@/admin/AdminOverlays';
-import { CMS_DOCUMENT_METADATA, getAdminDocumentFailureCopy, getWorkspaceCapabilities, isWorkspaceDirty, pendingDocumentMutation, type DocumentMutation, type DocumentOperationState, type DocumentWorkspace } from '@/admin/documents';
+import { AdminIcon } from '@/admin/AdminIcon';
+import { AdminPopover } from '@/admin/AdminPopover';
+import { CMS_DOCUMENT_METADATA, formatAdminTimestamp, getAdminDocumentFailureCopy, getWorkspaceCapabilities, isWorkspaceDirty, pendingDocumentMutation, type DocumentMutation, type DocumentOperationState, type DocumentWorkspace } from '@/admin/documents';
 import { assertNever } from '@/admin/documents/assertNever';
 import { publicDocumentHref } from '@/admin/documents/publicLocation';
 import { PublishChanges } from '@/admin/documents/PublishChanges';
+import { RevisionHistoryDialog } from '@/admin/documents/RevisionHistory';
 import { isPreviewableKind } from '@/admin/preview/previewKinds';
 import { Icon } from '@/ui/Icon';
 import { DirtyNavigationGuard, type DocumentWorkspaceController } from '@/admin/workflows';
 import type { CmsDocumentKind } from '@/content/contracts/kinds';
-import { AdminWorkspaceEditorRegion } from './AdminWorkspaceEditorRegion';
+import { AdminWorkspaceEditorRegion, DocumentTechnicalDetails } from './AdminWorkspaceEditorRegion';
 
 type AdminDocumentWorkspaceViewProps = {
   readonly kind: CmsDocumentKind;
@@ -92,11 +95,13 @@ function OperationNotice({
 }
 
 export function AdminDocumentWorkspaceView({ kind, controller, workspace }: AdminDocumentWorkspaceViewProps) {
-  const { isZh } = useSite();
+  const { isZh, lang } = useSite();
   const { mutationsAllowed } = useAdminProtectedAccess();
   const metadata = CMS_DOCUMENT_METADATA[kind];
   const [confirmation, setConfirmation] = useState<Exclude<DocumentMutation, 'save'> | null>(null);
   const [previewing, setPreviewing] = useState(false);
+  const [historyOpen, setHistoryOpen] = useState(false);
+  const historyTriggerRef = useRef<HTMLButtonElement>(null);
   const previewable = isPreviewableKind(kind);
   const confirmationReturnFocusRef = useRef<HTMLElement | null>(null);
   const label = isZh ? metadata.label.zh : metadata.label.en;
@@ -123,16 +128,6 @@ export function AdminDocumentWorkspaceView({ kind, controller, workspace }: Admi
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [canSave]);
 
-  const railActions = hasActionableRevision ? (
-    <div className="admin-surface admin-rail-actions">
-      <a className="admin-button" data-variant="secondary" href={publicDocumentHref(kind)} target="_blank" rel="noreferrer">
-        <Icon name="arrowUpRight" />{isZh ? '在網站上查看' : 'View on site'}
-      </a>
-      <AdminButton variant="warning" loading={workspace.operation.status === 'archiving'} disabled={!mutationsAllowed || !capabilities.canArchive} onClick={(event) => { confirmationReturnFocusRef.current = event.currentTarget; setConfirmation('archive'); }}>{isZh ? '封存' : 'Archive'}</AdminButton>
-      <p>{isZh ? '封存後此文件不再作為公開內容，請僅在確定要下架時使用。' : 'Archiving removes this document from the public site. Use it only to take content down.'}</p>
-    </div>
-  ) : null;
-
   return (
     <AdminAppShell eyebrow={`ADMIN / ${kind.toUpperCase()}`} title={title} status={null} showcaseNavigation={false}>
       <DirtyNavigationGuard dirty={hasActionableRevision && isWorkspaceDirty(workspace)} pendingOperation={pendingDocumentMutation(workspace.operation)} />
@@ -145,30 +140,52 @@ export function AdminDocumentWorkspaceView({ kind, controller, workspace }: Admi
         />
         <div className="admin-action-bar" role="toolbar" aria-label={isZh ? '文件作業' : 'Document actions'}>
           <div className="admin-action-bar-status">
-            {hasActionableRevision ? <>
-              <StatusBadge status={publishedRevision === undefined ? 'warning' : 'success'}>{publishedRevision === undefined ? (isZh ? '尚未發布' : 'Unpublished') : (isZh ? '已發布' : 'Published')}</StatusBadge>
-              {workspace.actionableRevision.status === 'draft' ? <StatusBadge status="info">{isZh ? `草稿 · 版本 ${workspace.actionableRevision.version}` : `Draft · version ${workspace.actionableRevision.version}`}</StatusBadge> : null}
-            </> : <>
-              <StatusBadge status="disabled">{referenceRevision === null ? (isZh ? '無目前修訂' : 'No current revision') : (isZh ? '已封存' : 'Archived')}</StatusBadge>
-              {referenceRevision === null ? null : <span>{isZh ? `封存版本 ${referenceRevision.version}` : `Archived version ${referenceRevision.version}`}</span>}
-            </>}
+            <button ref={historyTriggerRef} type="button" className="admin-history-trigger" aria-haspopup="dialog" title={isZh ? '查看編輯紀錄' : 'View edit history'} onClick={() => setHistoryOpen(true)}>
+              {hasActionableRevision ? <>
+                <StatusBadge status={publishedRevision === undefined ? 'warning' : 'success'}>{publishedRevision === undefined ? (isZh ? '尚未發布' : 'Unpublished') : (isZh ? '已發布' : 'Published')}</StatusBadge>
+                {workspace.actionableRevision.status === 'draft' ? <StatusBadge status="info">{isZh ? `草稿 · 版本 ${workspace.actionableRevision.version}` : `Draft · version ${workspace.actionableRevision.version}`}</StatusBadge> : null}
+              </> : <>
+                <StatusBadge status="disabled">{referenceRevision === null ? (isZh ? '無目前修訂' : 'No current revision') : (isZh ? '已封存' : 'Archived')}</StatusBadge>
+                {referenceRevision === null ? null : <span>{isZh ? `封存版本 ${referenceRevision.version}` : `Archived version ${referenceRevision.version}`}</span>}
+              </>}
+              <AdminIcon name="history" />
+              <span className="sr-only">{isZh ? '（查看編輯紀錄）' : '(view edit history)'}</span>
+            </button>
             <AdminSaveStatus state={operationSaveState(workspace.operation)}>{saveStatusText(workspace, isZh)}</AdminSaveStatus>
+            <span className="admin-action-bar-meta">{isZh ? '更新於 ' : 'Updated '}<time dateTime={workspace.document.updatedAt}>{formatAdminTimestamp(workspace.document.updatedAt, lang)}</time></span>
           </div>
-          {hasActionableRevision ? (
-            <div className="admin-action-bar-actions">
-              {previewable ? (
-                <AdminButton variant="quiet" icon={previewing ? 'clipboard' : 'image'} aria-pressed={previewing} onClick={() => setPreviewing((current) => !current)}>
-                  {previewing ? (isZh ? '返回編輯' : 'Back to editing') : (isZh ? '預覽' : 'Preview')}
-                </AdminButton>
-              ) : null}
+          <div className="admin-action-bar-actions">
+            {hasActionableRevision && previewable ? (
+              <AdminButton variant="quiet" icon="image" aria-pressed={previewing} onClick={() => setPreviewing((current) => !current)}>
+                {previewing ? (isZh ? '關閉預覽' : 'Close preview') : (isZh ? '預覽' : 'Preview')}
+              </AdminButton>
+            ) : null}
+            {hasActionableRevision ? (
+              <a className="admin-icon-button" href={publicDocumentHref(kind)} target="_blank" rel="noreferrer" aria-label={isZh ? '在網站上查看（開新分頁）' : 'View on site (new tab)'} title={isZh ? '在網站上查看' : 'View on site'}>
+                <Icon name="arrowUpRight" />
+              </a>
+            ) : null}
+            <AdminPopover icon="more" label={isZh ? '更多文件作業' : 'More document actions'}>
+              {(close, trigger) => <>
+                <DocumentTechnicalDetails workspace={workspace} kind={kind} />
+                {hasActionableRevision ? (
+                  <div className="admin-popover-danger">
+                    <AdminButton variant="warning" icon="trash" loading={workspace.operation.status === 'archiving'} disabled={!mutationsAllowed || !capabilities.canArchive} onClick={() => { confirmationReturnFocusRef.current = trigger.current; close(); setConfirmation('archive'); }}>{isZh ? '封存' : 'Archive'}</AdminButton>
+                    <p>{isZh ? '封存後此文件不再作為公開內容，請僅在確定要下架時使用。' : 'Archiving removes this document from the public site. Use it only to take content down.'}</p>
+                  </div>
+                ) : null}
+              </>}
+            </AdminPopover>
+            {hasActionableRevision ? <>
+              <span className="admin-action-bar-divider" aria-hidden="true" />
               <AdminButton variant="secondary" loading={workspace.operation.status === 'publishing'} disabled={!mutationsAllowed || !capabilities.canPublish} onClick={(event) => { confirmationReturnFocusRef.current = event.currentTarget; setConfirmation('publish'); }}>{isZh ? '發佈' : 'Publish'}</AdminButton>
               <AdminButton variant="primary" loading={workspace.operation.status === 'saving'} disabled={!canSave} aria-keyshortcuts="Control+S Meta+S" title={isZh ? '儲存草稿（Ctrl/⌘ + S）' : 'Save draft (Ctrl/⌘ + S)'} onClick={() => void controller.save()}>{isZh ? '儲存草稿' : 'Save draft'}</AdminButton>
-            </div>
-          ) : null}
+            </> : null}
+          </div>
         </div>
         <OperationNotice mutationsAllowed={mutationsAllowed} workspace={workspace} onRecoverConflict={() => void controller.recoverConflict()} />
         {hasActionableRevision ? (
-          <AdminWorkspaceEditorRegion workspace={workspace} kind={kind} onChange={controller.setEditorText} railActions={railActions} previewing={previewable && previewing} />
+          <AdminWorkspaceEditorRegion workspace={workspace} kind={kind} onChange={controller.setEditorText} previewing={previewable && previewing} />
         ) : (
           <section className="admin-surface">
             <StatePanel
@@ -208,6 +225,7 @@ export function AdminDocumentWorkspaceView({ kind, controller, workspace }: Admi
         }}
         onClose={() => setConfirmation(null)}
       />
+      <RevisionHistoryDialog open={historyOpen} workspace={workspace} triggerRef={historyTriggerRef} onClose={() => setHistoryOpen(false)} />
     </AdminAppShell>
   );
 }

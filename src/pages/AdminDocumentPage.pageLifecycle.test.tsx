@@ -46,11 +46,18 @@ function editFirstField(view: RenderResult, kind: (typeof PAGE_EDITOR_KINDS)[num
   fireEvent.change(control, { target: { value: `${control.value}${suffix}` } });
 }
 
+/** Archive and the technical details sit behind the action bar's overflow menu. */
+function openDocumentMenu(view: RenderResult): void {
+  const trigger = view.getByRole('button', { name: '更多文件作業' });
+  if (trigger.getAttribute('aria-expanded') !== 'true') fireEvent.click(trigger);
+}
+
 function expectWorkspaceChrome(view: RenderResult, kind: (typeof PAGE_EDITOR_KINDS)[number]): void {
   expect(view.getByRole('main').id).toBe('admin-main');
   expect(view.getByRole('link', { name: '跳到管理內容' }).getAttribute('href')).toBe('#admin-main');
   expect(view.getByRole('complementary', { name: '文件資訊' })).toBeTruthy();
   expect(view.getByText(kind, { selector: 'code' })).toBeTruthy();
+  openDocumentMenu(view);
   for (const label of ['儲存草稿', '發佈', '封存']) {
     expect(view.getByRole('button', { name: label })).toBeTruthy();
   }
@@ -108,6 +115,7 @@ describe('AdminDocumentPage page editor lifecycle', () => {
 
     expect((await pageAdvancedEditor(view)).value).toBe('{"broken":\n');
     expect(view.getByText('無法開啟結構化編輯器')).toBeTruthy();
+    openDocumentMenu(view);
     for (const label of ['儲存草稿', '發佈', '封存']) {
       expect(view.getByRole('button', { name: label }).hasAttribute('disabled')).toBe(true);
     }
@@ -223,6 +231,7 @@ describe('AdminDocumentPage page editor lifecycle', () => {
     }));
     const view = await readyPageRoute(repository, 'digital_materials');
     const action = operation === 'publish' ? '發佈' : '封存';
+    if (operation === 'archive') openDocumentMenu(view);
 
     await user.click(view.getByRole('button', { name: action }));
     expect(repository[`${operation}Calls`]).toHaveLength(0);

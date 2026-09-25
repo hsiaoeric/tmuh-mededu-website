@@ -136,23 +136,64 @@
 
 .admin-action-bar-status,
 .admin-action-bar-actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--admin-space-2); min-inline-size: 0; }
-.admin-action-bar-status > span:not(.admin-status):not(.admin-save-status) { color: var(--muted); font-size: 0.7rem; }
+.admin-action-bar-status > span:not(.admin-status):not(.admin-save-status),
+.admin-history-trigger > span:not(.admin-status) { color: var(--muted); font-size: 0.7rem; }
+.admin-action-bar-meta { color: var(--faint); font-size: 0.7rem; white-space: nowrap; }
+.admin-action-bar-divider { align-self: stretch; inline-size: 1px; margin-inline: var(--admin-space-1); background: var(--line); }
+
+/* Status badges double as the way into the edit history. */
+.admin-history-trigger { display: inline-flex; flex-wrap: wrap; align-items: center; gap: var(--admin-space-1); min-block-size: var(--admin-control-h); margin-inline-start: calc(var(--admin-space-2) * -1); padding-inline: var(--admin-space-2); border: 1px solid transparent; border-radius: var(--radius); color: var(--faint); background: transparent; cursor: pointer; transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease; }
+.admin-history-trigger:hover { border-color: var(--line); background: var(--accent-veil); color: var(--accent); }
+.admin-history-trigger:active { background: var(--accent-wash); }
+
+.admin-popover { position: relative; }
+.admin-popover-panel { position: absolute; inset-block-start: calc(100% + var(--admin-space-2)); inset-inline-end: 0; z-index: 20; display: grid; gap: var(--admin-space-3); inline-size: min(20rem, calc(100vw - var(--admin-space-4))); padding: var(--admin-space-3); border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--surface); box-shadow: var(--shadow-lg); animation: admin-dialog-in 0.2s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.admin-popover-panel[hidden] { display: none; }
+.admin-popover-danger { display: grid; gap: var(--admin-space-2); padding-block-start: var(--admin-space-3); border-block-start: 1px solid var(--line-soft); }
+.admin-popover-danger .admin-button { inline-size: 100%; }
+.admin-popover-danger p { color: var(--muted); font-size: 0.7rem; line-height: 1.55; }
+.admin-document-details h3 { margin-block-end: var(--admin-space-2); color: var(--faint); font-family: 'IBM Plex Mono', 'Noto Sans TC', ui-monospace, monospace; font-size: 0.7rem; font-weight: 500; letter-spacing: 0.12em; }
 
 .admin-workspace-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(min(14rem, 100%), 17rem);
+  grid-template-columns: minmax(0, 1fr) minmax(min(13rem, 100%), 16rem);
   align-items: start;
   gap: var(--admin-space-4);
 }
 
-.admin-workspace-editor { display: flex; flex-direction: column; gap: var(--admin-space-4); min-inline-size: 0; }
-.admin-workspace-editor[hidden] { display: none; }
+/* Nothing to show in the rail (a one-section document): give the editor the whole width. */
+.admin-workspace-grid:has(> .admin-workspace-rail:empty) { grid-template-columns: minmax(0, 1fr); }
+.admin-workspace-rail:empty { display: none; }
+
+/* Split view: the rail widens into a live preview beside the editor. */
+.admin-workspace-grid[data-previewing] { grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr); gap: var(--admin-space-3); }
+
+/*
+ * The editor is dense by default: long documents are mostly repeated fields, so tighter rhythm
+ * shows more of them at once. Tokens are re-scoped here rather than changed globally.
+ */
+.admin-workspace-editor {
+  --admin-space-3: 12px;
+  --admin-space-4: 18px;
+  --admin-space-5: 28px;
+  --admin-control-h: 38px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--admin-space-3);
+  min-inline-size: 0;
+}
+
+/* Editor text size, chosen in the header. `zoom` scales type and spacing together, like browser zoom. */
+.admin-shell[data-text-size='sm'] :is(.admin-workspace-editor, .admin-outline, .admin-dashboard-groups) { zoom: 0.88; }
+.admin-shell[data-text-size='lg'] :is(.admin-workspace-editor, .admin-outline, .admin-dashboard-groups) { zoom: 1.12; }
 
 .admin-preview { display: grid; gap: var(--admin-space-3); min-inline-size: 0; }
 .admin-preview-note { color: var(--muted); font-size: 0.78rem; line-height: 1.55; }
 /* The public section at its real size, framed so it reads as the site rather than the admin. */
 .admin-preview-frame { min-inline-size: 0; overflow: hidden; border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--bg); box-shadow: var(--shadow-sm); }
 .admin-preview-frame > * { margin: 0; }
+.admin-preview-canvas { zoom: var(--preview-zoom, 1); }
+.admin-workspace-rail .admin-preview-note { font-size: 0.7rem; }
 
 .admin-workspace-rail {
   position: sticky;
@@ -167,17 +208,20 @@
 
 .admin-outline { display: grid; gap: var(--admin-space-2); padding: var(--admin-space-3); border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--surface); }
 .admin-outline h2,
-.admin-document-details summary { color: var(--faint); font-family: 'IBM Plex Mono', 'Noto Sans TC', ui-monospace, monospace; font-size: 0.7rem; letter-spacing: 0.12em; font-weight: 500; }
-.admin-outline ol { display: grid; gap: 2px; margin: 0; padding: 0; list-style: none; }
-.admin-outline a { display: block; padding: var(--admin-space-1) var(--admin-space-2); border-inline-start: 2px solid transparent; border-radius: 0 var(--radius) var(--radius) 0; color: var(--body); font-size: 0.78rem; line-height: 1.45; overflow-wrap: anywhere; }
-.admin-outline a:hover { color: var(--ink); background: var(--accent-veil); }
-.admin-outline a[aria-current='location'] { color: var(--ink); border-inline-start-color: var(--accent); background: var(--accent-veil); font-weight: 600; }
-
-.admin-rail-actions { display: grid; gap: var(--admin-space-2); }
-.admin-rail-actions .admin-button { inline-size: 100%; }
-.admin-rail-actions p { color: var(--muted); font-size: 0.7rem; line-height: 1.55; }
-.admin-document-details summary { cursor: pointer; }
-.admin-document-details[open] summary { margin-block-end: var(--admin-space-3); }
+.admin-outline summary > span { color: var(--faint); font-family: 'IBM Plex Mono', 'Noto Sans TC', ui-monospace, monospace; font-size: 0.7rem; letter-spacing: 0.12em; font-weight: 500; }
+.admin-outline ol { display: grid; gap: 1px; margin: 0; padding: 0; list-style: none; }
+.admin-outline :is(a, button) { display: flex; align-items: baseline; justify-content: space-between; gap: var(--admin-space-2); inline-size: 100%; padding: 3px var(--admin-space-2); border: 0; border-inline-start: 2px solid transparent; border-radius: 0 var(--radius) var(--radius) 0; color: var(--body); background: transparent; font: inherit; font-size: 0.76rem; line-height: 1.4; text-align: start; overflow-wrap: anywhere; cursor: pointer; }
+.admin-outline :is(a, button):hover { color: var(--ink); background: var(--accent-veil); }
+.admin-outline :is(a, button)[aria-current='location'] { color: var(--ink); border-inline-start-color: var(--accent); background: var(--accent-veil); font-weight: 600; }
+.admin-outline a[data-within]:not([aria-current]) { color: var(--ink); border-inline-start-color: color-mix(in srgb, var(--accent) 40%, transparent); }
+/* Sub-items: indented under their section, quieter, with a count for collections. */
+.admin-outline ol ol { margin-block: 1px var(--admin-space-1); padding-inline-start: var(--admin-space-3); border-inline-start: 1px solid var(--line-soft); margin-inline-start: var(--admin-space-2); }
+.admin-outline ol ol button { color: var(--muted); font-size: 0.72rem; }
+.admin-outline ol ol small { flex: none; color: var(--faint); font-size: 0.64rem; font-weight: 400; }
+.admin-outline[data-compact] { gap: 0; padding: var(--admin-space-2) var(--admin-space-3); }
+.admin-outline[data-compact] summary { display: flex; align-items: baseline; gap: var(--admin-space-2); min-inline-size: 0; cursor: pointer; }
+.admin-outline[data-compact] summary strong { min-inline-size: 0; overflow: hidden; color: var(--ink); font-size: 0.76rem; text-overflow: ellipsis; white-space: nowrap; }
+.admin-outline[data-compact][open] nav { max-block-size: 40vh; margin-block-start: var(--admin-space-2); overflow: auto; }
 .admin-editor-section h2:focus-visible { outline: none; }
 
 .admin-workspace-grid > * { min-inline-size: 0; }
@@ -286,9 +330,12 @@
 }
 
 @media (max-width: 1100px) {
-  .admin-workspace-grid { grid-template-columns: minmax(0, 1fr); }
+  .admin-workspace-grid,
+  .admin-workspace-grid[data-previewing] { grid-template-columns: minmax(0, 1fr); }
   .admin-workspace-rail { position: static; max-block-size: none; overflow: visible; }
   .admin-outline { display: none; }
+  /* No room to split: the preview takes the editor's place until it is closed. */
+  .admin-workspace-grid[data-previewing] .admin-workspace-editor { display: none; }
 }
 
 @media (max-width: 620px) {

@@ -1,11 +1,11 @@
 import { forwardRef, type ButtonHTMLAttributes, type ReactNode } from 'react';
-import { Icon, type IconName } from '@/ui/Icon';
+import { AdminIcon, type AdminIconName } from './AdminIcon';
 
 export type AdminButtonVariant = 'primary' | 'secondary' | 'quiet' | 'warning';
 
 type AdminButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   readonly variant?: AdminButtonVariant;
-  readonly icon?: IconName;
+  readonly icon?: AdminIconName;
   readonly loading?: boolean;
   readonly success?: boolean;
   readonly children: ReactNode;
@@ -36,7 +36,7 @@ export const AdminButton = forwardRef<HTMLButtonElement, AdminButtonProps>(funct
       className={`admin-button ${className}`}
     >
       <span className="admin-button-icon" aria-hidden="true">
-        {loading ? <span className="admin-loading-mark" /> : success ? <Icon name="check" /> : icon ? <Icon name={icon} /> : null}
+        {loading ? <span className="admin-loading-mark" /> : success ? <AdminIcon name="check" /> : icon ? <AdminIcon name={icon} /> : null}
       </span>
       <span>{children}</span>
     </button>
@@ -45,7 +45,7 @@ export const AdminButton = forwardRef<HTMLButtonElement, AdminButtonProps>(funct
 
 type AdminIconButtonProps = Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'aria-label'> & {
   readonly label: string;
-  readonly icon: IconName;
+  readonly icon: AdminIconName;
   readonly pressed?: boolean;
 };
 
@@ -67,7 +67,7 @@ export const AdminIconButton = forwardRef<HTMLButtonElement, AdminIconButtonProp
       title={label}
       className={`admin-icon-button ${className}`}
     >
-      <Icon name={icon} />
+      <AdminIcon name={icon} />
     </button>
   );
 });

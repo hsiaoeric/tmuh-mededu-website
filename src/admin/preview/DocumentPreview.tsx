@@ -1,4 +1,4 @@
-import { useMemo, type ReactElement } from 'react';
+import { useLayoutEffect, useMemo, useRef, type ReactElement } from 'react';
 import { useSite } from '@/app/site';
 import { InlineNotice } from '@/admin/AdminFeedback';
 import type { DocumentWorkspace } from '@/admin/documents';
@@ -56,11 +56,34 @@ function previewContent(kind: CmsDocumentKind, workspace: DocumentWorkspace): Pr
   };
 }
 
+/** Width the public section is laid out at before being scaled down to fit the preview pane. */
+const PREVIEW_CANVAS_WIDTH = 1280;
+
+/**
+ * Scales the canvas so the section keeps its desktop layout at any pane width. The site's own
+ * breakpoints follow the window, not this pane, so rendering at the pane's real width would
+ * squeeze a desktop layout instead of showing the mobile one.
+ */
+function useFitZoom(rendered: boolean) {
+  const frameRef = useRef<HTMLDivElement>(null);
+  useLayoutEffect(() => {
+    const frame = frameRef.current;
+    if (frame === null || typeof ResizeObserver === 'undefined') return undefined;
+    const fit = () => frame.style.setProperty('--preview-zoom', String(Math.min(1, frame.clientWidth / PREVIEW_CANVAS_WIDTH)));
+    fit();
+    const observer = new ResizeObserver(fit);
+    observer.observe(frame);
+    return () => observer.disconnect();
+  }, [rendered]);
+  return frameRef;
+}
+
 /** The current editor text rendered by the live public section, before saving or publishing. */
 export function DocumentPreview({ kind, workspace }: DocumentPreviewProps) {
   const { isZh } = useSite();
   const Section = PREVIEW_SECTIONS[kind];
   const result = useMemo(() => previewContent(kind, workspace), [kind, workspace]);
+  const frameRef = useFitZoom(result.ok);
   if (Section === undefined) return null;
   if (!result.ok) {
     return (
@@ -78,17 +101,20 @@ export function DocumentPreview({ kind, workspace }: DocumentPreviewProps) {
       </p>
       {/* Links must not navigate away from unsaved edits; in-section toggles such as member panels still work. */}
       <div
+        ref={frameRef}
         className="admin-preview-frame"
         onClickCapture={(event) => {
           if ((event.target as Element).closest('a') !== null) event.preventDefault();
         }}
       >
         {/* Scroll-triggered reveals watch the window, but the admin scrolls its own container. */}
-        <StillMotion>
-          <ContentPreviewProvider override={result.content}>
-            <Section />
-          </ContentPreviewProvider>
-        </StillMotion>
+        <div className="admin-preview-canvas" style={{ inlineSize: PREVIEW_CANVAS_WIDTH }}>
+          <StillMotion>
+            <ContentPreviewProvider override={result.content}>
+              <Section />
+            </ContentPreviewProvider>
+          </StillMotion>
+        </div>
       </div>
     </div>
   );

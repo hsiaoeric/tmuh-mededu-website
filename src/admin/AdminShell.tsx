@@ -5,6 +5,8 @@ import { useSite } from '@/app/site';
 import { Icon } from '@/ui/Icon';
 import { AdminButton, AdminIconButton } from './AdminButton';
 import { InlineNotice, StatusBadge } from './AdminFeedback';
+import { AdminSearch } from './AdminSearch';
+import { ADMIN_TEXT_SIZES, useAdminNavCollapsed, useAdminTextSize, type AdminTextSize } from './adminPreferences';
 import { getFocusableElements } from './focus';
 import { CMS_DOCUMENT_GROUPS, CMS_DOCUMENT_METADATA } from './documents/cmsDocumentMetadata';
 
@@ -59,7 +61,18 @@ function AdminSideNav({ activeId, drawer, onNavigate, onSelect, showcaseNavigati
   );
 }
 
-type AdminHeaderProps = { readonly onOpenDrawer: () => void; readonly drawerTriggerRef: RefObject<HTMLButtonElement>; readonly eyebrow: string; readonly title: ReactNode; readonly status: ReactNode; readonly sessionAction: ReactNode };
+type AdminHeaderProps = {
+  readonly onOpenDrawer: () => void;
+  readonly drawerTriggerRef: RefObject<HTMLButtonElement>;
+  readonly navCollapsed: boolean;
+  readonly onToggleNav: () => void;
+  readonly textSize: AdminTextSize;
+  readonly onTextSize: (size: AdminTextSize) => void;
+  readonly eyebrow: string;
+  readonly title: ReactNode;
+  readonly status: ReactNode;
+  readonly sessionAction: ReactNode;
+};
 
 export type AdminSaveState = 'ready' | 'saving' | 'error';
 const SAVE_STATUS_ICON: Readonly<Record<AdminSaveState, 'check' | 'refresh' | 'alert'>> = {
@@ -72,12 +85,37 @@ export function AdminSaveStatus({ state, children }: { readonly state: AdminSave
   return <span className="admin-save-status" data-save-state={state} role={state === 'error' ? 'alert' : 'status'}><Icon name={SAVE_STATUS_ICON[state]} />{children}</span>;
 }
 
-function AdminHeader({ onOpenDrawer, drawerTriggerRef, eyebrow, title, status, sessionAction }: AdminHeaderProps) {
+const TEXT_SIZE_LABELS: Readonly<Record<AdminTextSize, { readonly zh: string; readonly en: string; readonly short: string }>> = {
+  sm: { zh: '小字', en: 'Small text', short: 'A' },
+  md: { zh: '標準字級', en: 'Default text', short: 'A' },
+  lg: { zh: '大字', en: 'Large text', short: 'A' },
+};
+
+/** Editor text size, as a three-step segmented control. */
+function AdminTextSizeControl({ value, onChange }: { readonly value: AdminTextSize; readonly onChange: (size: AdminTextSize) => void }) {
+  const { isZh } = useSite();
+  return (
+    <div className="admin-text-size" role="group" aria-label={isZh ? '編輯器文字大小' : 'Editor text size'}>
+      {ADMIN_TEXT_SIZES.map((size) => {
+        const label = isZh ? TEXT_SIZE_LABELS[size].zh : TEXT_SIZE_LABELS[size].en;
+        return <button key={size} type="button" data-size={size} aria-pressed={size === value} aria-label={label} title={label} onClick={() => onChange(size)}>{TEXT_SIZE_LABELS[size].short}</button>;
+      })}
+    </div>
+  );
+}
+
+function AdminHeader({ onOpenDrawer, drawerTriggerRef, navCollapsed, onToggleNav, textSize, onTextSize, eyebrow, title, status, sessionAction }: AdminHeaderProps) {
   const { isZh, theme, toggleLang, toggleTheme } = useSite();
   return (
     <header className="admin-header">
-      <div className="admin-header-location"><AdminIconButton ref={drawerTriggerRef} className="admin-menu-trigger" icon="menu" label={isZh ? '開啟導覽' : 'Open navigation'} onClick={onOpenDrawer} /><b className="admin-mobile-label">{isZh ? '管理' : 'Admin'}</b><span><small className="mono">{eyebrow}</small><strong>{title}</strong></span></div>
-      <div className="admin-header-tools">{status === null ? null : isValidElement(status) ? status : <AdminSaveStatus state="ready">{status}</AdminSaveStatus>}{sessionAction}<AdminButton variant="quiet" onClick={toggleLang}>{isZh ? 'EN' : '中'}</AdminButton><AdminIconButton icon={theme === 'dark' ? 'sun' : 'moon'} label={isZh ? '切換明暗主題' : 'Toggle theme'} onClick={toggleTheme} /></div>
+      <div className="admin-header-location">
+        <AdminIconButton ref={drawerTriggerRef} className="admin-menu-trigger" icon="menu" label={isZh ? '開啟導覽' : 'Open navigation'} onClick={onOpenDrawer} />
+        <AdminIconButton className="admin-nav-toggle" icon="sidebar" label={navCollapsed ? (isZh ? '顯示側邊欄' : 'Show sidebar') : (isZh ? '隱藏側邊欄' : 'Hide sidebar')} aria-expanded={!navCollapsed} aria-controls="admin-desktop-nav" onClick={onToggleNav} />
+        <b className="admin-mobile-label">{isZh ? '管理' : 'Admin'}</b>
+        <span><small className="mono">{eyebrow}</small><strong>{title}</strong></span>
+      </div>
+      <AdminSearch />
+      <div className="admin-header-tools">{status === null ? null : isValidElement(status) ? status : <AdminSaveStatus state="ready">{status}</AdminSaveStatus>}<AdminTextSizeControl value={textSize} onChange={onTextSize} />{sessionAction}<AdminButton variant="quiet" onClick={toggleLang}>{isZh ? 'EN' : '中'}</AdminButton><AdminIconButton icon={theme === 'dark' ? 'sun' : 'moon'} label={isZh ? '切換明暗主題' : 'Toggle theme'} onClick={toggleTheme} /></div>
     </header>
   );
 }
@@ -91,6 +129,8 @@ export function AdminAppShell({ children, notices = [], eyebrow = 'ADMIN / DESIG
   const location = useLocation();
   const [activeId, setActiveId] = useState<AdminSectionId>('foundation');
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [navCollapsed, setNavCollapsed] = useAdminNavCollapsed();
+  const [textSize, setTextSize] = useAdminTextSize();
   const drawerRef = useRef<HTMLDivElement>(null);
   const drawerTriggerRef = useRef<HTMLButtonElement>(null);
   const mainRef = useRef<HTMLElement>(null);
@@ -207,10 +247,10 @@ export function AdminAppShell({ children, notices = [], eyebrow = 'ADMIN / DESIG
     return () => { document.removeEventListener('keydown', handleKeyDown); drawerTriggerRef.current?.focus(); };
   }, [drawerOpen, drawerRef, drawerTriggerRef]);
   return (
-    <div className="admin-shell">
+    <div className="admin-shell" data-nav-collapsed={navCollapsed || undefined} data-text-size={textSize}>
       <div className="admin-skip-slot"><a className="skip-link" href="#admin-main">{isZh ? '跳到管理內容' : 'Skip to admin content'}</a></div>
-      <div className="admin-desktop-nav"><AdminSideNav activeId={activeId} drawer={false} onSelect={selectSection} showcaseNavigation={showcaseNavigation} /></div>
-      <div className="admin-shell-column"><AdminHeader onOpenDrawer={() => setDrawerOpen(true)} drawerTriggerRef={drawerTriggerRef} eyebrow={eyebrow} title={headerTitle} status={headerStatus} sessionAction={sessionAction} />{notices.length || sessionNotice ? <div className="admin-shell-notices">{sessionNotice}{notices.map((notice, index) => <InlineNotice key={`${notice.status}-${index}`} status={notice.status} title={notice.title} lang={isZh ? 'zh-Hant' : 'en'}>{notice.description}</InlineNotice>)}</div> : null}<main ref={mainRef} id="admin-main" className="admin-main" tabIndex={-1} data-lenis-prevent>{children}</main></div>
+      <div className="admin-desktop-nav" id="admin-desktop-nav" hidden={navCollapsed}><AdminSideNav activeId={activeId} drawer={false} onSelect={selectSection} showcaseNavigation={showcaseNavigation} /></div>
+      <div className="admin-shell-column"><AdminHeader onOpenDrawer={() => setDrawerOpen(true)} drawerTriggerRef={drawerTriggerRef} navCollapsed={navCollapsed} onToggleNav={() => setNavCollapsed(!navCollapsed)} textSize={textSize} onTextSize={setTextSize} eyebrow={eyebrow} title={headerTitle} status={headerStatus} sessionAction={sessionAction} />{notices.length || sessionNotice ? <div className="admin-shell-notices">{sessionNotice}{notices.map((notice, index) => <InlineNotice key={`${notice.status}-${index}`} status={notice.status} title={notice.title} lang={isZh ? 'zh-Hant' : 'en'}>{notice.description}</InlineNotice>)}</div> : null}<main ref={mainRef} id="admin-main" className="admin-main" tabIndex={-1} data-lenis-prevent>{children}</main></div>
       {drawerOpen ? <div className="admin-drawer-layer"><button type="button" className="admin-drawer-backdrop" aria-label={isZh ? '關閉導覽' : 'Close navigation'} onClick={() => setDrawerOpen(false)} /><div ref={drawerRef} className="admin-drawer" role="dialog" aria-modal="true" aria-label={isZh ? '管理介面導覽' : 'Admin navigation'}><div className="admin-drawer-header"><AdminIconButton icon="close" label={isZh ? '關閉導覽' : 'Close navigation'} onClick={() => setDrawerOpen(false)} /></div><AdminSideNav activeId={activeId} drawer onNavigate={() => setDrawerOpen(false)} onSelect={selectSection} showcaseNavigation={showcaseNavigation} /></div></div> : null}
     </div>
   );

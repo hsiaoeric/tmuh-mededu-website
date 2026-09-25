@@ -1,4 +1,4 @@
-import { lazy, Suspense, useRef, type ReactNode } from 'react';
+import { lazy, Suspense, useRef } from 'react';
 import { useSite } from '@/app/site';
 import { DocumentOutline } from '@/admin/DocumentOutline';
 import { formatAdminTimestamp, type DocumentWorkspace } from '@/admin/documents';
@@ -18,9 +18,7 @@ export type AdminWorkspaceEditorRegionProps = {
   readonly workspace: DocumentWorkspace;
   readonly kind: CmsDocumentKind;
   readonly onChange: (editorText: string) => void;
-  /** Rarely used document actions shown in the side rail, such as archive. */
-  readonly railActions?: ReactNode;
-  /** Show the live public preview instead of the editor; the editor stays mounted to keep its state. */
+  /** Show the live public preview beside the editor, in place of the full outline. */
   readonly previewing?: boolean;
 };
 
@@ -28,12 +26,10 @@ export function AdminWorkspaceEditorRegion({
   workspace,
   kind,
   onChange,
-  railActions,
   previewing = false,
 }: AdminWorkspaceEditorRegionProps) {
-  const { isZh, lang } = useSite();
+  const { isZh } = useSite();
   const editorRef = useRef<HTMLDivElement>(null);
-  const publishedRevision = workspace.revisions.find((revision) => revision.status === 'published');
   const editor = (() => {
     switch (kind) {
       case 'site_copy':
@@ -56,13 +52,8 @@ export function AdminWorkspaceEditorRegion({
   })();
 
   return (
-    <section className="admin-workspace-grid">
-      {previewing ? (
-        <Suspense fallback={<p className="admin-preview-note" role="status">{isZh ? '正在載入預覽…' : 'Loading preview…'}</p>}>
-          <DocumentPreview kind={kind} workspace={workspace} />
-        </Suspense>
-      ) : null}
-      <div ref={editorRef} className="admin-workspace-editor" hidden={previewing}>
+    <section className="admin-workspace-grid" data-previewing={previewing || undefined}>
+      <div ref={editorRef} className="admin-workspace-editor">
         {kind === 'people' || kind === 'facdev' ? (
           <AdminMediaWorkbench
             kind={kind}
@@ -75,22 +66,34 @@ export function AdminWorkspaceEditorRegion({
         <EditorDensityProvider collapseItemsByDefault isZh={isZh}>{editor}</EditorDensityProvider>
       </div>
       <aside className="admin-workspace-rail" aria-label={isZh ? '文件資訊' : 'Document details'}>
-        {previewing ? null : <DocumentOutline editorRef={editorRef} revision={workspace.editorText} />}
-        {railActions}
-        <details className="admin-surface admin-document-details">
-          <summary>{isZh ? '技術資訊' : 'Technical details'}</summary>
-          <dl className="admin-document-context">
-            <div><dt>{isZh ? '內容類型' : 'Content kind'}</dt><dd><StableKey value={kind} /></dd></div>
-            <div><dt>{isZh ? '穩定鍵' : 'Stable key'}</dt><dd><StableKey value={CMS_DOCUMENT_STABLE_KEYS[kind]} /></dd></div>
-            {workspace.actionableRevision === null ? null : <>
-              <div><dt>{isZh ? '目前版本' : 'Current version'}</dt><dd>{workspace.actionableRevision.version}</dd></div>
-              <div><dt>{isZh ? '編輯權杖' : 'Edit token'}</dt><dd>{workspace.expectedEditVersion}</dd></div>
-            </>}
-            <div><dt>{isZh ? '最後更新' : 'Last updated'}</dt><dd>{formatAdminTimestamp(workspace.document.updatedAt, lang)}</dd></div>
-            <div><dt>{isZh ? '發布修訂' : 'Published revision'}</dt><dd>{publishedRevision?.version ?? (isZh ? '尚未發布' : 'Not published')}</dd></div>
-          </dl>
-        </details>
+        <DocumentOutline editorRef={editorRef} revision={workspace.editorText} compact={previewing} />
+        {previewing ? (
+          <Suspense fallback={<p className="admin-preview-note" role="status">{isZh ? '正在載入預覽…' : 'Loading preview…'}</p>}>
+            <DocumentPreview kind={kind} workspace={workspace} />
+          </Suspense>
+        ) : null}
       </aside>
     </section>
+  );
+}
+
+/** Content kind, stable key, and revision tokens: rarely needed, so kept behind the action bar's menu. */
+export function DocumentTechnicalDetails({ workspace, kind }: { readonly workspace: DocumentWorkspace; readonly kind: CmsDocumentKind }) {
+  const { isZh, lang } = useSite();
+  const publishedRevision = workspace.revisions.find((revision) => revision.status === 'published');
+  return (
+    <div className="admin-document-details">
+      <h3>{isZh ? '技術資訊' : 'Technical details'}</h3>
+      <dl className="admin-document-context">
+        <div><dt>{isZh ? '內容類型' : 'Content kind'}</dt><dd><StableKey value={kind} /></dd></div>
+        <div><dt>{isZh ? '穩定鍵' : 'Stable key'}</dt><dd><StableKey value={CMS_DOCUMENT_STABLE_KEYS[kind]} /></dd></div>
+        {workspace.actionableRevision === null ? null : <>
+          <div><dt>{isZh ? '目前版本' : 'Current version'}</dt><dd>{workspace.actionableRevision.version}</dd></div>
+          <div><dt>{isZh ? '編輯權杖' : 'Edit token'}</dt><dd>{workspace.expectedEditVersion}</dd></div>
+        </>}
+        <div><dt>{isZh ? '最後更新' : 'Last updated'}</dt><dd>{formatAdminTimestamp(workspace.document.updatedAt, lang)}</dd></div>
+        <div><dt>{isZh ? '發布修訂' : 'Published revision'}</dt><dd>{publishedRevision?.version ?? (isZh ? '尚未發布' : 'Not published')}</dd></div>
+      </dl>
+    </div>
   );
 }
