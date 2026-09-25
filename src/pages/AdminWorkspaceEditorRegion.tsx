@@ -1,5 +1,6 @@
-import { lazy, Suspense, useEffect, useMemo, useRef, useState, type RefObject } from 'react';
+import { lazy, Suspense, useEffect, useMemo, useRef, useState, type CSSProperties, type KeyboardEvent, type PointerEvent as ReactPointerEvent, type RefObject } from 'react';
 import { useSite } from '@/app/site';
+import { clampPreviewSplit, PREVIEW_SPLIT_DEFAULT, PREVIEW_SPLIT_MAX, PREVIEW_SPLIT_MIN, useAdminPreviewSplit } from '@/admin/adminPreferences';
 import { DocumentOutline } from '@/admin/DocumentOutline';
 import { formatAdminTimestamp, type DocumentWorkspace } from '@/admin/documents';
 import { assertNever } from '@/admin/documents/assertNever';
@@ -91,6 +92,52 @@ function usePreviewLocate(editorRef: RefObject<HTMLElement>, previewing: boolean
   return { locate, request };
 }
 
+const SPLIT_STEP = 2;
+
+/**
+ * The divider between the editor and the preview. Dragging updates the width live and saves it on
+ * release; the arrow keys, Home and End do the same from the keyboard, and a double click resets it.
+ */
+function PreviewSplitter({ split, onChange, isZh }: { readonly split: number; readonly onChange: (next: number, commit: boolean) => void; readonly isZh: boolean }) {
+  const [dragging, setDragging] = useState(false);
+  const toSplit = (event: ReactPointerEvent<HTMLDivElement>) => {
+    const grid = event.currentTarget.parentElement;
+    if (grid === null) return split;
+    const rect = grid.getBoundingClientRect();
+    return clampPreviewSplit(((event.clientX - rect.left) / Math.max(1, rect.width)) * 100);
+  };
+  const handleKey = (event: KeyboardEvent<HTMLDivElement>) => {
+    const next = ({ ArrowLeft: split - SPLIT_STEP, ArrowRight: split + SPLIT_STEP, Home: PREVIEW_SPLIT_MIN, End: PREVIEW_SPLIT_MAX } as Record<string, number>)[event.key];
+    if (next === undefined) return;
+    event.preventDefault();
+    onChange(clampPreviewSplit(next), true);
+  };
+  return (
+    <div
+      className="admin-workspace-splitter"
+      role="separator"
+      aria-orientation="vertical"
+      aria-label={isZh ? '調整編輯器與預覽的寬度' : 'Resize editor and preview'}
+      aria-valuemin={PREVIEW_SPLIT_MIN}
+      aria-valuemax={PREVIEW_SPLIT_MAX}
+      aria-valuenow={split}
+      tabIndex={0}
+      data-dragging={dragging || undefined}
+      onPointerDown={(event) => {
+        if (event.button !== 0) return;
+        event.preventDefault();
+        event.currentTarget.setPointerCapture(event.pointerId);
+        setDragging(true);
+      }}
+      onPointerMove={(event) => { if (dragging) onChange(toSplit(event), false); }}
+      onPointerUp={(event) => { if (!dragging) return; setDragging(false); onChange(toSplit(event), true); }}
+      onPointerCancel={() => { if (dragging) { setDragging(false); onChange(split, true); } }}
+      onDoubleClick={() => onChange(PREVIEW_SPLIT_DEFAULT, true)}
+      onKeyDown={handleKey}
+    />
+  );
+}
+
 export function AdminWorkspaceEditorRegion({
   workspace,
   kind,
@@ -115,6 +162,17 @@ export function AdminWorkspaceEditorRegion({
     };
   }, [changedKey, isZh]);
   const locateTarget = useHoveredField(editorRef, onRequestPreview !== undefined);
+  const [savedSplit, saveSplit] = useAdminPreviewSplit();
+  const [liveSplit, setLiveSplit] = useState<number | null>(null);
+  const split = liveSplit ?? savedSplit;
+  const changeSplit = (next: number, commit: boolean) => {
+    if (commit) {
+      setLiveSplit(null);
+      saveSplit(next);
+    } else {
+      setLiveSplit(next);
+    }
+  };
   const editor = (() => {
     switch (kind) {
       case 'site_copy':
@@ -137,7 +195,12 @@ export function AdminWorkspaceEditorRegion({
   })();
 
   return (
-    <section className="admin-workspace-grid" data-previewing={previewing || undefined}>
+    <section
+      className="admin-workspace-grid"
+      data-previewing={previewing || undefined}
+      data-resizing={liveSplit === null ? undefined : true}
+      style={previewing ? ({ '--admin-preview-split': `${split}%` } as CSSProperties) : undefined}
+    >
       <div ref={editorRef} className="admin-workspace-editor">
         {kind === 'people' || kind === 'facdev' ? (
           <AdminMediaWorkbench
@@ -164,6 +227,7 @@ export function AdminWorkspaceEditorRegion({
           <EditorDensityProvider collapseItemsByDefault isZh={isZh}>{editor}</EditorDensityProvider>
         </FieldDecorationsProvider>
       </div>
+      {previewing ? <PreviewSplitter split={split} onChange={changeSplit} isZh={isZh} /> : null}
       <aside className="admin-workspace-rail" aria-label={isZh ? '文件資訊' : 'Document details'}>
         <DocumentOutline editorRef={editorRef} revision={workspace.editorText} compact={previewing} />
         {previewing ? (

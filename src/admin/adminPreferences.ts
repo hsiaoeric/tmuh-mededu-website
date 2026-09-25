@@ -44,3 +44,20 @@ export function useAdminTextSize(): [AdminTextSize, (next: AdminTextSize) => voi
 export function useAdminNavCollapsed(): [boolean, (next: boolean) => void] {
   return usePersistentPreference(NAV_COLLAPSED_KEY, parseCollapsed, serializeBoolean);
 }
+
+const PREVIEW_SPLIT_KEY = 'tmuh-admin-preview-split';
+/** The editor's share of the split view, in percent; the preview gets the rest. */
+export const PREVIEW_SPLIT_DEFAULT = 53;
+export const PREVIEW_SPLIT_MIN = 30;
+export const PREVIEW_SPLIT_MAX = 75;
+
+export const clampPreviewSplit = (value: number): number => Math.round(Math.min(PREVIEW_SPLIT_MAX, Math.max(PREVIEW_SPLIT_MIN, value)));
+const parseSplit = (stored: string | null): number => {
+  const value = stored === null ? Number.NaN : Number(stored);
+  return Number.isFinite(value) ? clampPreviewSplit(value) : PREVIEW_SPLIT_DEFAULT;
+};
+const serializeNumber = (value: number) => String(value);
+
+export function useAdminPreviewSplit(): [number, (next: number) => void] {
+  return usePersistentPreference(PREVIEW_SPLIT_KEY, parseSplit, serializeNumber);
+}
