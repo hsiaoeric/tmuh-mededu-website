@@ -860,12 +860,49 @@
   color: var(--tone, var(--accent));
 }
 
+/* Duties as tags. `.tag` is spaced uppercase mono, which suits "TMS" but
+   cramps Han glyphs, so Chinese drops the tracking and uses the sans face. */
+.duty-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.duty-tag {
+  text-transform: none;
+  letter-spacing: 0.04em;
+  font-size: 0.74rem;
+  color: var(--tone-text, var(--tone, var(--accent)));
+  /* A long English duty is wider than a phone row. */
+  white-space: normal;
+  max-width: 100%;
+}
+.duty-tag:lang(zh-Hant) {
+  font-family: 'Noto Sans TC', sans-serif;
+  letter-spacing: 0.02em;
+  font-size: 0.78rem;
+}
+
 @media (max-width: 720px) {
+  /* One column on phones: a 1fr | 200px split leaves the name column too
+     narrow, and the contact cell auto-places into it and overflows left. */
   .roster-row.has-contact {
-    grid-template-columns: minmax(0, 1fr) var(--roster-contact-w);
+    grid-template-columns: minmax(0, 1fr);
+    gap: 8px;
   }
-  .roster-row.has-contact > .stack {
-    grid-column: 1 / -1;
+  .roster-contact {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 4px 14px;
+    text-align: left;
+    white-space: normal;
+  }
+  .roster-email {
+    overflow-wrap: anywhere;
+  }
+  /* The "Ext. · Email" header no longer sits over a column. */
+  .roster-contact-label {
+    display: none;
   }
 }
 

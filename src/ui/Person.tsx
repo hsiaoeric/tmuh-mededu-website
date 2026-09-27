@@ -156,6 +156,11 @@ export function PersonCard({ person, accent, hideRole, compact }: PersonCardProp
 }
 
 /** Dense list of people without portraits — used for large rosters. */
+/** Duties are stored as one `・` / `·`-separated string; each becomes a tag. */
+function splitDuties(duty: string | undefined): string[] {
+  return (duty ?? '').split(/\s*[・·]\s*/).filter(Boolean);
+}
+
 export function PersonRoster({
   people,
   accent,
@@ -175,19 +180,29 @@ export function PersonRoster({
         const p = resolvePerson(raw, accent, lang);
         return (
           <div className={showContact ? 'roster-row has-contact' : 'roster-row'} key={`${p.fullname}-${i}`}>
-            <div className="row gap-2" style={{ alignItems: 'baseline' }}>
+            <div className="row wrap gap-2" style={{ alignItems: 'baseline' }}>
               <span className="person-name" style={{ fontSize: '0.95rem' }}>
                 {p.fullname}
               </span>
               <span className="person-sub">{p.sub}</span>
             </div>
-            <div className="stack" style={{ gap: 2 }}>
-              <span className="person-role" style={{ ['--tone' as string]: accent }}>
-                {p.role}
-              </span>
-              {showDuty && p.duty && <span className="person-dept">{p.duty}</span>}
-              {!showDuty && p.dept && <span className="person-dept">{p.dept}</span>}
-            </div>
+            {showDuty ? (
+              // The roster's header already names the role, so a duty row shows only the duties.
+              <div className="duty-tags" style={{ ['--tone' as string]: accent }}>
+                {splitDuties(p.duty).map((d) => (
+                  <span className="tag duty-tag" key={d}>
+                    {d}
+                  </span>
+                ))}
+              </div>
+            ) : (
+              <div className="stack" style={{ gap: 2 }}>
+                <span className="person-role" style={{ ['--tone' as string]: accent }}>
+                  {p.role}
+                </span>
+                {p.dept && <span className="person-dept">{p.dept}</span>}
+              </div>
+            )}
             {showContact && (
               <span className="roster-contact mono">
                 {p.ext ? (

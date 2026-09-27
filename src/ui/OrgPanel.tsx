@@ -96,7 +96,7 @@ export function OrgPanel({ center, onClose }: { readonly center: PublicCenter; r
               <span className="eyebrow" style={{ color: 'var(--tone-text)' }}>
                 {isZh ? '行政專員業務分工' : 'Specialists & Duties'}
               </span>
-              <span className="eyebrow">{isZh ? '分機 · 信箱' : 'Ext. · Email'}</span>
+              <span className="eyebrow roster-contact-label">{isZh ? '分機 · 信箱' : 'Ext. · Email'}</span>
             </div>
             <PersonRoster people={specialists} accent={center.color} showDuty showContact />
           </div>
