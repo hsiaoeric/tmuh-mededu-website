@@ -11,9 +11,14 @@ const TEAL = '#4f8c7d';
 /**
  * One year of symposia or of holistic-care education papers. The center page
  * lists only year cards, so the full detail lives here rather than inline.
+ * The app routes each kind by a static segment and passes it as `kind`, so
+ * `/centers/:slug/articles/:postId` never competes with a `:kind` parameter;
+ * without the prop the kind is read from the route.
  */
-export function HolisticDetail() {
-  const { kind, year: yearParam } = useParams();
+export function HolisticDetail({ kind: kindProp }: { readonly kind?: HolisticDetailKind } = {}) {
+  const params = useParams();
+  const kind = kindProp ?? params.kind;
+  const yearParam = params.year;
   const { lang, isZh } = useSite();
 
   const detailKind: HolisticDetailKind | null = kind === 'symposia' || kind === 'research' ? kind : null;
