@@ -4,7 +4,7 @@ create extension if not exists pgtap with schema extensions;
 set local search_path = public, extensions;
 set local request.jwt.claims = '{}';
 
-select plan(88);
+select plan(97);
 
 insert into auth.users (id, email)
 values
@@ -34,7 +34,10 @@ where revisions.status = 'published'
     ('facdev', 'page'),
     ('ebm', 'page'),
     ('holistic', 'page'),
-    ('holistic_research', 'registry')
+    ('holistic_research', 'registry'),
+    ('posts', 'archive'),
+    ('department_info', 'directory'),
+    ('gallery', 'library')
   );
 
 insert into public.cms_documents (id, kind, stable_key)
@@ -106,7 +109,7 @@ select ok(
 
 select ok(
   (
-    select count(*) = 21
+    select count(*) = 40
       and bool_and(to_regprocedure(signature) is not null)
     from unnest(array[
       'public.cms_jsonb_has_exact_keys(jsonb,text[],text[])',
@@ -128,6 +131,25 @@ select ok(
       'public.cms_ebm_payload_is_publishable(jsonb)',
       'public.cms_holistic_payload_is_publishable(jsonb)',
       'public.cms_holistic_research_payload_is_publishable(jsonb)',
+      'public.cms_jsonb_is_text_value(jsonb,integer,boolean,boolean)',
+      'public.cms_jsonb_is_plain_text(jsonb,integer,boolean)',
+      'public.cms_jsonb_is_run_text(jsonb)',
+      'public.cms_jsonb_is_localized_text(jsonb,integer)',
+      'public.cms_jsonb_is_slug_id(jsonb)',
+      'public.cms_jsonb_is_iso_calendar_date(jsonb)',
+      'public.cms_jsonb_is_safe_integer(jsonb,numeric)',
+      'public.cms_jsonb_array_has_unique_field(jsonb,text)',
+      'public.cms_jsonb_is_link_href(jsonb)',
+      'public.cms_jsonb_is_local_file_path(jsonb)',
+      'public.cms_jsonb_is_youtube_id(jsonb)',
+      'public.cms_jsonb_is_content_runs(jsonb)',
+      'public.cms_jsonb_is_table_row(jsonb)',
+      'public.cms_jsonb_is_content_block(jsonb)',
+      'public.cms_jsonb_is_content_block_array(jsonb,integer)',
+      'public.cms_jsonb_is_localized_blocks(jsonb)',
+      'public.cms_posts_payload_is_publishable(jsonb)',
+      'public.cms_department_info_payload_is_publishable(jsonb)',
+      'public.cms_gallery_payload_is_publishable(jsonb)',
       'public.cms_payload_is_publishable(jsonb)',
       'public.cms_payload_is_publishable(public.cms_document_kind,jsonb)'
     ]) as expected(signature)
@@ -155,13 +177,32 @@ select ok(
     to_regprocedure('public.cms_ebm_payload_is_publishable(jsonb)'),
     to_regprocedure('public.cms_holistic_payload_is_publishable(jsonb)'),
     to_regprocedure('public.cms_holistic_research_payload_is_publishable(jsonb)'),
+    to_regprocedure('public.cms_jsonb_is_text_value(jsonb,integer,boolean,boolean)'),
+    to_regprocedure('public.cms_jsonb_is_plain_text(jsonb,integer,boolean)'),
+    to_regprocedure('public.cms_jsonb_is_run_text(jsonb)'),
+    to_regprocedure('public.cms_jsonb_is_localized_text(jsonb,integer)'),
+    to_regprocedure('public.cms_jsonb_is_slug_id(jsonb)'),
+    to_regprocedure('public.cms_jsonb_is_iso_calendar_date(jsonb)'),
+    to_regprocedure('public.cms_jsonb_is_safe_integer(jsonb,numeric)'),
+    to_regprocedure('public.cms_jsonb_array_has_unique_field(jsonb,text)'),
+    to_regprocedure('public.cms_jsonb_is_link_href(jsonb)'),
+    to_regprocedure('public.cms_jsonb_is_local_file_path(jsonb)'),
+    to_regprocedure('public.cms_jsonb_is_youtube_id(jsonb)'),
+    to_regprocedure('public.cms_jsonb_is_content_runs(jsonb)'),
+    to_regprocedure('public.cms_jsonb_is_table_row(jsonb)'),
+    to_regprocedure('public.cms_jsonb_is_content_block(jsonb)'),
+    to_regprocedure('public.cms_jsonb_is_content_block_array(jsonb,integer)'),
+    to_regprocedure('public.cms_jsonb_is_localized_blocks(jsonb)'),
+    to_regprocedure('public.cms_posts_payload_is_publishable(jsonb)'),
+    to_regprocedure('public.cms_department_info_payload_is_publishable(jsonb)'),
+    to_regprocedure('public.cms_gallery_payload_is_publishable(jsonb)'),
     to_regprocedure('public.cms_payload_is_publishable(jsonb)'),
     to_regprocedure('public.cms_payload_is_publishable(public.cms_document_kind,jsonb)')
   ]::oid[])),
   'every publication predicate is immutable'
 );
 select ok(
-  (select count(*) = 21 and bool_and(proisstrict) from pg_proc where oid = any(array[
+  (select count(*) = 40 and bool_and(proisstrict) from pg_proc where oid = any(array[
     to_regprocedure('public.cms_jsonb_has_exact_keys(jsonb,text[],text[])'),
     to_regprocedure('public.cms_jsonb_is_text_array(jsonb)'),
     to_regprocedure('public.cms_jsonb_is_hex_color(jsonb)'),
@@ -181,17 +222,36 @@ select ok(
     to_regprocedure('public.cms_ebm_payload_is_publishable(jsonb)'),
     to_regprocedure('public.cms_holistic_payload_is_publishable(jsonb)'),
     to_regprocedure('public.cms_holistic_research_payload_is_publishable(jsonb)'),
+    to_regprocedure('public.cms_jsonb_is_text_value(jsonb,integer,boolean,boolean)'),
+    to_regprocedure('public.cms_jsonb_is_plain_text(jsonb,integer,boolean)'),
+    to_regprocedure('public.cms_jsonb_is_run_text(jsonb)'),
+    to_regprocedure('public.cms_jsonb_is_localized_text(jsonb,integer)'),
+    to_regprocedure('public.cms_jsonb_is_slug_id(jsonb)'),
+    to_regprocedure('public.cms_jsonb_is_iso_calendar_date(jsonb)'),
+    to_regprocedure('public.cms_jsonb_is_safe_integer(jsonb,numeric)'),
+    to_regprocedure('public.cms_jsonb_array_has_unique_field(jsonb,text)'),
+    to_regprocedure('public.cms_jsonb_is_link_href(jsonb)'),
+    to_regprocedure('public.cms_jsonb_is_local_file_path(jsonb)'),
+    to_regprocedure('public.cms_jsonb_is_youtube_id(jsonb)'),
+    to_regprocedure('public.cms_jsonb_is_content_runs(jsonb)'),
+    to_regprocedure('public.cms_jsonb_is_table_row(jsonb)'),
+    to_regprocedure('public.cms_jsonb_is_content_block(jsonb)'),
+    to_regprocedure('public.cms_jsonb_is_content_block_array(jsonb,integer)'),
+    to_regprocedure('public.cms_jsonb_is_localized_blocks(jsonb)'),
+    to_regprocedure('public.cms_posts_payload_is_publishable(jsonb)'),
+    to_regprocedure('public.cms_department_info_payload_is_publishable(jsonb)'),
+    to_regprocedure('public.cms_gallery_payload_is_publishable(jsonb)'),
     to_regprocedure('public.cms_payload_is_publishable(jsonb)'),
     to_regprocedure('public.cms_payload_is_publishable(public.cms_document_kind,jsonb)')
   ]::oid[])),
   'every publication predicate is strict'
 );
 select ok(
-  (select count(*) >= 21 and bool_and(not prosecdef) from pg_proc where pronamespace = 'public'::regnamespace and proname like 'cms_%' and (proname like 'cms_jsonb_%' or proname like 'cms_%_payload_is_publishable' or proname = 'cms_payload_is_publishable')),
+  (select count(*) >= 40 and bool_and(not prosecdef) from pg_proc where pronamespace = 'public'::regnamespace and proname like 'cms_%' and (proname like 'cms_jsonb_%' or proname like 'cms_%_payload_is_publishable' or proname = 'cms_payload_is_publishable')),
   'every publication predicate is security invoker'
 );
 select ok(
-  (select count(*) >= 21 and bool_and(coalesce(proconfig, '{}'::text[]) @> array['search_path=""']) from pg_proc where pronamespace = 'public'::regnamespace and (proname like 'cms_jsonb_%' or proname like 'cms_%_payload_is_publishable' or proname = 'cms_payload_is_publishable')),
+  (select count(*) >= 40 and bool_and(coalesce(proconfig, '{}'::text[]) @> array['search_path=""']) from pg_proc where pronamespace = 'public'::regnamespace and (proname like 'cms_jsonb_%' or proname like 'cms_%_payload_is_publishable' or proname = 'cms_payload_is_publishable')),
   'every publication predicate fixes an empty search path'
 );
 select ok(
@@ -223,6 +283,9 @@ select ok(public.cms_payload_is_publishable('facdev', (select payload from cms_v
 select ok(public.cms_payload_is_publishable('ebm', (select payload from cms_valid_payload_fixtures where kind = 'ebm')), 'generated ebm payload is valid');
 select ok(public.cms_payload_is_publishable('holistic', (select payload from cms_valid_payload_fixtures where kind = 'holistic')), 'generated holistic payload is valid');
 select ok(public.cms_payload_is_publishable('holistic_research', (select payload from cms_valid_payload_fixtures where kind = 'holistic_research')), 'generated holistic_research payload is valid');
+select ok(public.cms_payload_is_publishable('posts', (select payload from cms_valid_payload_fixtures where kind = 'posts')), 'generated posts payload is valid');
+select ok(public.cms_payload_is_publishable('department_info', (select payload from cms_valid_payload_fixtures where kind = 'department_info')), 'generated department_info payload is valid');
+select ok(public.cms_payload_is_publishable('gallery', (select payload from cms_valid_payload_fixtures where kind = 'gallery')), 'generated gallery payload is valid');
 
 select ok(public.cms_payload_is_publishable('site_copy', (select payload from cms_valid_payload_fixtures where kind = 'centers')) is not true, 'site_copy rejects centers payload');
 select ok(public.cms_payload_is_publishable('centers', (select payload from cms_valid_payload_fixtures where kind = 'people')) is not true, 'centers rejects people payload');
@@ -236,6 +299,9 @@ select ok(public.cms_payload_is_publishable('facdev', (select payload from cms_v
 select ok(public.cms_payload_is_publishable('ebm', (select payload from cms_valid_payload_fixtures where kind = 'holistic')) is not true, 'ebm rejects holistic payload');
 select ok(public.cms_payload_is_publishable('holistic', (select payload from cms_valid_payload_fixtures where kind = 'holistic_research')) is not true, 'holistic rejects holistic_research payload');
 select ok(public.cms_payload_is_publishable('holistic_research', (select payload from cms_valid_payload_fixtures where kind = 'site_copy')) is not true, 'holistic_research rejects site_copy payload');
+select ok(public.cms_payload_is_publishable('posts', (select payload from cms_valid_payload_fixtures where kind = 'gallery')) is not true, 'posts rejects gallery payload');
+select ok(public.cms_payload_is_publishable('department_info', (select payload from cms_valid_payload_fixtures where kind = 'posts')) is not true, 'department_info rejects posts payload');
+select ok(public.cms_payload_is_publishable('gallery', (select payload from cms_valid_payload_fixtures where kind = 'department_info')) is not true, 'gallery rejects department_info payload');
 
 select ok(public.cms_payload_is_publishable('site_copy', (select payload #- '{en,inline,skipToContent}' from cms_valid_payload_fixtures where kind = 'site_copy')) is not true, 'site_copy rejects a missing nested key');
 select ok(public.cms_payload_is_publishable('centers', (select jsonb_set(payload, '{zh,centers,0,unknown}', 'true') from cms_valid_payload_fixtures where kind = 'centers')) is not true, 'centers rejects an unknown center key');
@@ -249,6 +315,9 @@ select ok(public.cms_payload_is_publishable('facdev', (select jsonb_set(payload,
 select ok(public.cms_payload_is_publishable('ebm', (select jsonb_set(payload, '{zh,kpis}', 'null'::jsonb) from cms_valid_payload_fixtures where kind = 'ebm')) is not true, 'ebm rejects JSON null KPI collection');
 select ok(public.cms_payload_is_publishable('holistic', (select jsonb_set(payload, '{zh,outcomes,symposiums,0,year}', '2026.5'::jsonb) from cms_valid_payload_fixtures where kind = 'holistic')) is not true, 'holistic rejects a fractional symposium year');
 select ok(public.cms_payload_is_publishable('holistic_research', (select jsonb_set(payload, '{zh,papers,0,month}', '13'::jsonb) from cms_valid_payload_fixtures where kind = 'holistic_research')) is not true, 'holistic_research rejects an out-of-range month');
+select ok(public.cms_payload_is_publishable('posts', (select jsonb_set(payload, '{categories,0,channel}', '"center"'::jsonb) from cms_valid_payload_fixtures where kind = 'posts')) is not true, 'posts rejects a non-canonical category channel');
+select ok(public.cms_payload_is_publishable('department_info', (select payload #- '{programs,0}' from cms_valid_payload_fixtures where kind = 'department_info')) is not true, 'department_info rejects a missing canonical program');
+select ok(public.cms_payload_is_publishable('gallery', (select jsonb_set(payload, '{contentModel}', '"bilingual"'::jsonb) from cms_valid_payload_fixtures where kind = 'gallery')) is not true, 'gallery rejects an unknown content model');
 
 set local role anon;
 select throws_ok(

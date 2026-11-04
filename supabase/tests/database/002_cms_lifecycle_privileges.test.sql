@@ -3,7 +3,7 @@ begin;
 create extension if not exists pgtap with schema extensions;
 set local search_path = public, extensions;
 
-select plan(9);
+select plan(10);
 
 select ok(
   (
@@ -77,6 +77,18 @@ select ok(
       and conname = 'cms_revisions_published_payload_check'
   )) > 0,
   'published payload CHECK retains inline bilingual envelope validation'
+);
+
+select ok(
+  (
+    select pg_get_constraintdef(oid) like '%localized-fields-v1%'
+      and pg_get_constraintdef(oid) like '%contentModel%'
+      and pg_get_constraintdef(oid) like '%IS TRUE%'
+    from pg_constraint
+    where conrelid = 'public.cms_revisions'::regclass
+      and conname = 'cms_revisions_published_payload_check'
+  ),
+  'published payload CHECK also admits only the explicit localized-fields-v1 content model'
 );
 
 select ok(
