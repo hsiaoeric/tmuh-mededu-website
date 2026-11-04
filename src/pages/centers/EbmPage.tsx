@@ -10,6 +10,7 @@ import { PageHero, ClosingContact } from '@/ui/PageParts';
 import { PersonCard } from '@/ui/Person';
 import { StatRow } from '@/ui/Stats';
 import { Icon, type IconName } from '@/ui/Icon';
+import { CenterArchiveSections } from './CenterArchiveSections';
 
 type EbmAward = PublicAdapterResultFor<'ebm'>['value']['awardsLit'][number];
 const EBM_COLORS = { gold: '#B0894B', blue: '#5E7A8C' };
@@ -210,6 +211,8 @@ export function EbmPage() {
           })}
         </Reveal>
       </Section>
+
+      <CenterArchiveSections owner="ebm" tone={tone} />
 
       <ClosingContact title={e.closingTitle} body={e.closingBody} person={e.contactPerson}
         ext={e.contactExt} place={e.contactPlace} quote={e.contactQuote} tone={tone} />

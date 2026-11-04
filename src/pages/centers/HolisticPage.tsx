@@ -15,6 +15,7 @@ import { Activities, International } from './holistic/Bulletin';
 import { Symposia, Training } from './holistic/Outcomes';
 import { Research } from './holistic/Research';
 import { railSections, RAIL_INDEX } from './holistic/rail';
+import { CenterArchiveSections } from './CenterArchiveSections';
 
 const TEAL = '#4f8c7d';
 const RESEARCH_TONE = '#5E7A8C';
@@ -142,6 +143,7 @@ export function HolisticPage() {
       <Training outcomes={outcomes} />
       <International items={news.holistic} />
       <Research research={research} />
+      <CenterArchiveSections owner="holistic" tone={TEAL} />
 
       <ClosingContact
         title={inline.holisticClosingTitle}

@@ -8,6 +8,7 @@ import { Section, SectionHeader } from '@/ui/Section';
 import { PageHero } from '@/ui/PageParts';
 import { PersonCard } from '@/ui/Person';
 import { Icon } from '@/ui/Icon';
+import { CenterArchiveSections } from './CenterArchiveSections';
 
 /**
  * Serves the two centers without bespoke content (clinical skills, medical
@@ -91,6 +92,8 @@ export function GenericCenterPage({ id }: { id: CenterId }) {
           ))}
         </Reveal>
       </Section>
+
+      {id !== 'admin' && <CenterArchiveSections owner={id} tone={center.color} />}
 
       <Section id="contact">
         <div className="panel row between wrap gap-3" style={{ ['--tone' as string]: center.color }}>
