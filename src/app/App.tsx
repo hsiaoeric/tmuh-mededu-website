@@ -29,7 +29,7 @@ import { Nav } from '@/ui/Nav';
 import { Footer } from '@/ui/Footer';
 import { Cursor, RouteCurtain, ScrollProgress } from '@/ui/Chrome';
 import { Home } from '@/pages/Home';
-import { NotFound } from '@/pages/NotFound';
+import { LegacyOrNotFound } from '@/ui/LegacyOrNotFound';
 import { AdminLoginPage } from '@/pages/AdminLoginPage';
 
 // three.js is decorative, and the center pages are a second click away — both
@@ -85,11 +85,15 @@ const AdminDashboardPage = lazy(() =>
 const AdminDocumentPage = lazy(() =>
   import('@/pages/AdminDocumentPage').then((m) => ({ default: m.AdminDocumentPage })),
 );
-/** `/center/:id` from the previous site maps onto the new slug routes. */
+/**
+ * `/center/:id` from the previous version of this app maps onto the new slug routes. Anything
+ * else under `/center/` (`/center/medical`, `/center/about`) is an old-site URL for the legacy
+ * redirect table.
+ */
 function LegacyCenterRedirect() {
   const { id } = useParams();
-  const slug = CENTER_SLUG[id as Exclude<CenterId, 'admin'>];
-  return <Navigate to={slug ? centerPath(id as Exclude<CenterId, 'admin'>) : '/'} replace />;
+  const known = id !== undefined && Object.prototype.hasOwnProperty.call(CENTER_SLUG, id);
+  return known ? <Navigate to={centerPath(id as Exclude<CenterId, 'admin'>)} replace /> : <LegacyOrNotFound />;
 }
 
 /**
@@ -127,7 +131,7 @@ export const PUBLIC_ROUTES = (
     {Object.entries(LEGACY_REDIRECTS).map(([from, to]) => (
       <Route key={from} path={from} element={<Navigate to={to} replace />} />
     ))}
-    <Route path="*" element={<NotFound />} />
+    <Route path="*" element={<LegacyOrNotFound />} />
   </>
 );
 

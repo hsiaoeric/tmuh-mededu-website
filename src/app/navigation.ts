@@ -9,19 +9,24 @@ import { ScrollTrigger } from '@/motion/gsap';
  */
 let pendingSection: string | null = null;
 
+export type GoToSectionOptions = {
+  /** Replace the current history entry instead of pushing one (redirects from old URLs). */
+  readonly replace?: boolean;
+};
+
 /** Navigate to a home section from anywhere in the site. */
 export function useGoToSection() {
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
   return useCallback(
-    (id: string) => {
+    (id: string, options: GoToSectionOptions = {}) => {
       if (pathname === '/') {
         scrollToId(id);
         return;
       }
       pendingSection = id;
-      navigate('/');
+      navigate('/', { replace: options.replace === true });
     },
     [navigate, pathname],
   );
