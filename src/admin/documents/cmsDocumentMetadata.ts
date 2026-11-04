@@ -33,10 +33,10 @@ export const CMS_DOCUMENT_METADATA = {
     },
   },
   news: {
-    label: { zh: '公告', en: 'News' },
+    label: { zh: '首頁精選公告', en: 'Highlights' },
     description: {
-      zh: '管理公告分類、置頂順序與雙語公告內容。',
-      en: 'Manage categories, pinned order, and bilingual announcements.',
+      zh: '管理首頁精選公告的分類、置頂順序與雙語內容。',
+      en: 'Manage categories, pinned order, and bilingual highlight announcements.',
     },
   },
   activities: {
