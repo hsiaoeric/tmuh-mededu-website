@@ -14,6 +14,7 @@
     "content:generate": "vite-node scripts/generate-content.ts",
     "content:check": "vite-node scripts/generate-content.ts --check",
     "content:checkpoint": "vite-node scripts/checkpoint-content.ts",
+    "content:import-legacy": "vite-node scripts/content/legacy/import.ts",
     "predeploy": "npm run typecheck && VITE_BASE=/tmuh-mededu-website/ vite build",
     "deploy": "gh-pages -d dist"
   },
@@ -46,6 +47,7 @@
     "react-doctor": "0.9.12",
     "react-grab": "^0.1.50",
     "react-scan": "^0.5.7",
+    "sharp": "0.35.5",
     "typescript": "^5.6.3",
     "vite": "^5.4.11",
     "vitest": "^2.1.9"

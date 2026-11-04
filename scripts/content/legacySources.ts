@@ -56,8 +56,16 @@ function readLegacyFile<S extends z.ZodType>(file: string, schema: S): z.output<
   return result.data;
 }
 
+export type LegacyPostsFile = z.output<typeof PostsFileSchema>;
+export type LegacyDepartmentInfoFile = z.output<typeof DepartmentInfoFileSchema>;
+export type LegacyGalleryFile = z.output<typeof GalleryFileSchema>;
+
 export function buildPostsSource() {
-  const file = readLegacyFile('posts.json', PostsFileSchema);
+  return postsSourceFrom(readLegacyFile('posts.json', PostsFileSchema));
+}
+
+/** Merges an importer-written posts file with the taxonomy; shared with the importer's own validation. */
+export function postsSourceFrom(file: LegacyPostsFile) {
   return {
     contentModel: LOCALIZED_CONTENT_MODEL,
     categories: POST_CATEGORY_TAXONOMY.map((category) => ({
@@ -71,7 +79,10 @@ export function buildPostsSource() {
 }
 
 export function buildDepartmentInfoSource() {
-  const file = readLegacyFile('departmentInfo.json', DepartmentInfoFileSchema);
+  return departmentInfoSourceFrom(readLegacyFile('departmentInfo.json', DepartmentInfoFileSchema));
+}
+
+export function departmentInfoSourceFrom(file: LegacyDepartmentInfoFile) {
   const overrides = new Map(file.programs.map((program) => [program.id, program]));
   const unknown = [...overrides.keys()].filter((id) => !PROGRAM_TAXONOMY.some((program) => program.id === id));
   if (unknown.length > 0) {
@@ -93,7 +104,10 @@ export function buildDepartmentInfoSource() {
 }
 
 export function buildGallerySource() {
-  const file = readLegacyFile('gallery.json', GalleryFileSchema);
+  return gallerySourceFrom(readLegacyFile('gallery.json', GalleryFileSchema));
+}
+
+export function gallerySourceFrom(file: LegacyGalleryFile) {
   return {
     contentModel: LOCALIZED_CONTENT_MODEL,
     albums: file.albums,

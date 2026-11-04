@@ -3,6 +3,7 @@
 import {
   POST_CATEGORY_CHANNELS,
   POST_CATEGORY_IDS,
+  type AudienceOwner,
   type DepartmentPageSection,
   type OwnerId,
   type PostCategoryId,
@@ -191,3 +192,70 @@ export const LEGACY_DEPARTMENT_PAGES = {
   35: { id: 'clinical-competency-committee', section: 'committee' },
   36: { id: 'program-evaluation-committee', section: 'committee' },
 } as const satisfies Readonly<Record<number, LegacyDepartmentPage>>;
+
+/** 舊站「組織簡介」（about/index）匯入為教學部頁面。 */
+export const LEGACY_ORGANIZATION_PAGE = { id: 'organization-chart', section: 'about' } as const satisfies LegacyDepartmentPage;
+
+export type LegacyLinkGroup = {
+  readonly id: string;
+  readonly order: number;
+  readonly title: Bilingual;
+};
+
+/** 相關連結分類（other/links/L001–L004）。 */
+export const LEGACY_LINK_GROUPS = {
+  L001: { id: 'tmuh', order: 0, title: { zh: '臺北醫學大學附設醫院', en: 'Taipei Medical University Hospital' } },
+  L002: { id: 'education-taiwan', order: 1, title: { zh: '國內教學相關', en: 'Medical education in Taiwan' } },
+  L003: { id: 'education-international', order: 2, title: { zh: '國外教學相關', en: 'International medical education' } },
+  L004: { id: 'government', order: 3, title: { zh: '政府機關', en: 'Government agencies' } },
+} as const satisfies Readonly<Record<string, LegacyLinkGroup>>;
+
+/** 舊站頁尾「相關連結」：圖書館、TMS 教育訓練系統與 E-Portfolio 等校院系統。 */
+export const LEGACY_SYSTEMS_LINK_GROUP = {
+  id: 'systems',
+  order: 4,
+  title: { zh: '校院系統', en: 'Hospital and university systems' },
+} as const satisfies LegacyLinkGroup;
+
+export type LegacyDownloadGroup = {
+  readonly id: string;
+  readonly owner: AudienceOwner;
+  readonly title: Bilingual;
+};
+
+/**
+ * 資源專區分類（other/download/DWN00–04、REC01–05）。REC 代碼的數字與中心代碼不同：
+ * REC05 為數位教材室（中心代碼為 04），依頁面標題確認。
+ */
+export const LEGACY_DOWNLOAD_GROUPS = {
+  DWN00: { id: 'department', owner: 'department', title: { zh: '資源專區', en: 'Resources' } },
+  DWN01: { id: 'residents', owner: 'residents', title: { zh: '住院醫師', en: 'Residents' } },
+  DWN02: { id: 'pgy', owner: 'pgy', title: { zh: '畢業後一般醫學訓練', en: 'Post-graduate year training' } },
+  DWN03: { id: 'medical-students', owner: 'medical-students', title: { zh: '醫學生', en: 'Medical students' } },
+  DWN04: { id: 'allied-health-trainees', owner: 'allied-health-trainees', title: { zh: '醫事見實習', en: 'Allied health trainees' } },
+  REC01: { id: 'ebm', owner: 'ebm', title: { zh: '實證醫學中心', en: 'Center for Evidence-Based Medicine' } },
+  REC02: { id: 'clinical-skills', owner: 'clinical_skills', title: { zh: '臨床技能中心', en: 'Center for Clinical Skills' } },
+  REC03: { id: 'faculty-development', owner: 'faculty_dev', title: { zh: '教師發展中心', en: 'Center for Faculty Development' } },
+  REC05: { id: 'digital-materials', owner: 'digital_materials', title: { zh: '數位教材室', en: 'Digital Learning Materials Studio' } },
+} as const satisfies Readonly<Record<string, LegacyDownloadGroup>>;
+
+/**
+ * 公告與榮譽榜文章的擁有中心：舊站以標題標籤（#教發中心、【全人中心】…）標示。
+ * 依序比對，第一個符合者勝出；皆不符合時歸屬教學部。
+ */
+export const LEGACY_TITLE_OWNER_TAGS: readonly { readonly pattern: RegExp; readonly owner: OwnerId }[] = [
+  { pattern: /#教發中心|【教師發展中心】|【教發中心】/, owner: 'faculty_dev' },
+  { pattern: /#全人中心|#全人|【全人中心】/, owner: 'holistic' },
+  { pattern: /#臨技中心|【臨技中心】|【臨床技能中心】/, owner: 'clinical_skills' },
+  { pattern: /#實證中心|#實證|【實證醫學中心】|【實證中心】/, owner: 'ebm' },
+  { pattern: /#數位教材室|【數位教材室】/, owner: 'digital_materials' },
+];
+
+/** 公告的適用學員（學員專區計畫），依標題標籤與關鍵字推定；可同時符合多個。 */
+export const LEGACY_TITLE_AUDIENCE_TAGS: readonly { readonly pattern: RegExp; readonly program: ProgramId }[] = [
+  { pattern: /#R【|#R\s/, program: 'residents' },
+  { pattern: /#PGY|PGY/, program: 'pgy' },
+  { pattern: /實習醫學生|#醫學生/, program: 'medical-students' },
+  { pattern: /#職類|非醫學系之職類|醫事見實習/, program: 'allied-health-trainees' },
+  { pattern: /聯合訓練|代訓/, program: 'joint-training' },
+];
