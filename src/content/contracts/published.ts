@@ -23,6 +23,9 @@ export const PublishedContentRowSchema = z.discriminatedUnion('kind', [
   z.strictObject({ ...RowMetadataShape, kind: z.literal('ebm'), stable_key: z.literal('page'), payload: CMS_PAYLOAD_REGISTRY.ebm.publishedSchema }),
   z.strictObject({ ...RowMetadataShape, kind: z.literal('holistic'), stable_key: z.literal('page'), payload: CMS_PAYLOAD_REGISTRY.holistic.publishedSchema }),
   z.strictObject({ ...RowMetadataShape, kind: z.literal('holistic_research'), stable_key: z.literal('registry'), payload: CMS_PAYLOAD_REGISTRY.holistic_research.publishedSchema }),
+  z.strictObject({ ...RowMetadataShape, kind: z.literal('posts'), stable_key: z.literal('archive'), payload: CMS_PAYLOAD_REGISTRY.posts.publishedSchema }),
+  z.strictObject({ ...RowMetadataShape, kind: z.literal('department_info'), stable_key: z.literal('directory'), payload: CMS_PAYLOAD_REGISTRY.department_info.publishedSchema }),
+  z.strictObject({ ...RowMetadataShape, kind: z.literal('gallery'), stable_key: z.literal('library'), payload: CMS_PAYLOAD_REGISTRY.gallery.publishedSchema }),
 ]);
 
 type PublishedContentRow = z.output<typeof PublishedContentRowSchema>;
@@ -54,6 +57,9 @@ function toPublishedContent(row: PublishedContentRow): PublishedContent {
     case 'ebm': return { ...metadata(row), kind: row.kind, stableKey: row.stable_key, payload: row.payload };
     case 'holistic': return { ...metadata(row), kind: row.kind, stableKey: row.stable_key, payload: row.payload };
     case 'holistic_research': return { ...metadata(row), kind: row.kind, stableKey: row.stable_key, payload: row.payload };
+    case 'posts': return { ...metadata(row), kind: row.kind, stableKey: row.stable_key, payload: row.payload };
+    case 'department_info': return { ...metadata(row), kind: row.kind, stableKey: row.stable_key, payload: row.payload };
+    case 'gallery': return { ...metadata(row), kind: row.kind, stableKey: row.stable_key, payload: row.payload };
     default: return assertNever(row);
   }
 }

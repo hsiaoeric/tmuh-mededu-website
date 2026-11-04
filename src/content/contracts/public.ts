@@ -29,6 +29,12 @@ export const PUBLIC_CONTENT_IDENTITIES = {
     kind: 'holistic_research',
     stableKey: CMS_DOCUMENT_STABLE_KEYS.holistic_research,
   },
+  posts: { kind: 'posts', stableKey: CMS_DOCUMENT_STABLE_KEYS.posts },
+  department_info: {
+    kind: 'department_info',
+    stableKey: CMS_DOCUMENT_STABLE_KEYS.department_info,
+  },
+  gallery: { kind: 'gallery', stableKey: CMS_DOCUMENT_STABLE_KEYS.gallery },
 } as const satisfies Readonly<{
   readonly [K in CmsDocumentKind]: PublicContentIdentityFor<K>;
 }>;

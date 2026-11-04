@@ -46,6 +46,9 @@ function AllDocumentsProbe({ lang, values }: {
     usePublicContentDocument('ebm', 'page', lang),
     usePublicContentDocument('holistic', 'page', lang),
     usePublicContentDocument('holistic_research', 'registry', lang),
+    usePublicContentDocument('posts', 'archive', lang),
+    usePublicContentDocument('department_info', 'directory', lang),
+    usePublicContentDocument('gallery', 'library', lang),
   ]);
   return null;
 }

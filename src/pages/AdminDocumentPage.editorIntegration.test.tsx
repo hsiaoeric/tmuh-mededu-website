@@ -25,8 +25,12 @@ const STRUCTURED_EDITOR_IDS = {
   honors: 'honors-overview',
 } as const satisfies Record<GlobalEditorKind, string>;
 
+const ARCHIVE_KINDS = ['posts', 'department_info', 'gallery'] as const;
+type ArchiveKind = (typeof ARCHIVE_KINDS)[number];
+
 const PAGE_KINDS = CMS_DOCUMENT_KINDS.filter(
-  (kind): kind is Exclude<CmsDocumentKind, GlobalEditorKind> => !isGlobalEditorKind(kind),
+  (kind): kind is Exclude<CmsDocumentKind, GlobalEditorKind | ArchiveKind> =>
+    !isGlobalEditorKind(kind) && !ARCHIVE_KINDS.some((archive) => archive === kind),
 );
 
 type PageEditorKind = (typeof PAGE_KINDS)[number];
@@ -104,6 +108,17 @@ describe('AdminDocumentPage editor integration', () => {
     // Then
     await waitFor(() => expect(view.container.querySelector(PAGE_EDITOR_SELECTORS[kind])).toBeTruthy());
     expect(view.container.querySelector('textarea.mono')).toBeNull();
+    expectWorkspaceChrome(view);
+  });
+
+  it.each(ARCHIVE_KINDS)('opens %s in the interim JSON editor inside the structured frame', async (kind) => {
+    // Given / When
+    const view = await readyDocument(kind);
+
+    // Then
+    await waitFor(() => expect(view.container.querySelector(`[data-archive-editor="${kind}"]`)).toBeTruthy());
+    expect(view.getByText('結構化編輯器準備中')).toBeTruthy();
+    expect(view.container.querySelector('textarea.mono')).toBeTruthy();
     expectWorkspaceChrome(view);
   });
 });

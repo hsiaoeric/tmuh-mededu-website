@@ -110,6 +110,9 @@ export function emitStructuredEditorText<K extends CmsDocumentKind>(
     case 'ebm':
     case 'holistic':
     case 'holistic_research':
+    case 'posts':
+    case 'department_info':
+    case 'gallery':
       return JSON.stringify(payload, null, 2);
     default:
       return assertNever(kind, 'structured editor kind');

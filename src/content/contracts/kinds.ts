@@ -13,6 +13,9 @@ export const CMS_DOCUMENT_KINDS = [
   'ebm',
   'holistic',
   'holistic_research',
+  'posts',
+  'department_info',
+  'gallery',
 ] as const;
 
 export const CmsDocumentKindSchema = z.enum(CMS_DOCUMENT_KINDS);
@@ -31,6 +34,9 @@ export const CMS_DOCUMENT_STABLE_KEYS = {
   ebm: 'page',
   holistic: 'page',
   holistic_research: 'registry',
+  posts: 'archive',
+  department_info: 'directory',
+  gallery: 'library',
 } as const satisfies Readonly<Record<CmsDocumentKind, string>>;
 
 export type CmsStableKey<K extends CmsDocumentKind> = (typeof CMS_DOCUMENT_STABLE_KEYS)[K];

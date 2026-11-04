@@ -73,7 +73,7 @@ describe('renderCheckpointSnapshot', () => {
     expect(rendered).toContain('"navAbout": "Remote About"');
   });
 
-  it('accepts exactly the canonical 12-kind identity set', () => {
+  it('accepts exactly the canonical 15-kind identity set', () => {
     // Given
     const expected = CMS_DOCUMENT_KINDS.map(
       (kind) => `${kind}:${CMS_DOCUMENT_STABLE_KEYS[kind]}`,
@@ -111,7 +111,7 @@ describe('renderCheckpointSnapshot', () => {
     expect(render).toThrow(/row failure/i);
   });
 
-  it('rejects a missing identity and a count other than 12', () => {
+  it('rejects a missing identity and a count other than 15', () => {
     // Given
     const partial = checkpointContent().slice(1);
 
@@ -119,10 +119,10 @@ describe('renderCheckpointSnapshot', () => {
     const render = () => renderCheckpointSnapshot(checkpointBatch(partial));
 
     // Then
-    expect(render).toThrow(/12.*omitted|required identity.*12/i);
+    expect(render).toThrow(/15.*omitted|required identity.*15/i);
   });
 
-  it('rejects a duplicate identity even when the row count is 12', () => {
+  it('rejects a duplicate identity even when the row count is 15', () => {
     // Given
     const content = [...checkpointContent()];
     content[1] = requireContent(content, 0);

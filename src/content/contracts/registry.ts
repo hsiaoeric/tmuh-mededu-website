@@ -1,9 +1,11 @@
 import { z } from 'zod';
 import { ActivitiesPayloadSchema, EditableActivitiesPayloadSchema } from './activities';
 import { CentersPayloadSchema, EditableCentersPayloadSchema, PublishedCentersPayloadSchema } from './centers';
+import { DepartmentInfoPayloadSchema, EditableDepartmentInfoPayloadSchema, PublishedDepartmentInfoPayloadSchema } from './departmentInfo';
 import { DigitalMaterialsPayloadSchema, EditableDigitalMaterialsPayloadSchema } from './digitalMaterials';
 import { EbmPayloadSchema, EditableEbmPayloadSchema } from './ebm';
 import { EditableFacdevPayloadSchema, FacdevPayloadSchema, PublishedFacdevPayloadSchema } from './facdev';
+import { EditableGalleryPayloadSchema, GalleryPayloadSchema, PublishedGalleryPayloadSchema } from './gallery';
 import { EditableHolisticPayloadSchema, HolisticPayloadSchema } from './holistic';
 import { EditableHolisticResearchPayloadSchema, HolisticResearchPayloadSchema } from './holisticResearch';
 import { EditableHonorsPayloadSchema, HonorsPayloadSchema } from './honors';
@@ -15,6 +17,7 @@ import {
 import { EditableKpisPayloadSchema, KpisPayloadSchema } from './kpis';
 import { EditableNewsPayloadSchema, NewsPayloadSchema } from './news';
 import { EditablePeoplePayloadSchema, PeoplePayloadSchema, PublishedPeoplePayloadSchema } from './people';
+import { EditablePostsPayloadSchema, PostsPayloadSchema, PublishedPostsPayloadSchema } from './posts';
 import { EditableSiteCopyPayloadSchema, SiteCopyPayloadSchema } from './siteCopy';
 
 export type CmsPayloadContract<
@@ -55,6 +58,9 @@ export const CMS_PAYLOAD_REGISTRY = {
   ebm: contract('ebm', CMS_DOCUMENT_STABLE_KEYS.ebm, { editable: EditableEbmPayloadSchema, general: EbmPayloadSchema, published: EbmPayloadSchema }),
   holistic: contract('holistic', CMS_DOCUMENT_STABLE_KEYS.holistic, { editable: EditableHolisticPayloadSchema, general: HolisticPayloadSchema, published: HolisticPayloadSchema }),
   holistic_research: contract('holistic_research', CMS_DOCUMENT_STABLE_KEYS.holistic_research, { editable: EditableHolisticResearchPayloadSchema, general: HolisticResearchPayloadSchema, published: HolisticResearchPayloadSchema }),
+  posts: contract('posts', CMS_DOCUMENT_STABLE_KEYS.posts, { editable: EditablePostsPayloadSchema, general: PostsPayloadSchema, published: PublishedPostsPayloadSchema }),
+  department_info: contract('department_info', CMS_DOCUMENT_STABLE_KEYS.department_info, { editable: EditableDepartmentInfoPayloadSchema, general: DepartmentInfoPayloadSchema, published: PublishedDepartmentInfoPayloadSchema }),
+  gallery: contract('gallery', CMS_DOCUMENT_STABLE_KEYS.gallery, { editable: EditableGalleryPayloadSchema, general: GalleryPayloadSchema, published: PublishedGalleryPayloadSchema }),
 } satisfies CmsPayloadRegistry;
 
 export type CmsPayloadByKind = {

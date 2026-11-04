@@ -163,7 +163,7 @@ describe('checkpointPublishedContent', () => {
     });
 
     // Then
-    await expect(checkpoint).rejects.toThrow('must contain exactly 12 rows');
+    await expect(checkpoint).rejects.toThrow('must contain exactly 15 rows');
     expect(fileSystem.calls).toEqual([]);
     expect(fileSystem.targetBytes).toBe('original bytes');
     expect(fileSystem.temporaryBytes).toBeUndefined();

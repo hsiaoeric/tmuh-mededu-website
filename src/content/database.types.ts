@@ -20,7 +20,10 @@ type CmsDocumentKind =
   | 'facdev'
   | 'ebm'
   | 'holistic'
-  | 'holistic_research';
+  | 'holistic_research'
+  | 'posts'
+  | 'department_info'
+  | 'gallery';
 
 type CmsRevisionStatus = 'draft' | 'published' | 'archived';
 
