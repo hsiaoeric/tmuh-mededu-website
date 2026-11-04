@@ -166,7 +166,7 @@ describe('AdminDocumentPage navigation aids', () => {
     const draft = historyDetail().revisions[0]!;
     const autosaved = JSON.stringify({ ...(draft.payload as object), announcementBoardUrl: 'https://example.test/autosaved' }, null, 2);
     localStorage.setItem(`tmuh-admin-autosave:local:${draft.documentId}`, JSON.stringify({
-      editorText: autosaved, baseRevisionId: draft.id, baseEditVersion: draft.editVersion, savedAt: '2026-09-25T00:00:00Z',
+      editorText: autosaved, baseRevisionId: draft.id, baseEditVersion: draft.editVersion, savedAt: new Date().toISOString(),
     }));
     const view = await readyStructured(new FakeDocumentRepository(), historyDetail());
 
@@ -181,7 +181,7 @@ describe('AdminDocumentPage navigation aids', () => {
   it('forgets a discarded autosave', async () => {
     const draft = historyDetail().revisions[0]!;
     const key = `tmuh-admin-autosave:local:${draft.documentId}`;
-    localStorage.setItem(key, JSON.stringify({ editorText: '{"other":true}', baseRevisionId: null, baseEditVersion: null, savedAt: '2026-09-25T00:00:00Z' }));
+    localStorage.setItem(key, JSON.stringify({ editorText: '{"other":true}', baseRevisionId: null, baseEditVersion: null, savedAt: new Date().toISOString() }));
     const view = await readyStructured(new FakeDocumentRepository(), historyDetail());
 
     fireEvent.click(await view.findByRole('button', { name: '捨棄' }));
