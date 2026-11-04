@@ -1,0 +1,57 @@
+{
+  "hosts": {
+    "10.62.2.202": {
+      "detail": "private address; not probed",
+      "https": false
+    },
+    "ceep2.tmu.edu.tw": {
+      "detail": "HTTPS HEAD answered 200",
+      "https": true
+    },
+    "eportfolio.tmuh.org.tw": {
+      "detail": "hospital host; not probed (unreachable from the import environment)",
+      "https": false
+    },
+    "evergreen-shadow-f72.notion.site": {
+      "detail": "HTTPS HEAD answered 200",
+      "https": true
+    },
+    "library.tmu.edu.tw": {
+      "detail": "HTTPS HEAD answered 200",
+      "https": true
+    },
+    "sub.chimei.org.tw": {
+      "detail": "HTTPS HEAD answered 302",
+      "https": true
+    },
+    "tsric.com": {
+      "detail": "HTTPS failed: unable to verify the first certificate",
+      "https": false
+    },
+    "www.edu.tw": {
+      "detail": "HTTPS HEAD answered 302",
+      "https": true
+    },
+    "www.fda.gov.tw": {
+      "detail": "HTTPS HEAD answered 302",
+      "https": true
+    },
+    "www.mohw.gov.tw": {
+      "detail": "HTTPS HEAD answered 302",
+      "https": true
+    },
+    "www.notion.so": {
+      "detail": "HTTPS HEAD answered 403",
+      "https": true
+    },
+    "www.tame.org.tw": {
+      "detail": "HTTPS HEAD answered 200",
+      "https": true
+    },
+    "www.wanfang.gov.tw": {
+      "detail": "HTTPS HEAD answered 200",
+      "https": true
+    }
+  },
+  "version": 1
+}

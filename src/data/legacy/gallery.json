@@ -1,5 +1,1713 @@
 {
-  "albums": [],
+  "albums": [
+    {
+      "cover": {
+        "kind": "local",
+        "path": "assets/legacy/album/c0865ca201ef2c77c828.webp"
+      },
+      "id": "1",
+      "owner": "pgy",
+      "photos": [
+        {
+          "alt": {
+            "zh": "112.03"
+          },
+          "caption": {
+            "zh": "112.03"
+          },
+          "height": 749,
+          "id": "71",
+          "media": {
+            "kind": "local",
+            "path": "assets/legacy/album/b6b98d877fec0c2c9ae6.webp"
+          },
+          "width": 1000
+        },
+        {
+          "alt": {
+            "zh": "112.03"
+          },
+          "caption": {
+            "zh": "112.03"
+          },
+          "height": 749,
+          "id": "72",
+          "media": {
+            "kind": "local",
+            "path": "assets/legacy/album/0a2759ee2d6a58437e71.webp"
+          },
+          "width": 1000
+        },
+        {
+          "alt": {
+            "zh": "112.03"
+          },
+          "caption": {
+            "zh": "112.03"
+          },
+          "height": 750,
+          "id": "73",
+          "media": {
+            "kind": "local",
+            "path": "assets/legacy/album/de3c16e320ff1dd5695b.webp"
+          },
+          "width": 1000
+        },
+        {
+          "alt": {
+            "zh": "112.03"
+          },
+          "caption": {
+            "zh": "112.03"
+          },
+          "height": 749,
+          "id": "74",
+          "media": {
+            "kind": "local",
+            "path": "assets/legacy/album/32e3de24caf84566b6e9.webp"
+          },
+          "width": 1000
+        },
+        {
+          "alt": {
+            "zh": "112.03"
+          },
+          "caption": {
+            "zh": "112.03"
+          },
+          "height": 749,
+          "id": "75",
+          "media": {
+            "kind": "local",
+            "path": "assets/legacy/album/23795c256f20dfe8635c.webp"
+          },
+          "width": 1000
+        },
+        {
+          "alt": {
+            "zh": "112.03"
+          },
+          "caption": {
+            "zh": "112.03"
+          },
+          "height": 749,
+          "id": "76",
+          "media": {
+            "kind": "local",
+            "path": "assets/legacy/album/ce08b8fd32732c0741a6.webp"
+          },
+          "width": 1000
+        },
+        {
+          "alt": {
+            "zh": "112.03"
+          },
+          "caption": {
+            "zh": "112.03"
+          },
+          "height": 749,
+          "id": "77",
+          "media": {
+            "kind": "local",
+            "path": "assets/legacy/album/4d4b1b6a15364f52a238.webp"
+          },
+          "width": 1000
+        },
+        {
+          "alt": {
+            "zh": "112.03"
+          },
+          "caption": {
+            "zh": "112.03"
+          },
+          "height": 749,
+          "id": "78",
+          "media": {
+            "kind": "local",
+            "path": "assets/legacy/album/bd270ca600de9d678faa.webp"
+          },
+          "width": 1000
+        }
+      ],
+      "title": {
+        "zh": "PGY職涯導師生會談"
+      }
+    },
+    {
+      "cover": {
+        "kind": "local",
+        "path": "assets/legacy/album/7baccecc9a46ea11fb95.webp"
+      },
+      "date": "2020-10-29",
+      "id": "2",
+      "owner": "medical-students",
+      "photos": [
+        {
+          "alt": {
+            "zh": "1091029-實習醫學生座談會"
+          },
+          "caption": {
+            "zh": "1091029-實習醫學生座談會"
+          },
+          "height": 750,
+          "id": "67",
+          "media": {
+            "kind": "local",
+            "path": "assets/legacy/album/6f150bfd0d7e230f946b.webp"
+          },
+          "width": 1000
+        },
+        {
+          "alt": {
+            "zh": "1100710-實習醫學生座談會"
+          },
+          "caption": {
+            "zh": "1100710-實習醫學生座談會"
+          },
+          "height": 562,
+          "id": "68",
+          "media": {
+            "kind": "local",
+            "path": "assets/legacy/album/211f707b541283929f3e.webp"
+          },
+          "width": 999
+        },
+        {
+          "alt": {
+            "zh": "1110324-實習醫學生座談會"
+          },
+          "caption": {
+            "zh": "1110324-實習醫學生座談會"
+          },
+          "height": 749,
+          "id": "69",
+          "media": {
+            "kind": "local",
+            "path": "assets/legacy/album/8f86634e5fdb0c56c025.webp"
+          },
+          "width": 1000
+        }
+      ],
+      "title": {
+        "zh": "實習醫學生座談會"
+      }
+    },
+    {
+      "id": "3",
+      "owner": "residents",
+      "photos": [
+        {
+          "alt": {
+            "zh": "住院醫師座談會 — 照片 1"
+          },
+          "height": 750,
+          "id": "64",
+          "media": {
+            "kind": "local",
+            "path": "assets/legacy/album/319bc7aec33f90fd39a4.webp"
+          },
+          "width": 1000
+        },
+        {
+          "alt": {
+            "zh": "住院醫師座談會 — 照片 2"
+          },
+          "height": 750,
+          "id": "65",
+          "media": {
+            "kind": "local",
+            "path": "assets/legacy/album/cc1f8ec984a1b04cbce9.webp"
+          },
+          "width": 1000
+        },
+        {
+          "alt": {
+            "zh": "住院醫師座談會 — 照片 3"
+          },
+          "height": 750,
+          "id": "66",
+          "media": {
+            "kind": "local",
+            "path": "assets/legacy/album/74ee0515c1dcdd44d997.webp"
+          },
+          "width": 1000
+        }
+      ],
+      "title": {
+        "zh": "住院醫師座談會"
+      }
+    },
+    {
+      "cover": {
+        "kind": "local",
+        "path": "assets/legacy/album/4fed9fa8de5bcf9c007b.webp"
+      },
+      "date": "2023-02-23",
+      "id": "28",
+      "owner": "allied-health-trainees",
+      "photos": [
+        {
+          "alt": {
+            "zh": "1120223"
+          },
+          "caption": {
+            "zh": "1120223"
+          },
+          "height": 541,
+          "id": "83",
+          "media": {
+            "kind": "local",
+            "path": "assets/legacy/album/f1f6ebacec5e18c08df4.webp"
+          },
+          "width": 722
+        }
+      ],
+      "title": {
+        "zh": "職類雙月共識會議"
+      }
+    },
+    {
+      "id": "29",
+      "owner": "clinical_skills",
+      "photos": [
+        {
+          "alt": {
+            "zh": "技能練習"
+          },
+          "caption": {
+            "zh": "技能練習"
+          },
+          "height": 750,
+          "id": "90",
+          "media": {
+            "kind": "local",
+            "path": "assets/legacy/album/b1a3d4fa2b3fe9fadd3e.webp"
+          },
+          "width": 1000
+        },
+        {
+          "alt": {
+            "zh": "技能練習"
+          },
+          "caption": {
+            "zh": "技能練習"
+          },
+          "height": 750,
+          "id": "91",
+          "media": {
+            "kind": "local",
+            "path": "assets/legacy/album/e945400b470b9a566c4e.webp"
+          },
+          "width": 1000
+        },
+        {
+          "alt": {
+            "zh": "技能練習"
+          },
+          "caption": {
+            "zh": "技能練習"
+          },
+          "height": 750,
+          "id": "92",
+          "media": {
+            "kind": "local",
+            "path": "assets/legacy/album/eba1f6c7c1cc7bb687c5.webp"
+          },
+          "width": 1000
+        },
+        {
+          "alt": {
+            "zh": "技能練習"
+          },
+          "caption": {
+            "zh": "技能練習"
+          },
+          "height": 750,
+          "id": "93",
+          "media": {
+            "kind": "local",
+            "path": "assets/legacy/album/69114b8b7a94e9ca28c1.webp"
+          },
+          "width": 1000
+        },
+        {
+          "alt": {
+            "zh": "技能練習"
+          },
+          "caption": {
+            "zh": "技能練習"
+          },
+          "height": 750,
+          "id": "94",
+          "media": {
+            "kind": "local",
+            "path": "assets/legacy/album/9196487418e4bcde0194.webp"
+          },
+          "width": 1000
+        },
+        {
+          "alt": {
+            "zh": "技能練習"
+          },
+          "caption": {
+            "zh": "技能練習"
+          },
+          "height": 750,
+          "id": "95",
+          "media": {
+            "kind": "local",
+            "path": "assets/legacy/album/ad783971ab6b593748f0.webp"
+          },
+          "width": 1000
+        },
+        {
+          "alt": {
+            "zh": "技能練習"
+          },
+          "caption": {
+            "zh": "技能練習"
+          },
+          "height": 750,
+          "id": "96",
+          "media": {
+            "kind": "local",
+            "path": "assets/legacy/album/e7b2848a0a4a3d6ec5a7.webp"
+          },
+          "width": 1000
+        },
+        {
+          "alt": {
+            "zh": "技能練習"
+          },
+          "caption": {
+            "zh": "技能練習"
+          },
+          "height": 750,
+          "id": "97",
+          "media": {
+            "kind": "local",
+            "path": "assets/legacy/album/f6273ad6670fd93284f3.webp"
+          },
+          "width": 1000
+        },
+        {
+          "alt": {
+            "zh": "技能練習"
+          },
+          "caption": {
+            "zh": "技能練習"
+          },
+          "height": 750,
+          "id": "98",
+          "media": {
+            "kind": "local",
+            "path": "assets/legacy/album/85df9f5885e35ffe5aed.webp"
+          },
+          "width": 1000
+        },
+        {
+          "alt": {
+            "zh": "技能練習"
+          },
+          "caption": {
+            "zh": "技能練習"
+          },
+          "height": 750,
+          "id": "99",
+          "media": {
+            "kind": "local",
+            "path": "assets/legacy/album/6983f668860a92fee87e.webp"
+          },
+          "width": 1000
+        },
+        {
+          "alt": {
+            "zh": "技能練習"
+          },
+          "caption": {
+            "zh": "技能練習"
+          },
+          "height": 1149,
+          "id": "100",
+          "media": {
+            "kind": "local",
+            "path": "assets/legacy/album/3fa98033bf26e9ccbe0b.webp"
+          },
+          "width": 861
+        },
+        {
+          "alt": {
+            "zh": "技能練習"
+          },
+          "caption": {
+            "zh": "技能練習"
+          },
+          "height": 750,
+          "id": "101",
+          "media": {
+            "kind": "local",
+            "path": "assets/legacy/album/a82ae7aafe038b8efe72.webp"
+          },
+          "width": 1000
+        },
+        {
+          "alt": {
+            "zh": "技能練習"
+          },
+          "caption": {
+            "zh": "技能練習"
+          },
+          "height": 750,
+          "id": "102",
+          "media": {
+            "kind": "local",
+            "path": "assets/legacy/album/b081c9e9deb2c5ab3755.webp"
+          },
+          "width": 1000
+        },
+        {
+          "alt": {
+            "zh": "技能練習"
+          },
+          "caption": {
+            "zh": "技能練習"
+          },
+          "height": 958,
+          "id": "103",
+          "media": {
+            "kind": "local",
+            "path": "assets/legacy/album/1534c5f11272604d59f0.webp"
+          },
+          "width": 718
+        }
+      ],
+      "title": {
+        "zh": "20項技能練習"
+      }
+    },
+    {
+      "id": "33",
+      "owner": "clinical_skills",
+      "photos": [
+        {
+          "alt": {
+            "zh": "Lumbar Puncture工作坊"
+          },
+          "caption": {
+            "zh": "Lumbar Puncture工作坊"
+          },
+          "height": 749,
+          "id": "79",
+          "media": {
+            "kind": "local",
+            "path": "assets/legacy/album/6a0f1bf4357c4eb02305.webp"
+          },
+          "width": 1000
+        },
+        {
+          "alt": {
+            "zh": "Lumbar Puncture工作坊"
+          },
+          "caption": {
+            "zh": "Lumbar Puncture工作坊"
+          },
+          "height": 749,
+          "id": "80",
+          "media": {
+            "kind": "local",
+            "path": "assets/legacy/album/6ba9f6f6b9ddf9b63e1d.webp"
+          },
+          "width": 1000
+        },
+        {
+          "alt": {
+            "zh": "Lumbar Puncture工作坊"
+          },
+          "caption": {
+            "zh": "Lumbar Puncture工作坊"
+          },
+          "height": 749,
+          "id": "81",
+          "media": {
+            "kind": "local",
+            "path": "assets/legacy/album/95d3bc3349c8522502d5.webp"
+          },
+          "width": 1000
+        },
+        {
+          "alt": {
+            "zh": "Lumbar Puncture工作坊"
+          },
+          "caption": {
+            "zh": "Lumbar Puncture工作坊"
+          },
+          "height": 749,
+          "id": "82",
+          "media": {
+            "kind": "local",
+            "path": "assets/legacy/album/83ae9e5effaa7bbb42bc.webp"
+          },
+          "width": 999
+        }
+      ],
+      "title": {
+        "zh": "Lumbar Punture工作坊"
+      }
+    },
+    {
+      "date": "2023-02-27",
+      "id": "34",
+      "owner": "medical-students",
+      "photos": [
+        {
+          "alt": {
+            "zh": "1120227-醫法倫課程"
+          },
+          "caption": {
+            "zh": "1120227-醫法倫課程"
+          },
+          "height": 541,
+          "id": "70",
+          "media": {
+            "kind": "local",
+            "path": "assets/legacy/album/c1ee667e59f11a8713ba.webp"
+          },
+          "width": 795
+        }
+      ],
+      "title": {
+        "zh": "醫學倫理、法律與臨床特論"
+      }
+    },
+    {
+      "id": "86",
+      "owner": "residents",
+      "photos": [
+        {
+          "alt": {
+            "zh": "新進住院醫師訓練"
+          },
+          "caption": {
+            "zh": "新進住院醫師訓練"
+          },
+          "height": 749,
+          "id": "88",
+          "media": {
+            "kind": "local",
+            "path": "assets/legacy/album/f6cb2e8ec6375b7ed88b.webp"
+          },
+          "width": 1000
+        },
+        {
+          "alt": {
+            "zh": "住院醫師工作坊"
+          },
+          "caption": {
+            "zh": "住院醫師工作坊"
+          },
+          "height": 750,
+          "id": "89",
+          "media": {
+            "kind": "local",
+            "path": "assets/legacy/album/038cd70051e94c826d45.webp"
+          },
+          "width": 1000
+        }
+      ],
+      "title": {
+        "zh": "住院醫師訓練課程/工作坊"
+      }
+    }
+  ],
   "version": 1,
-  "videos": []
+  "videos": [
+    {
+      "id": "yt-7c13cfa3b79d",
+      "owner": "holistic",
+      "title": {
+        "zh": "第二屆靈性關懷國際研討會 醫護人員靈性關懷識能的教學經驗分享"
+      },
+      "youtubeId": "uu_RKgOvtAE"
+    },
+    {
+      "id": "yt-e1da935f01fd",
+      "owner": "holistic",
+      "title": {
+        "zh": "第二屆靈性關懷國際研討會 邁向全人醫療的里程碑-靈性關懷的導入"
+      },
+      "youtubeId": "VVz9gwuFaTc"
+    },
+    {
+      "id": "yt-59f511ff1d66",
+      "owner": "holistic",
+      "title": {
+        "zh": "全人關懷-實踐工作坊"
+      },
+      "youtubeId": "sugQylOAn_U"
+    },
+    {
+      "id": "yt-fa25c025a6e4",
+      "owner": "holistic",
+      "title": {
+        "zh": "全人醫療靈性關懷之臨床實踐訪談"
+      },
+      "youtubeId": "PtjpnDjxGPI"
+    },
+    {
+      "id": "yt-11a7a19e9d6b",
+      "owner": "clinical_skills",
+      "title": {
+        "zh": "【20項技能】20 引流管及縫線移除"
+      },
+      "youtubeId": "AqbM22AyPtg"
+    },
+    {
+      "id": "yt-a0cbfbad93e6",
+      "owner": "clinical_skills",
+      "title": {
+        "zh": "【20項技能】19 傷口縫合"
+      },
+      "youtubeId": "xNhs81XwrG0"
+    },
+    {
+      "id": "yt-97b77ebc37d9",
+      "owner": "clinical_skills",
+      "title": {
+        "zh": "【20項技能】18 肛門指診"
+      },
+      "youtubeId": "C61QP88ElH0"
+    },
+    {
+      "id": "yt-854fed0fec08",
+      "owner": "clinical_skills",
+      "title": {
+        "zh": "【20項技能】17 導尿管置放"
+      },
+      "youtubeId": "Q46SSBPBI7s"
+    },
+    {
+      "id": "yt-2c2f2cd2cf53",
+      "owner": "clinical_skills",
+      "title": {
+        "zh": "【20項技能】15 乳房檢查"
+      },
+      "youtubeId": "ksvhK6RWcQY"
+    },
+    {
+      "id": "yt-cf4f8816d727",
+      "owner": "clinical_skills",
+      "title": {
+        "zh": "【20項技能】14、16 婦科內診及子宮頸抹片檢查"
+      },
+      "youtubeId": "WUlmpUTLkMo"
+    },
+    {
+      "id": "yt-4fe352655eca",
+      "owner": "clinical_skills",
+      "title": {
+        "zh": "【20項技能】13 鼻胃管置放"
+      },
+      "youtubeId": "LuliGOtDc94"
+    },
+    {
+      "id": "yt-d4c4b2f7169c",
+      "owner": "clinical_skills",
+      "title": {
+        "zh": "【20項技能】12 採取動脈血"
+      },
+      "youtubeId": "8KxRFhBmGQM"
+    },
+    {
+      "id": "yt-a811c7e7d9a0",
+      "owner": "clinical_skills",
+      "title": {
+        "zh": "【20項技能】11 靜脈穿刺及細菌培養"
+      },
+      "youtubeId": "tu9R8r-sQuY"
+    },
+    {
+      "id": "yt-a8c1ceeb4ad5",
+      "owner": "clinical_skills",
+      "title": {
+        "zh": "【20項技能】10 靜脈留置針置入術"
+      },
+      "youtubeId": "vg0qOZfriN8"
+    },
+    {
+      "id": "yt-dba43490bdc9",
+      "owner": "clinical_skills",
+      "title": {
+        "zh": "【20項技能】9 喉拭樣採檢"
+      },
+      "youtubeId": "KOZ0LSghSWY"
+    },
+    {
+      "id": "yt-329e23e6cc00",
+      "owner": "clinical_skills",
+      "title": {
+        "zh": "【20項技能】8 皮下注射"
+      },
+      "youtubeId": "mysU1mLcGYU"
+    },
+    {
+      "id": "yt-f161529293f4",
+      "owner": "clinical_skills",
+      "title": {
+        "zh": "【20項技能】7 肌肉注射"
+      },
+      "youtubeId": "pc2vDA5p0bw"
+    },
+    {
+      "id": "yt-bbfd4bd8439c",
+      "owner": "clinical_skills",
+      "title": {
+        "zh": "【20項技能】6 十二導程心電圖"
+      },
+      "youtubeId": "5Ku2nzcvBhY"
+    },
+    {
+      "id": "yt-8822400eea50",
+      "owner": "clinical_skills",
+      "title": {
+        "zh": "【20項技能】5 傷口基本評估"
+      },
+      "youtubeId": "i7NrbkXXa4o"
+    },
+    {
+      "id": "yt-01a51191d06a",
+      "owner": "clinical_skills",
+      "title": {
+        "zh": "【20項技能】4 無菌衣穿戴與手術鋪單"
+      },
+      "youtubeId": "FVovlHTQhrs"
+    },
+    {
+      "id": "yt-f55d834edd65",
+      "owner": "clinical_skills",
+      "title": {
+        "zh": "【20項技能】2+3 氣管插管"
+      },
+      "youtubeId": "9X3YSeiIsP4"
+    },
+    {
+      "id": "yt-7e19d496ab21",
+      "owner": "clinical_skills",
+      "title": {
+        "zh": "【20項技能】1基本救命術"
+      },
+      "youtubeId": "tjZlFNKs7LE"
+    },
+    {
+      "id": "yt-3b794850d9cb",
+      "owner": "faculty_dev",
+      "title": {
+        "zh": "【創新教學導入】運用「桌遊教學」進行 團隊復甦ABG及EKG判讀訓練之成效探討教學創新"
+      },
+      "youtubeId": "dQUGb8YlSjU"
+    },
+    {
+      "id": "yt-e99c851aefc0",
+      "owner": "faculty_dev",
+      "title": {
+        "zh": "【實證醫學】實證醫學的重新開機—檢視COVID 19醫療之反思與銳變_實證醫學中心廖璽文主任"
+      },
+      "youtubeId": "Rp8N9YAbJ-g"
+    },
+    {
+      "id": "yt-25f9d8910cba",
+      "owner": "faculty_dev",
+      "title": {
+        "zh": "【課程設計】如何讓你的訓練計劃從A到A+_教學部陳建宇主任"
+      },
+      "youtubeId": "m9TD3HzUzFU"
+    },
+    {
+      "id": "yt-dc9f2ae34235",
+      "owner": "faculty_dev",
+      "title": {
+        "zh": "【跨領域團隊合作照護教學】以語言治療為例的跨領域團隊合作照護教學"
+      },
+      "youtubeId": "SZ3JH-jGI3A"
+    },
+    {
+      "id": "yt-b7f0452794a9",
+      "owner": "faculty_dev",
+      "title": {
+        "zh": "【創新教學導入】營養室HACCP廚房環境VR建置在營養系實習學生教學應用之成效_營養室林郁茹組長"
+      },
+      "youtubeId": "dwKbI9s4u8c"
+    },
+    {
+      "id": "yt-69ae2ca61afb",
+      "owner": "digital_materials",
+      "title": {
+        "zh": "【金獎】“Lunging” for a better life 肺盡思量"
+      },
+      "youtubeId": "yQQs3YIwTaE"
+    },
+    {
+      "id": "yt-5f1d185412ac",
+      "owner": "digital_materials",
+      "title": {
+        "zh": "【牙科部口腔衛教】4.牙周病的認識與預防"
+      },
+      "youtubeId": "VeXm1CwzMXw"
+    },
+    {
+      "id": "yt-82aa96b621fa",
+      "owner": "digital_materials",
+      "title": {
+        "zh": "【牙科部口腔衛教】3.刷牙只用牙刷夠嗎"
+      },
+      "youtubeId": "rVkYObpzPas"
+    },
+    {
+      "id": "yt-1794a224374c",
+      "owner": "digital_materials",
+      "title": {
+        "zh": "【牙科部口腔衛教】2.牙刷的選擇"
+      },
+      "youtubeId": "JgjbUWI-oeI"
+    },
+    {
+      "id": "yt-7db1ca444da0",
+      "owner": "digital_materials",
+      "title": {
+        "zh": "【牙科部口腔衛教】1.認識牙齒與蛀牙"
+      },
+      "youtubeId": "pFrhAzwaR_w"
+    },
+    {
+      "id": "yt-90095b649e87",
+      "owner": "digital_materials",
+      "title": {
+        "zh": "【麻醉科】智慧麻醉系統"
+      },
+      "youtubeId": "hLGZZfGIN7w"
+    },
+    {
+      "id": "yt-d281ba383d5f",
+      "owner": "digital_materials",
+      "title": {
+        "zh": "【感控相關】COVID-19專業版"
+      },
+      "youtubeId": "8LQqHMQbuvI"
+    },
+    {
+      "id": "yt-bc1092c6c46a",
+      "owner": "digital_materials",
+      "title": {
+        "zh": "ACP預立醫療照護宣導影片"
+      },
+      "youtubeId": "7ga1BF3vEY0"
+    },
+    {
+      "id": "yt-03cd94f3358e",
+      "owner": "digital_materials",
+      "title": {
+        "zh": "【數位混成教材專案】 09 注射技能訓練-IM 肌肉注射-實作"
+      },
+      "youtubeId": "j17eBasS8vk"
+    },
+    {
+      "id": "yt-15cb4142887b",
+      "owner": "digital_materials",
+      "title": {
+        "zh": "【數位混成教材專案】 09 注射技能訓練-SC 皮下注射-實作"
+      },
+      "youtubeId": "bGBNOqFI1-M"
+    },
+    {
+      "id": "yt-bd63daef6489",
+      "owner": "digital_materials",
+      "title": {
+        "zh": "【數位混成教材專案】 09 注射技能訓練-IV 靜脈留置針-實作"
+      },
+      "youtubeId": "OXnimrULYOo"
+    },
+    {
+      "id": "yt-00e3cb4eebe7",
+      "owner": "digital_materials",
+      "title": {
+        "zh": "【數位混成教材專案】05 鼻胃管置放教學-簡報"
+      },
+      "youtubeId": "G3SY-9twtdI"
+    },
+    {
+      "id": "yt-f093a283a4c0",
+      "owner": "digital_materials",
+      "title": {
+        "zh": "【數位混成教材專案】05 鼻胃管置放教學-實作"
+      },
+      "youtubeId": "vsmqDedwH6A"
+    },
+    {
+      "id": "yt-b46593aee706",
+      "owner": "residents",
+      "title": {
+        "zh": "【傳統醫學科】兒科四診技巧核心"
+      },
+      "youtubeId": "5bhJIl_KYuo"
+    },
+    {
+      "id": "yt-5f646e1700c0",
+      "owner": "residents",
+      "title": {
+        "zh": "【傳統醫學科】中醫骨傷科常用影像診斷"
+      },
+      "youtubeId": "DV3CLc3Rbhg"
+    },
+    {
+      "id": "yt-fe933bcdd5f3",
+      "owner": "residents",
+      "title": {
+        "zh": "【傳統醫學科】兒科體質 生理病理"
+      },
+      "youtubeId": "y_K1VGKHPDw"
+    },
+    {
+      "id": "yt-748519e62684",
+      "owner": "residents",
+      "title": {
+        "zh": "【傳統醫學科】五十肩中醫針灸治療"
+      },
+      "youtubeId": "sBdPP5ExfUE"
+    },
+    {
+      "id": "yt-4d23bdd0a765",
+      "owner": "residents",
+      "title": {
+        "zh": "【傳統醫學科】傷科正骨手法簡介"
+      },
+      "youtubeId": "lusPAlNPRQE"
+    },
+    {
+      "id": "yt-c3359c36e812",
+      "owner": "medical-students",
+      "title": {
+        "zh": "EP系統-學習歷程查詢"
+      },
+      "youtubeId": "Fcuwjz9FGyo"
+    },
+    {
+      "id": "yt-81cc879bbba4",
+      "owner": "medical-students",
+      "title": {
+        "zh": "【附醫】混成教材-10-2 胸腔X光影像入門-影像判讀分析的方法"
+      },
+      "youtubeId": "Mh5VKla9RAw"
+    },
+    {
+      "id": "yt-f5095b43bbc8",
+      "owner": "medical-students",
+      "title": {
+        "zh": "【附醫】混成教材-10-1 胸腔X光影像入門-胸部X光的基礎與影像解剖"
+      },
+      "youtubeId": "y1gZcLGP2Ks"
+    },
+    {
+      "id": "yt-9c34f762c399",
+      "owner": "medical-students",
+      "title": {
+        "zh": "【附醫】混成教材-09 注射技能訓練-簡報影片"
+      },
+      "youtubeId": "stkRMKxF_rQ"
+    },
+    {
+      "id": "yt-7c05aec9e892",
+      "owner": "medical-students",
+      "title": {
+        "zh": "【附醫】混成教材-08 基本皮膚縫合術示範-實作"
+      },
+      "youtubeId": "87j2GinjdgQ"
+    },
+    {
+      "id": "yt-791b9aebaa12",
+      "owner": "medical-students",
+      "title": {
+        "zh": "【附醫】混成教材-08 基本皮膚縫合術示範-簡報"
+      },
+      "youtubeId": "k5EDxf3r2-c"
+    },
+    {
+      "id": "yt-5369f33856c8",
+      "owner": "medical-students",
+      "title": {
+        "zh": "【附醫】混成教材-07 動脈血液氣體分析與酸鹼平衡判讀"
+      },
+      "youtubeId": "RxVYJKHN8gA"
+    },
+    {
+      "id": "yt-d2651fe30d99",
+      "owner": "medical-students",
+      "title": {
+        "zh": "【附醫】混成教材-06 電解質失衡與輸液處置"
+      },
+      "youtubeId": "iWoE34CRvQk"
+    },
+    {
+      "id": "yt-b14929c64339",
+      "owner": "medical-students",
+      "title": {
+        "zh": "【附醫】混成教材-05 鼻胃管置放教學-簡報"
+      },
+      "youtubeId": "SG4-bFcF1uw"
+    },
+    {
+      "id": "yt-07264d9df256",
+      "owner": "medical-students",
+      "title": {
+        "zh": "【附醫】混成教材-04 內科病房之 POCUS 基礎應用"
+      },
+      "youtubeId": "trOI1i0_d78"
+    },
+    {
+      "id": "yt-b59d45ead80d",
+      "owner": "medical-students",
+      "title": {
+        "zh": "【附醫】混成教材-03 創傷病人的 POCUS FAST 檢查"
+      },
+      "youtubeId": "NAnUJBSLm_Q"
+    },
+    {
+      "id": "yt-6e61bcde8cdc",
+      "owner": "medical-students",
+      "title": {
+        "zh": "【附醫】混成教材-02-2 急性中風評估與初步處置-NIHSS及腦中風分類"
+      },
+      "youtubeId": "wtPIhVD96UA"
+    },
+    {
+      "id": "yt-edc3cc601d8c",
+      "owner": "medical-students",
+      "title": {
+        "zh": "【附醫】混成教材-02-1 急性中風評估與初步處置-腦中風的緊急治療"
+      },
+      "youtubeId": "sUIAGx625Sg"
+    },
+    {
+      "id": "yt-8b2599c24ae7",
+      "owner": "medical-students",
+      "title": {
+        "zh": "【附醫】混成教材-01 意識障礙評估-處置流程"
+      },
+      "youtubeId": "AprtY549Dnk"
+    },
+    {
+      "id": "yt-617c293d7840",
+      "owner": "medical-students",
+      "title": {
+        "zh": "【附醫】混成教材-01 意識障礙評估-基本概念"
+      },
+      "youtubeId": "53Ju81Jtpig"
+    },
+    {
+      "id": "yt-9204dc941670",
+      "owner": "allied-health-trainees",
+      "title": {
+        "zh": "【語治】讓你更懂我的話 認識構音異常篇"
+      },
+      "youtubeId": "oUh0I2pqzXY"
+    },
+    {
+      "id": "yt-98021e4dd35e",
+      "owner": "allied-health-trainees",
+      "title": {
+        "zh": "【語治】讓你更懂我的話 練習篇"
+      },
+      "youtubeId": "YiRA8UWmm3Y"
+    },
+    {
+      "id": "yt-73ab2ef25cb8",
+      "owner": "allied-health-trainees",
+      "title": {
+        "zh": "【語治】口腔運動影片"
+      },
+      "youtubeId": "vkqloghFe1Q"
+    },
+    {
+      "id": "yt-234460402cd3",
+      "owner": "allied-health-trainees",
+      "title": {
+        "zh": "【語治】兒童繪本共讀教學"
+      },
+      "youtubeId": "gyPFBvfnXeY"
+    },
+    {
+      "id": "yt-ef00d5cd66a6",
+      "owner": "allied-health-trainees",
+      "title": {
+        "zh": "【語治】下頷、吞嚥訓練"
+      },
+      "youtubeId": "_yEewR99kIg"
+    },
+    {
+      "id": "yt-9b1e73ca5141",
+      "owner": "allied-health-trainees",
+      "title": {
+        "zh": "【語治】構音障礙簡介"
+      },
+      "youtubeId": "YxF4O4bOAfg"
+    },
+    {
+      "id": "yt-5cc8129addab",
+      "owner": "allied-health-trainees",
+      "title": {
+        "zh": "【語治】臉、唇、舌部訓練"
+      },
+      "youtubeId": "f037bDJDMWI"
+    },
+    {
+      "id": "yt-2339cb39e2d7",
+      "owner": "allied-health-trainees",
+      "title": {
+        "zh": "【語治】語言發展遲緩簡介"
+      },
+      "youtubeId": "44fi75TQgyg"
+    },
+    {
+      "id": "yt-1d00f8ebf350",
+      "owner": "allied-health-trainees",
+      "title": {
+        "zh": "【語治】增稠劑調配"
+      },
+      "youtubeId": "-0GWBezLZ50"
+    },
+    {
+      "id": "yt-fde454536b1a",
+      "owner": "allied-health-trainees",
+      "title": {
+        "zh": "【語治】食物質地介紹和製作"
+      },
+      "youtubeId": "dEz3pMBrDoE"
+    },
+    {
+      "id": "yt-1816ce245daf",
+      "owner": "allied-health-trainees",
+      "title": {
+        "zh": "【語治】吞嚥困難"
+      },
+      "youtubeId": "FwcMOv_dsF4"
+    },
+    {
+      "id": "yt-4ad6d0cf9398",
+      "owner": "allied-health-trainees",
+      "title": {
+        "zh": "【臨心】腦傷後認知功能缺損-家屬可以怎麼做？"
+      },
+      "youtubeId": "1HWDcXc-WZE"
+    },
+    {
+      "id": "yt-c0257d50326a",
+      "owner": "allied-health-trainees",
+      "title": {
+        "zh": "【臨心】疫情下的心理調適"
+      },
+      "youtubeId": "NFkYbD9gwYE"
+    },
+    {
+      "id": "yt-b1fc97657b1b",
+      "owner": "allied-health-trainees",
+      "title": {
+        "zh": "【臨心】復健患者的情緒適應"
+      },
+      "youtubeId": "pz7EvLD0jC4"
+    },
+    {
+      "id": "yt-073842c03f0f",
+      "owner": "allied-health-trainees",
+      "title": {
+        "zh": "【職治】使用背包的負重訓練"
+      },
+      "youtubeId": "jkaKzw162uw"
+    },
+    {
+      "id": "yt-2fb275942d5a",
+      "owner": "allied-health-trainees",
+      "title": {
+        "zh": "【職治】床上復健運動：適用臥床，低活動量患"
+      },
+      "youtubeId": "Rs0RJg6oB_E"
+    },
+    {
+      "id": "yt-b52fb952c979",
+      "owner": "allied-health-trainees",
+      "title": {
+        "zh": "【職治】使用毛巾的靜態伸展"
+      },
+      "youtubeId": "IsqJVd4qgKU"
+    },
+    {
+      "id": "yt-f5ae80f6773e",
+      "owner": "allied-health-trainees",
+      "title": {
+        "zh": "【職治】核心運動"
+      },
+      "youtubeId": "uWUqIQBBYVI"
+    },
+    {
+      "id": "yt-8cdd914e68cc",
+      "owner": "allied-health-trainees",
+      "title": {
+        "zh": "【職治】病人轉移位衛教影片"
+      },
+      "youtubeId": "FWKYkMx_s9k"
+    },
+    {
+      "id": "yt-790418434320",
+      "owner": "allied-health-trainees",
+      "title": {
+        "zh": "【職治】盥洗與穿衣"
+      },
+      "youtubeId": "GjpvCqkt-FA"
+    },
+    {
+      "id": "yt-83d4061d9a83",
+      "owner": "allied-health-trainees",
+      "title": {
+        "zh": "【職治】日常生活輔具篇"
+      },
+      "youtubeId": "UB961jlBw4g"
+    },
+    {
+      "id": "yt-8eb9e84116db",
+      "owner": "allied-health-trainees",
+      "title": {
+        "zh": "【職治】使用寶特瓶負重訓練"
+      },
+      "youtubeId": "SlCHQCIzQ8I"
+    },
+    {
+      "id": "yt-3b657d5f0321",
+      "owner": "allied-health-trainees",
+      "title": {
+        "zh": "【職治】居家認知類活動"
+      },
+      "youtubeId": "sLECMHZ4BQ4"
+    },
+    {
+      "id": "yt-0ad6210a3062",
+      "owner": "allied-health-trainees",
+      "title": {
+        "zh": "【職治】降低手部肌肉張力的居家活動"
+      },
+      "youtubeId": "-p31O-jWwAw"
+    },
+    {
+      "id": "yt-60739c15eaf1",
+      "owner": "allied-health-trainees",
+      "title": {
+        "zh": "【職治】在家簡單活動"
+      },
+      "youtubeId": "UslNDQF-Rwk"
+    },
+    {
+      "id": "yt-9acf078666fe",
+      "owner": "allied-health-trainees",
+      "title": {
+        "zh": "【職治】行走與輪椅"
+      },
+      "youtubeId": "E_YzGxzuynE"
+    },
+    {
+      "id": "yt-de69a5583e5f",
+      "owner": "allied-health-trainees",
+      "title": {
+        "zh": "【職治】乳癌術後肩關節衛教"
+      },
+      "youtubeId": "TkUJLxniEq4"
+    },
+    {
+      "id": "yt-3b1098558280",
+      "owner": "allied-health-trainees",
+      "title": {
+        "zh": "【職治】陪伴孩子成長的玩具"
+      },
+      "youtubeId": "N9WJR98wGxw"
+    },
+    {
+      "id": "yt-d7d13bb43d09",
+      "owner": "allied-health-trainees",
+      "title": {
+        "zh": "【職治】動態手部副木"
+      },
+      "youtubeId": "idBQZUNLv1M"
+    },
+    {
+      "id": "yt-e858789ab366",
+      "owner": "allied-health-trainees",
+      "title": {
+        "zh": "【職治】AMADEO機器手復健"
+      },
+      "youtubeId": "8Gp-K4wfRTw"
+    },
+    {
+      "id": "yt-3cdf40fc7592",
+      "owner": "allied-health-trainees",
+      "title": {
+        "zh": "【職治】乳癌術後急性期衛教"
+      },
+      "youtubeId": "h29nuKFhYq0"
+    },
+    {
+      "id": "yt-e8178c92e2dc",
+      "owner": "allied-health-trainees",
+      "title": {
+        "zh": "【職治】手部伸肌肌腱術後注意事項與復健運動"
+      },
+      "youtubeId": "DBqzJ0BZba4"
+    },
+    {
+      "id": "yt-b6fecb8a7109",
+      "owner": "allied-health-trainees",
+      "title": {
+        "zh": "【職治】副木穿戴衛教"
+      },
+      "youtubeId": "MFS-otU3TAM"
+    },
+    {
+      "id": "yt-60407244d44d",
+      "owner": "allied-health-trainees",
+      "title": {
+        "zh": "【職治】改善上肢淋巴水腫"
+      },
+      "youtubeId": "vtYvsGtdKD0"
+    },
+    {
+      "id": "yt-5d2eef98e440",
+      "owner": "allied-health-trainees",
+      "title": {
+        "zh": "【職治】智能認知訓練說明"
+      },
+      "youtubeId": "YdHyiSPb864"
+    },
+    {
+      "id": "yt-7f5b309f2ebb",
+      "owner": "allied-health-trainees",
+      "title": {
+        "zh": "【物治】呼吸運動側向動作"
+      },
+      "youtubeId": "D9YgnbrIww0"
+    },
+    {
+      "id": "yt-3efa5a953d8c",
+      "owner": "allied-health-trainees",
+      "title": {
+        "zh": "【物治】主動呼吸循環"
+      },
+      "youtubeId": "G45x6hg6zV4"
+    },
+    {
+      "id": "yt-6e7a357b6d41",
+      "owner": "allied-health-trainees",
+      "title": {
+        "zh": "【物治】呼吸合併上肢斜向運動"
+      },
+      "youtubeId": "4SKpnueY8ss"
+    },
+    {
+      "id": "yt-135c0838da09",
+      "owner": "allied-health-trainees",
+      "title": {
+        "zh": "【物治】呼吸運動前側動作"
+      },
+      "youtubeId": "3n8ajSPt_qg"
+    },
+    {
+      "id": "yt-99f3cb6df3fe",
+      "owner": "allied-health-trainees",
+      "title": {
+        "zh": "【物治】圓唇吐氣法"
+      },
+      "youtubeId": "28idb7crmx4"
+    },
+    {
+      "id": "yt-84bb5d913906",
+      "owner": "allied-health-trainees",
+      "title": {
+        "zh": "【物治】義乳按摩"
+      },
+      "youtubeId": "8EzdquU40R4"
+    },
+    {
+      "id": "yt-fdcfbe83f53a",
+      "owner": "allied-health-trainees",
+      "title": {
+        "zh": "【物治】中風病患的肩痛及物理治療"
+      },
+      "youtubeId": "Hi9CT4TnjjA"
+    },
+    {
+      "id": "yt-4f98321f0f67",
+      "owner": "allied-health-trainees",
+      "title": {
+        "zh": "【物治】兒童下肢被動和主動伸展"
+      },
+      "youtubeId": "MftD5Al7LXE"
+    },
+    {
+      "id": "yt-9b8d82f4e882",
+      "owner": "allied-health-trainees",
+      "title": {
+        "zh": "【物治】兒童上肢被動伸展"
+      },
+      "youtubeId": "i_tTp4vvBR0"
+    },
+    {
+      "id": "yt-a99bc24690ff",
+      "owner": "allied-health-trainees",
+      "title": {
+        "zh": "【物治】兒童腳趾頭的小肌肉和平衡訓練"
+      },
+      "youtubeId": "nPKo-oSbpzc"
+    },
+    {
+      "id": "yt-dcace2422946",
+      "owner": "allied-health-trainees",
+      "title": {
+        "zh": "【物治】兒童軀幹的肌肉伸展和訓練"
+      },
+      "youtubeId": "Ja24PfbUwqk"
+    },
+    {
+      "id": "yt-e17b4f696d3d",
+      "owner": "allied-health-trainees",
+      "title": {
+        "zh": "【物治】呼吸運動背側動作"
+      },
+      "youtubeId": "ySfUNJ1ZqBA"
+    },
+    {
+      "id": "yt-819c60c850e2",
+      "owner": "allied-health-trainees",
+      "title": {
+        "zh": "【物治】頭頸癌物理治療衛教影片"
+      },
+      "youtubeId": "-cEff5OC0E4"
+    },
+    {
+      "id": "yt-4ff9132558b6",
+      "owner": "allied-health-trainees",
+      "title": {
+        "zh": "【物治】癌症治療前的預防性復健運動訓練"
+      },
+      "youtubeId": "nSp43Z6nLcs"
+    },
+    {
+      "id": "yt-c0c81c607384",
+      "owner": "allied-health-trainees",
+      "title": {
+        "zh": "【物治】下背痛復健衛教影片"
+      },
+      "youtubeId": "aw-IYbgMv3U"
+    },
+    {
+      "id": "yt-1b2e1c388ed6",
+      "owner": "allied-health-trainees",
+      "title": {
+        "zh": "【物治】脊椎手術後復建"
+      },
+      "youtubeId": "fd6ETRqbGUI"
+    },
+    {
+      "id": "yt-981093cba11d",
+      "owner": "allied-health-trainees",
+      "title": {
+        "zh": "【物治】腳踝扭傷"
+      },
+      "youtubeId": "2cn1hORAfSg"
+    },
+    {
+      "id": "yt-eb23f02d14fb",
+      "owner": "allied-health-trainees",
+      "title": {
+        "zh": "【物治】乳房軟組織按摩"
+      },
+      "youtubeId": "6hFfAY4x7hU"
+    },
+    {
+      "id": "yt-3a914d5b433b",
+      "owner": "allied-health-trainees",
+      "title": {
+        "zh": "【物治】居家運動"
+      },
+      "youtubeId": "WZGeH_K4RjU"
+    },
+    {
+      "id": "yt-0bc35d504736",
+      "owner": "allied-health-trainees",
+      "title": {
+        "zh": "【物治】足底筋膜炎"
+      },
+      "youtubeId": "Woasxvi-dhE"
+    },
+    {
+      "id": "yt-52cec277e182",
+      "owner": "allied-health-trainees",
+      "title": {
+        "zh": "【物治】居家運動-坐姿"
+      },
+      "youtubeId": "3d9dMHqpUds"
+    },
+    {
+      "id": "yt-7d0d8ea54bb9",
+      "owner": "allied-health-trainees",
+      "title": {
+        "zh": "【物治】退化性關節炎"
+      },
+      "youtubeId": "KDRjO1XENtw"
+    },
+    {
+      "id": "yt-6e9270e2af6c",
+      "owner": "allied-health-trainees",
+      "title": {
+        "zh": "【物治】淋巴按摩"
+      },
+      "youtubeId": "Z1n2R2mPGGo"
+    },
+    {
+      "id": "yt-d75882b1546c",
+      "owner": "allied-health-trainees",
+      "title": {
+        "zh": "【物治】什麼是五十肩?"
+      },
+      "youtubeId": "AHawAnyTQ4Y"
+    },
+    {
+      "id": "yt-7e6e44c55e8c",
+      "owner": "allied-health-trainees",
+      "title": {
+        "zh": "【物治】乳癌急性術後運動"
+      },
+      "youtubeId": "7VvVafGSr7w"
+    },
+    {
+      "id": "yt-92900bbdc755",
+      "owner": "allied-health-trainees",
+      "title": {
+        "zh": "【護理】乾濕洗手技術"
+      },
+      "youtubeId": "YE043Tg5M9M"
+    },
+    {
+      "id": "yt-3df9126648d7",
+      "owner": "allied-health-trainees",
+      "title": {
+        "zh": "【護理】鼻胃管灌食技術"
+      },
+      "youtubeId": "7whVM024_Rc"
+    },
+    {
+      "id": "yt-6cf54cc68752",
+      "owner": "allied-health-trainees",
+      "title": {
+        "zh": "【護理】鼻胃管護理技術"
+      },
+      "youtubeId": "DjihZsu6Y3U"
+    },
+    {
+      "id": "yt-8fd2c239945c",
+      "owner": "allied-health-trainees",
+      "title": {
+        "zh": "【護理】氣管內管護理技術"
+      },
+      "youtubeId": "uXtPi3FiN2c"
+    },
+    {
+      "id": "yt-dfe9426cc87d",
+      "owner": "allied-health-trainees",
+      "title": {
+        "zh": "【護理】氣切造口護理技術"
+      },
+      "youtubeId": "-5k9Fp3k1DM"
+    },
+    {
+      "id": "yt-500c29a404c6",
+      "owner": "allied-health-trainees",
+      "title": {
+        "zh": "【護理】中心靜脈導管護理"
+      },
+      "youtubeId": "BwfJAYyuxzM"
+    },
+    {
+      "id": "yt-1f0b2ffce46f",
+      "owner": "allied-health-trainees",
+      "title": {
+        "zh": "【護理】口鼻抽痰技術影片"
+      },
+      "youtubeId": "xg9YjWQbeYI"
+    },
+    {
+      "id": "yt-ca498f02c095",
+      "owner": "allied-health-trainees",
+      "title": {
+        "zh": "【護理】氣管內管抽痰技術影片"
+      },
+      "youtubeId": "cv_Q3Yah9Wc"
+    },
+    {
+      "id": "yt-86c9b6af4d5c",
+      "owner": "allied-health-trainees",
+      "title": {
+        "zh": "【護理】氣切造瘻口抽痰技術影片"
+      },
+      "youtubeId": "4Ua6SYUZv90"
+    },
+    {
+      "id": "yt-6fd492b4002a",
+      "owner": "department",
+      "title": {
+        "zh": "【PGY招募】2023 北醫附醫PGY甄試招募影片"
+      },
+      "youtubeId": "pPZ_zc5xVsU"
+    },
+    {
+      "id": "yt-aec2c6228b18",
+      "owner": "department",
+      "title": {
+        "zh": "【PGY招募】2024 北醫附醫PGY招募影片(兒科篇)"
+      },
+      "youtubeId": "2WafLy8C9e4"
+    },
+    {
+      "id": "yt-3da2b7981ce6",
+      "owner": "department",
+      "title": {
+        "zh": "【PGY招募】2024 北醫附醫PGY招募影片(婦產科篇)"
+      },
+      "youtubeId": "yL1ftU8RkwE"
+    },
+    {
+      "id": "yt-46f31b026683",
+      "owner": "department",
+      "title": {
+        "zh": "【PGY招募】2024 北醫附醫PGY招募影片(內科篇)"
+      },
+      "youtubeId": "SCeQuQZNGw4"
+    },
+    {
+      "id": "yt-bba86f0419f2",
+      "owner": "department",
+      "title": {
+        "zh": "【PGY招募】2024 北醫附醫PGY招募影片(環境介紹篇)"
+      },
+      "youtubeId": "twEuqOUvQjE"
+    },
+    {
+      "id": "yt-ef1d3dca3eed",
+      "owner": "department",
+      "title": {
+        "zh": "【PGY及R招募】2024 北醫附醫PGY及R招募影片(急診篇)"
+      },
+      "youtubeId": "10UNM6Eby5E"
+    },
+    {
+      "id": "yt-f7f34f2df80c",
+      "owner": "department",
+      "title": {
+        "zh": "【PGY招募】2024 北醫附醫PGY招募影片(學員問答篇)"
+      },
+      "youtubeId": "d7AdEC0MpjQ"
+    }
+  ]
 }

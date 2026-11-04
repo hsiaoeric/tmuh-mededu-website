@@ -1,4 +1,7194 @@
 {
-  "posts": [],
+  "posts": [
+    {
+      "attachments": [],
+      "audiences": [
+        "pgy"
+      ],
+      "body": {
+        "zh": [
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "112學年二年期PGY住院醫師招募"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "一、招募名額：32名。"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "二、甄試條件：符合『112年度畢業後綜合臨床醫學訓練選配簡章』之申請人資格"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "三、報名方式：請至衛生福利部公告網站至PGY選配系統報名 https://match.mohw.gov.tw/YR2"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "四、甄試資料寄送：於111年02月03日(星期五)前郵寄"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "　(11031)臺北市信義區吳興街252號 臺北醫學大學附設醫院 第一醫療大樓7樓教學部"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "　註：112年度二年期PGY住院醫師 甄試 收(郵戳為憑)。"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "五、面試日期：111年02月25日(星期六)"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "六、甄試地點：臺北醫學大學附設醫院 第一醫療大樓(臺北市信義區吳興街252號)"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "七、甄試資料："
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "《應屆畢業生》"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "　✫本院甄試資料表"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "　✫自傳(不限定格式)"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "　✫歷年成績單影本(含全年及總人數及歷年成績總排名)"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "　✫通過第一階段國考成績證明"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "　✫如男性免役或延役者須檢附相關證明"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "《非應屆畢業生》"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "　✫本院甄試資料表"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "　✫自傳(不限定格式)"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "　✫歷年成績單影本(含全年及總人數及歷年成績總排名)"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "　✫畢業證書正反面影本"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "　✫醫師證書正反面影本"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "　✫兵役相關證明文件，現役者請註明預定退伍日期"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "八、聯絡人："
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "　教學部 張小姐 電話(02)2737-2181 分機：3751"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "　電子郵件：225027@h.tmu.edu.tw"
+              }
+            ],
+            "type": "paragraph"
+          }
+        ]
+      },
+      "categoryId": "recruitment",
+      "channel": "news",
+      "cover": {
+        "kind": "local",
+        "path": "assets/legacy/article/a031b7bf367284d1d3d1.webp"
+      },
+      "id": "1",
+      "owner": "department",
+      "pinned": false,
+      "publishedOn": "2022-12-17",
+      "title": {
+        "zh": "#PGY【2022】112學年二年期PGY住院醫師招募"
+      }
+    },
+    {
+      "attachments": [],
+      "audiences": [
+        "residents"
+      ],
+      "body": {
+        "zh": [
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "112年度北醫附醫住院醫師第二階段招募榜單(112.03.17更新)"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "type": "divider"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "【骨科】"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "正取　顏○智"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "備取1　洪○峯"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "備取2　楊○溢"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "備取3　楊○瑜"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "【家醫科】"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "正取一　林○妤"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "正取二　黃○霖"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "備取一　陳○廷"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "備取二　賴○穎"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "備取三　王○昇"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "【皮膚科】"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "正取　陳○君"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "備取一　廖○瑜"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "備取二　施○筑"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "備取三　劉○卉"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "【耳鼻喉科】※依衛福部公告容額為准"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "正取　羅○伶"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "備取一　盧○鈞"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "備取二　董○伃"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "備取三　黃○庭"
+              }
+            ],
+            "type": "paragraph"
+          }
+        ]
+      },
+      "categoryId": "recruitment",
+      "channel": "news",
+      "cover": {
+        "kind": "local",
+        "path": "assets/legacy/article/9d3b53122d17c7501543.webp"
+      },
+      "id": "2",
+      "owner": "department",
+      "pinned": false,
+      "publishedOn": "2022-11-23",
+      "title": {
+        "zh": "#R【2022】112年度北醫附醫住院醫師第二階段招募榜單(112.03.17更新)"
+      }
+    },
+    {
+      "attachments": [],
+      "audiences": [
+        "residents"
+      ],
+      "body": {
+        "zh": [
+          {
+            "runs": [
+              {
+                "text": "112年度北醫附醫住院醫師第一階段招募榜單(111.11.7更新)"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "type": "divider"
+          },
+          {
+            "runs": [
+              {
+                "text": "【內科】"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "正取　邱○雲"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "正取　黃○叡"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "正取　楊○家"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "正取　楊○婷"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "正取　薛○豪"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "正取　潘○煊"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "正取　李○蒼"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "正取　林○仁"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "備取一　張○姬"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "備取二　苗○元"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "【外科】"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "正取　古○千"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "正取　蕭○璿"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "正取　彭○堯"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "正取　鄭○洋"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "【婦產科】"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "正取 袁○"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "正取　蔡○旭"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "【兒科】"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "正取　張○輔"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "正取　楊○家"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "備取　黃○齊"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "【急診】"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "正取　蕭○宇"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "備取　李○蒼"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "【泌尿科】"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "正取　蕭○璿"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "【神經科】"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "正取　林○娟"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "【神經外科】"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "正取　王○凱"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "備取　孫○庭"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "【復健科】"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "正取　黃○齊"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "【家醫科】"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "正取　潘○煊"
+              }
+            ],
+            "type": "paragraph"
+          }
+        ]
+      },
+      "categoryId": "recruitment",
+      "channel": "news",
+      "cover": {
+        "kind": "local",
+        "path": "assets/legacy/article/7204b57ab4f29f82933e.webp"
+      },
+      "id": "4",
+      "owner": "department",
+      "pinned": false,
+      "publishedOn": "2022-11-07",
+      "title": {
+        "zh": "#R【2022】112年度北醫附醫住院醫師第一階段招募榜單(111.11.7更新)"
+      }
+    },
+    {
+      "attachments": [],
+      "audiences": [
+        "joint-training"
+      ],
+      "body": {
+        "zh": [
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "正：李○思(TR)"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "楊○芸(TR)"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "鄭○為(TR)"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "陳○旭(TR)"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "備：蘇○翔"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "張○謹"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "陳○瑀"
+              }
+            ],
+            "type": "paragraph"
+          }
+        ]
+      },
+      "categoryId": "recruitment",
+      "channel": "news",
+      "cover": {
+        "kind": "local",
+        "path": "assets/legacy/article/81a7c94a8724867ed7d5.webp"
+      },
+      "id": "22",
+      "owner": "department",
+      "pinned": false,
+      "publishedOn": "2022-05-04",
+      "title": {
+        "zh": "#牙醫【2022】111年度北醫附醫牙髓病科代訓醫師甄選結果(111.05.04更新)"
+      }
+    },
+    {
+      "attachments": [],
+      "audiences": [
+        "pgy"
+      ],
+      "body": {
+        "zh": [
+          {
+            "runs": [
+              {
+                "text": "一、招募名額：34名。"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "二、甄試條件：符合『111年度畢業後綜合臨床醫學訓練選配簡章』之申請人資格"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "三、報名方式：請至衛福部公告網站至PGY選配系統報名 "
+              },
+              {
+                "href": "https://match.mohw.gov.tw/YR2",
+                "text": "https://match.mohw.gov.tw/YR2"
+              },
+              {
+                "text": "(110/12/21-111/01/10)"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "四、甄試資料寄送：於111年2月11日(星期五)前郵寄(11031)臺北市信義區吳興街252號 臺北醫學大學附設醫院 第一醫療大樓7樓教學部註：111年度二年期PGY住院醫師 甄試 收(郵戳為憑)。"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "五、面試日期：111年03月05日(星期六)"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "六、甄試地點：臺北醫學大學附設醫院 第一醫療大樓(臺北市信義區吳興街252號)"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "七、甄試資料："
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "《應屆畢業生》"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "✫本院甄試資料表(請使用本院格式，甄選資料表可至本院首頁網址之「招募新夥伴」下載。)"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "✫自傳(不限定格式)"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "✫歷年成績單影本(含全年及總人數及歷年成績總排名)"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "✫通過第一階���國考成績證明"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "✫如男性免役或延役者須檢附相關證明"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "《非應屆畢業生》"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "✫本院甄試資料表(請使用本院格式，甄選資料表可至本院首頁網址之「招募新夥伴」下載。)"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "✫自傳(不限定格式)"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "✫歷年成績單影本"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "(含全年及總人數及歷年成績總排名)"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "✫畢業證書正反面影本"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "✫醫師證書正反面影本"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "✫兵役相關證明文件，現役者請註明預定退伍日期"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "八、聯絡人：教學部 舒小姐 電話(02)2737-2181 分機：3751"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "電子郵件：205149@h.tmu.edu.tw"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "九、招募手冊："
+              },
+              {
+                "href": "https://drive.google.com/file/d/1eXPUUiVPolLL9WTL9fC0C4a9nz6mV-oR/view?usp=sharing",
+                "text": "https://drive.google.com/file/d/1eXPUU ... nz6mV-oR/view?usp=sharing"
+              }
+            ],
+            "type": "paragraph"
+          }
+        ]
+      },
+      "categoryId": "recruitment",
+      "channel": "news",
+      "cover": {
+        "kind": "local",
+        "path": "assets/legacy/article/a031b7bf367284d1d3d1.webp"
+      },
+      "id": "23",
+      "owner": "department",
+      "pinned": false,
+      "publishedOn": "2021-12-23",
+      "title": {
+        "zh": "#PGY【2021】111學年度二年期PGY住院醫師招募"
+      }
+    },
+    {
+      "attachments": [],
+      "body": {
+        "zh": [
+          {
+            "alt": "【2022】人才發展品質管理系統評鑑(TTQS) — 圖 1",
+            "height": 269,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/board/19a8111f9e03318820b1.webp"
+            },
+            "type": "image",
+            "width": 808
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "效期至113年12月04日"
+              }
+            ],
+            "type": "paragraph"
+          }
+        ]
+      },
+      "categoryId": "competitions-awards",
+      "channel": "honors",
+      "cover": {
+        "kind": "local",
+        "path": "assets/legacy/board/76cbce8327b1a9be5399.webp"
+      },
+      "id": "39",
+      "owner": "department",
+      "pinned": false,
+      "publishedOn": "2022-12-05",
+      "title": {
+        "zh": "【2022】人才發展品質管理系統評鑑(TTQS)"
+      }
+    },
+    {
+      "attachments": [],
+      "body": {
+        "zh": [
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "本院謹訂於110年12月04日(星期六)08:30~17:00辦理"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "【第一屆靈性關懷國際研討會：全人醫療之靈性關懷—理論與實踐】"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "本次活動主會場於臺北醫學大學杏春樓大禮堂"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "另於台南、高雄、花蓮亦有設立分場即時連線"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "type": "divider"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "【活動成果】"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "主會場共277人與會，台南43人，高雄26人，花蓮36人"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "學員回饋："
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "★"
+              },
+              {
+                "text": " "
+              },
+              {
+                "strong": true,
+                "text": "全國性交流受益良多"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "★"
+              },
+              {
+                "text": " "
+              },
+              {
+                "strong": true,
+                "text": "收穫良多、內容充實、感動滿滿"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "★"
+              },
+              {
+                "text": " "
+              },
+              {
+                "strong": true,
+                "text": "看到許多曾被忽略的需求"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "★「實務分組討論」幫助加深印象並更瞭解如何運用於日常與醫療實務中"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "★"
+              },
+              {
+                "text": " "
+              },
+              {
+                "strong": true,
+                "text": "期待參與「系列進階實務工作坊」"
+              }
+            ],
+            "type": "paragraph"
+          }
+        ]
+      },
+      "categoryId": "hospital-events",
+      "channel": "news",
+      "id": "60",
+      "owner": "holistic",
+      "pinned": false,
+      "publishedOn": "2021-12-06",
+      "title": {
+        "zh": "#全人【2021】12/04(六)第一屆全人醫療–靈性關懷國際研討會"
+      }
+    },
+    {
+      "attachments": [],
+      "body": {
+        "zh": [
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "本院謹訂於111年12月03日(星期六)-04日(星期日)辦理"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "【第二屆靈性關懷國際研討會：邁向全人醫療的里程碑　靈性關懷的導入】"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "本次活動於臺北醫學大學杏春樓大禮堂辦理，除研討會外亦友【論文徵稿活動】"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "期盼全國醫療機構從事靈性關懷的實務工作者及研究者共襄盛舉，進行靈性關懷相關學術研究交流，歡迎報名參加和線上投稿。"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "alt": "#全人【2022】12/03(六)-04(日)第二屆全人醫療–靈性關懷國際研討會 — 圖 1",
+            "height": 1125,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/ab2c3dbaaf222e960f00.webp"
+            },
+            "type": "image",
+            "width": 796
+          },
+          {
+            "type": "divider"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "【活動議程】"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "alt": "#全人【2022】12/03(六)-04(日)第二屆全人醫療–靈性關懷國際研討會 — 圖 2",
+            "height": 1083,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/6a6e70a38ebae2babd12.webp"
+            },
+            "type": "image",
+            "width": 1600
+          },
+          {
+            "type": "divider"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "【活動成果】"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "alt": "#全人【2022】12/03(六)-04(日)第二屆全人醫療–靈性關懷國際研討會 — 圖 3",
+            "height": 226,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/120dc69f5e4aae150ec1.webp"
+            },
+            "type": "image",
+            "width": 490
+          },
+          {
+            "alt": "#全人【2022】12/03(六)-04(日)第二屆全人醫療–靈性關懷國際研討會 — 圖 4",
+            "height": 215,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/ed2a5f81926c3ca50c73.webp"
+            },
+            "type": "image",
+            "width": 1347
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "一天半的活動共916人次與會"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "(醫護人員60%、社心靈人員19%、神職人員7%、其他14%)"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "80篇投稿中共選出6篇於研討會當日進行口頭發表"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "alt": "#全人【2022】12/03(六)-04(日)第二屆全人醫療–靈性關懷國際研討會 — 圖 5",
+            "height": 343,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/766fe707ebc8fe4a9194.webp"
+            },
+            "type": "image",
+            "width": 575
+          }
+        ]
+      },
+      "categoryId": "hospital-events",
+      "channel": "news",
+      "id": "61",
+      "owner": "holistic",
+      "pinned": false,
+      "publishedOn": "2022-12-17",
+      "title": {
+        "zh": "#全人【2022】12/03(六)-04(日)第二屆全人醫療–靈性關懷國際研討會"
+      }
+    },
+    {
+      "attachments": [],
+      "body": {
+        "zh": [
+          {
+            "alt": "#全人【2022】12月份-特邀外賓演講座談(Rev.Jana Troutman-Miller) — 圖 1",
+            "height": 441,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/45e7a1987dbdad4dde86.webp"
+            },
+            "type": "image",
+            "width": 808
+          }
+        ]
+      },
+      "categoryId": "hospital-events",
+      "channel": "news",
+      "id": "62",
+      "owner": "holistic",
+      "pinned": false,
+      "publishedOn": "2022-12-17",
+      "title": {
+        "zh": "#全人【2022】12月份-特邀外賓演講座談(Rev.Jana Troutman-Miller)"
+      }
+    },
+    {
+      "attachments": [],
+      "body": {
+        "zh": [
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "112年度-【110學年優良教學獎】"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "alt": "【教師發展中心】優良教學獎(更新至112年) — 圖 1",
+            "height": 1600,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/board/d02d16eb0389aea541d1.webp"
+            },
+            "type": "image",
+            "width": 1067
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "111年度-【109學年優良教學獎】"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "alt": "【教師發展中心】優良教學獎(更新至112年) — 圖 2",
+            "height": 1600,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/board/18b967f44e01277283f9.webp"
+            },
+            "type": "image",
+            "width": 1067
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "110年度"
+              }
+            ],
+            "type": "paragraph"
+          }
+        ]
+      },
+      "categoryId": "teaching-recognition",
+      "channel": "honors",
+      "cover": {
+        "kind": "local",
+        "path": "assets/legacy/board/36d3f9bf67ff72a37d0b.webp"
+      },
+      "id": "63",
+      "owner": "faculty_dev",
+      "pinned": false,
+      "publishedOn": "2022-12-17",
+      "title": {
+        "zh": "【教師發展中心】優良教學獎(更新至112年)"
+      }
+    },
+    {
+      "attachments": [],
+      "body": {
+        "zh": [
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "112年度-【110學年教學創新獎】"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "alt": "【教師發展中心】教學創新獎(更新至112年) — 圖 1",
+            "height": 1600,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/board/8c9bac3cd62d9542c9be.webp"
+            },
+            "type": "image",
+            "width": 1067
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "111年度-【109學年教學創新獎】"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "alt": "【教師發展中心】教學創新獎(更新至112年) — 圖 2",
+            "height": 1600,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/board/5b026b2b237f99e8d415.webp"
+            },
+            "type": "image",
+            "width": 1067
+          }
+        ]
+      },
+      "categoryId": "teaching-recognition",
+      "channel": "honors",
+      "cover": {
+        "kind": "local",
+        "path": "assets/legacy/board/8f0ec7537fb890a6381f.webp"
+      },
+      "id": "64",
+      "owner": "faculty_dev",
+      "pinned": false,
+      "publishedOn": "2022-12-17",
+      "title": {
+        "zh": "【教師發展中心】教學創新獎(更新至112年)"
+      }
+    },
+    {
+      "attachments": [],
+      "body": {
+        "zh": [
+          {
+            "runs": [
+              {
+                "text": "【國內在職進修學位相關】公告-112年"
+              },
+              {
+                "href": "https://evergreen-shadow-f72.notion.site/112-d21f9257b7804475b348d0f099e86829",
+                "text": "(請點擊)"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "【國內在職進修學位相關】公告-111年"
+              },
+              {
+                "href": "https://evergreen-shadow-f72.notion.site/111-a7ded4c5763340f6b56251ee78385d8c",
+                "text": "(請點擊)"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "【國內在職進修學位相關】公告-北醫大"
+              },
+              {
+                "href": "https://evergreen-shadow-f72.notion.site/e00a9f8fee1c4602a375014d546d1b8b",
+                "text": "(請點擊)"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "【國內在職進修學位相關】公告-其他機構"
+              },
+              {
+                "href": "https://www.notion.so/d6662557eb584a1283ab26fa76f9917b",
+                "text": "(請點擊)"
+              }
+            ],
+            "type": "paragraph"
+          }
+        ]
+      },
+      "categoryId": "further-training",
+      "channel": "news",
+      "cover": {
+        "kind": "local",
+        "path": "assets/legacy/article/263ca7ed0e3b84a1f60e.webp"
+      },
+      "id": "65",
+      "owner": "department",
+      "pinned": false,
+      "publishedOn": "2023-01-28",
+      "title": {
+        "zh": "#國內在職進修學位【~2023】相關報名資訊"
+      }
+    },
+    {
+      "attachments": [],
+      "body": {
+        "zh": [
+          {
+            "runs": [
+              {
+                "text": "【在職進修相關】本院員工申請說明"
+              },
+              {
+                "href": "https://evergreen-shadow-f72.notion.site/384a59ab93564e7c969dbc33b1212b54",
+                "text": "(請點擊)"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "alt": "#國內在職進修學位【~2023】本院員工申請規定 — 圖 1",
+            "height": 902,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/46080b878254920973be.webp"
+            },
+            "type": "image",
+            "width": 925
+          }
+        ]
+      },
+      "categoryId": "further-training",
+      "channel": "news",
+      "cover": {
+        "kind": "local",
+        "path": "assets/legacy/article/453c11883bcc39d0530b.webp"
+      },
+      "id": "66",
+      "owner": "department",
+      "pinned": false,
+      "publishedOn": "2023-01-28",
+      "title": {
+        "zh": "#國內在職進修學位【~2023】本院員工申請規定"
+      }
+    },
+    {
+      "attachments": [],
+      "body": {
+        "zh": [
+          {
+            "runs": [
+              {
+                "href": "https://docs.google.com/spreadsheets/d/1V8t0Z6X0LZmKGFMK3h06mzjfOCRJ9twGxrqMFJ9raxc/edit?usp=share_link",
+                "strong": true,
+                "text": "例學年名單(請點擊)"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "alt": "【醫學系】最佳教學主治/住院醫師、護理站及行政人員、最佳實習醫學生名單(2025.09更新) — 圖 1",
+            "height": 540,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/board/2cb1abf611a1db58c99b.webp"
+            },
+            "type": "image",
+            "width": 960
+          },
+          {
+            "alt": "【醫學系】最佳教學主治/住院醫師、護理站及行政人員、最佳實習醫學生名單(2025.09更新) — 圖 2",
+            "height": 540,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/board/ed14d3c24f50dd44e91b.webp"
+            },
+            "type": "image",
+            "width": 960
+          },
+          {
+            "alt": "【醫學系】最佳教學主治/住院醫師、護理站及行政人員、最佳實習醫學生名單(2025.09更新) — 圖 3",
+            "height": 540,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/board/4ae58e4b9902341a95b2.webp"
+            },
+            "type": "image",
+            "width": 960
+          },
+          {
+            "alt": "【醫學系】最佳教學主治/住院醫師、護理站及行政人員、最佳實習醫學生名單(2025.09更新) — 圖 4",
+            "height": 540,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/board/d021bba443a2efeeeddc.webp"
+            },
+            "type": "image",
+            "width": 960
+          },
+          {
+            "alt": "【醫學系】最佳教學主治/住院醫師、護理站及行政人員、最佳實習醫學生名單(2025.09更新) — 圖 5",
+            "height": 540,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/board/4907b28a524f7b800c41.webp"
+            },
+            "type": "image",
+            "width": 960
+          },
+          {
+            "alt": "【醫學系】最佳教學主治/住院醫師、護理站及行政人員、最佳實習醫學生名單(2025.09更新) — 圖 6",
+            "height": 540,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/board/311b3eb8bd7c8fa113b3.webp"
+            },
+            "type": "image",
+            "width": 960
+          },
+          {
+            "alt": "【醫學系】最佳教學主治/住院醫師、護理站及行政人員、最佳實習醫學生名單(2025.09更新) — 圖 7",
+            "height": 540,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/board/0d634dbd8014219b1521.webp"
+            },
+            "type": "image",
+            "width": 960
+          }
+        ]
+      },
+      "categoryId": "teaching-recognition",
+      "channel": "honors",
+      "cover": {
+        "kind": "local",
+        "path": "assets/legacy/board/ec16f2fa02f380bfe174.webp"
+      },
+      "id": "68",
+      "owner": "department",
+      "pinned": false,
+      "publishedOn": "2023-02-28",
+      "title": {
+        "zh": "【醫學系】最佳教學主治/住院醫師、護理站及行政人員、最佳實習醫學生名單(2025.09更新)"
+      }
+    },
+    {
+      "attachments": [],
+      "body": {
+        "zh": [
+          {
+            "runs": [
+              {
+                "href": "https://evergreen-shadow-f72.notion.site/78ccfad46c66492eb2a9b35596736d68",
+                "strong": true,
+                "text": "每週五全院學術討論會行事曆(請點擊)"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "alt": "【全院學術討論會】排程表 — 圖 1",
+            "height": 540,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/5f14b9dd34793662b6b7.webp"
+            },
+            "type": "image",
+            "width": 960
+          },
+          {
+            "alt": "【全院學術討論會】排程表 — 圖 2",
+            "height": 540,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/14e4880db7f03822f8bf.webp"
+            },
+            "type": "image",
+            "width": 960
+          }
+        ]
+      },
+      "categoryId": "hospital-courses",
+      "channel": "news",
+      "cover": {
+        "kind": "local",
+        "path": "assets/legacy/article/50ece87c8761cf243a27.webp"
+      },
+      "id": "69",
+      "owner": "department",
+      "pinned": false,
+      "publishedOn": "2023-02-28",
+      "title": {
+        "zh": "【全院學術討論會】排程表"
+      }
+    },
+    {
+      "attachments": [],
+      "body": {
+        "zh": [
+          {
+            "runs": [
+              {
+                "href": "https://evergreen-shadow-f72.notion.site/b8713726868148b4ae3008ac0b8ca823",
+                "strong": true,
+                "text": "癌症教育訓練課程行事曆(請點擊)"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "alt": "癌症教育訓練課程 — 圖 1",
+            "height": 1600,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/470fd6dd0c82042a073e.webp"
+            },
+            "type": "image",
+            "width": 1133
+          }
+        ]
+      },
+      "categoryId": "hospital-courses",
+      "channel": "news",
+      "cover": {
+        "kind": "local",
+        "path": "assets/legacy/article/dcba8743e3ff73bb3101.webp"
+      },
+      "id": "70",
+      "owner": "department",
+      "pinned": false,
+      "publishedOn": "2023-02-28",
+      "title": {
+        "zh": "癌症教育訓練課程"
+      }
+    },
+    {
+      "attachments": [],
+      "body": {
+        "zh": [
+          {
+            "alt": "實證醫學中心簡介 — 圖 1",
+            "height": 1600,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/6d732b76551a7841b904.webp"
+            },
+            "type": "image",
+            "width": 1067
+          }
+        ]
+      },
+      "categoryId": "center-about",
+      "channel": "center",
+      "id": "79",
+      "owner": "ebm",
+      "pinned": false,
+      "publishedOn": "2023-02-28",
+      "title": {
+        "zh": "實證醫學中心簡介"
+      }
+    },
+    {
+      "attachments": [],
+      "body": {
+        "zh": [
+          {
+            "runs": [
+              {
+                "href": "https://evergreen-shadow-f72.notion.site/20-7fcf302a9b814a7e8d34a655ead4151b",
+                "strong": true,
+                "text": "【20項技能練習】-預約說明及開放時間(請點擊)"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "href": "https://evergreen-shadow-f72.notion.site/63368e32afa54d0290c68489e842eb24",
+                "strong": true,
+                "text": "【20項技能練習】-評核表(請點擊)"
+              }
+            ],
+            "type": "paragraph"
+          }
+        ]
+      },
+      "categoryId": "center-events",
+      "channel": "center",
+      "id": "84",
+      "owner": "clinical_skills",
+      "pinned": false,
+      "publishedOn": "2023-02-28",
+      "title": {
+        "zh": "【20項技能練習】"
+      }
+    },
+    {
+      "attachments": [],
+      "body": {
+        "zh": [
+          {
+            "runs": [
+              {
+                "href": "https://evergreen-shadow-f72.notion.site/OSCE-c9ff97dcaa6c486987da65f00e85047c",
+                "strong": true,
+                "text": "OSCE測驗相關資訊(請點擊)"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "level": 2,
+            "text": "💡醫五期中測驗",
+            "type": "heading"
+          },
+          {
+            "type": "divider"
+          },
+          {
+            "items": [
+              [
+                {
+                  "strong": true,
+                  "text": "每位學生共考6站，其中4站為技能題，2站為SP表演題"
+                }
+              ],
+              [
+                {
+                  "strong": true,
+                  "text": "傷口縫合、採取動脈血、鼻胃管置放、導尿管置放"
+                }
+              ]
+            ],
+            "ordered": false,
+            "type": "list"
+          },
+          {
+            "header": [
+              "學年",
+              "對象",
+              "時間",
+              "人數"
+            ],
+            "rows": [
+              [
+                "111",
+                "107級",
+                "112/08/05(六)-112/08/06(日)",
+                ""
+              ]
+            ],
+            "type": "table"
+          },
+          {
+            "level": 2,
+            "text": "💡醫六期末測驗",
+            "type": "heading"
+          },
+          {
+            "type": "divider"
+          },
+          {
+            "items": [
+              [
+                {
+                  "strong": true,
+                  "text": "每位學生共考6站，其中2站為技能題，4站為SP表演題"
+                }
+              ]
+            ],
+            "ordered": false,
+            "type": "list"
+          },
+          {
+            "header": [
+              "學年",
+              "對象",
+              "本院考場辦理測驗之時間",
+              "人數"
+            ],
+            "rows": [
+              [
+                "111",
+                "106級+衛福部學員",
+                "112/03/25(六)",
+                "46"
+              ]
+            ],
+            "type": "table"
+          },
+          {
+            "level": 2,
+            "text": "💡醫六OSCE國考",
+            "type": "heading"
+          },
+          {
+            "type": "divider"
+          },
+          {
+            "items": [
+              [
+                {
+                  "strong": true,
+                  "text": "依"
+                },
+                {
+                  "href": "https://www.tame.org.tw/##",
+                  "strong": true,
+                  "text": "台灣醫學教育學會(請點擊)"
+                },
+                {
+                  "strong": true,
+                  "text": "公告為準"
+                }
+              ]
+            ],
+            "ordered": false,
+            "type": "list"
+          },
+          {
+            "header": [
+              "學年",
+              "對象",
+              "本院考場辦理國考之時間",
+              "人數"
+            ],
+            "rows": [
+              [
+                "111",
+                "106級+衛福部學員",
+                "112/05/06(六)-07(日)",
+                "46"
+              ]
+            ],
+            "type": "table"
+          }
+        ]
+      },
+      "categoryId": "center-events",
+      "channel": "center",
+      "id": "85",
+      "owner": "clinical_skills",
+      "pinned": false,
+      "publishedOn": "2023-02-28",
+      "title": {
+        "zh": "【西醫實習醫學生OSCE測驗】"
+      }
+    },
+    {
+      "attachments": [],
+      "body": {
+        "zh": [
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "1.NHQA國家醫療品質獎-智慧解決方案組標章"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "教學研究領域-《虛擬實境手術教學之導入及 智慧手術學習平台之建立》"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "2.NHQA國家醫療品質獎-擬真情境類競賽產兒組新人獎"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "參賽成員(依報名表順序)：傅皓聲、蘇一宇、洪璟芬、羅詩瑩、 曹念萱"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "alt": "【2022】NHQA國家醫療品質獎 — 圖 1",
+            "height": 541,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/board/b6ac85ec3d0a7c6d3f14.webp"
+            },
+            "type": "image",
+            "width": 961
+          }
+        ]
+      },
+      "categoryId": "competitions-awards",
+      "channel": "honors",
+      "cover": {
+        "kind": "local",
+        "path": "assets/legacy/board/d3fd1f21d15b9f82270e.webp"
+      },
+      "id": "88",
+      "owner": "department",
+      "pinned": false,
+      "publishedOn": "2023-01-13",
+      "title": {
+        "zh": "【2022】NHQA國家醫療品質獎"
+      }
+    },
+    {
+      "attachments": [],
+      "audiences": [
+        "pgy"
+      ],
+      "body": {
+        "zh": [
+          {
+            "alt": "#PGY【2022】112學年二年期PGY甄試資訊 — 圖 1",
+            "height": 544,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/290553389c4be02019a8.webp"
+            },
+            "type": "image",
+            "width": 363
+          }
+        ]
+      },
+      "categoryId": "recruitment",
+      "channel": "news",
+      "cover": {
+        "kind": "local",
+        "path": "assets/legacy/article/3c3f1afc00ca89eac82b.webp"
+      },
+      "id": "89",
+      "owner": "department",
+      "pinned": false,
+      "publishedOn": "2023-01-21",
+      "title": {
+        "zh": "#PGY【2022】112學年二年期PGY甄試資訊"
+      }
+    },
+    {
+      "attachments": [],
+      "body": {
+        "zh": [
+          {
+            "runs": [
+              {
+                "text": "臨床技能中心簡介"
+              }
+            ],
+            "type": "paragraph"
+          }
+        ]
+      },
+      "categoryId": "center-about",
+      "channel": "center",
+      "id": "91",
+      "owner": "clinical_skills",
+      "pinned": false,
+      "publishedOn": "2023-01-21",
+      "title": {
+        "zh": "臨床技能中心簡介"
+      }
+    },
+    {
+      "attachments": [],
+      "body": {
+        "zh": [
+          {
+            "alt": "數位教材室教材製作項目及統計表 — 圖 1",
+            "height": 1067,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/f51f769546f9d3acc0d0.webp"
+            },
+            "type": "image",
+            "width": 1600
+          }
+        ]
+      },
+      "categoryId": "center-events",
+      "channel": "center",
+      "id": "92",
+      "owner": "digital_materials",
+      "pinned": false,
+      "publishedOn": "2023-01-21",
+      "title": {
+        "zh": "數位教材室教材製作項目及統計表"
+      }
+    },
+    {
+      "attachments": [],
+      "body": {
+        "zh": [
+          {
+            "alt": "數位教材室簡介(服務項目、空間設備) — 圖 1",
+            "height": 1067,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/f51f769546f9d3acc0d0.webp"
+            },
+            "type": "image",
+            "width": 1600
+          },
+          {
+            "alt": "數位教材室簡介(服務項目、空間設備) — 圖 2",
+            "height": 1067,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/1af5c2037f5f191f1526.webp"
+            },
+            "type": "image",
+            "width": 1600
+          },
+          {
+            "alt": "數位教材室簡介(服務項目、空間設備) — 圖 3",
+            "height": 1600,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/117b437f495b8833ae2e.webp"
+            },
+            "type": "image",
+            "width": 1067
+          }
+        ]
+      },
+      "categoryId": "center-about",
+      "channel": "center",
+      "id": "93",
+      "owner": "digital_materials",
+      "pinned": false,
+      "publishedOn": "2023-01-21",
+      "title": {
+        "zh": "數位教材室簡介(服務項目、空間設備)"
+      }
+    },
+    {
+      "attachments": [],
+      "body": {
+        "zh": [
+          {
+            "alt": "數位教材室獲獎紀錄 — 圖 1",
+            "height": 1600,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/117b437f495b8833ae2e.webp"
+            },
+            "type": "image",
+            "width": 1067
+          }
+        ]
+      },
+      "categoryId": "center-events",
+      "channel": "center",
+      "id": "94",
+      "owner": "digital_materials",
+      "pinned": false,
+      "publishedOn": "2023-01-21",
+      "title": {
+        "zh": "數位教材室獲獎紀錄"
+      }
+    },
+    {
+      "attachments": [],
+      "body": {
+        "zh": [
+          {
+            "alt": "#教發中心【111學年】教師發展課程排程(已更新至2023年7月) — 圖 1",
+            "height": 1600,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/fd9966033d545ade714c.webp"
+            },
+            "type": "image",
+            "width": 1131
+          },
+          {
+            "alt": "#教發中心【111學年】教師發展課程排程(已更新至2023年7月) — 圖 2",
+            "height": 1600,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/d3662eb6b831f266aba6.webp"
+            },
+            "type": "image",
+            "width": 1131
+          },
+          {
+            "alt": "#教發中心【111學年】教師發展課程排程(已更新至2023年7月) — 圖 3",
+            "height": 1600,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/435fecb84662d6d0f20a.webp"
+            },
+            "type": "image",
+            "width": 1130
+          },
+          {
+            "alt": "#教發中心【111學年】教師發展課程排程(已更新至2023年7月) — 圖 4",
+            "height": 1600,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/3e66860b16220625c87a.webp"
+            },
+            "type": "image",
+            "width": 1130
+          },
+          {
+            "alt": "#教發中心【111學年】教師發展課程排程(已更新至2023年7月) — 圖 5",
+            "height": 1600,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/3d7cd15be333053799f4.webp"
+            },
+            "type": "image",
+            "width": 1131
+          }
+        ]
+      },
+      "categoryId": "hospital-courses",
+      "channel": "news",
+      "cover": {
+        "kind": "local",
+        "path": "assets/legacy/article/3452b65da0719c9548cf.webp"
+      },
+      "id": "95",
+      "owner": "faculty_dev",
+      "pinned": false,
+      "publishedOn": "2023-04-14",
+      "title": {
+        "zh": "#教發中心【111學年】教師發展課程排程(已更新至2023年7月)"
+      }
+    },
+    {
+      "attachments": [],
+      "body": {
+        "zh": [
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "113學年教育部教學實踐研究計畫申請"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "113學年教育部教學實踐研究計畫申請即將開始，"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "鼓勵院具專任教師或專任專案教師之醫事人員參加。"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "有意願申請113學年度計畫，可先填寫"
+              },
+              {
+                "href": "https://forms.gle/pQRKv4vheV7fwHLcA",
+                "strong": true,
+                "text": "計畫申請意願及需求調查表單"
+              },
+              {
+                "strong": true,
+                "text": "。"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "§計畫主持人資格"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "需為申請學校之現任專任人員、編制外專任教學人員、附設醫院或評鑑為醫學中心等級教學醫院之"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "人員，且具備下列資格之一："
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "1.獲具教育部核發助理教授以上教師證書之教師。"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "2.獲具教育部核發講師證書，具有教學成果對外發表或曾獲校內外與教學成就相關獎項之教師。"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "3.獲經學校聘任為專業技術人員、專業及技術教師。"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "rows": [
+              [
+                "類型",
+                "條件"
+              ],
+              [
+                "專任人員",
+                "指符合教師法、教育人員任用條例、大學聘任專業技術人員擔任教學辦法、專科學校專業及技術教師遴聘辦法規定所聘任之人員。"
+              ],
+              [
+                "編制外專任教學人員",
+                "指依專科以上學校進用編制外專任教學人員實施原則聘任之人員。"
+              ],
+              [
+                "附設醫院或評鑑為醫學中心等級教學醫院之人員",
+                "指符合教育人員任用條例施行細則第十一條第二項或第三項規定，其聘任、升等審查基準與程序、課程負擔及教師評鑑等，經申請學校比照專任教師辦理，並納入校內章則規範，且未支給兼任教師薪資者，報教育部審查同意後，其辦理教師資格審查時，得以專任教師年資採計之人員。"
+              ]
+            ],
+            "type": "table"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "§計畫配合課程"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "1.計畫主持人應為申請計畫課程之主授者(至少一門)。"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "2.授課對象：學制包含二專、五專、二技、四技、大學、碩士、博士。部別則包含日間部、夜間部、進修部(需為上述學制)、在職專班(需為上述學制)，但不包含學分班。"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "3.授課課程應為學校認可納入畢業學分之課程。"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "有意願申請113學年教育部實踐研究計畫，可先填寫"
+              },
+              {
+                "href": "https://forms.gle/pQRKv4vheV7fwHLcA",
+                "strong": true,
+                "text": "計畫申請意願及需求調查表單"
+              },
+              {
+                "strong": true,
+                "text": "。"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "連結:"
+              },
+              {
+                "href": "https://forms.gle/JvnLtfVUWikQhVNW7",
+                "strong": true,
+                "text": "https://forms.gle/JvnLtfVUWikQhVNW7"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "聯絡資訊：臺北醫學大學 教師發展中心 李佩儒(分機2155) /附醫教學部 陳均茹(分機3757)"
+              }
+            ],
+            "type": "paragraph"
+          }
+        ]
+      },
+      "categoryId": "faculty",
+      "channel": "news",
+      "id": "96",
+      "owner": "faculty_dev",
+      "pinned": false,
+      "publishedOn": "2023-04-17",
+      "title": {
+        "zh": "#教發中心【2022】教育部教學實踐研究計畫申請113學年意願調查"
+      }
+    },
+    {
+      "attachments": [],
+      "body": {
+        "zh": [
+          {
+            "runs": [
+              {
+                "text": "為提高本部同仁服務品質，持續精進服務內容"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "敬請各位利用幾分鐘時間填寫調查問卷，以提供我們改進的方向。"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "本問卷不具名，請您放心填答，並請依據您的重視程度以及實際接觸經驗來回答問題。您的寶貴意見是我們持續改善與進步的重要參考，再次謝謝您協助作答！"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "【教學部行政人員服務滿意度調查表單】"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "連結："
+              },
+              {
+                "href": "https://forms.gle/8hf9x5G6SvJW2Pn29",
+                "strong": true,
+                "text": "https://forms.gle/8hf9x5G6SvJW2Pn29"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "謝謝您！"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "臺北醫學大學附設醫院　教學部"
+              }
+            ],
+            "type": "paragraph"
+          }
+        ]
+      },
+      "categoryId": "trainee-notices",
+      "channel": "news",
+      "cover": {
+        "kind": "local",
+        "path": "assets/legacy/article/37abd12e94f70f527efd.webp"
+      },
+      "id": "97",
+      "owner": "department",
+      "pinned": false,
+      "publishedOn": "2022-11-05",
+      "title": {
+        "zh": "【教學行政服務滿意度調查】"
+      }
+    },
+    {
+      "attachments": [],
+      "audiences": [
+        "allied-health-trainees"
+      ],
+      "body": {
+        "zh": [
+          {
+            "runs": [
+              {
+                "text": "請依據您的重視程度以及實際住宿經驗來回答問題。"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "您的寶貴意見是我們持續改善與進步的重要參考，再次謝謝您協助作答！"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "【職類實習生住宿滿意度調查表單】"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "連結："
+              },
+              {
+                "href": "https://forms.gle/Y5RvytST8V2CoeEy5",
+                "strong": true,
+                "text": "https://forms.gle/Y5RvytST8V2CoeEy5"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "謝謝您！"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "臺北醫學大學附設醫院　教學部"
+              }
+            ],
+            "type": "paragraph"
+          }
+        ]
+      },
+      "categoryId": "trainee-notices",
+      "channel": "news",
+      "cover": {
+        "kind": "local",
+        "path": "assets/legacy/article/37eed44211c41b53d857.webp"
+      },
+      "id": "98",
+      "owner": "department",
+      "pinned": false,
+      "publishedOn": "2022-12-17",
+      "title": {
+        "zh": "#職類【實習生住宿滿意度調查】"
+      }
+    },
+    {
+      "attachments": [],
+      "audiences": [
+        "allied-health-trainees"
+      ],
+      "body": {
+        "zh": [
+          {
+            "runs": [
+              {
+                "text": "為提高本院職類實習生實習品質，持續精進教學訓練內容"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "敬請各位利用幾分鐘時間填寫調查問卷，以提供我們改進的方向。"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "本問卷不具名，請您放心填答，並請依據您的重視程度以及實際接觸經驗來回答問題。您的寶貴意見是我們持續改善與進步的重要參考，再次謝謝您協助作答！"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "【職類實習生實習訓練計劃教學問卷調查表單】"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "連結："
+              },
+              {
+                "href": "https://forms.gle/AvnN8jAyqZLj7cuf7",
+                "strong": true,
+                "text": "https://forms.gle/AvnN8jAyqZLj7cuf7"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "alt": "#職類【實習訓練滿意度調查】 — 圖 1",
+            "height": 184,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/ea9aa1730afbd8706870.webp"
+            },
+            "type": "image",
+            "width": 184
+          },
+          {
+            "runs": [
+              {
+                "text": "謝謝您！"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "臺北醫學大學附設醫院　教學部"
+              }
+            ],
+            "type": "paragraph"
+          }
+        ]
+      },
+      "categoryId": "trainee-notices",
+      "channel": "news",
+      "cover": {
+        "kind": "local",
+        "path": "assets/legacy/article/f6d939fdfb77fa8968e4.webp"
+      },
+      "id": "99",
+      "owner": "department",
+      "pinned": false,
+      "publishedOn": "2022-11-05",
+      "title": {
+        "zh": "#職類【實習訓練滿意度調查】"
+      }
+    },
+    {
+      "attachments": [],
+      "body": {
+        "zh": [
+          {
+            "alt": "【全人照護常見案例教案簡介】 — 圖 1",
+            "height": 1600,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/5428e2baada62b13c209.webp"
+            },
+            "type": "image",
+            "width": 1067
+          },
+          {
+            "alt": "【全人照護常見案例教案簡介】 — 圖 2",
+            "height": 1600,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/0271b020572fdc788b5a.webp"
+            },
+            "type": "image",
+            "width": 1067
+          }
+        ]
+      },
+      "categoryId": "center-events",
+      "channel": "center",
+      "cover": {
+        "kind": "local",
+        "path": "assets/legacy/article/175fa7c93100e4758d9e.webp"
+      },
+      "id": "105",
+      "owner": "holistic",
+      "pinned": false,
+      "publishedOn": "2022-11-05",
+      "title": {
+        "zh": "【全人照護常見案例教案簡介】"
+      }
+    },
+    {
+      "attachments": [],
+      "body": {
+        "zh": [
+          {
+            "alt": "2018-2022年獎項/標章統整 — 圖 1",
+            "height": 1600,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/board/b85b224f8197c15547b3.webp"
+            },
+            "type": "image",
+            "width": 1067
+          },
+          {
+            "alt": "2018-2022年獎項/標章統整 — 圖 2",
+            "height": 1067,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/board/6a4aa6343fe95c03bb3b.webp"
+            },
+            "type": "image",
+            "width": 1600
+          },
+          {
+            "alt": "2018-2022年獎項/標章統整 — 圖 3",
+            "height": 1600,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/board/7e21f89fcee453648222.webp"
+            },
+            "type": "image",
+            "width": 1067
+          }
+        ]
+      },
+      "categoryId": "competitions-awards",
+      "channel": "honors",
+      "cover": {
+        "kind": "local",
+        "path": "assets/legacy/board/83200da84361f42041ed.webp"
+      },
+      "id": "106",
+      "owner": "department",
+      "pinned": false,
+      "publishedOn": "2022-12-31",
+      "title": {
+        "zh": "2018-2022年獎項/標章統整"
+      }
+    },
+    {
+      "attachments": [],
+      "body": {
+        "zh": [
+          {
+            "level": 3,
+            "text": "　　為有效改善安寧緩和醫療病人及疑似物質使用疾患非癌病人之疼痛問題，衛生福利部食品藥物管理署委託計畫製作「安寧緩和醫療病人之疼痛照護」及「疑似物質使用疾患非癌病人之疼痛照護」線上影音課程，提供醫事人員參考使用，以提升疼痛病人之生活品質。",
+            "type": "heading"
+          },
+          {
+            "level": 3,
+            "text": "　　線上課程分為「安寧緩和醫療病人之疼痛照護課程」共11單元及「疑似物質使用疾患非癌病人之疼痛照護課程」共14單元。",
+            "type": "heading"
+          },
+          {
+            "level": 3,
+            "text": "※線上影音檔請至以下網頁路徑，下載運用：",
+            "type": "heading"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "　衛生福利部食品藥物管理署網站（網址："
+              },
+              {
+                "href": "https://www.fda.gov.tw/",
+                "strong": true,
+                "text": "http://www.fda.gov.tw"
+              },
+              {
+                "strong": true,
+                "text": "）"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "level": 3,
+            "text": "　路徑：首頁點選業務專區 > 管制藥品 > 反毒資源專區 > 線上課程",
+            "type": "heading"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "　"
+              },
+              {
+                "href": "https://www.fda.gov.tw/TC/site.aspx?sid=10899&r=9441038",
+                "text": "https://www.fda.gov.tw/TC/site.aspx?sid=10899&r=9441038"
+              }
+            ],
+            "type": "paragraph"
+          }
+        ]
+      },
+      "categoryId": "external-events",
+      "channel": "news",
+      "id": "113",
+      "owner": "department",
+      "pinned": false,
+      "publishedOn": "2023-05-15",
+      "title": {
+        "zh": "【衛福部食品藥物管理署】反毒相關線上影音課程"
+      }
+    },
+    {
+      "attachments": [],
+      "body": {
+        "zh": [
+          {
+            "alt": "【全人中心】全人照護教育特色 — 圖 1",
+            "height": 1600,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/c9a71100651439d46664.webp"
+            },
+            "type": "image",
+            "width": 1067
+          }
+        ]
+      },
+      "categoryId": "center-about",
+      "channel": "center",
+      "id": "114",
+      "owner": "holistic",
+      "pinned": false,
+      "publishedOn": "2023-05-15",
+      "title": {
+        "zh": "【全人中心】全人照護教育特色"
+      }
+    },
+    {
+      "attachments": [],
+      "body": {
+        "zh": [
+          {
+            "alt": "【TMUH】2023年實證醫學能力競賽成果發表 — 圖 1",
+            "height": 1600,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/33871b76eb63ec030826.webp"
+            },
+            "type": "image",
+            "width": 1067
+          }
+        ]
+      },
+      "categoryId": "center-events",
+      "channel": "center",
+      "id": "115",
+      "owner": "ebm",
+      "pinned": false,
+      "publishedOn": "2023-05-15",
+      "title": {
+        "zh": "【TMUH】2023年實證醫學能力競賽成果發表"
+      }
+    },
+    {
+      "attachments": [],
+      "body": {
+        "zh": [
+          {
+            "alt": "教師多元反映管道 — 圖 1",
+            "height": 1067,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/4bba0a2ec002d0ecb068.webp"
+            },
+            "type": "image",
+            "width": 1600
+          }
+        ]
+      },
+      "categoryId": "faculty",
+      "channel": "news",
+      "id": "116",
+      "owner": "department",
+      "pinned": false,
+      "publishedOn": "2023-04-28",
+      "title": {
+        "zh": "教師多元反映管道"
+      }
+    },
+    {
+      "attachments": [],
+      "body": {
+        "zh": [
+          {
+            "runs": [
+              {
+                "text": "【全院學術活動資訊】"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "主題：Early Literacy for Life Long Health"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "主持：張君照 副院長"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "主講：波士頓大學醫學院 Barry Zuckerman教授"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "時間：108.01.18 (星期五) AM 7:15-8:15"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "地點：三大樓11樓3111會議室"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "alt": "#全院學術【2019】誠摯感謝波士頓大學醫學院 Barry Zuckerman教授108.01.18蒞臨本院演講！ — 圖 1",
+            "height": 1200,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/58cbf955234b5ea92b78.webp"
+            },
+            "type": "image",
+            "width": 1600
+          },
+          {
+            "runs": [
+              {
+                "text": "▲Barry Zuckerman教授"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "　　此次演講邀請到國際級小兒科大師波士頓大學醫學院貝瑞•佐克曼 (Barry Zuckerman) 教授舉辦演講，首先由張君照副院長介紹來賓貝瑞教授以及史丹佛大學醫療預防及成果政策研究中心主任王智弘教授。王教授著有 《一個台灣小留學生到哈佛之路》並畢業自哈佛大學醫學院且代表該屆畢業生致詞，曾是貝瑞教授的學生，他形容貝瑞教授就像是美國醫界的Icon典範, 小兒科界的”巨人” ，除了培育無數傑出醫師之外，更是跨領域始祖，創辦過兩個非營利組織Reach Out and Read(ROR) 1以及Medical Legal Partnership(MLP) 2，帶給無數美國弱勢孩童與家庭巨大的影響。"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "　　演講開始，貝瑞教授指出要為孩子建立好健康的未來，我們應在成長的階段依其需求給予豐富經驗：0-3 歲時加強孩子的語言學習與發展 (language acquisition)，5-8 歲是孩子學習閱讀 (learn to read) 的黃金期，8-18 歲的青少年要有豐富的閱讀學習 (read to learn) 經驗以及 18-26 歲的持續教育 (ongoing education)。 貝瑞教授亦很明確地指出 0-3 歲時語言學習與發展是無法由手機或平板上的語言所取代。對發展中的兒童而言，擁有閱讀能力是所有學習能力的基礎，貝瑞教授於演講肯定的告訴我們，一個人的教育程度能遠離肥胖、不抽菸且與活得更久更健康有關，而閱讀能力則是建構這個良性循環的關鍵因素，因此他在全世界推廣 展臂閱讀(Reach Out and Read)活動。"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "　　貝瑞教授提到因為醫療人員有兒童發展的專業知識以及有獨特在孩童腦部發展黃金時期高頻率接觸孩子的機會，這時期可以運用童書作為評估發展工具，並衛教家長親子共讀對孩童發展的重要，建議家長在孩童 6 個月就可以開始和孩子共讀，有助於孩童認知發展、人際互動以及情感的表達。而幫助孩童閱讀素養萌發並非單純念故事給孩子聽，而是用童書和孩子對話，貝瑞教授分享診間影片讓大家了解到醫師如何指引家長運用指物命名以及對話式共讀的方式，吸引孩童投入閱讀並孩子一來一往的輪流對答，從MRI發現如此互動可以刺激大腦左下額葉的活化，並提升語言建構的分數，同時有展臂閱讀模式介入的孩子語言接收與表達都有顯著的提升。貝瑞教授分享Boston Basics(波士頓基礎運動)影片的五步驟: 1.把愛最大化，學習壓力管理 2.指東西, 唱歌, 說話3.數數，分組和比較4.運動和遊戲探索5.閱讀和討論故事，用陪伴與簡單技巧讓每個孩子都有一個良好的人生起點。"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "　　最後貝瑞教授邀請展臂閱讀協會理事長陳宥達醫師(北醫附醫家醫科)上臺分享台灣偏鄉醫療推廣親子共讀經驗，陳醫師在2016年創辦台灣展臂閱讀協會初期，曾造訪史丹佛大學跟隨王智弘主任以及貝瑞教授學習兒童發展評估與兒童行為，了解到孩童大腦在3歲以前完成80%的發展，看見國外醫師在診間為孩子翻開書本後，更確信從醫療角度推廣早期閱讀是刻不容緩的事，此次邀請兩位學者來台期盼2年之久，感謝北醫附醫的支持下，順利邀請到知名國際學者來北醫附醫演講，完成這難得的機會。"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "　　會後，貝瑞教授特地前往兒童發展評估中心以及與社醫部合作的貢寮衛生所親自示範如何運用繪本, 以「對話式共讀」的方式和孩童互動。親子共讀成為近年兒科熱門議題，未來在北醫附醫的支持下，讓國外長年已有實證研究的展臂閱讀 (Reach Out and Read) 模式擴展到更多臺灣需要的偏鄉，讓親子共讀成為有溫度的預防醫學，翻轉弱勢家庭的未來。"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "（特別感謝家庭醫學科陳宥達醫師分享心得）"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "註："
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "items": [
+              [
+                {
+                  "text": "ROR: 結合早期教育與醫療，讓熟悉兒童發展行為的醫療人員，藉由健兒門診可以觸及每個家庭的獨特機會，反覆衛教家長親子共讀的觀念並處方適齡童書，幫助孩童發展並建立良好的親子關係，目前此模式已經遍及美國50州5000個醫療據點加入並影響到美國醫師養成教育訓練。"
+                }
+              ],
+              [
+                {
+                  "text": "MLP: 則是讓法律專業人士成為醫療團隊成員，幫助解決了患者面對複雜的社會因素而改善了弱勢個人和家庭的健康狀況，由教育培訓將醫療保健和法律服務重新定位到早期發現和護理預防，並進而影響法律改善弱勢健康和提升福祉。"
+                }
+              ],
+              [
+                {
+                  "text": "▲Barry Zuckerman教授、王智弘��授與本院院長、張君照副院長、社醫部及復健部醫師合影\n（由左至右依序為：曾頌惠部長、陳宥達醫師、Barry Zuckerman教授、陳瑞杰院長、王智弘教授、張君照副院長、張詩鑫部長、陳揚卿醫師）"
+                }
+              ],
+              [
+                {
+                  "text": "▲史丹佛大學醫療預防及成果政策研究中心 王智弘主任"
+                }
+              ],
+              [
+                {
+                  "text": "▲醫學生熱烈問問題\n▲參訪兒童發展聯合評估中心\n▲Barry Zuckerman醫師用繪本和孩童互動\n※院內同仁若需簡報請至TMS上查看（TMS課程編號：77471），謝謝。"
+                }
+              ]
+            ],
+            "ordered": true,
+            "type": "list"
+          },
+          {
+            "alt": "#全院學術【2019】誠摯感謝波士頓大學醫學院 Barry Zuckerman教授108.01.18蒞臨本院演講！ — 圖 2",
+            "height": 1200,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/56fc41bc02695365a2ec.webp"
+            },
+            "type": "image",
+            "width": 1600
+          },
+          {
+            "alt": "#全院學術【2019】誠摯感謝波士頓大學醫學院 Barry Zuckerman教授108.01.18蒞臨本院演講！ — 圖 3",
+            "height": 597,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/e5d6c8ee01bec1a7c57f.webp"
+            },
+            "type": "image",
+            "width": 912
+          },
+          {
+            "alt": "#全院學術【2019】誠摯感謝波士頓大學醫學院 Barry Zuckerman教授108.01.18蒞臨本院演講！ — 圖 4",
+            "height": 524,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/92cd3bcb9e9a39fd4ee6.webp"
+            },
+            "type": "image",
+            "width": 720
+          },
+          {
+            "alt": "#全院學術【2019】誠摯感謝波士頓大學醫學院 Barry Zuckerman教授108.01.18蒞臨本院演講！ — 圖 5",
+            "height": 960,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/346abda69d89ea9d6a35.webp"
+            },
+            "type": "image",
+            "width": 1280
+          },
+          {
+            "alt": "#全院學術【2019】誠摯感謝波士頓大學醫學院 Barry Zuckerman教授108.01.18蒞臨本院演講！ — 圖 6",
+            "height": 720,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/f87343abb3aed3c1889a.webp"
+            },
+            "type": "image",
+            "width": 1280
+          }
+        ]
+      },
+      "categoryId": "hospital-events",
+      "channel": "news",
+      "id": "117",
+      "owner": "department",
+      "pinned": false,
+      "publishedOn": "2019-01-25",
+      "title": {
+        "zh": "#全院學術【2019】誠摯感謝波士頓大學醫學院 Barry Zuckerman教授108.01.18蒞臨本院演講！"
+      }
+    },
+    {
+      "attachments": [],
+      "body": {
+        "zh": [
+          {
+            "runs": [
+              {
+                "text": "【全院學術活動資訊】"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "主題：Cancer metabolism and therapy"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "主持：張君照 副院長"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "主講：中央研究院 龔行健院士"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "時間：108.08.16(星期五) AM 7:15-8:15"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "地點：三大樓11樓3111會議室"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "alt": "#全院學術【2019】誠摯感謝中央研究院 龔行健院士108.08.16蒞臨本院演講！ — 圖 1",
+            "height": 1600,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/2d24f6970aaf81bad153.webp"
+            },
+            "type": "image",
+            "width": 1200
+          },
+          {
+            "runs": [
+              {
+                "text": "▲中央研究院 龔行健院士"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "許多癌症進程及oncogene都與metabolism有關，其中許多與mitochondria有關的gene會downregulation。近來Warburg effects在癌症中備受矚目，所以龔院士的研究團隊進一步探討glycolysis與OXPHOS間的關係:"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "alt": "#全院學術【2019】誠摯感謝中央研究院 龔行健院士108.08.16蒞臨本院演講！ — 圖 2",
+            "height": 892,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/df4fa9dd28308935dce8.webp"
+            },
+            "type": "image",
+            "width": 1317
+          },
+          {
+            "runs": [
+              {
+                "text": "上圖可知，許多oxidative誘導的phosphorylation包括HIFα, Myc, PI3K-AKT的phosphorylation與cancer有關，其中arginine被發現在癌症中扮演重要的角色，探討targeting arginine addition in cancers是院士的主要研究主題，cancer需要arginine, glutamine及lysine等等否則會餓死，希望利用代謝療法，減少arginine來減少tumor生長:"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "alt": "#全院學術【2019】誠摯感謝中央研究院 龔行健院士108.08.16蒞臨本院演講！ — 圖 3",
+            "height": 315,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/5eac1cbbf61135c9072d.webp"
+            },
+            "type": "image",
+            "width": 564
+          },
+          {
+            "runs": [
+              {
+                "text": "Arginine與glutamine及lysine在癌症metabolism都扮演重要角色，此外，也會去活化mTORc1進一步促進癌症生長。探討Arginine metabolism中ASS (Argininosuccinate synthase)占重要角色，利用TCGA database可以發現ASS1在許多cancer都有高表現(比起正常細胞)，顯示ASS1是cancer dependent:"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "alt": "#全院學術【2019】誠摯感謝中央研究院 龔行健院士108.08.16蒞臨本院演講！ — 圖 4",
+            "height": 273,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/f5964f06e9a2d7b7cd8a.webp"
+            },
+            "type": "image",
+            "width": 328
+          },
+          {
+            "runs": [
+              {
+                "text": "Aspartate經由ASS生成arginine，arginine可以經由ADI (arginine deiminase)變成Citrulline。研究結果顯示，缺少arginine情況下癌細胞可以在0-48小時內利用autophagy來保護癌症細胞不死，而72-96小時則發現cancer cell大量死亡且細胞內autophagosome會變大，因為autophagy不但吞噬protein連DNA fragment也吞噬，此作用稱作chromatin autophagy，又稱chromatography，然而arginine deprivation如何經由chromatography及mitophagy來造成細胞死亡呢?"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "items": [
+              [
+                {
+                  "text": "Arginine deprivation induces global gene silence"
+                }
+              ],
+              [
+                {
+                  "text": "Mitochondria ROS increaseà induce DNA damageàDNA fragment increase"
+                }
+              ],
+              [
+                {
+                  "text": "Glycolysis effects: Mitochondria-nucleus reciprocal signaling"
+                }
+              ]
+            ],
+            "ordered": true,
+            "type": "list"
+          },
+          {
+            "runs": [
+              {
+                "text": "由一連串的實驗證據推演得知下列可能的訊息傳遞路徑:"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "Arginie à ↓αKeto-glutamate à block KDM4, KDM 6, KDM 7 à à ↑H3K9me3/ H3K27me3 à ↓OXPHOS gene"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "龔院士最後提到，利用ADI加上一些化療藥如docetaxel進行Arginine deprivation 的cancer targeted therapy，利用arginine starvation，造成Mitochondria dysfunction並增加ROS及excessive autophagy，造成chromatophagy及mitophagy，進一步促使癌症細胞死亡。"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "alt": "#全院學術【2019】誠摯感謝中央研究院 龔行健院士108.08.16蒞臨本院演講！ — 圖 5",
+            "height": 285,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/1bfe49407be4117ef70b.webp"
+            },
+            "type": "image",
+            "width": 614
+          },
+          {
+            "runs": [
+              {
+                "text": "（特別感謝醫學研究員 黃綉文博士分享心得）"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "alt": "#全院學術【2019】誠摯感謝中央研究院 龔行健院士108.08.16蒞臨本院演講！ — 圖 6",
+            "height": 1600,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/7fe82c68e9705e4961e4.webp"
+            },
+            "type": "image",
+            "width": 1200
+          },
+          {
+            "runs": [
+              {
+                "text": "▲本院陳瑞杰院長頒發感謝狀予龔行健院士"
+              }
+            ],
+            "type": "paragraph"
+          }
+        ]
+      },
+      "categoryId": "hospital-events",
+      "channel": "news",
+      "id": "118",
+      "owner": "department",
+      "pinned": false,
+      "publishedOn": "2019-08-19",
+      "title": {
+        "zh": "#全院學術【2019】誠摯感謝中央研究院 龔行健院士108.08.16蒞臨本院演講！"
+      }
+    },
+    {
+      "attachments": [],
+      "body": {
+        "zh": [
+          {
+            "alt": "【TMUH】2019年實證教學與臨床應用發表會競賽得獎名單 — 圖 1",
+            "height": 1040,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/90715873330e63f6fdec.webp"
+            },
+            "type": "image",
+            "width": 720
+          }
+        ]
+      },
+      "categoryId": "center-events",
+      "channel": "center",
+      "id": "119",
+      "owner": "ebm",
+      "pinned": false,
+      "publishedOn": "2019-08-19",
+      "title": {
+        "zh": "【TMUH】2019年實證教學與臨床應用發表會競賽得獎名單"
+      }
+    },
+    {
+      "attachments": [],
+      "body": {
+        "zh": [
+          {
+            "alt": "【台灣醫學教育學會活動】112年研討會論文摘要投稿及研究獎申請 — 圖 1",
+            "height": 540,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/28683e6e9d973bd49d8e.webp"
+            },
+            "type": "image",
+            "width": 960
+          }
+        ]
+      },
+      "categoryId": "external-events",
+      "channel": "news",
+      "id": "120",
+      "owner": "department",
+      "pinned": false,
+      "publishedOn": "2023-07-17",
+      "title": {
+        "zh": "【台灣醫學教育學會活動】112年研討會論文摘要投稿及研究獎申請"
+      }
+    },
+    {
+      "attachments": [],
+      "body": {
+        "zh": [
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "【108-111年】AMEE論文發表&教學相關研究計畫"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "alt": "【108-111年】AMEE論文發表及教學相關研究計畫 — 圖 1",
+            "height": 1600,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/board/542de2b34775bc15a00a.webp"
+            },
+            "type": "image",
+            "width": 1067
+          }
+        ]
+      },
+      "categoryId": "publications-training",
+      "channel": "honors",
+      "cover": {
+        "kind": "local",
+        "path": "assets/legacy/board/7335c32816545665c54d.webp"
+      },
+      "id": "121",
+      "owner": "department",
+      "pinned": false,
+      "publishedOn": "2023-07-17",
+      "title": {
+        "zh": "【108-111年】AMEE論文發表及教學相關研究計畫"
+      }
+    },
+    {
+      "attachments": [],
+      "body": {
+        "zh": [
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "【112年】AMEE論文發表&教學相關研究計畫"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "alt": "【112年】AMEE論文發表及教學相關研究計畫 — 圖 1",
+            "height": 1600,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/board/0dd29c5079f173abe9a5.webp"
+            },
+            "type": "image",
+            "width": 1067
+          }
+        ]
+      },
+      "categoryId": "publications-training",
+      "channel": "honors",
+      "cover": {
+        "kind": "local",
+        "path": "assets/legacy/board/df99c350955ac0fe1937.webp"
+      },
+      "id": "122",
+      "owner": "department",
+      "pinned": false,
+      "publishedOn": "2023-07-17",
+      "title": {
+        "zh": "【112年】AMEE論文發表及教學相關研究計畫"
+      }
+    },
+    {
+      "attachments": [],
+      "body": {
+        "zh": [
+          {
+            "alt": "【全院學術討論會】成果 — 圖 1",
+            "height": 1600,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/52420da62107922247d0.webp"
+            },
+            "type": "image",
+            "width": 1067
+          }
+        ]
+      },
+      "categoryId": "hospital-courses",
+      "channel": "news",
+      "cover": {
+        "kind": "local",
+        "path": "assets/legacy/article/650afe19dcb4589e0eb4.webp"
+      },
+      "id": "123",
+      "owner": "department",
+      "pinned": false,
+      "publishedOn": "2023-07-17",
+      "title": {
+        "zh": "【全院學術討論會】成果"
+      }
+    },
+    {
+      "attachments": [],
+      "body": {
+        "zh": [
+          {
+            "alt": "#教發中心【112學年】教師專業能力認證說明 — 圖 1",
+            "height": 1600,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/f527dc98d860918e489e.webp"
+            },
+            "type": "image",
+            "width": 1130
+          }
+        ]
+      },
+      "categoryId": "faculty",
+      "channel": "news",
+      "id": "124",
+      "owner": "faculty_dev",
+      "pinned": false,
+      "publishedOn": "2023-07-17",
+      "title": {
+        "zh": "#教發中心【112學年】教師專業能力認證說明"
+      }
+    },
+    {
+      "attachments": [],
+      "body": {
+        "zh": [
+          {
+            "alt": "#教發中心#教職【113學年】北醫大教職申請說明 — 圖 1",
+            "height": 1600,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/65f54f3cd4d78fceb504.webp"
+            },
+            "type": "image",
+            "width": 1130
+          },
+          {
+            "alt": "#教發中心#教職【113學年】北醫大教職申請說明 — 圖 2",
+            "height": 1600,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/76bd08ee0e95c545836d.webp"
+            },
+            "type": "image",
+            "width": 1130
+          },
+          {
+            "alt": "#教發中心#教職【113學年】北醫大教職申請說明 — 圖 3",
+            "height": 1600,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/a64161f50ddca7637cb5.webp"
+            },
+            "type": "image",
+            "width": 1130
+          }
+        ]
+      },
+      "categoryId": "faculty",
+      "channel": "news",
+      "id": "125",
+      "owner": "faculty_dev",
+      "pinned": false,
+      "publishedOn": "2023-12-25",
+      "title": {
+        "zh": "#教發中心#教職【113學年】北醫大教職申請說明"
+      }
+    },
+    {
+      "attachments": [],
+      "audiences": [
+        "medical-students"
+      ],
+      "body": {
+        "zh": [
+          {
+            "alt": "#頒獎活動【2023】實習醫學生票選教學績優人員 — 圖 1",
+            "height": 1600,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/4ce325dda9fe413d8182.webp"
+            },
+            "type": "image",
+            "width": 1130
+          }
+        ]
+      },
+      "categoryId": "hospital-events",
+      "channel": "news",
+      "id": "126",
+      "owner": "department",
+      "pinned": false,
+      "publishedOn": "2023-07-17",
+      "title": {
+        "zh": "#頒獎活動【2023】實習醫學生票選教學績優人員"
+      }
+    },
+    {
+      "attachments": [],
+      "audiences": [
+        "pgy"
+      ],
+      "body": {
+        "zh": [
+          {
+            "alt": "【2023】PGY社區醫院教學成果分享會 — 圖 1",
+            "height": 1600,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/06854d0adc35c195fe92.webp"
+            },
+            "type": "image",
+            "width": 1130
+          }
+        ]
+      },
+      "categoryId": "hospital-events",
+      "channel": "news",
+      "id": "127",
+      "owner": "department",
+      "pinned": false,
+      "publishedOn": "2023-06-16",
+      "title": {
+        "zh": "【2023】PGY社區醫院教學成果分享會"
+      }
+    },
+    {
+      "attachments": [],
+      "body": {
+        "zh": [
+          {
+            "alt": "【2023】韌性機構國際研討會 — 圖 1",
+            "height": 1600,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/cac534a3a9a4c2d84d0c.webp"
+            },
+            "type": "image",
+            "width": 1130
+          }
+        ]
+      },
+      "categoryId": "hospital-events",
+      "channel": "news",
+      "id": "128",
+      "owner": "department",
+      "pinned": false,
+      "publishedOn": "2023-05-05",
+      "title": {
+        "zh": "【2023】韌性機構國際研討會"
+      }
+    },
+    {
+      "attachments": [],
+      "body": {
+        "zh": [
+          {
+            "alt": "#北醫大校內選修【2023】112學年第1學期 — 圖 1",
+            "height": 1600,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/549f11e9d11fb6dceff1.webp"
+            },
+            "type": "image",
+            "width": 1130
+          }
+        ]
+      },
+      "categoryId": "further-training",
+      "channel": "news",
+      "id": "129",
+      "owner": "department",
+      "pinned": false,
+      "publishedOn": "2023-07-18",
+      "title": {
+        "zh": "#北醫大校內選修【2023】112學年第1學期"
+      }
+    },
+    {
+      "attachments": [],
+      "body": {
+        "zh": [
+          {
+            "alt": "【全人關懷實踐工作坊】 — 圖 1",
+            "height": 1600,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/e2d21f4b5655c5293ebf.webp"
+            },
+            "type": "image",
+            "width": 1067
+          }
+        ]
+      },
+      "categoryId": "center-events",
+      "channel": "center",
+      "id": "130",
+      "owner": "holistic",
+      "pinned": false,
+      "publishedOn": "2023-07-18",
+      "title": {
+        "zh": "【全人關懷實踐工作坊】"
+      }
+    },
+    {
+      "attachments": [],
+      "body": {
+        "zh": [
+          {
+            "alt": "#教發中心【112學年】教師發展課程排程(已更新至2024年6月) — 圖 1",
+            "height": 1600,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/54237be76b35dd88e7ae.webp"
+            },
+            "type": "image",
+            "width": 1131
+          },
+          {
+            "alt": "#教發中心【112學年】教師發展課程排程(已更新至2024年6月) — 圖 2",
+            "height": 1600,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/7e2ad7cecd12cf155287.webp"
+            },
+            "type": "image",
+            "width": 1131
+          },
+          {
+            "alt": "#教發中心【112學年】教師發展課程排程(已更新至2024年6月) — 圖 3",
+            "height": 1600,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/cd3984a242a21fe2d6d4.webp"
+            },
+            "type": "image",
+            "width": 1131
+          },
+          {
+            "alt": "#教發中心【112學年】教師發展課程排程(已更新至2024年6月) — 圖 4",
+            "height": 1600,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/5f6fb0ff58a7ac7dede4.webp"
+            },
+            "type": "image",
+            "width": 1131
+          },
+          {
+            "alt": "#教發中心【112學年】教師發展課程排程(已更新至2024年6月) — 圖 5",
+            "height": 1600,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/77db56d027e218bdf7a1.webp"
+            },
+            "type": "image",
+            "width": 1131
+          },
+          {
+            "alt": "#教發中心【112學年】教師發展課程排程(已更新至2024年6月) — 圖 6",
+            "height": 1600,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/e5d124c82fb89c1cb0a9.webp"
+            },
+            "type": "image",
+            "width": 1131
+          },
+          {
+            "alt": "#教發中心【112學年】教師發展課程排程(已更新至2024年6月) — 圖 7",
+            "height": 1600,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/ef5b30b97e2a5b018b8d.webp"
+            },
+            "type": "image",
+            "width": 1131
+          }
+        ]
+      },
+      "categoryId": "hospital-courses",
+      "channel": "news",
+      "cover": {
+        "kind": "local",
+        "path": "assets/legacy/article/3452b65da0719c9548cf.webp"
+      },
+      "id": "131",
+      "owner": "faculty_dev",
+      "pinned": false,
+      "publishedOn": "2023-08-17",
+      "title": {
+        "zh": "#教發中心【112學年】教師發展課程排程(已更新至2024年6月)"
+      }
+    },
+    {
+      "attachments": [],
+      "body": {
+        "zh": [
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "路徑：Portal-->員工專區-->"
+              },
+              {
+                "href": "https://portal.tmuh.org.tw/Ethics/Default.aspx",
+                "strong": true,
+                "text": "醫學倫理專區"
+              },
+              {
+                "strong": true,
+                "text": "-->"
+              },
+              {
+                "href": "https://sites.google.com/h.tmu.edu.tw/tmuh-medicalethics/%E9%A6%96%E9%A0%81",
+                "strong": true,
+                "text": "醫倫專頁"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "可查閱："
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "病人權利與義務宣言"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "醫學倫理案例分享"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "醫學倫理委員會設置辦法"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "醫學倫理委員會委員遴選辦法"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "醫學倫理政策"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "工作倫理守則"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "病人權益暨隱私維護作業程序書"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "末期病人權益維護作業程序書"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "活體器官移植審查作業程序書"
+              }
+            ],
+            "type": "paragraph"
+          }
+        ]
+      },
+      "categoryId": "trainee-notices",
+      "channel": "news",
+      "id": "132",
+      "owner": "department",
+      "pinned": false,
+      "publishedOn": "2023-09-04",
+      "title": {
+        "zh": "【醫學倫理專區】"
+      }
+    },
+    {
+      "attachments": [],
+      "body": {
+        "zh": [
+          {
+            "alt": "#實證中心【2023】09/09-09/10 北榮-網路統合分析工作坊 — 圖 1",
+            "height": 907,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/5d049771f8375ecfe744.webp"
+            },
+            "type": "image",
+            "width": 640
+          },
+          {
+            "runs": [
+              {
+                "text": "一、 目的: 為提升臨床人員對實證醫學方法熟悉度，推廣實證實踐，促進醫療照護品質，本課程介紹網絡統合分析 (Network Meta-Analysis, NMA)，教導學員從兩種以上的選項中找最佳的醫療照護決策，完成資料分析與判讀，進而提升學員的分析研究方法之能力。"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "二、 參加資格: 凡醫療專業同仁(醫師、護理師、藥師、營養師、復健師或醫檢師等)，具備基礎系統性文獻回顧及統合分析概念，對執行網絡統合分析有興趣者。"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "三、 訓練時間及地點:112年9月9日至112年9月10日，本院致德樓醫一樓第十會議室。"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "四、 學習認證：將申請西醫師、藥師、護理師、專科護理師、台灣實證醫學學會(各單位學分申請中，仍以實際核定為主)及訓練證明。"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "五、 報名網址: https://reurl.cc/nDa7Xv，最後報名時間：112年9月3日(星期日)。待收到報名表後，承辦人將回信通知，確認報名成功。"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "六、 本活動恕不提供免費停車服務，請搭乘大眾運輸交通工具前往。"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "七、 諮詢窗口：北榮教學部實證醫學科 莊曜瑄先生 (02-55681049)。"
+              }
+            ],
+            "type": "paragraph"
+          }
+        ]
+      },
+      "categoryId": "center-notices",
+      "channel": "news",
+      "id": "133",
+      "owner": "ebm",
+      "pinned": false,
+      "publishedOn": "2023-09-06",
+      "title": {
+        "zh": "#實證中心【2023】09/09-09/10 北榮-網路統合分析工作坊"
+      }
+    },
+    {
+      "attachments": [],
+      "body": {
+        "zh": [
+          {
+            "runs": [
+              {
+                "href": "https://drive.google.com/file/d/1HfFWDi3LDWBpV_FHr-dB2dvvNretKNxg/view?usp=sharing",
+                "text": "報名簡章"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "alt": "#臨技中心【2023】11/04 三院聯合招募暨儲備課程 — 圖 1",
+            "height": 1600,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/46d9ee42bfb26d9a666b.webp"
+            },
+            "type": "image",
+            "width": 1067
+          },
+          {
+            "alt": "#臨技中心【2023】11/04 三院聯合招募暨儲備課程 — 圖 2",
+            "height": 1600,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/74080452c563bdf8b917.webp"
+            },
+            "type": "image",
+            "width": 1067
+          }
+        ]
+      },
+      "categoryId": "center-notices",
+      "channel": "news",
+      "id": "134",
+      "owner": "clinical_skills",
+      "pinned": false,
+      "publishedOn": "2023-10-03",
+      "title": {
+        "zh": "#臨技中心【2023】11/04 三院聯合招募暨儲備課程"
+      }
+    },
+    {
+      "attachments": [],
+      "audiences": [
+        "allied-health-trainees"
+      ],
+      "body": {
+        "zh": [
+          {
+            "alt": "【非醫學系之職類】實習注意事項 — 圖 1",
+            "height": 1600,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/fe541a9ffa7a9e9d78cc.webp"
+            },
+            "type": "image",
+            "width": 1269
+          }
+        ]
+      },
+      "categoryId": "trainee-notices",
+      "channel": "news",
+      "id": "135",
+      "owner": "department",
+      "pinned": false,
+      "publishedOn": "2026-05-20",
+      "title": {
+        "zh": "【非醫學系之職類】實習注意事項"
+      }
+    },
+    {
+      "attachments": [],
+      "audiences": [
+        "residents"
+      ],
+      "body": {
+        "zh": [
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "【內科】"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "正取　簡○心"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "正取　林○羲"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "正取　陳○聖"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "正取　游○翔"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "正取　陳○尹"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "【外科】"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "正取　梁○宸"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "【婦產科】"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "正取 蔡○臻"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "正取　梁○榕"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "【兒科】"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "正取　姜○恩"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "【皮膚科】"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "正取　莊○文"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "【復健科】"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "正取　高○閔"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "【家醫科】"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "正取　林○珉"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "【急診醫學科】"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "正取　曾○逸"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "正取　傅○昕"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "備取1　林○霆"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "備取2　呂○霖"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "【耳鼻喉科】※依衛福部公告容額為準"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "正取　薛○勛"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "備取1　紀○鎧"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "備取2　吳○森"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "備取3　洪○禮"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "備取4　陳○仁"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "【影像醫學部】"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "正取　陳○君"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "【神經科】"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "正取　林○珉"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "【麻醉科】"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "正取　劉○生"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "備取　劉○昕"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "【泌尿科】"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "正取　陳○謙"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "備取1　陳○安"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "備取2　程○硯"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "備取3　石○頎"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "備取4　李○碧"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "【骨科部】"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "正取　張○崴"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "備取　周○新"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "【放射腫瘤科】"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "正取　游○翔"
+              }
+            ],
+            "type": "paragraph"
+          }
+        ]
+      },
+      "categoryId": "recruitment",
+      "channel": "news",
+      "id": "136",
+      "owner": "department",
+      "pinned": false,
+      "publishedOn": "2023-12-12",
+      "title": {
+        "zh": "#R【2023】113年度北醫附醫住院醫師第一階段招募榜單(113.04.22更新)"
+      }
+    },
+    {
+      "attachments": [],
+      "audiences": [
+        "residents"
+      ],
+      "body": {
+        "zh": [
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "【家庭醫學科】"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "正取　許○恩"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "備取1　陳○耘"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "備取2　盧○碩"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "備取3　江○陽"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "備取4　歐○○盈"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "【麻醉科】"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "正取　劉○生"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "備取1　劉○昕"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "【外科】"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "正取　周○鴻"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "【神經科】"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "正取　陳○維"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "正取　陳○廷"
+              }
+            ],
+            "type": "paragraph"
+          }
+        ]
+      },
+      "categoryId": "recruitment",
+      "channel": "news",
+      "id": "138",
+      "owner": "department",
+      "pinned": false,
+      "publishedOn": "2023-12-21",
+      "title": {
+        "zh": "#R【2023】113年度北醫附醫住院醫師第二階段招募榜單(113.03.13更新)"
+      }
+    },
+    {
+      "attachments": [],
+      "body": {
+        "zh": [
+          {
+            "alt": "【全人照護教育師資培育與教學】 — 圖 1",
+            "height": 1600,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/c7df5b2c3f3c2c5fab66.webp"
+            },
+            "type": "image",
+            "width": 1067
+          },
+          {
+            "alt": "【全人照護教育師資培育與教學】 — 圖 2",
+            "height": 1600,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/c7df5b2c3f3c2c5fab66.webp"
+            },
+            "type": "image",
+            "width": 1067
+          }
+        ]
+      },
+      "categoryId": "center-events",
+      "channel": "center",
+      "id": "139",
+      "owner": "holistic",
+      "pinned": false,
+      "publishedOn": "2024-02-07",
+      "title": {
+        "zh": "【全人照護教育師資培育與教學】"
+      }
+    },
+    {
+      "attachments": [],
+      "body": {
+        "zh": [
+          {
+            "alt": "【全人照護教育研究】 — 圖 1",
+            "height": 1600,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/b67188ee3c020db7e8b7.webp"
+            },
+            "type": "image",
+            "width": 1067
+          }
+        ]
+      },
+      "categoryId": "center-events",
+      "channel": "center",
+      "id": "140",
+      "owner": "holistic",
+      "pinned": false,
+      "publishedOn": "2024-02-07",
+      "title": {
+        "zh": "【全人照護教育研究】"
+      }
+    },
+    {
+      "attachments": [],
+      "body": {
+        "zh": [
+          {
+            "alt": "【全人照護推廣】 — 圖 1",
+            "height": 1600,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/7ef3489f10cfcf53c1c2.webp"
+            },
+            "type": "image",
+            "width": 1067
+          }
+        ]
+      },
+      "categoryId": "center-events",
+      "channel": "center",
+      "id": "141",
+      "owner": "holistic",
+      "pinned": false,
+      "publishedOn": "2024-02-07",
+      "title": {
+        "zh": "【全人照護推廣】"
+      }
+    },
+    {
+      "attachments": [],
+      "body": {
+        "zh": [
+          {
+            "alt": "#全人中心【2024】以全人照護教育發展AYA全人照護應用！ — 圖 1",
+            "height": 957,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/ae1bc1191853635245ca.webp"
+            },
+            "type": "image",
+            "width": 672
+          },
+          {
+            "alt": "#全人中心【2024】以全人照護教育發展AYA全人照護應用！ — 圖 2",
+            "height": 956,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/a5924dc4e72ff6715f1a.webp"
+            },
+            "type": "image",
+            "width": 675
+          }
+        ]
+      },
+      "categoryId": "center-notices",
+      "channel": "news",
+      "id": "142",
+      "owner": "holistic",
+      "pinned": false,
+      "publishedOn": "2024-02-07",
+      "title": {
+        "zh": "#全人中心【2024】以全人照護教育發展AYA全人照護應用！"
+      }
+    },
+    {
+      "attachments": [],
+      "audiences": [
+        "joint-training"
+      ],
+      "body": {
+        "zh": [
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "113年度牙科部齒顎矯正科代訓醫師錄取名單"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "正取1：張O豪"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "正取2：曹O硯"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "備取1：徐O翊"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "備取2：陳O樂"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "備取3：何O蓉"
+              }
+            ],
+            "type": "paragraph"
+          }
+        ]
+      },
+      "categoryId": "recruitment",
+      "channel": "news",
+      "id": "143",
+      "owner": "department",
+      "pinned": false,
+      "publishedOn": "2024-03-22",
+      "title": {
+        "zh": "#牙醫【2024】113年度北醫附醫齒顎矯正科代訓醫師甄選結果(113.03.22更新)"
+      }
+    },
+    {
+      "attachments": [],
+      "audiences": [
+        "joint-training"
+      ],
+      "body": {
+        "zh": [
+          {
+            "level": 2,
+            "text": "【醫事人員聯合訓練申請辦法】",
+            "type": "heading"
+          }
+        ]
+      },
+      "categoryId": "trainee-notices",
+      "channel": "news",
+      "id": "144",
+      "owner": "department",
+      "pinned": false,
+      "publishedOn": "2024-04-22",
+      "title": {
+        "zh": "【醫事人員聯合訓練申請辦法】"
+      }
+    },
+    {
+      "attachments": [],
+      "body": {
+        "zh": [
+          {
+            "alt": "【教學讀書會】Journal Watch of TMUH Medical Education-蔡宗良助理教授1130702 — 圖 1",
+            "height": 1600,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/9fa730a4058c9d86a8bc.webp"
+            },
+            "type": "image",
+            "width": 960
+          }
+        ]
+      },
+      "categoryId": "center-events",
+      "channel": "center",
+      "cover": {
+        "kind": "local",
+        "path": "assets/legacy/article/8c6581ae968b71f3c96d.webp"
+      },
+      "id": "145",
+      "owner": "faculty_dev",
+      "pinned": false,
+      "publishedOn": "2024-07-02",
+      "title": {
+        "zh": "【教學讀書會】Journal Watch of TMUH Medical Education-蔡宗良助理教授1130702"
+      }
+    },
+    {
+      "attachments": [],
+      "body": {
+        "zh": [
+          {
+            "alt": "【教學讀書會】Journal Watch of TMUH Medical Education-李向嚴醫師1130806 — 圖 1",
+            "height": 1600,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/1fbfbb7feb90858df4c0.webp"
+            },
+            "type": "image",
+            "width": 960
+          }
+        ]
+      },
+      "categoryId": "center-events",
+      "channel": "center",
+      "cover": {
+        "kind": "local",
+        "path": "assets/legacy/article/8c6581ae968b71f3c96d.webp"
+      },
+      "id": "146",
+      "owner": "faculty_dev",
+      "pinned": false,
+      "publishedOn": "2024-08-06",
+      "title": {
+        "zh": "【教學讀書會】Journal Watch of TMUH Medical Education-李向嚴醫師1130806"
+      }
+    },
+    {
+      "attachments": [],
+      "body": {
+        "zh": [
+          {
+            "alt": "【教學讀書會】Journal Watch of TMUH Medical Education-邱欣怡醫師1130910 — 圖 1",
+            "height": 1600,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/8aa74daf1214ea87436d.webp"
+            },
+            "type": "image",
+            "width": 960
+          },
+          {
+            "alt": "【教學讀書會】Journal Watch of TMUH Medical Education-邱欣怡醫師1130910 — 圖 2",
+            "height": 1600,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/6bdb3fcd2fd6ec09d55d.webp"
+            },
+            "type": "image",
+            "width": 960
+          }
+        ]
+      },
+      "categoryId": "center-events",
+      "channel": "center",
+      "cover": {
+        "kind": "local",
+        "path": "assets/legacy/article/8c6581ae968b71f3c96d.webp"
+      },
+      "id": "147",
+      "owner": "faculty_dev",
+      "pinned": false,
+      "publishedOn": "2024-09-10",
+      "title": {
+        "zh": "【教學讀書會】Journal Watch of TMUH Medical Education-邱欣怡醫師1130910"
+      }
+    },
+    {
+      "attachments": [],
+      "audiences": [
+        "medical-students"
+      ],
+      "body": {
+        "zh": [
+          {
+            "alt": "#頒獎活動【2024】實習醫學生票選教學績優人員 — 圖 1",
+            "height": 1600,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/cdba0e627a3a4b32d84f.webp"
+            },
+            "type": "image",
+            "width": 1130
+          }
+        ]
+      },
+      "categoryId": "hospital-events",
+      "channel": "news",
+      "id": "148",
+      "owner": "department",
+      "pinned": false,
+      "publishedOn": "2024-09-30",
+      "title": {
+        "zh": "#頒獎活動【2024】實習醫學生票選教學績優人員"
+      }
+    },
+    {
+      "attachments": [],
+      "body": {
+        "zh": [
+          {
+            "alt": "【北醫大醫學系】教育目標與核心能力 — 圖 1",
+            "height": 540,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/09007c511a8962b44ca5.webp"
+            },
+            "type": "image",
+            "width": 960
+          }
+        ]
+      },
+      "categoryId": "trainee-notices",
+      "channel": "news",
+      "id": "149",
+      "owner": "department",
+      "pinned": false,
+      "publishedOn": "2024-09-01",
+      "title": {
+        "zh": "【北醫大醫學系】教育目標與核心能力"
+      }
+    },
+    {
+      "attachments": [],
+      "body": {
+        "zh": [
+          {
+            "level": 3,
+            "text": "查閱路徑：首頁>教師發展中心>活動與成果",
+            "type": "heading"
+          },
+          {
+            "runs": [
+              {
+                "href": "/centers/faculty-development#articles",
+                "strong": true,
+                "text": "https://tmuh-education.tmuh.org.tw/center/events/develop/evt03"
+              }
+            ],
+            "type": "paragraph"
+          }
+        ]
+      },
+      "categoryId": "center-notices",
+      "channel": "news",
+      "id": "150",
+      "owner": "faculty_dev",
+      "pinned": false,
+      "publishedOn": "2024-11-18",
+      "title": {
+        "zh": "#教發中心【113學年起】教學讀書會"
+      }
+    },
+    {
+      "attachments": [],
+      "body": {
+        "zh": [
+          {
+            "level": 2,
+            "text": "台灣醫學教育學會已發佈115年OSCE國考報名資訊 (請參考下列兩個網址連結)，今年欲參加之考生，敬請參閱官方簡章並按時報名，逾時不候。",
+            "type": "heading"
+          },
+          {
+            "items": [
+              [
+                {
+                  "strong": true,
+                  "text": "報名時間：115/01/19(一) - 115/01/23(五)17:00，逾時繳交不予受理。"
+                }
+              ]
+            ],
+            "ordered": false,
+            "type": "list"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "【115年第一次醫學臨床技能測驗報名資訊-官方網站】"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "(含簡章及各項資料下載)"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "items": [
+              [
+                {
+                  "strong": true,
+                  "text": "連結： "
+                },
+                {
+                  "href": "https://www.tame.org.tw/news/news.php?fnCode=view&uid=674",
+                  "strong": true,
+                  "text": "https://www.tame.org.tw/news/news.php?fnCode=view&uid=674"
+                }
+              ]
+            ],
+            "ordered": false,
+            "type": "list"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "【台灣醫學教育學會官方網站】"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "items": [
+              [
+                {
+                  "strong": true,
+                  "text": "連結： "
+                },
+                {
+                  "href": "https://www.tame.org.tw/",
+                  "strong": true,
+                  "text": "https://www.tame.org.tw/"
+                }
+              ]
+            ],
+            "ordered": false,
+            "type": "list"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "臺北醫學大學附設醫院　教學部臨床技能中心"
+              }
+            ],
+            "type": "paragraph"
+          }
+        ]
+      },
+      "categoryId": "trainee-notices",
+      "channel": "news",
+      "id": "151",
+      "owner": "department",
+      "pinned": false,
+      "publishedOn": "2026-01-15",
+      "title": {
+        "zh": "【OSCE】115年第一次醫學臨床技能測驗 - 報名資訊"
+      }
+    },
+    {
+      "attachments": [],
+      "audiences": [
+        "allied-health-trainees"
+      ],
+      "body": {
+        "zh": [
+          {
+            "alt": "【非醫學系之職類實習】學校(機構)申請程序 — 圖 1",
+            "height": 1400,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/364545b8159b1c15bc39.webp"
+            },
+            "type": "image",
+            "width": 1600
+          }
+        ]
+      },
+      "categoryId": "trainee-notices",
+      "channel": "news",
+      "id": "152",
+      "owner": "department",
+      "pinned": false,
+      "publishedOn": "2026-05-20",
+      "title": {
+        "zh": "【非醫學系之職類實習】學校(機構)申請程序"
+      }
+    },
+    {
+      "attachments": [],
+      "body": {
+        "zh": [
+          {
+            "alt": "【2024】人才發展品質管理系統評鑑(TTQS) — 圖 1",
+            "height": 720,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/board/10dca169dccf301b8e69.webp"
+            },
+            "type": "image",
+            "width": 960
+          }
+        ]
+      },
+      "categoryId": "competitions-awards",
+      "channel": "honors",
+      "cover": {
+        "kind": "local",
+        "path": "assets/legacy/board/a21c856ecf7b5bafaf69.webp"
+      },
+      "id": "153",
+      "owner": "department",
+      "pinned": false,
+      "publishedOn": "2024-11-04",
+      "title": {
+        "zh": "【2024】人才發展品質管理系統評鑑(TTQS)"
+      }
+    },
+    {
+      "attachments": [],
+      "body": {
+        "zh": [
+          {
+            "alt": "【2025】NCMEA國家臨床醫學教育獎 — 圖 1",
+            "height": 733,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/board/1ada4f6676712930774f.webp"
+            },
+            "type": "image",
+            "width": 1308
+          }
+        ]
+      },
+      "categoryId": "competitions-awards",
+      "channel": "honors",
+      "cover": {
+        "kind": "local",
+        "path": "assets/legacy/board/097b2b31743e76fc5003.webp"
+      },
+      "id": "154",
+      "owner": "department",
+      "pinned": false,
+      "publishedOn": "2025-09-14",
+      "title": {
+        "zh": "【2025】NCMEA國家臨床醫學教育獎"
+      }
+    },
+    {
+      "attachments": [],
+      "body": {
+        "zh": [
+          {
+            "alt": "【2023】NHQA國家醫療品質獎 — 圖 1",
+            "height": 705,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/board/19795364ff8258d96c6a.webp"
+            },
+            "type": "image",
+            "width": 1252
+          }
+        ]
+      },
+      "categoryId": "competitions-awards",
+      "channel": "honors",
+      "cover": {
+        "kind": "local",
+        "path": "assets/legacy/board/6c060fd6e490b0e81c42.webp"
+      },
+      "id": "155",
+      "owner": "department",
+      "pinned": false,
+      "publishedOn": "2023-09-09",
+      "title": {
+        "zh": "【2023】NHQA國家醫療品質獎"
+      }
+    },
+    {
+      "attachments": [],
+      "body": {
+        "zh": [
+          {
+            "alt": "#教發中心#教職【115-2】北醫大教職申請說明 — 圖 1",
+            "height": 1600,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/0c1bc324251079ab56c6.webp"
+            },
+            "type": "image",
+            "width": 1130
+          }
+        ]
+      },
+      "categoryId": "faculty",
+      "channel": "news",
+      "id": "156",
+      "owner": "faculty_dev",
+      "pinned": false,
+      "publishedOn": "2026-05-19",
+      "title": {
+        "zh": "#教發中心#教職【115-2】北醫大教職申請說明"
+      }
+    },
+    {
+      "attachments": [],
+      "body": {
+        "zh": [
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "一、課程資訊"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "(1) 課程日期：115年08月02日 (日)"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "(2) 課程時間：08:00-17:00"
+              },
+              {
+                "text": "【"
+              },
+              {
+                "strong": true,
+                "text": "報到時間 08:00-08:25"
+              },
+              {
+                "text": "】"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "(3) 課程地點："
+              },
+              {
+                "text": "臺北醫學大學信義校區 醫學模擬教育大樓2樓報到（110 台北市信義區吳興街250號）"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "二、主辦單位"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "(1) 主辦單位："
+              },
+              {
+                "text": "臺北醫學大學附設醫院 小兒部 / 臺北醫學大學附設醫院 教學部臨床技能中心"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "(2) 協辦單位："
+              },
+              {
+                "text": "中華民國新生兒科醫學會"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "三、報名資訊"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "(1) 報名連結："
+              },
+              {
+                "text": "【"
+              },
+              {
+                "href": "https://forms.gle/4ADXxnVo3SrHbXUz9",
+                "text": "https://forms.gle/sUNVN3v6dQVvrJV48"
+              },
+              {
+                "text": "】"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "(2) 報名時間：即日起至115年07月14日(二) 上午11:30截止"
+              },
+              {
+                "text": "，因需進行後續行政作業，逾時不候，敬請見諒。"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "(3) 報名名額："
+              },
+              {
+                "text": "60位。"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "四、課程費用與繳費方式"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "(1) 課程費用："
+              },
+              {
+                "text": "新臺幣2500元整（含證書費）"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "(2) 繳費方式："
+              },
+              {
+                "text": "郵政匯票"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "(3) 匯票抬頭："
+              },
+              {
+                "text": "臺北醫學大學附設醫院"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "(4) 郵寄地址："
+              },
+              {
+                "text": "11031 臺北市信義區吳興街252號 一大樓7樓 教學部臨床技能中心 收"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "五、注意事項"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "(1) 請於課程前完成報名及繳費程序。"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "(2) 若未提前繳交報名費，課程當日將以現金方式收取。"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "(3) 未於課程當天完成繳費者，將不認列課程資格與證書。"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "alt": "【TMUH】2026/08/02(日)新生兒高級救命術訓練課程(NRP) - 院外學員報名資訊 — 圖 1",
+            "height": 850,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/3f0e3f2f1c59a742469b.webp"
+            },
+            "type": "image",
+            "width": 1446
+          }
+        ]
+      },
+      "categoryId": "hospital-events",
+      "channel": "news",
+      "cover": {
+        "kind": "local",
+        "path": "assets/legacy/article/68c71382e7ec6d3ce6ff.webp"
+      },
+      "id": "157",
+      "owner": "department",
+      "pinned": false,
+      "publishedOn": "2026-05-21",
+      "title": {
+        "zh": "【TMUH】2026/08/02(日)新生兒高級救命術訓練課程(NRP) - 院外學員報名資訊"
+      }
+    },
+    {
+      "attachments": [],
+      "body": {
+        "zh": [
+          {
+            "alt": "【教學讀書會】Journal Watch of TMUH Medical Education-吳政誠醫師1141008 — 圖 1",
+            "height": 1600,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/0bb359d9967db3d6cd7d.webp"
+            },
+            "type": "image",
+            "width": 960
+          }
+        ]
+      },
+      "categoryId": "center-events",
+      "channel": "center",
+      "cover": {
+        "kind": "local",
+        "path": "assets/legacy/article/8c6581ae968b71f3c96d.webp"
+      },
+      "id": "158",
+      "owner": "faculty_dev",
+      "pinned": false,
+      "publishedOn": "2025-10-08",
+      "title": {
+        "zh": "【教學讀書會】Journal Watch of TMUH Medical Education-吳政誠醫師1141008"
+      }
+    },
+    {
+      "attachments": [],
+      "body": {
+        "zh": [
+          {
+            "alt": "【教學讀書會】Journal Watch of TMUH Medical Education-王懿德醫師1131112 — 圖 1",
+            "height": 1600,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/3706eaaa8be0e4f73e6c.webp"
+            },
+            "type": "image",
+            "width": 960
+          }
+        ]
+      },
+      "categoryId": "center-events",
+      "channel": "center",
+      "cover": {
+        "kind": "local",
+        "path": "assets/legacy/article/8c6581ae968b71f3c96d.webp"
+      },
+      "id": "159",
+      "owner": "faculty_dev",
+      "pinned": false,
+      "publishedOn": "2024-11-12",
+      "title": {
+        "zh": "【教學讀書會】Journal Watch of TMUH Medical Education-王懿德醫師1131112"
+      }
+    },
+    {
+      "attachments": [],
+      "body": {
+        "zh": [
+          {
+            "alt": "【教學讀書會】Journal Watch of TMUH Medical Education-黃意霖臨床心理師、沈枚萱臨床心理師1131210 — 圖 1",
+            "height": 1600,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/3b03898746db8b7467eb.webp"
+            },
+            "type": "image",
+            "width": 960
+          },
+          {
+            "alt": "【教學讀書會】Journal Watch of TMUH Medical Education-黃意霖臨床心理師、沈枚萱臨床心理師1131210 — 圖 2",
+            "height": 1600,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/514e3a8265989f074cfd.webp"
+            },
+            "type": "image",
+            "width": 960
+          }
+        ]
+      },
+      "categoryId": "center-events",
+      "channel": "center",
+      "cover": {
+        "kind": "local",
+        "path": "assets/legacy/article/8c6581ae968b71f3c96d.webp"
+      },
+      "id": "160",
+      "owner": "faculty_dev",
+      "pinned": false,
+      "publishedOn": "2024-12-10",
+      "title": {
+        "zh": "【教學讀書會】Journal Watch of TMUH Medical Education-黃意霖臨床心理師、沈枚萱臨床心理師1131210"
+      }
+    },
+    {
+      "attachments": [],
+      "body": {
+        "zh": [
+          {
+            "alt": "【教學讀書會】Journal Watch of TMUH Medical Education-蕭成儀醫師1140114 — 圖 1",
+            "height": 1600,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/b19c62c3b5d452eebd52.webp"
+            },
+            "type": "image",
+            "width": 960
+          },
+          {
+            "alt": "【教學讀書會】Journal Watch of TMUH Medical Education-蕭成儀醫師1140114 — 圖 2",
+            "height": 1600,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/df5f7230ba48a659ed8b.webp"
+            },
+            "type": "image",
+            "width": 960
+          }
+        ]
+      },
+      "categoryId": "center-events",
+      "channel": "center",
+      "cover": {
+        "kind": "local",
+        "path": "assets/legacy/article/8c6581ae968b71f3c96d.webp"
+      },
+      "id": "161",
+      "owner": "faculty_dev",
+      "pinned": false,
+      "publishedOn": "2025-01-14",
+      "title": {
+        "zh": "【教學讀書會】Journal Watch of TMUH Medical Education-蕭成儀醫師1140114"
+      }
+    },
+    {
+      "attachments": [],
+      "body": {
+        "zh": [
+          {
+            "alt": "【教學讀書會】Journal Watch of TMUH Medical Education-王莉萱藥師、向慧芬護理師1140204 — 圖 1",
+            "height": 1600,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/2e4f19ee6c19f3ea81fe.webp"
+            },
+            "type": "image",
+            "width": 960
+          }
+        ]
+      },
+      "categoryId": "center-events",
+      "channel": "center",
+      "cover": {
+        "kind": "local",
+        "path": "assets/legacy/article/8c6581ae968b71f3c96d.webp"
+      },
+      "id": "162",
+      "owner": "faculty_dev",
+      "pinned": false,
+      "publishedOn": "2025-02-04",
+      "title": {
+        "zh": "【教學讀書會】Journal Watch of TMUH Medical Education-王莉萱藥師、向慧芬護理師1140204"
+      }
+    },
+    {
+      "attachments": [],
+      "body": {
+        "zh": [
+          {
+            "alt": "【教學讀書會】Journal Watch of TMUH Medical Education-范姜又宣醫師、劉志中醫師1140304 — 圖 1",
+            "height": 1600,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/a00c76c18c4594ceeb70.webp"
+            },
+            "type": "image",
+            "width": 960
+          },
+          {
+            "alt": "【教學讀書會】Journal Watch of TMUH Medical Education-范姜又宣醫師、劉志中醫師1140304 — 圖 2",
+            "height": 1600,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/7b4716406d6b039bc574.webp"
+            },
+            "type": "image",
+            "width": 960
+          },
+          {
+            "alt": "【教學讀書會】Journal Watch of TMUH Medical Education-范姜又宣醫師、劉志中醫師1140304 — 圖 3",
+            "height": 1600,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/4640053c31907038fcdb.webp"
+            },
+            "type": "image",
+            "width": 960
+          },
+          {
+            "alt": "【教學讀書會】Journal Watch of TMUH Medical Education-范姜又宣醫師、劉志中醫師1140304 — 圖 4",
+            "height": 1600,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/8bf815f1c1f2c4ef27eb.webp"
+            },
+            "type": "image",
+            "width": 960
+          }
+        ]
+      },
+      "categoryId": "center-events",
+      "channel": "center",
+      "cover": {
+        "kind": "local",
+        "path": "assets/legacy/article/8c6581ae968b71f3c96d.webp"
+      },
+      "id": "163",
+      "owner": "faculty_dev",
+      "pinned": false,
+      "publishedOn": "2025-03-04",
+      "title": {
+        "zh": "【教學讀書會】Journal Watch of TMUH Medical Education-范姜又宣醫師、劉志中醫師1140304"
+      }
+    },
+    {
+      "attachments": [],
+      "body": {
+        "zh": [
+          {
+            "alt": "【教學讀書會】Journal Watch of TMUH Medical Education-林郁茹營養師、陳映維呼吸治療師1140401 — 圖 1",
+            "height": 1600,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/4de7bfcfc7c8eb42251a.webp"
+            },
+            "type": "image",
+            "width": 960
+          },
+          {
+            "alt": "【教學讀書會】Journal Watch of TMUH Medical Education-林郁茹營養師、陳映維呼吸治療師1140401 — 圖 2",
+            "height": 1600,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/18216f5f92e4f2a5f136.webp"
+            },
+            "type": "image",
+            "width": 960
+          }
+        ]
+      },
+      "categoryId": "center-events",
+      "channel": "center",
+      "cover": {
+        "kind": "local",
+        "path": "assets/legacy/article/8c6581ae968b71f3c96d.webp"
+      },
+      "id": "165",
+      "owner": "faculty_dev",
+      "pinned": false,
+      "publishedOn": "2025-04-01",
+      "title": {
+        "zh": "【教學讀書會】Journal Watch of TMUH Medical Education-林郁茹營養師、陳映維呼吸治療師1140401"
+      }
+    },
+    {
+      "attachments": [],
+      "body": {
+        "zh": [
+          {
+            "alt": "【教學讀書會】Journal Watch of TMUH Medical Education-陳宥達醫師1140506 — 圖 1",
+            "height": 1600,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/74e8ad94e187661d21c3.webp"
+            },
+            "type": "image",
+            "width": 960
+          },
+          {
+            "alt": "【教學讀書會】Journal Watch of TMUH Medical Education-陳宥達醫師1140506 — 圖 2",
+            "height": 1600,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/1798bfa56da262c72464.webp"
+            },
+            "type": "image",
+            "width": 960
+          }
+        ]
+      },
+      "categoryId": "center-events",
+      "channel": "center",
+      "cover": {
+        "kind": "local",
+        "path": "assets/legacy/article/8c6581ae968b71f3c96d.webp"
+      },
+      "id": "166",
+      "owner": "faculty_dev",
+      "pinned": false,
+      "publishedOn": "2025-05-06",
+      "title": {
+        "zh": "【教學讀書會】Journal Watch of TMUH Medical Education-陳宥達醫師1140506"
+      }
+    },
+    {
+      "attachments": [],
+      "body": {
+        "zh": [
+          {
+            "alt": "【教學讀書會】Journal Watch of TMUH Medical Education-林揚斌放射師、陳信詠放射師1140603 — 圖 1",
+            "height": 1600,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/b070bfa2464f2d56d3b0.webp"
+            },
+            "type": "image",
+            "width": 960
+          },
+          {
+            "alt": "【教學讀書會】Journal Watch of TMUH Medical Education-林揚斌放射師、陳信詠放射師1140603 — 圖 2",
+            "height": 1600,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/a5d109dfd81189e65f46.webp"
+            },
+            "type": "image",
+            "width": 960
+          },
+          {
+            "alt": "【教學讀書會】Journal Watch of TMUH Medical Education-林揚斌放射師、陳信詠放射師1140603 — 圖 3",
+            "height": 1600,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/dc6a1f31d6a62154b54f.webp"
+            },
+            "type": "image",
+            "width": 960
+          },
+          {
+            "alt": "【教學讀書會】Journal Watch of TMUH Medical Education-林揚斌放射師、陳信詠放射師1140603 — 圖 4",
+            "height": 1600,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/db173a209ae1dbf25968.webp"
+            },
+            "type": "image",
+            "width": 960
+          },
+          {
+            "alt": "【教學讀書會】Journal Watch of TMUH Medical Education-林揚斌放射師、陳信詠放射師1140603 — 圖 5",
+            "height": 1600,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/1e9d537f1f35cff7d7d4.webp"
+            },
+            "type": "image",
+            "width": 960
+          },
+          {
+            "alt": "【教學讀書會】Journal Watch of TMUH Medical Education-林揚斌放射師、陳信詠放射師1140603 — 圖 6",
+            "height": 1600,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/87c3f7ab495e630d5203.webp"
+            },
+            "type": "image",
+            "width": 960
+          }
+        ]
+      },
+      "categoryId": "center-events",
+      "channel": "center",
+      "cover": {
+        "kind": "local",
+        "path": "assets/legacy/article/8c6581ae968b71f3c96d.webp"
+      },
+      "id": "167",
+      "owner": "faculty_dev",
+      "pinned": false,
+      "publishedOn": "2025-06-03",
+      "title": {
+        "zh": "【教學讀書會】Journal Watch of TMUH Medical Education-林揚斌放射師、陳信詠放射師1140603"
+      }
+    },
+    {
+      "attachments": [],
+      "body": {
+        "zh": [
+          {
+            "alt": "【教學讀書會】Journal Watch of TMUH Medical Education-蔡秀欣醫師1140701 — 圖 1",
+            "height": 1600,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/f1610015e97ba8442994.webp"
+            },
+            "type": "image",
+            "width": 960
+          },
+          {
+            "alt": "【教學讀書會】Journal Watch of TMUH Medical Education-蔡秀欣醫師1140701 — 圖 2",
+            "height": 1600,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/bdcd4882c97fe2e249af.webp"
+            },
+            "type": "image",
+            "width": 960
+          }
+        ]
+      },
+      "categoryId": "center-events",
+      "channel": "center",
+      "cover": {
+        "kind": "local",
+        "path": "assets/legacy/article/8c6581ae968b71f3c96d.webp"
+      },
+      "id": "168",
+      "owner": "faculty_dev",
+      "pinned": false,
+      "publishedOn": "2025-07-01",
+      "title": {
+        "zh": "【教學讀書會】Journal Watch of TMUH Medical Education-蔡秀欣醫師1140701"
+      }
+    },
+    {
+      "attachments": [],
+      "body": {
+        "zh": [
+          {
+            "alt": "【教學讀書會】Journal Watch of TMUH Medical Education-范芳郡放射師、鄭憲霖職能治師1140812 — 圖 1",
+            "height": 1600,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/b81d391610b07bb14454.webp"
+            },
+            "type": "image",
+            "width": 960
+          },
+          {
+            "alt": "【教學讀書會】Journal Watch of TMUH Medical Education-范芳郡放射師、鄭憲霖職能治師1140812 — 圖 2",
+            "height": 1600,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/c6b97fdd7ed1f91bd694.webp"
+            },
+            "type": "image",
+            "width": 960
+          }
+        ]
+      },
+      "categoryId": "center-events",
+      "channel": "center",
+      "cover": {
+        "kind": "local",
+        "path": "assets/legacy/article/8c6581ae968b71f3c96d.webp"
+      },
+      "id": "170",
+      "owner": "faculty_dev",
+      "pinned": false,
+      "publishedOn": "2025-08-12",
+      "title": {
+        "zh": "【教學讀書會】Journal Watch of TMUH Medical Education-范芳郡放射師、鄭憲霖職能治師1140812"
+      }
+    },
+    {
+      "attachments": [],
+      "body": {
+        "zh": [
+          {
+            "alt": "【教學讀書會】Journal Watch of TMUH Medical Education-吳昇翰醫師、張景欣醫師1140909 — 圖 1",
+            "height": 1600,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/1dd71eea63e9b52a54e8.webp"
+            },
+            "type": "image",
+            "width": 960
+          },
+          {
+            "alt": "【教學讀書會】Journal Watch of TMUH Medical Education-吳昇翰醫師、張景欣醫師1140909 — 圖 2",
+            "height": 1600,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/7ddd77e69679e72e841f.webp"
+            },
+            "type": "image",
+            "width": 960
+          },
+          {
+            "alt": "【教學讀書會】Journal Watch of TMUH Medical Education-吳昇翰醫師、張景欣醫師1140909 — 圖 3",
+            "height": 1600,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/2e290917e451ded66bbc.webp"
+            },
+            "type": "image",
+            "width": 960
+          },
+          {
+            "alt": "【教學讀書會】Journal Watch of TMUH Medical Education-吳昇翰醫師、張景欣醫師1140909 — 圖 4",
+            "height": 1600,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/58ef95960a526689b0d4.webp"
+            },
+            "type": "image",
+            "width": 960
+          }
+        ]
+      },
+      "categoryId": "center-events",
+      "channel": "center",
+      "cover": {
+        "kind": "local",
+        "path": "assets/legacy/article/8c6581ae968b71f3c96d.webp"
+      },
+      "id": "171",
+      "owner": "faculty_dev",
+      "pinned": false,
+      "publishedOn": "2025-09-09",
+      "title": {
+        "zh": "【教學讀書會】Journal Watch of TMUH Medical Education-吳昇翰醫師、張景欣醫師1140909"
+      }
+    },
+    {
+      "attachments": [],
+      "body": {
+        "zh": [
+          {
+            "alt": "【教學讀書會】Journal Watch of TMUH Medical Education-孟令城醫師、王正潔醫師1141014 — 圖 1",
+            "height": 1600,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/b2b12b36f4fb4649e5a2.webp"
+            },
+            "type": "image",
+            "width": 960
+          },
+          {
+            "alt": "【教學讀書會】Journal Watch of TMUH Medical Education-孟令城醫師、王正潔醫師1141014 — 圖 2",
+            "height": 1600,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/d2e164fdd4d44eaf9715.webp"
+            },
+            "type": "image",
+            "width": 960
+          }
+        ]
+      },
+      "categoryId": "center-events",
+      "channel": "center",
+      "cover": {
+        "kind": "local",
+        "path": "assets/legacy/article/8c6581ae968b71f3c96d.webp"
+      },
+      "id": "172",
+      "owner": "faculty_dev",
+      "pinned": false,
+      "publishedOn": "2025-10-14",
+      "title": {
+        "zh": "【教學讀書會】Journal Watch of TMUH Medical Education-孟令城醫師、王正潔醫師1141014"
+      }
+    },
+    {
+      "attachments": [],
+      "body": {
+        "zh": [
+          {
+            "alt": "【教學讀書會】Journal Watch of TMUH Medical Education-林鈺娟物理治療師、葉得欣語言治治療師1141111 — 圖 1",
+            "height": 1600,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/59fcf298e1f2a7c703f5.webp"
+            },
+            "type": "image",
+            "width": 960
+          },
+          {
+            "alt": "【教學讀書會】Journal Watch of TMUH Medical Education-林鈺娟物理治療師、葉得欣語言治治療師1141111 — 圖 2",
+            "height": 1600,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/63a66895d6d3a5e5d895.webp"
+            },
+            "type": "image",
+            "width": 960
+          },
+          {
+            "alt": "【教學讀書會】Journal Watch of TMUH Medical Education-林鈺娟物理治療師、葉得欣語言治治療師1141111 — 圖 3",
+            "height": 1600,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/c7221c82b1cd55a34b68.webp"
+            },
+            "type": "image",
+            "width": 960
+          },
+          {
+            "alt": "【教學讀書會】Journal Watch of TMUH Medical Education-林鈺娟物理治療師、葉得欣語言治治療師1141111 — 圖 4",
+            "height": 1600,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/7259f61fcc7effe0af6f.webp"
+            },
+            "type": "image",
+            "width": 960
+          }
+        ]
+      },
+      "categoryId": "center-events",
+      "channel": "center",
+      "cover": {
+        "kind": "local",
+        "path": "assets/legacy/article/8c6581ae968b71f3c96d.webp"
+      },
+      "id": "173",
+      "owner": "faculty_dev",
+      "pinned": false,
+      "publishedOn": "2025-11-11",
+      "title": {
+        "zh": "【教學讀書會】Journal Watch of TMUH Medical Education-林鈺娟物理治療師、葉得欣語言治治療師1141111"
+      }
+    },
+    {
+      "attachments": [],
+      "body": {
+        "zh": [
+          {
+            "alt": "【教學讀書會】Journal Watch of TMUH Medical Education-周詩涵職能治療師、謝宜昌職能治療師1141209 — 圖 1",
+            "height": 1600,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/74f85a7989fd6624ea62.webp"
+            },
+            "type": "image",
+            "width": 960
+          },
+          {
+            "alt": "【教學讀書會】Journal Watch of TMUH Medical Education-周詩涵職能治療師、謝宜昌職能治療師1141209 — 圖 2",
+            "height": 1600,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/dfac9d6330b6e652ff7a.webp"
+            },
+            "type": "image",
+            "width": 960
+          },
+          {
+            "alt": "【教學讀書會】Journal Watch of TMUH Medical Education-周詩涵職能治療師、謝宜昌職能治療師1141209 — 圖 3",
+            "height": 1600,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/b904f9426496d52524dd.webp"
+            },
+            "type": "image",
+            "width": 960
+          },
+          {
+            "alt": "【教學讀書會】Journal Watch of TMUH Medical Education-周詩涵職能治療師、謝宜昌職能治療師1141209 — 圖 4",
+            "height": 1600,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/2b22fb5cd948e641dcf6.webp"
+            },
+            "type": "image",
+            "width": 960
+          }
+        ]
+      },
+      "categoryId": "center-events",
+      "channel": "center",
+      "cover": {
+        "kind": "local",
+        "path": "assets/legacy/article/8c6581ae968b71f3c96d.webp"
+      },
+      "id": "174",
+      "owner": "faculty_dev",
+      "pinned": false,
+      "publishedOn": "2025-12-09",
+      "title": {
+        "zh": "【教學讀書會】Journal Watch of TMUH Medical Education-周詩涵職能治療師、謝宜昌職能治療師1141209"
+      }
+    },
+    {
+      "attachments": [],
+      "body": {
+        "zh": [
+          {
+            "alt": "【教學讀書會】Journal Watch of TMUH Medical Education-陳彥均醫師、劉正昇醫師1150113 — 圖 1",
+            "height": 1600,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/e852d047f2799b643d2f.webp"
+            },
+            "type": "image",
+            "width": 960
+          },
+          {
+            "alt": "【教學讀書會】Journal Watch of TMUH Medical Education-陳彥均醫師、劉正昇醫師1150113 — 圖 2",
+            "height": 1600,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/d2c53b9d6d3d99bb17e7.webp"
+            },
+            "type": "image",
+            "width": 960
+          },
+          {
+            "alt": "【教學讀書會】Journal Watch of TMUH Medical Education-陳彥均醫師、劉正昇醫師1150113 — 圖 3",
+            "height": 1600,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/b4cca9e015847cb07582.webp"
+            },
+            "type": "image",
+            "width": 960
+          },
+          {
+            "alt": "【教學讀書會】Journal Watch of TMUH Medical Education-陳彥均醫師、劉正昇醫師1150113 — 圖 4",
+            "height": 1600,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/41d1fbfe5dc50ac7adc2.webp"
+            },
+            "type": "image",
+            "width": 960
+          }
+        ]
+      },
+      "categoryId": "center-events",
+      "channel": "center",
+      "cover": {
+        "kind": "local",
+        "path": "assets/legacy/article/8c6581ae968b71f3c96d.webp"
+      },
+      "id": "175",
+      "owner": "faculty_dev",
+      "pinned": false,
+      "publishedOn": "2026-01-13",
+      "title": {
+        "zh": "【教學讀書會】Journal Watch of TMUH Medical Education-陳彥均醫師、劉正昇醫師1150113"
+      }
+    },
+    {
+      "attachments": [],
+      "body": {
+        "zh": [
+          {
+            "alt": "【教學讀書會】Journal Watch of TMUH Medical Education-吳忠哲醫師、葉欣榮醫師1150201 — 圖 1",
+            "height": 1600,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/8137af708dd8c578cdfa.webp"
+            },
+            "type": "image",
+            "width": 960
+          },
+          {
+            "alt": "【教學讀書會】Journal Watch of TMUH Medical Education-吳忠哲醫師、葉欣榮醫師1150201 — 圖 2",
+            "height": 1600,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/5e7f53c7f36180537f0f.webp"
+            },
+            "type": "image",
+            "width": 960
+          },
+          {
+            "alt": "【教學讀書會】Journal Watch of TMUH Medical Education-吳忠哲醫師、葉欣榮醫師1150201 — 圖 3",
+            "height": 1600,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/6698b862a3508581df03.webp"
+            },
+            "type": "image",
+            "width": 960
+          },
+          {
+            "alt": "【教學讀書會】Journal Watch of TMUH Medical Education-吳忠哲醫師、葉欣榮醫師1150201 — 圖 4",
+            "height": 1600,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/d2c53b9d6d3d99bb17e7.webp"
+            },
+            "type": "image",
+            "width": 960
+          }
+        ]
+      },
+      "categoryId": "center-events",
+      "channel": "center",
+      "cover": {
+        "kind": "local",
+        "path": "assets/legacy/article/8c6581ae968b71f3c96d.webp"
+      },
+      "id": "176",
+      "owner": "faculty_dev",
+      "pinned": false,
+      "publishedOn": "2026-02-01",
+      "title": {
+        "zh": "【教學讀書會】Journal Watch of TMUH Medical Education-吳忠哲醫師、葉欣榮醫師1150201"
+      }
+    },
+    {
+      "attachments": [],
+      "body": {
+        "zh": [
+          {
+            "alt": "【教學讀書會】Journal Watch of TMUH Medical Education-曹念萱護理師、曲天尚護理師1150310 — 圖 1",
+            "height": 1600,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/4b3510b2ebf8b51b338c.webp"
+            },
+            "type": "image",
+            "width": 960
+          },
+          {
+            "alt": "【教學讀書會】Journal Watch of TMUH Medical Education-曹念萱護理師、曲天尚護理師1150310 — 圖 2",
+            "height": 1600,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/ad0cc847785af3f883fe.webp"
+            },
+            "type": "image",
+            "width": 960
+          }
+        ]
+      },
+      "categoryId": "center-events",
+      "channel": "center",
+      "cover": {
+        "kind": "local",
+        "path": "assets/legacy/article/8c6581ae968b71f3c96d.webp"
+      },
+      "id": "177",
+      "owner": "faculty_dev",
+      "pinned": false,
+      "publishedOn": "2026-03-10",
+      "title": {
+        "zh": "【教學讀書會】Journal Watch of TMUH Medical Education-曹念萱護理師、曲天尚護理師1150310"
+      }
+    },
+    {
+      "attachments": [],
+      "body": {
+        "zh": [
+          {
+            "alt": "【教學讀書會】Journal Watch of TMUH Medical Education-許浩嘉醫師、吳善弘醫師1150414 — 圖 1",
+            "height": 1600,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/1cbdd56d74c1f6df1307.webp"
+            },
+            "type": "image",
+            "width": 960
+          },
+          {
+            "alt": "【教學讀書會】Journal Watch of TMUH Medical Education-許浩嘉醫師、吳善弘醫師1150414 — 圖 2",
+            "height": 1600,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/1dcee576ec789d24b0c6.webp"
+            },
+            "type": "image",
+            "width": 960
+          }
+        ]
+      },
+      "categoryId": "center-events",
+      "channel": "center",
+      "cover": {
+        "kind": "local",
+        "path": "assets/legacy/article/8c6581ae968b71f3c96d.webp"
+      },
+      "id": "178",
+      "owner": "faculty_dev",
+      "pinned": false,
+      "publishedOn": "2026-04-14",
+      "title": {
+        "zh": "【教學讀書會】Journal Watch of TMUH Medical Education-許浩嘉醫師、吳善弘醫師1150414"
+      }
+    },
+    {
+      "attachments": [],
+      "body": {
+        "zh": [
+          {
+            "alt": "【教學讀書會】Journal Watch of TMUH Medical Education-鍾俊輝檢驗師、孫國倫藥劑師1150512 — 圖 1",
+            "height": 1600,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/40d72f8983216d1d4a8d.webp"
+            },
+            "type": "image",
+            "width": 960
+          },
+          {
+            "alt": "【教學讀書會】Journal Watch of TMUH Medical Education-鍾俊輝檢驗師、孫國倫藥劑師1150512 — 圖 2",
+            "height": 1600,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/c016502449e696442327.webp"
+            },
+            "type": "image",
+            "width": 960
+          },
+          {
+            "alt": "【教學讀書會】Journal Watch of TMUH Medical Education-鍾俊輝檢驗師、孫國倫藥劑師1150512 — 圖 3",
+            "height": 1600,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/3c192d05e33d8bc05956.webp"
+            },
+            "type": "image",
+            "width": 960
+          },
+          {
+            "alt": "【教學讀書會】Journal Watch of TMUH Medical Education-鍾俊輝檢驗師、孫國倫藥劑師1150512 — 圖 4",
+            "height": 1600,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/7fbb3b03d55f970ad1b0.webp"
+            },
+            "type": "image",
+            "width": 960
+          }
+        ]
+      },
+      "categoryId": "center-events",
+      "channel": "center",
+      "cover": {
+        "kind": "local",
+        "path": "assets/legacy/article/8c6581ae968b71f3c96d.webp"
+      },
+      "id": "179",
+      "owner": "faculty_dev",
+      "pinned": false,
+      "publishedOn": "2026-05-12",
+      "title": {
+        "zh": "【教學讀書會】Journal Watch of TMUH Medical Education-鍾俊輝檢驗師、孫國倫藥劑師1150512"
+      }
+    },
+    {
+      "attachments": [],
+      "body": {
+        "zh": [
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "一、課程資訊"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "(1) 課程日期：2026/08/29(六)、08/30(日)"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "(2) 課程時間：08:00-16:50"
+              },
+              {
+                "text": "【"
+              },
+              {
+                "strong": true,
+                "text": "報到時間 08:00-08:25"
+              },
+              {
+                "text": "】"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "(3) 課程地點："
+              },
+              {
+                "text": "臺北醫學大學信義校區 醫學模擬教育大樓2樓報到（110 台北市信義區吳興街250號）"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "二、主辦單位"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "(1) 主辦單位："
+              },
+              {
+                "text": "臺北醫學大學附設醫院 小兒部 / 臺北醫學大學附設醫院 教學部臨床技能中心"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "(2) 協辦單位："
+              },
+              {
+                "text": "台灣兒童急診醫學會"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "三、報名資訊"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "(1) 報名連結：【"
+              },
+              {
+                "href": "https://forms.gle/4ADXxnVo3SrHbXUz9",
+                "strong": true,
+                "text": "https://forms.gle/4ADXxnVo3SrHbXUz9"
+              },
+              {
+                "strong": true,
+                "text": "】"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "(2) 報名時間：即日起至115年08月04日(二) 上午11:30截止"
+              },
+              {
+                "text": "，因需進行後續行政作業，逾時不候，敬請見諒。"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "(3) 報名名額："
+              },
+              {
+                "text": "45位。"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "四、課程費用與繳費方式"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "(1) 課程費用：新臺幣3000元整（含證書費）"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "(2) 繳費方式："
+              },
+              {
+                "text": "郵政匯票"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "(3) 匯票抬頭："
+              },
+              {
+                "text": "臺北醫學大學附設醫院"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "(4) 郵寄地址："
+              },
+              {
+                "text": "11031 臺北市信義區吳興街252號 一大樓7樓 教學部臨床技能中心 收"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "五、注意事項"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "(1) 請於課程前完成報名及繳費程序。"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "(2) 若未提前繳交報名費，課程當日將以現金方式收取。"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "(3) 未於課程當天完成繳費者，將不認列課程資格與證書。"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "alt": "【TMUH】2026/08/29(六)-08/30(日) 兒童高級急救救命術(APLS & PALS)- 院外學員報名資訊 — 圖 1",
+            "height": 850,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/3f0e3f2f1c59a742469b.webp"
+            },
+            "type": "image",
+            "width": 1446
+          }
+        ]
+      },
+      "categoryId": "hospital-events",
+      "channel": "news",
+      "cover": {
+        "kind": "local",
+        "path": "assets/legacy/article/68c71382e7ec6d3ce6ff.webp"
+      },
+      "id": "180",
+      "owner": "department",
+      "pinned": false,
+      "publishedOn": "2026-06-03",
+      "title": {
+        "zh": "【TMUH】2026/08/29(六)-08/30(日) 兒童高級急救救命術(APLS & PALS)- 院外學員報名資訊"
+      }
+    },
+    {
+      "attachments": [],
+      "body": {
+        "zh": [
+          {
+            "alt": "【TMUH】2026/07/25(六) OSCE考官訓練師資工作坊 — 圖 1",
+            "height": 925,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/02987f04a50aa599f8ea.webp"
+            },
+            "type": "image",
+            "width": 617
+          }
+        ]
+      },
+      "categoryId": "hospital-courses",
+      "channel": "news",
+      "id": "181",
+      "owner": "department",
+      "pinned": false,
+      "publishedOn": "2026-06-08",
+      "title": {
+        "zh": "【TMUH】2026/07/25(六) OSCE考官訓練師資工作坊"
+      }
+    },
+    {
+      "attachments": [],
+      "audiences": [
+        "allied-health-trainees"
+      ],
+      "body": {
+        "zh": [
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "本院職類實習生體檢表收件說明：a. 新進人員(含實習學生)體檢證明書必須使用本院格式且在3個月內。b. 新進人員(含實習學生)體格檢查原則上應在本院，如有特殊因素，仍須在區域醫院以上等級醫院，且使用本院格式紀錄檢查結果。c. 本院體格檢查費：1,500 元；但完診後才重新掛診補加做之項目則另自行付費。營養職類需加供膳項目、放射職類需加做游離輻射項目，本院體格檢查費：2,200 元d. 體檢當天請「空腹」受檢。e. 本院體檢流程：網路/門診組掛號→教學部預約領取體檢表日期→填寫體檢問卷→家醫科門診報到→接受檢查→門診組批價→回診取體檢報告及疫苗施打建議（依醫師告知時間）。註："
+              },
+              {
+                "href": "https://docs.google.com/forms/d/e/1FAIpQLScdTHgcLi_mxyWTeSxxj1a14LAd55-ycFm_nZLxMQBfWgmeYg/viewform",
+                "strong": true,
+                "text": "申請體檢表(請點我)"
+              },
+              {
+                "strong": true,
+                "text": "註：體檢表請提供正本，如需留存敬請逕行複印。"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "alt": "【非醫學系之職類實習】體檢項目 — 圖 1",
+            "height": 871,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/61614baac63f80eb5b3d.webp"
+            },
+            "type": "image",
+            "width": 990
+          }
+        ]
+      },
+      "categoryId": "trainee-notices",
+      "channel": "news",
+      "id": "182",
+      "owner": "department",
+      "pinned": false,
+      "publishedOn": "2026-06-30",
+      "title": {
+        "zh": "【非醫學系之職類實習】體檢項目"
+      }
+    },
+    {
+      "attachments": [],
+      "body": {
+        "zh": [
+          {
+            "level": 2,
+            "text": "2026 科技模擬國際研討會 2026 International Conference for Medical Education in Technology and Simulation",
+            "type": "heading"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "建構醫學教育的未來：AI、VR 與沉浸式模擬"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "Building the Future of Medical Education: AI, VR, and Immersive Simulation"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "日期：2026/11/21(六)｜Saturday, November 21, 2026"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "時間：08:30–15:50 報到自 08:30 開始｜Check-in from 08:30"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "地點：臺北醫學大學 醫學綜合大樓後棟16樓 胡水旺國際會議廳"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "Venue: Hu Shui-Wang International Conference Hall, 16F., Rear Bldg., Comprehensive Medical Building, Taipei Medical University"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "items": [
+              [
+                {
+                  "strong": true,
+                  "text": "活動&報名網址：【"
+                },
+                {
+                  "href": "https://two0261121.onrender.com",
+                  "strong": true,
+                  "text": "https://two0261121.onrender.com"
+                },
+                {
+                  "strong": true,
+                  "text": "】"
+                }
+              ]
+            ],
+            "ordered": false,
+            "type": "list"
+          },
+          {
+            "items": [
+              [
+                {
+                  "strong": true,
+                  "text": "活動議程 schedule ："
+                }
+              ]
+            ],
+            "ordered": false,
+            "type": "list"
+          },
+          {
+            "alt": "【TMUH】115/11/21(六) 2026 科技模擬國際研討會 — 圖 1",
+            "height": 1389,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/article/be52f6b705bb69114e38.webp"
+            },
+            "type": "image",
+            "width": 1200
+          }
+        ]
+      },
+      "categoryId": "hospital-events",
+      "channel": "news",
+      "cover": {
+        "kind": "local",
+        "path": "assets/legacy/article/a06aca4ab3e282649272.webp"
+      },
+      "id": "185",
+      "owner": "department",
+      "pinned": false,
+      "publishedOn": "2026-09-18",
+      "title": {
+        "zh": "【TMUH】115/11/21(六) 2026 科技模擬國際研討會"
+      }
+    }
+  ],
   "version": 1
 }

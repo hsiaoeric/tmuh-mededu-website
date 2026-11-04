@@ -1,7 +1,805 @@
 {
-  "downloads": [],
-  "linkGroups": [],
-  "pages": [],
+  "downloads": [
+    {
+      "id": "allied-health-trainees",
+      "items": [
+        {
+          "href": "files/legacy/downloads/20230630120911115_1121292490_1_112a000536_1_28140418422.pdf",
+          "id": "allied-health-trainees-1",
+          "label": {
+            "zh": "【護理】國際護理創意獎得獎+YT影片清單"
+          }
+        }
+      ],
+      "owner": "allied-health-trainees",
+      "title": {
+        "en": "Allied health trainees",
+        "zh": "醫事見實習"
+      }
+    }
+  ],
+  "linkGroups": [
+    {
+      "id": "tmuh",
+      "links": [
+        {
+          "description": {
+            "zh": "請同仁先登入院內網路"
+          },
+          "href": "http://10.62.2.202/",
+          "id": "tmuh-1",
+          "label": {
+            "zh": "TMUH內科部"
+          }
+        },
+        {
+          "href": "https://www.youtube.com/@user-lq6nz5wz9x/playlists",
+          "id": "tmuh-2",
+          "label": {
+            "zh": "【YT頻道】TMUH復健醫學部"
+          }
+        },
+        {
+          "href": "https://www.youtube.com/@tmu994057/videos",
+          "id": "tmuh-3",
+          "label": {
+            "zh": "【YT頻道】TMUH北醫正確用藥"
+          }
+        }
+      ],
+      "order": 0,
+      "owner": "department",
+      "purpose": "related",
+      "title": {
+        "en": "Taipei Medical University Hospital",
+        "zh": "臺北醫學大學附設醫院"
+      }
+    },
+    {
+      "id": "education-taiwan",
+      "links": [
+        {
+          "href": "https://www.youtube.com/@powerinnursing",
+          "id": "education-taiwan-1",
+          "label": {
+            "zh": "【YT頻道】Power in Nursing 護理的力量"
+          }
+        },
+        {
+          "href": "http://tsric.com/ebook/1.1/mobile/index.html",
+          "id": "education-taiwan-2",
+          "label": {
+            "zh": "【電子書】Power in Nursing 護理的力量"
+          }
+        },
+        {
+          "href": "https://library.tmu.edu.tw/Forms/Form0706/Form0706.aspx",
+          "id": "education-taiwan-3",
+          "label": {
+            "zh": "臺北醫學大學圖書館附醫專用網頁"
+          }
+        },
+        {
+          "href": "https://library.tmu.edu.tw",
+          "id": "education-taiwan-4",
+          "label": {
+            "zh": "臺北醫學大學圖書館"
+          }
+        },
+        {
+          "href": "https://www.wanfang.gov.tw",
+          "id": "education-taiwan-5",
+          "label": {
+            "zh": "臺北市立萬芳醫院－委託財團法人臺北醫學大學辦理"
+          }
+        },
+        {
+          "href": "https://shh.tmu.edu.tw/",
+          "id": "education-taiwan-6",
+          "label": {
+            "zh": "衛生福利部雙和醫院(委託臺北醫學大學興建經營)"
+          }
+        },
+        {
+          "description": {
+            "zh": "選配相關"
+          },
+          "href": "https://match.mohw.gov.tw/YR2/Auth/Login.aspx",
+          "id": "education-taiwan-7",
+          "label": {
+            "zh": "二年期一般醫學訓練選配系統"
+          }
+        },
+        {
+          "href": "https://www.jct.org.tw/mp-1.html",
+          "id": "education-taiwan-8",
+          "label": {
+            "zh": "財團法人醫院評鑑暨醫療品質策進會"
+          }
+        },
+        {
+          "href": "https://www.tame.org.tw/",
+          "id": "education-taiwan-9",
+          "label": {
+            "zh": "台灣醫學教育學會"
+          }
+        },
+        {
+          "href": "https://sub.chimei.org.tw/542301/",
+          "id": "education-taiwan-10",
+          "label": {
+            "zh": "台灣醫事聯合臨床技能發展學會"
+          }
+        },
+        {
+          "href": "https://www.tebma.org.tw/",
+          "id": "education-taiwan-11",
+          "label": {
+            "zh": "台灣實證醫學學會"
+          }
+        },
+        {
+          "href": "https://taiwan.cochrane.org/zh-hant/guanyukaokelantaiwan",
+          "id": "education-taiwan-12",
+          "label": {
+            "zh": "考科藍臺灣-Cochrane Taiwan"
+          }
+        }
+      ],
+      "order": 1,
+      "owner": "department",
+      "purpose": "related",
+      "title": {
+        "en": "Medical education in Taiwan",
+        "zh": "國內教學相關"
+      }
+    },
+    {
+      "id": "education-international",
+      "links": [
+        {
+          "href": "https://www.acgme.org/",
+          "id": "education-international-1",
+          "label": {
+            "zh": "ACGME"
+          }
+        }
+      ],
+      "order": 2,
+      "owner": "department",
+      "purpose": "related",
+      "title": {
+        "en": "International medical education",
+        "zh": "國外教學相關"
+      }
+    },
+    {
+      "id": "government",
+      "links": [
+        {
+          "href": "https://www.mohw.gov.tw",
+          "id": "government-1",
+          "label": {
+            "zh": "衛生福利部"
+          }
+        },
+        {
+          "description": {
+            "zh": "1.癌症疼痛照護及使用成癮性麻醉藥品課程 2.非癌慢性疼痛照護及使用成癮性麻醉藥品課程 3.藥物濫用防制系列-物質成癮及濫用危害預防 4.歡迎使用[藥物濫用防制系列-新興藥物濫用危害趨勢]線上課程 5.睡眠障礙與安眠藥使用 6.疑似物質使用疾患非癌病人之疼痛照護課程 7.安寧緩和醫療病人之疼痛照護課程"
+          },
+          "href": "https://www.fda.gov.tw/TC/site.aspx?sid=10899&r=176175469",
+          "id": "government-2",
+          "label": {
+            "zh": "衛福部食品藥物管理署－反毒相關線上影音課程"
+          }
+        },
+        {
+          "href": "https://www.edu.tw",
+          "id": "government-3",
+          "label": {
+            "zh": "教育部"
+          }
+        }
+      ],
+      "order": 3,
+      "owner": "department",
+      "purpose": "related",
+      "title": {
+        "en": "Government agencies",
+        "zh": "政府機關"
+      }
+    },
+    {
+      "id": "systems",
+      "links": [
+        {
+          "href": "https://library.tmu.edu.tw/Forms/FormSystem/FormHome.aspx",
+          "id": "systems-1",
+          "label": {
+            "zh": "北醫大圖書館"
+          }
+        },
+        {
+          "href": "https://library.tmu.edu.tw/Forms/Form0706/Form0706.aspx",
+          "id": "systems-2",
+          "label": {
+            "zh": "北醫大圖書館附醫專用網頁"
+          }
+        },
+        {
+          "href": "http://eportfolio.tmuh.org.tw/",
+          "id": "systems-3",
+          "label": {
+            "zh": "TMS教育訓練系統"
+          }
+        },
+        {
+          "href": "https://ceep2.tmu.edu.tw/",
+          "id": "systems-4",
+          "label": {
+            "zh": "E-portfolio系統"
+          }
+        }
+      ],
+      "order": 4,
+      "owner": "department",
+      "purpose": "systems",
+      "title": {
+        "en": "Hospital and university systems",
+        "zh": "校院系統"
+      }
+    }
+  ],
+  "pages": [
+    {
+      "body": {
+        "zh": [
+          {
+            "alt": "組織簡介 — 圖 1",
+            "height": 540,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/page/645e208c4406cdcbed9b.webp"
+            },
+            "type": "image",
+            "width": 960
+          },
+          {
+            "alt": "組織簡介 — 圖 2",
+            "height": 540,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/page/28ae2cdc528b250b0af2.webp"
+            },
+            "type": "image",
+            "width": 960
+          },
+          {
+            "alt": "組織簡介 — 圖 3",
+            "height": 540,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/page/c731954ebedabf6e6dec.webp"
+            },
+            "type": "image",
+            "width": 960
+          },
+          {
+            "alt": "組織簡介 — 圖 4",
+            "height": 540,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/page/180dfbadf2bf6742a8d0.webp"
+            },
+            "type": "image",
+            "width": 960
+          },
+          {
+            "alt": "組織簡介 — 圖 5",
+            "height": 540,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/page/dca7664924b29d3f17da.webp"
+            },
+            "type": "image",
+            "width": 960
+          },
+          {
+            "alt": "組織簡介 — 圖 6",
+            "height": 540,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/page/cdf73d97503da7d94bf7.webp"
+            },
+            "type": "image",
+            "width": 960
+          }
+        ]
+      },
+      "id": "organization-chart",
+      "order": 0,
+      "owner": "department",
+      "section": "about",
+      "title": {
+        "zh": "組織簡介"
+      }
+    },
+    {
+      "body": {
+        "zh": [
+          {
+            "runs": [
+              {
+                "text": "張君照 教學副院長 (2023年09月01日~迄今)"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "臺北醫學大學附設醫院一直以服務、教學及研究為使命。而本院的三項核心價值分別為「以病家為尊」、「以同仁為重」、「以北醫為榮」，因此本院的教學也是秉持著三個核心價值來執行。"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "為達到「以病家為尊」的目的，本院同仁包括各職類的學員都會接受醫療品質、病人安全、感染管制、用藥安全等職前訓練。「以同仁為重」則是建立良好而完善的師資培育系統，讓各職類同仁能夠具有足夠的教學能量，因此進入附設醫院的各職類學員都能夠在現代且安全的環境下接受資格完備的教師指導進而達到教、學雙贏的境界。透過良好的教學系統來提供最先進且安全的服務，讓來到附設醫院的病家肯定我們所提供的醫療服務，進而達成「以北醫為榮」的目標。"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "另外，新世代的醫學教育面臨的是全球化的挑戰。為了讓醫學教育能符合現況且落實全人醫學教育，達成1.病人照顧；2.醫學知識；3.臨床工作中的學習與改善；4.人際關係與溝通技巧；5.醫療專業；6.制度下的臨床工作等六大核心能力，本院的醫學教育發展小而美的精緻教學，協助各職類發展豐富多元且具特色的訓練計畫，藉由完整的師資培育制度並整合臨床技能、實證醫學等中心來執行教學任務，以培養出卓越的醫療從業人員並期待能達成國際一流大學教學醫院的願景。"
+              }
+            ],
+            "type": "paragraph"
+          }
+        ]
+      },
+      "id": "vice-superintendent-message",
+      "order": 1,
+      "owner": "department",
+      "portrait": {
+        "kind": "local",
+        "path": "assets/legacy/page/70063b11d4d933d6d8e6.webp"
+      },
+      "section": "about",
+      "summary": {
+        "zh": "臺北醫學大學附設醫院一直以服務、教學及研究為使命。而本院的三項核心價值分別為「以病家為尊」、「以同仁為重」、「以北醫為榮」，因此本院的教學也是秉持著三個核心價值來執行。"
+      },
+      "title": {
+        "zh": "教學副院長"
+      }
+    },
+    {
+      "body": {
+        "zh": [
+          {
+            "runs": [
+              {
+                "text": "葉篤學 教學部主任"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "醫學教育這幾十年來不斷的演進，從強調專業的訓練到「以病人為中心」、強調人文關懷的教學，醫學教育的內涵已經加深、加廣許多；在教學內容方面強調加強學生的六大技能：病人照顧、醫學知識、專業素養、在執業中改進與學習、溝通技巧與在體系中的執業（Accreditation Council for Graduate Medical Education, 6 competencies）；"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "在學生評量方面強調多面向及雙向回饋的評量；此外，目前的醫學教育也要求老師教學能力的不斷提昇；因此我們都認知到不僅是學生學習的負擔重了，臨床教師的教學也面臨更嚴苛的挑戰。要培養符合社會期待又在專業領域具有全球性競爭力的新一代台灣醫師，當然需要我們以新的思維、借助現代化的工具好好努力。"
+              }
+            ],
+            "type": "paragraph"
+          }
+        ]
+      },
+      "id": "director-message",
+      "order": 2,
+      "owner": "department",
+      "portrait": {
+        "kind": "local",
+        "path": "assets/legacy/page/07752b824a9042d58636.webp"
+      },
+      "section": "about",
+      "summary": {
+        "zh": "醫學教育這幾十年來不斷的演進，從強調專業的訓練到「以病人為中心」、強調人文關懷的教學，醫學教育的內涵已經加深、加廣許多；在教學內容方面強調加強學生的六大技能：病人照顧、醫學知識、專業素養、在執業中改進與學習、溝通技巧與在體系中的執業（Accreditation Council for Graduate Medical Education, 6 competencies）"
+      },
+      "title": {
+        "zh": "教學部主任"
+      }
+    },
+    {
+      "body": {
+        "zh": [
+          {
+            "alt": "教學型主治醫師/教學型醫事人員 — 圖 1",
+            "height": 1600,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/page/ba8b686ec66fbae03f3e.webp"
+            },
+            "type": "image",
+            "width": 1067
+          }
+        ]
+      },
+      "id": "teaching-faculty",
+      "order": 3,
+      "owner": "department",
+      "portrait": {
+        "kind": "local",
+        "path": "assets/legacy/page/74b82548103dcba4b7c5.webp"
+      },
+      "section": "about",
+      "title": {
+        "zh": "教學型主治醫師/教學型醫事人員"
+      }
+    },
+    {
+      "body": {
+        "zh": [
+          {
+            "alt": "行政團隊 — 圖 1",
+            "height": 1135,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/page/cfffccf3d55d055c9079.webp"
+            },
+            "type": "image",
+            "width": 1600
+          },
+          {
+            "type": "divider"
+          },
+          {
+            "runs": [
+              {
+                "text": "教學部副主任　張瓈方(#3755)"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "text": "教學部組長　　王怡文(#3752)"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "type": "divider"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "實證醫學中心、全院學術討論會及圖書館資源、全人照護教育中心、教學指標BI"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "江明憲事務員(#3760) <235025@h.tmu.edu.tw>"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "畢業後一般醫學訓練業務(含CBME)"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "張筱雯事務員(#3751) <225027@h.tmu.edu.tw>"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "實習醫學生業務、國外見習生及E-portfolio系統"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "組長暫代"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "住院醫師訓練、國內外進修代訓及教學長業務(含CBME)"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "李珮暄事務員(#3751) <245030@h.tmu.edu.tw>"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "教師發展中心、教職新聘升等及醫師PF(含CBME)、大人提計畫、TTQS"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "陳均茹事務員(#3757) <235026@h.tmu.edu.tw>"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "非西醫類見實習、教學門診業務"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "羅翊芳事務員(#3758) <225102@h.tmu.edu.tw>"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "全院通識課程、新進人員教育訓練(BLS)、在職進修、校內選修及TMS教育訓練系統"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "楊明芳副管理師(#3770) <874035@h.tmu.edu.tw>"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "臨床技能中心"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "賴哲民事務員(#3772) <225143@h.tmu.edu.tw>"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "張家銘事務員(#3772) <245060@h.tmu.edu.tw>"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "數位教材室"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "平面設計及輸出-張淑慧(#3983) <115126@h.tmu.edu.tw>"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "runs": [
+              {
+                "strong": true,
+                "text": "數位攝影及影音動畫製作-"
+              }
+            ],
+            "type": "paragraph"
+          }
+        ]
+      },
+      "id": "administrative-team",
+      "order": 4,
+      "owner": "department",
+      "portrait": {
+        "kind": "local",
+        "path": "assets/legacy/page/a9e8d48b9bdf768fc3b5.webp"
+      },
+      "section": "about",
+      "title": {
+        "zh": "行政團隊"
+      }
+    },
+    {
+      "body": {
+        "zh": [
+          {
+            "alt": "醫師類-教學長 — 圖 1",
+            "height": 1600,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/page/4572b6a8c26022078726.webp"
+            },
+            "type": "image",
+            "width": 1067
+          }
+        ]
+      },
+      "id": "teaching-leads",
+      "order": 5,
+      "owner": "department",
+      "portrait": {
+        "kind": "local",
+        "path": "assets/legacy/page/52601f441c579d6aa9f1.webp"
+      },
+      "section": "about",
+      "title": {
+        "zh": "醫師類-教學長"
+      }
+    },
+    {
+      "body": {
+        "zh": [
+          {
+            "alt": "醫學教育委員會 — 圖 1",
+            "height": 1151,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/page/ed1afced376e95381645.webp"
+            },
+            "type": "image",
+            "width": 1600
+          }
+        ]
+      },
+      "id": "medical-education-committee",
+      "order": 6,
+      "owner": "department",
+      "section": "committee",
+      "title": {
+        "zh": "醫學教育委員會"
+      }
+    },
+    {
+      "body": {
+        "zh": [
+          {
+            "runs": [
+              {
+                "text": "教師發展委員會"
+              }
+            ],
+            "type": "paragraph"
+          },
+          {
+            "alt": "教師發展委員會 — 圖 1",
+            "height": 1108,
+            "media": {
+              "kind": "local",
+              "path": "assets/legacy/page/21b42aa14bd570ae1894.webp"
+            },
+            "type": "image",
+            "width": 1477
+          }
+        ]
+      },
+      "id": "faculty-development-committee",
+      "order": 7,
+      "owner": "department",
+      "section": "committee",
+      "title": {
+        "zh": "教師發展委員會"
+      }
+    },
+    {
+      "body": {
+        "zh": [
+          {
+            "runs": [
+              {
+                "text": "CCC"
+              }
+            ],
+            "type": "paragraph"
+          }
+        ]
+      },
+      "id": "clinical-competency-committee",
+      "order": 8,
+      "owner": "department",
+      "section": "committee",
+      "title": {
+        "zh": "臨床能力委員會(Clinical Competency Committee, CCC)"
+      }
+    },
+    {
+      "body": {
+        "zh": [
+          {
+            "runs": [
+              {
+                "text": "PEC"
+              }
+            ],
+            "type": "paragraph"
+          }
+        ]
+      },
+      "id": "program-evaluation-committee",
+      "order": 9,
+      "owner": "department",
+      "section": "committee",
+      "title": {
+        "zh": "訓練計劃評核委員會(Program Evaluation Committee, PEC)"
+      }
+    }
+  ],
   "programs": [],
   "version": 1
 }
