@@ -399,6 +399,51 @@ ol {
   }
 }
 
+/* Desktop nav row (components.css › Navigation). These rules sit before the
+   component rules in the cascade, so each one carries an extra class to win.
+   Measured in zh-Hant and English at every width from 781px to 1199px. */
+@media (max-width: 1099px) {
+  /* 榮譽榜 folds into 更多 ▾. */
+  .nav-links .nav-link-honors {
+    display: none;
+  }
+  .nav-menu-panel .nav-menu-item-honors {
+    display: flex;
+  }
+}
+
+/* The full two-line brand gives way to the short name where the row would
+   otherwise squeeze it: English labels and brand run wider than Chinese, so
+   English switches earlier. */
+@media (max-width: 979px) {
+  html:lang(en) .nav .brand-full,
+  html:lang(en) .nav .brand-en {
+    display: none;
+  }
+  html:lang(en) .nav .brand-short {
+    display: inline;
+  }
+}
+@media (max-width: 839px) {
+  .nav .brand-full,
+  .nav .brand-en {
+    display: none;
+  }
+  .nav .brand-short {
+    display: inline;
+  }
+}
+/* Just above the sheet breakpoint the row tightens its gaps, and the wider
+   English labels step down slightly, so the short brand still clears them. */
+@media (max-width: 859px) {
+  .nav .nav-inner {
+    gap: 16px;
+  }
+  html:lang(en) .nav-links .nav-link {
+    font-size: 0.82rem;
+  }
+}
+
 @media (max-width: 780px) {
   :root {
     --nav-h: 64px;

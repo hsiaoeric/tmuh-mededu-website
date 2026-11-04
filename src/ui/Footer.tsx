@@ -1,12 +1,28 @@
+import { useId, type ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import { publicCenterById, publicCenterExternalUrl, usePublicCenters } from '@/app/publicCenters';
 import { useSite } from '@/app/site';
 import { useGoToSection } from '@/app/navigation';
-import { ANNOUNCEMENTS_PATH, CENTER_ORDER, HONORS_PATH } from '@/app/routes';
+import {
+  ANNOUNCEMENTS_PATH,
+  CENTER_ORDER,
+  DEPARTMENT_PATH,
+  DIGITAL_MATERIALS_PATH,
+  EPORTFOLIO_URL,
+  GALLERY_PATH,
+  HONORS_PATH,
+  RESOURCES_PATH,
+  TRAINEES_PATH,
+  VIDEOS_PATH,
+  programPath,
+} from '@/app/routes';
 import { usePublicContentDocument } from '@/content';
 import { Reveal } from '@/motion/Reveal';
 import { assetUrl } from '@/utils/asset';
+import { ARCHIVE_PARAMS } from './content/archiveParams';
+import { fallbackLangProps } from './content/Localized';
 import { CenterLink } from './CenterLink';
+import { useNavCopy } from './navCopy';
 import { Icon } from './Icon';
 
 /** Students who designed and built this site. */
@@ -29,19 +45,25 @@ const DESIGN_TEAM = [
   },
 ];
 
+function FooterColumn({ label, children }: { readonly label: string; readonly children: ReactNode }) {
+  const labelId = useId();
+  return (
+    <nav className="footer-col" aria-labelledby={labelId}>
+      <div id={labelId} className="eyebrow">{label}</div>
+      <div className="footer-col-links">{children}</div>
+    </nav>
+  );
+}
+
 export function Footer() {
   const { isZh, t, lang } = useSite();
+  const copy = useNavCopy();
   const centers = usePublicCenters(lang);
   const latestUpdate = usePublicContentDocument('news', 'announcements', lang).value.latestUpdate;
+  const programs = usePublicContentDocument('department_info', 'directory', lang).value.programs;
+  const newsCategories = usePublicContentDocument('posts', 'archive', lang).value.categories
+    .filter((category) => category.channel === 'news');
   const goToSection = useGoToSection();
-
-  const sections = [
-    { id: 'about', label: t.navAbout },
-    { id: 'organisation', label: t.navOrg },
-    { id: 'news', label: t.navNews, path: ANNOUNCEMENTS_PATH },
-    { id: 'honors', label: isZh ? '品質榮譽' : 'Quality Honors', path: HONORS_PATH },
-    { id: 'contact', label: t.navContact },
-  ];
 
   return (
     <footer className="footer" id="site-footer">
@@ -75,55 +97,81 @@ export function Footer() {
             </div>
           </div>
 
-          <div className="grid g2" style={{ gap: 32 }}>
-            <div className="stack gap-2">
-              <div className="eyebrow">{isZh ? '五大中心' : 'The Five Centers'}</div>
-              <div className="stack gap-1">
-                {CENTER_ORDER.map((id) => {
-                  const c = publicCenterById(centers, id);
-                  const externalUrl = publicCenterExternalUrl(c, isZh);
-                  return (
-                    <CenterLink
-                      key={id}
-                      id={id}
-                      externalUrl={externalUrl}
-                      style={{ fontSize: '0.86rem', color: 'var(--body)', transition: 'color .25s' }}
-                      onMouseEnter={(e) => (e.currentTarget.style.color = c.color)}
-                      onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--body)')}
-                    >
-                      {isZh ? c.zh : c.en}
-                      {externalUrl && ' ↗'}
-                    </CenterLink>
-                  );
-                })}
-              </div>
-            </div>
-            <div className="stack gap-2">
-              <div className="eyebrow">{isZh ? '網站導覽' : 'Navigate'}</div>
-              <div className="stack gap-1" style={{ alignItems: 'flex-start' }}>
-                {sections.map((s) =>
-                  s.path ? (
-                    <Link
-                      key={s.id}
-                      to={s.path}
-                      style={{ fontSize: '0.86rem', color: 'var(--body)', transition: 'color .25s' }}
-                    >
-                      {s.label}
-                    </Link>
-                  ) : (
-                    <button
-                      key={s.id}
-                      onClick={() => goToSection(s.id)}
-                      style={{ fontSize: '0.86rem', color: 'var(--body)', transition: 'color .25s' }}
-                      onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--accent)')}
-                      onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--body)')}
-                    >
-                      {s.label}
-                    </button>
-                  ),
-                )}
-              </div>
-            </div>
+          <div className="grid auto-fit footer-cols">
+            <FooterColumn label={isZh ? '網站導覽' : 'Navigate'}>
+              <Link className="footer-link" to={DEPARTMENT_PATH}>{copy.department}</Link>
+              <button type="button" className="footer-link" onClick={() => goToSection('about')}>{t.navAbout}</button>
+              <button type="button" className="footer-link" onClick={() => goToSection('organisation')}>{t.navOrg}</button>
+              <Link className="footer-link" to={HONORS_PATH}>{copy.honors}</Link>
+              <button type="button" className="footer-link" onClick={() => goToSection('contact')}>{t.navContact}</button>
+            </FooterColumn>
+
+            <FooterColumn label={copy.fiveCenters}>
+              {CENTER_ORDER.map((id) => {
+                const c = publicCenterById(centers, id);
+                const externalUrl = publicCenterExternalUrl(c, isZh);
+                return (
+                  <CenterLink
+                    key={id}
+                    id={id}
+                    externalUrl={externalUrl}
+                    className="footer-link"
+                    style={{ ['--tone' as string]: c.color }}
+                  >
+                    {isZh ? c.zh : c.en}
+                    {externalUrl && ' ↗'}
+                  </CenterLink>
+                );
+              })}
+              <Link className="footer-link" to={DIGITAL_MATERIALS_PATH}>{copy.digitalMaterials}</Link>
+            </FooterColumn>
+
+            <FooterColumn label={t.navNews}>
+              <Link className="footer-link" to={ANNOUNCEMENTS_PATH}>{copy.allAnnouncements}</Link>
+              {newsCategories.map((category) => (
+                <Link
+                  key={category.id}
+                  className="footer-link"
+                  to={`${ANNOUNCEMENTS_PATH}?${ARCHIVE_PARAMS.category}=${encodeURIComponent(category.id)}`}
+                  {...fallbackLangProps(category.label)}
+                >
+                  {category.label.text}
+                </Link>
+              ))}
+            </FooterColumn>
+
+            <FooterColumn label={copy.trainees}>
+              <Link className="footer-link" to={TRAINEES_PATH}>{copy.traineesHub}</Link>
+              {programs.map((program) => (
+                <Link
+                  key={program.id}
+                  className="footer-link"
+                  to={programPath(program.id)}
+                  {...fallbackLangProps(program.title)}
+                >
+                  {program.title.text}
+                </Link>
+              ))}
+            </FooterColumn>
+
+            <FooterColumn label={copy.resources}>
+              <Link className="footer-link" to={`${RESOURCES_PATH}#links`}>{copy.relatedLinks}</Link>
+              <Link className="footer-link" to={`${RESOURCES_PATH}#downloads`}>{copy.downloads}</Link>
+              <Link className="footer-link" to={GALLERY_PATH}>{copy.gallery}</Link>
+              <Link className="footer-link" to={VIDEOS_PATH}>{copy.videos}</Link>
+            </FooterColumn>
+
+            <FooterColumn label={copy.externalSystems}>
+              <a
+                className="footer-link"
+                href={EPORTFOLIO_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`${copy.eportfolio} ${copy.opensInNewTab}`}
+              >
+                {copy.eportfolio} ↗
+              </a>
+            </FooterColumn>
           </div>
         </div>
 

@@ -1,13 +1,30 @@
 # TMUH Department of Medical Education
 
-> The bilingual website of the Department of Medical Education at Taipei Medical University Hospital, covering its organization, education centers, announcements, honors, teaching resources, and contact information.
+> The bilingual website of the Department of Medical Education at Taipei Medical University Hospital, covering its organization, education centers, announcements, honors, trainee programs, photo and video archives, teaching resources, and contact information. Content imported from the department's previous site is in Traditional Chinese only.
 
 ## Main pages
 
 - [Department home](https://tmuh-mededu-living-tissue.vercel.app/)
-- [Announcements](https://tmuh-mededu-living-tissue.vercel.app/announcements)
-- [Quality honors](https://tmuh-mededu-living-tissue.vercel.app/honors)
+- [About the department](https://tmuh-mededu-living-tissue.vercel.app/department): leadership messages, administrative team, teaching faculty, and committees
+- [Announcements](https://tmuh-mededu-living-tissue.vercel.app/announcements): hospital courses, recruitment, further training, faculty notices, center and trainee notices, and events; filterable by category and year
+- [Honors](https://tmuh-mededu-living-tissue.vercel.app/honors): quality awards and the honors board
 - [Digital materials](https://tmuh-mededu-living-tissue.vercel.app/digital-materials)
+
+## Trainees
+
+- [Trainee overview](https://tmuh-mededu-living-tissue.vercel.app/trainees): important notices and the five training programs
+- [Residents](https://tmuh-mededu-living-tissue.vercel.app/trainees/residents)
+- [Post-graduate year training](https://tmuh-mededu-living-tissue.vercel.app/trainees/pgy)
+- [Medical students](https://tmuh-mededu-living-tissue.vercel.app/trainees/medical-students)
+- [Allied health trainees](https://tmuh-mededu-living-tissue.vercel.app/trainees/allied-health-trainees)
+- [Commissioned and joint training](https://tmuh-mededu-living-tissue.vercel.app/trainees/joint-training)
+
+## Archives and resources
+
+- [Photo gallery](https://tmuh-mededu-living-tissue.vercel.app/gallery): event photo albums
+- [Videos](https://tmuh-mededu-living-tissue.vercel.app/videos): recorded lectures and event videos
+- [Resources](https://tmuh-mededu-living-tissue.vercel.app/resources): related links, downloadable forms, and external systems
+- [E-Portfolio](http://ceep2.tmu.edu.tw/): external learning portfolio system
 
 ## Education centers
 
