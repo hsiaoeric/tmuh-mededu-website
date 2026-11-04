@@ -168,6 +168,7 @@ describe('legacy classification and redirects', () => {
     photoAlbums: new Map([['90', '29']]),
     departmentPages: new Map([[29, 'director-message']]),
     organizationPageId: 'organization-chart',
+    sections: new Set(['/trainees/joint-training#downloads', '/trainees/residents#albums', '/centers/faculty-development#center-articles']),
   };
   const target = (path: string) => {
     const view = classifyLegacyPath(path);
@@ -188,7 +189,13 @@ describe('legacy classification and redirects', () => {
     expect(target('/center/info/CLINICAL/elb02/33')).toBe('/gallery?owner=clinical_skills');
     expect(target('/center/album/ELB02/90')).toBe('/gallery/29');
     expect(target('/student/doctor/stu05/home')).toBe('/trainees/joint-training');
-    expect(target('/student/album/stu05/alb04')).toBe('/trainees/joint-training#albums');
+    expect(target('/student/album/stu05/alb04')).toBe('/trainees/joint-training');
+    expect(target('/student/album/stu01/alb01')).toBe('/trainees/residents#albums');
+    expect(target('/student/comm/stu05/dwn04')).toBe('/trainees/joint-training#downloads');
+    expect(target('/student/training/stu01/trn01')).toBe('/trainees/residents');
+    expect(target('/center/events/develop/evt03')).toBe('/centers/faculty-development#center-articles');
+    expect(target('/center/events/medical/evt01')).toBe('/centers/evidence-based-medicine');
+    expect(target('/about/committee')).toBe('/department');
     expect(target('/home/video/stu03/cvd03')).toBe('/videos?owner=faculty_dev');
     expect(target('/home/video/stu04/vdo04')).toBe('/videos?owner=allied-health-trainees');
     expect(target('/contact')).toBe('/#contact');

@@ -26,7 +26,7 @@ The mirror is read as data only. Nothing in it is executed, and no old-site host
 | Videos | 136 |
 | Images converted (WebP) | 262 |
 | Image references dropped | 8 |
-| Redirects (exact) | 671 |
+| Redirects (exact) | 676 |
 | Redirects (query rules) | 2 |
 
 ## Posts by category

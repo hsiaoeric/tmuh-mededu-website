@@ -23,6 +23,7 @@ import { isLocalFilePath } from '../../../src/content/contracts/blocks';
 import { TEXT_LIMITS } from '../../../src/content/contracts/localized';
 import { CMS_PAYLOAD_REGISTRY } from '../../../src/content/contracts/registry';
 import {
+  LEGACY_CENTER_CODES,
   LEGACY_CENTER_SECTION_PREFIXES,
   LEGACY_DOWNLOAD_GROUPS,
   LEGACY_LINK_GROUPS,
@@ -49,7 +50,8 @@ import { ImageStore, locateImage, type ImageCategory, type ImageManifest, type I
 import { httpHost, outcomeHref, resolveLegacyHref, type HttpsUpgrades, type LinkOutcome } from './links';
 import { elements, extractArticle, groupPostViews, LegacyImportError, loadMirrorDocument, meaningfulImageSource, parseHtml } from './parsePage';
 import { downloadFileName, formatLegacyLocation, legacyLocationFromHref, type LegacyLocation } from './paths';
-import { redirectTarget, RedirectTableBuilder, type RedirectLookups } from './redirects';
+import { ownerHomePath, redirectTarget, RedirectTableBuilder, type RedirectLookups } from './redirects';
+import { renderedSections, type SectionData } from './sections';
 import { renderReport, type CountRow, type ReportData } from './report';
 import { readDownloadList, readFooterSystemLinks, readLinkList } from './resources';
 import { rocDateInText, timestampDateInFileName, truncate } from './text';
@@ -77,7 +79,14 @@ const LEGACY_ENTRY_ALIASES: readonly (readonly [string, string])[] = [
   ['/center/album', '/gallery'],
   ['/other/links', '/resources#links'],
   ['/other/download', '/resources#downloads'],
+  // `/center/<name>` with no further segment: the center's own page.
+  ...Object.entries(LEGACY_CENTER_CODES).map(([name, owner]) => [`/center/${name}`, ownerHomePath(owner)] as const),
 ];
+
+/** The importer files every link group under the department; program pages show none. */
+const LINK_GROUP_OWNER = 'department';
+/** Program page references are hand-authored later in the CMS; the import supplies none. */
+const IMPORTED_PROGRAMS: readonly { readonly id: string }[] = [];
 
 type Options = {
   readonly mirror: string;
@@ -491,7 +500,7 @@ class Importer {
         });
       });
       count += links.length;
-      if (links.length > 0) groups.push({ id, owner: 'department', purpose, order, title, links });
+      if (links.length > 0) groups.push({ id, owner: LINK_GROUP_OWNER, purpose, order, title, links });
     };
     for (const [code, spec] of Object.entries(LEGACY_LINK_GROUPS)) build(spec.id, spec.order, spec.title, 'related', byCode.get(code) ?? []);
     build(LEGACY_SYSTEMS_LINK_GROUP.id, LEGACY_SYSTEMS_LINK_GROUP.order, LEGACY_SYSTEMS_LINK_GROUP.title, 'systems', systems);
@@ -593,7 +602,25 @@ class Importer {
     const photoAlbums = new Map<string, string>();
     for (const album of albums) for (const photo of album.photos) if (photo.photoId !== undefined) photoAlbums.set(photo.photoId, album.albumId);
 
+    // Downloads need no redirect table, and which program sections render depends on them.
+    const download = this.downloads();
+    const sectionData = (pages: SectionData['pages'], albumOwners: SectionData['albums']): SectionData => ({
+      posts,
+      pages,
+      programs: IMPORTED_PROGRAMS,
+      albums: albumOwners,
+      videos: videoMerge.videos,
+      // Link groups are built after the table (their hrefs need it); every one is the department's.
+      linkGroups: [{ owner: LINK_GROUP_OWNER, links: [] }],
+      downloads: download.groups as SectionData['downloads'],
+    });
+    const sections = renderedSections(sectionData(
+      departmentPages.map((page) => ({ id: page.id, section: page.section, owner: 'department', hasBlocks: page.body !== undefined })),
+      albums,
+    ));
+
     this.lookups = {
+      sections,
       posts: new Map(posts.map((post) => [post.id, { channel: post.channel, owner: post.owner }])),
       albums: new Set(albums.map((album) => album.albumId)),
       photoAlbums,
@@ -613,7 +640,6 @@ class Importer {
     }
 
     // Links need the redirect table, so it is built before any body is converted.
-    const download = this.downloads();
     for (const { page, view } of this.pages) {
       if (view.kind === 'download-file') {
         const fileName = downloadFileName(page.location);
@@ -732,9 +758,18 @@ class Importer {
     });
 
     const postsFile = { version: 1 as const, posts: postRecords };
-    const departmentFile = { version: 1 as const, pages: pageRecords, programs: [], linkGroups: linkGroups.groups, downloads: download.groups };
+    const departmentFile = { version: 1 as const, pages: pageRecords, programs: [...IMPORTED_PROGRAMS], linkGroups: linkGroups.groups, downloads: download.groups };
     const galleryFile = { version: 1 as const, albums: albumRecords, videos: videoMerge.videos };
     this.validate(postsFile, departmentFile, galleryFile);
+    this.assertSections(sections, {
+      posts: postRecords,
+      pages: pageRecords.map((page) => ({ id: page.id, section: page.section, owner: page.owner, hasBlocks: page.body.zh.length > 0 })),
+      programs: IMPORTED_PROGRAMS,
+      albums: albumRecords,
+      videos: videoMerge.videos,
+      linkGroups: linkGroups.groups as SectionData['linkGroups'],
+      downloads: download.groups as SectionData['downloads'],
+    });
 
     // Every converted old-site image keeps working at its old URL.
     const manifest = this.images.manifest();
@@ -753,6 +788,13 @@ class Importer {
     console.log(`Imported ${postRecords.length} posts, ${pageRecords.length} pages, ${albumRecords.length} albums, ${videoMerge.videos.length} videos, ${manifest.images.length} images; ${Object.keys(this.redirects.table().exact).length} redirects.`);
     if (pruned.length > 0) console.log(`Removed ${pruned.length} stale converted images.`);
     console.log(`Report: ${relative(REPO_ROOT, reportPath).split(sep).join('/')}`);
+  }
+
+  /** The redirect table's anchors were chosen before bodies were converted; the output must agree. */
+  private assertSections(expected: ReadonlySet<string>, records: SectionData): void {
+    const actual = renderedSections(records);
+    const differ = [...new Set([...expected, ...actual])].filter((key) => expected.has(key) !== actual.has(key));
+    if (differ.length > 0) throw new LegacyImportError(`Rendered sections changed after conversion: ${differ.sort().join(', ')}`);
   }
 
   private collectHttpHosts(posts: readonly DraftPost[], pages: readonly DraftPage[], linkHosts: readonly string[]): string[] {

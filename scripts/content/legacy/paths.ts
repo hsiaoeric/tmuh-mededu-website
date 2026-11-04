@@ -1,10 +1,18 @@
+import {
+  DOWNLOAD_FILE_PATH,
+  DOWNLOAD_FILE_QUERY_KEY,
+  normalizeLegacyPath,
+  safeDecode,
+  stripHtmlSuffix,
+} from '../../../src/app/legacyPaths';
+
 /** The old site's origin. Links to it are rewritten; it is never contacted. */
 export const LEGACY_ORIGIN = 'https://tmuh-education.tmuh.org.tw';
 export const LEGACY_HOSTS = new Set(['tmuh-education.tmuh.org.tw']);
 
-/** The one query the old site's routing depended on: `other/downloadfile?fName=…`. */
-export const DOWNLOAD_FILE_PATH = '/other/downloadfile';
-export const DOWNLOAD_FILE_QUERY_KEY = 'fName';
+// The normalizer and the download-handler constants are shared with the SPA's redirect resolver,
+// so the table's keys and the browser's lookups cannot drift apart.
+export { DOWNLOAD_FILE_PATH, DOWNLOAD_FILE_QUERY_KEY, normalizeLegacyPath };
 
 export type LegacyLocation = {
   /** Decoded path with a leading slash, original case, without `.html` or query. */
@@ -12,14 +20,6 @@ export type LegacyLocation = {
   /** Decoded query parameters in their original order. */
   readonly query: readonly (readonly [string, string])[];
 };
-
-function safeDecode(value: string): string {
-  try {
-    return decodeURIComponent(value);
-  } catch {
-    return value;
-  }
-}
 
 function splitQuery(raw: string): (readonly [string, string])[] {
   if (raw.length === 0) return [];
@@ -29,10 +29,6 @@ function splitQuery(raw: string): (readonly [string, string])[] {
     const value = index === -1 ? '' : pair.slice(index + 1);
     return [safeDecode(key.replace(/\+/g, ' ')), safeDecode(value.replace(/\+/g, ' '))] as const;
   });
-}
-
-function stripHtmlSuffix(path: string): string {
-  return path.replace(/\.html?$/i, '');
 }
 
 /**
@@ -71,16 +67,6 @@ export function legacyLocationFromHref(href: string, pageRelativeFile: string): 
     path = path.slice(0, embedded);
   }
   return { path: stripHtmlSuffix(path) || '/', query: splitQuery(stripHtmlSuffix(queryPart)) };
-}
-
-/**
- * The redirect-table key for an old path: lowercase, no trailing slash, no `.html`. The query is
- * ignored except for the download handler, whose `fName` selects the file.
- */
-export function normalizeLegacyPath(path: string): string {
-  const decoded = safeDecode(path.split('#')[0]?.split('?')[0] ?? '');
-  const collapsed = `/${decoded.split('/').filter(Boolean).join('/')}`;
-  return stripHtmlSuffix(collapsed).toLowerCase();
 }
 
 /** The decoded `fName` of a download-handler location, if that is what it is. */

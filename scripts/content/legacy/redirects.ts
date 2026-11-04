@@ -2,8 +2,10 @@ import type { AudienceOwner, OwnerId, PostChannel, ProgramId } from '../../../sr
 import { isProgramId } from '../../../src/content/contracts/archiveIds';
 import { CENTER_SLUG } from '../../../src/app/routes';
 import { POST_CATEGORY_CHANNELS } from '../../../src/content/contracts/archiveIds';
+import { resolveInLegacyTable, type LegacyRedirectTable } from '../../../src/app/legacyPaths';
 import type { LegacyView } from './classify';
 import { DOWNLOAD_FILE_PATH, DOWNLOAD_FILE_QUERY_KEY, normalizeLegacyPath } from './paths';
+import { sectionTarget } from './sections';
 
 /** Canonical new routes (plan §1.1). Later workers build the pages; the importer only emits paths. */
 export const NEW_ROUTES = {
@@ -18,13 +20,7 @@ export const NEW_ROUTES = {
   digitalMaterials: '/digital-materials',
 } as const;
 
-export type RedirectTable = {
-  readonly version: 1;
-  /** normalized old path → new path */
-  readonly exact: Readonly<Record<string, string>>;
-  /** Old paths whose query selects the destination (the download handler's `fName`). */
-  readonly query: readonly { readonly path: string; readonly key: string; readonly value: string; readonly to: string }[];
-};
+export type RedirectTable = LegacyRedirectTable;
 
 export type RedirectLookups = {
   readonly posts: ReadonlyMap<string, { readonly channel: PostChannel; readonly owner: OwnerId }>;
@@ -35,6 +31,8 @@ export type RedirectLookups = {
   /** Legacy department page number → new page id. */
   readonly departmentPages: ReadonlyMap<number, string>;
   readonly organizationPageId: string;
+  /** `path#section` anchors that render for the imported data (see `renderedSections`). */
+  readonly sections: ReadonlySet<string>;
 };
 
 export function ownerHomePath(owner: AudienceOwner): string {
@@ -44,8 +42,8 @@ export function ownerHomePath(owner: AudienceOwner): string {
   return `/centers/${CENTER_SLUG[owner]}`;
 }
 
-export function programPath(program: ProgramId, section?: string): string {
-  return `${NEW_ROUTES.trainees}/${program}${section === undefined ? '' : `#${section}`}`;
+export function programPath(program: ProgramId): string {
+  return `${NEW_ROUTES.trainees}/${program}`;
 }
 
 export function postPath(post: { readonly id: string; readonly channel: PostChannel; readonly owner: OwnerId }): string {
@@ -85,14 +83,16 @@ export function redirectTarget(view: LegacyView, lookups: RedirectLookups): stri
       const post = lookups.posts.get(view.postId);
       if (post !== undefined) return postPath({ id: view.postId, ...post });
       // An empty or deleted article: send visitors to where its siblings are listed.
-      return view.centerOwner === undefined ? NEW_ROUTES.announcements : `${ownerHomePath(view.centerOwner)}#center-articles`;
+      return view.centerOwner === undefined
+        ? NEW_ROUTES.announcements
+        : sectionTarget(ownerHomePath(view.centerOwner), ['center-articles'], lookups.sections);
     }
     case 'organization':
       return `${NEW_ROUTES.department}/${lookups.organizationPageId}`;
     case 'team':
       return `${NEW_ROUTES.department}#team`;
     case 'committees':
-      return `${NEW_ROUTES.department}#committees`;
+      return sectionTarget(NEW_ROUTES.department, ['committees'], lookups.sections);
     case 'department-page': {
       const page = lookups.departmentPages.get(view.legacyId);
       if (page === undefined) throw new RedirectError(`No department page for legacy page ${view.legacyId}`);
@@ -107,13 +107,20 @@ export function redirectTarget(view: LegacyView, lookups: RedirectLookups): stri
       return album !== undefined && lookups.albums.has(album) ? `${NEW_ROUTES.gallery}/${album}` : ownerQuery(NEW_ROUTES.gallery, view.owner);
     }
     case 'owner-albums':
-      return isProgramId(view.owner) ? programPath(view.owner, 'albums') : ownerQuery(NEW_ROUTES.gallery, view.owner);
+      return isProgramId(view.owner)
+        ? sectionTarget(programPath(view.owner), ['albums'], lookups.sections)
+        : ownerQuery(NEW_ROUTES.gallery, view.owner);
     case 'program':
-      return programPath(view.program, view.section);
+      // 常用資訊 (`links`) held both links and files; the program page splits them in two.
+      return view.section === undefined
+        ? programPath(view.program)
+        : sectionTarget(programPath(view.program), view.section === 'links' ? ['links', 'downloads'] : [view.section], lookups.sections);
     case 'videos':
       return view.owner === undefined || view.owner === 'department' ? NEW_ROUTES.videos : ownerQuery(NEW_ROUTES.videos, view.owner);
     case 'center':
-      return `${ownerHomePath(view.owner)}${view.section === undefined ? '' : `#${view.section}`}`;
+      return view.section === undefined
+        ? ownerHomePath(view.owner)
+        : sectionTarget(ownerHomePath(view.owner), [view.section], lookups.sections);
     case 'links':
       return `${NEW_ROUTES.resources}#links`;
     case 'downloads':
@@ -149,12 +156,7 @@ export class RedirectTableBuilder {
 
   /** Resolves like the SPA will: query rules first, then the exact table. */
   resolve(path: string, query: readonly (readonly [string, string])[]): string | undefined {
-    const normalized = normalizeLegacyPath(path);
-    for (const rule of this.query.values()) {
-      if (rule.path !== normalized) continue;
-      if (query.some(([key, value]) => key.toLowerCase() === rule.key.toLowerCase() && value === rule.value)) return rule.to;
-    }
-    return this.exact.get(normalized);
+    return resolveInLegacyTable({ exact: Object.fromEntries(this.exact), query: [...this.query.values()] }, path, query);
   }
 
   table(): RedirectTable {

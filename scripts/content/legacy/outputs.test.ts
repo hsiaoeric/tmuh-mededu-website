@@ -4,6 +4,7 @@ import { describe, expect, it } from 'vitest';
 import { INTERNAL_PATH_PATTERN, isLocalFilePath } from '../../../src/content/contracts/blocks';
 import { CENTER_SLUG } from '../../../src/app/routes';
 import { PROGRAM_IDS } from '../../../src/content/contracts/archiveIds';
+import { renderedSections, type SectionData } from './sections';
 
 // Consistency of the committed importer output (src/data/legacy/*.json, public/assets/legacy,
 // public/files/legacy). These checks need no mirror, so they run in the ordinary test suite.
@@ -12,8 +13,13 @@ const repo = (path: string) => fileURLToPath(new URL(`../../../${path}`, import.
 const readJson = <T>(path: string): T => JSON.parse(readFileSync(repo(path), 'utf8')) as T;
 
 type Media = { kind: string; path: string };
-const posts = readJson<{ posts: { id: string; channel: string; owner: string; cover?: Media }[] }>('src/data/legacy/posts.json').posts;
-const department = readJson<{ pages: { id: string }[]; downloads: { items: { href: string }[] }[] }>('src/data/legacy/departmentInfo.json');
+const posts = readJson<{ posts: { id: string; channel: 'news' | 'honors' | 'center'; owner: string; audiences?: string[]; cover?: Media }[] }>('src/data/legacy/posts.json').posts;
+const department = readJson<{
+  pages: { id: string; section: string; owner?: string; body: { zh: unknown[] } }[];
+  programs: SectionData['programs'];
+  linkGroups: { owner: string; links: unknown[] }[];
+  downloads: { owner: string; items: { href: string }[] }[];
+}>('src/data/legacy/departmentInfo.json');
 const gallery = readJson<{ albums: { id: string; owner: string }[]; videos: { owner: string }[] }>('src/data/legacy/gallery.json');
 const images = readJson<{ images: { source: string; path: string; width: number; height: number; bytes: number }[] }>('src/data/legacy/images.json').images;
 const redirects = readJson<{ version: number; exact: Record<string, string>; query: { path: string; key: string; value: string; to: string }[] }>('src/data/legacy/redirects.json');
@@ -74,6 +80,26 @@ describe('committed legacy import output', () => {
       if (problem !== undefined) problems.push(`${rule.path}?${rule.key}=${rule.value} → ${rule.to}: ${problem}`);
     }
     expect(problems).toEqual([]);
+  });
+
+  it('names only in-page sections the target page renders for this data', () => {
+    const rendered = renderedSections({
+      posts,
+      pages: department.pages.map((page) => ({ ...page, hasBlocks: page.body.zh.length > 0 })),
+      programs: department.programs,
+      albums: gallery.albums,
+      videos: gallery.videos,
+      linkGroups: department.linkGroups,
+      downloads: department.downloads,
+    });
+    // Sections that render whatever the data: home anchors, the department team, the honor
+    // board, and the resources page's links and downloads.
+    const unconditional = new Set(['/#contact', '/#organisation', '/department#team', '/honors#board', '/resources#links', '/resources#downloads']);
+    const problems = [...Object.values(redirects.exact), ...redirects.query.map((rule) => rule.to)]
+      .filter((to) => to.includes('#'))
+      .map((to) => `${to.split('#')[0]?.split('?')[0]}#${to.split('#')[1]}`)
+      .filter((anchor) => !unconditional.has(anchor) && !rendered.has(anchor));
+    expect([...new Set(problems)]).toEqual([]);
   });
 
   it('every imported post, page and album has a redirect from at least one old URL', () => {
