@@ -25,6 +25,7 @@ wave5-kpis-after-navigation
 
 # Local tool state
 .claude/settings.local.json
+.claude/worktrees/
 .pi/
 # MCP servers are per machine (browser paths) and per person (hosted project access).
 .mcp.json
