@@ -326,7 +326,7 @@ No HTTPS upgrade is recorded for these hosts in `scripts/content/legacy/https-up
 
 | Where | Old | New |
 | --- | --- | --- |
-| post 150 | ../../../center/events/develop/evt03.html | /centers/faculty-development#articles |
+| post 150 | ../../../center/events/develop/evt03.html | /centers/faculty-development#center-articles |
 
 ### Dropped (anchor text kept)
 

@@ -31,7 +31,7 @@ export type LegacyView =
   | { readonly kind: 'owner-albums'; readonly owner: AudienceOwner }
   | { readonly kind: 'program'; readonly program: ProgramId; readonly section?: ProgramSection }
   | { readonly kind: 'videos'; readonly owner?: AudienceOwner }
-  | { readonly kind: 'center'; readonly owner: OwnerId; readonly section?: 'articles' }
+  | { readonly kind: 'center'; readonly owner: OwnerId; readonly section?: 'center-articles' }
   | { readonly kind: 'links' }
   | { readonly kind: 'downloads' }
   | { readonly kind: 'download-file' };
@@ -102,7 +102,7 @@ const RULES: readonly Rule[] = [
   [/^\/home\/video\/stu0\d\/cvd(0\d)$/, (m) => ownerView('videos', centerForNumber(m[1]))],
   [/^\/center\/about\/abt(0\d)$/, (m) => centerView(centerForNumber(m[1]))],
   [/^\/center\/about\/([a-z]+)\/abt0\d$/, (m) => centerView(centerForName(m[1]))],
-  [/^\/center\/events\/([a-z]+)\/[a-z0-9]+$/, (m) => centerView(centerForName(m[1]), 'articles')],
+  [/^\/center\/events\/([a-z]+)\/[a-z0-9]+$/, (m) => centerView(centerForName(m[1]), 'center-articles')],
   [/^\/center\/info\/([a-z]+)\/(abt0\d|evt0\d)\/(\d+)$/, (m) => {
     const centerOwner = centerForName(m[1]);
     return centerOwner === undefined ? undefined : { kind: 'post', postId: String(Number(m[3])), code: m[2]?.toUpperCase(), centerOwner };
@@ -141,7 +141,7 @@ function ownerView(kind: 'videos' | 'owner-albums', owner: AudienceOwner | undef
   return owner === undefined ? undefined : { kind, owner };
 }
 
-function centerView(owner: OwnerId | undefined, section?: 'articles'): LegacyView | undefined {
+function centerView(owner: OwnerId | undefined, section?: 'center-articles'): LegacyView | undefined {
   if (owner === undefined) return undefined;
   return section === undefined ? { kind: 'center', owner } : { kind: 'center', owner, section };
 }

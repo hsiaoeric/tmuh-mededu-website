@@ -85,7 +85,7 @@ export function redirectTarget(view: LegacyView, lookups: RedirectLookups): stri
       const post = lookups.posts.get(view.postId);
       if (post !== undefined) return postPath({ id: view.postId, ...post });
       // An empty or deleted article: send visitors to where its siblings are listed.
-      return view.centerOwner === undefined ? NEW_ROUTES.announcements : `${ownerHomePath(view.centerOwner)}#articles`;
+      return view.centerOwner === undefined ? NEW_ROUTES.announcements : `${ownerHomePath(view.centerOwner)}#center-articles`;
     }
     case 'organization':
       return `${NEW_ROUTES.department}/${lookups.organizationPageId}`;
