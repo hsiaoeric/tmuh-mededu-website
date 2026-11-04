@@ -2,7 +2,7 @@
 
 本手冊是教學部網站 Supabase CMS 的正式操作依據，適用於內容管理員、專案擁有者與發佈維護者。日常內容一律從 `/admin/login` 進入 CMS 處理，不直接改產生後的快照或 `supabase/seed.sql`。
 
-目前發佈狀態：`offline implementation verified; production Supabase integration blocked`。離線實作與驗證已完成，但尚未以核准的正式環境憑證執行 hosted migration、Auth、Storage、Edge Function 或 checkpoint 整合驗證。
+目前發佈狀態：`offline implementation verified; hosted Supabase partially deployed (site not connected; Auth and checkpoint unverified)`。離線實作與驗證已完成。2026-11-04 由專案擁有者的機器確認：hosted 專案 `tjkuyrslslhllydqbjkw` 已套用 `20260908000200` 為止的 17 個 migrations，`cms-publish` 已部署，12 組文件已 seed 且可匿名讀取。尚未完成：Vercel 與 GitHub Pages 的正式 build 尚未設定 `VITE_SUPABASE_*` 而未連線 CMS；hosted Auth 管理員帳號、`cms_admins` allowlist、signup／anonymous 設定，以及 checkpoint 尚未驗證；`20261105000100` 之後新增的 migrations 與三組新文件尚未套用到 hosted。
 
 ## 架構與內容權威
 
