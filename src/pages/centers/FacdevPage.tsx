@@ -9,6 +9,7 @@ import { PageHero, ClosingContact } from '@/ui/PageParts';
 import { Avatar, PersonCard } from '@/ui/Person';
 import { StatRow } from '@/ui/Stats';
 import { Icon, type IconName } from '@/ui/Icon';
+import { CenterArchiveSections } from './CenterArchiveSections';
 
 const FD_COLORS = {
   clay: '#A87A6B', blue: '#7A95A8', sage: '#8FA898', ochre: '#B69B66',
@@ -219,6 +220,8 @@ export function FacdevPage() {
           ))}
         </div>
       </Section>
+
+      <CenterArchiveSections owner="faculty_dev" tone={tone} />
 
       <ClosingContact
         title={f.closingTitle}

@@ -1,81 +1,88 @@
-import { useState } from 'react';
+import { useMemo } from 'react';
 import { useSite, usePageTitle } from '@/app/site';
+import { useHashScroll } from '@/app/hashScroll';
 import { usePublicContentDocument } from '@/content';
-import type { AnnouncementCategory } from '@/data/news';
-import { Section, SectionHeader } from '@/ui/Section';
+import { Section } from '@/ui/Section';
 import { ActivityCard, AnnouncementRow } from '@/ui/NewsParts';
 import { Reveal } from '@/motion/Reveal';
 import { Icon } from '@/ui/Icon';
+import { useArchivePageCopy } from './archive/copy';
+import { usePostsArchive } from './archive/data';
+import { ArchiveSectionHead, EmptyNote, PageIntro } from './archive/parts';
+import { PostListing } from './archive/PostListing';
 
+const PAGE_SIZE = 12;
+const ARCHIVE_HEADING_ID = 'archive-heading';
+
+/**
+ * 公告: the curated highlight cards from the `news` document on top, then the full dated archive
+ * (posts in the news channel) with category, year, and text filters, then upcoming events.
+ */
 export function AnnouncementsPage() {
-  const { isZh, lang } = useSite();
-  const [category, setCategory] = useState<AnnouncementCategory | 'all'>('all');
+  const { lang } = useSite();
+  const copy = useArchivePageCopy();
   const news = usePublicContentDocument('news', 'announcements', lang).value;
-  const announcements = news.department;
-  const categories = news.categories.department;
-  const visible =
-    category === 'all'
-      ? announcements
-      : announcements.filter((item) => item.category === category);
   const activities = usePublicContentDocument('activities', 'calendar', lang).value.department;
+  const archive = usePostsArchive();
+  const categories = useMemo(
+    () => archive.categories.filter((category) => category.channel === 'news'),
+    [archive.categories],
+  );
+  const posts = useMemo(() => archive.posts.filter((post) => post.channel === 'news'), [archive.posts]);
 
-  usePageTitle(isZh ? '公告' : 'Announcements');
+  usePageTitle(copy.announcementsTitle);
+  useHashScroll();
 
   return (
-    <div style={{ paddingTop: 'var(--nav-h)' }}>
-      <Section>
-        <SectionHeader
-          eyebrow="Announcements"
-          title={isZh ? '公告' : 'Announcements'}
-          desc={
-            isZh
-              ? '教學部最新消息、教育活動與常用資訊。'
-              : 'Department news, education activities and frequently used information.'
-          }
-          aside={
-            <a className="tlink" href={news.announcementBoardUrl} target="_blank" rel="noreferrer">
-              {isZh ? '對外看板' : 'Public board'}
-              <Icon name="arrowUpRight" />
-            </a>
-          }
-        />
+    <>
+      <PageIntro
+        eyebrow="Announcements"
+        title={copy.announcementsTitle}
+        lede={copy.announcementsLede}
+        aside={
+          <a className="tlink" href={news.announcementBoardUrl} target="_blank" rel="noreferrer">
+            {copy.publicBoard}
+            <Icon name="arrowUpRight" />
+          </a>
+        }
+      />
 
-        <Reveal variant="up" className="row gap-1 wrap" style={{ marginBottom: 'clamp(26px, 4vw, 48px)' }}>
-          <button className="pill" aria-pressed={category === 'all'} onClick={() => setCategory('all')}>
-            {isZh ? '全部' : 'All'}
-          </button>
-          {categories.map((item) => (
-            <button
-              key={item.id}
-              className="pill"
-              aria-pressed={category === item.id}
-              onClick={() => setCategory(item.id)}
-            >
-              {item.label}
-            </button>
-          ))}
-        </Reveal>
-
-        <div className="stack" style={{ gap: 0 }}>
-          {visible.map((item, index) => (
-            <AnnouncementRow key={`${item.title}-${index}`} item={item} />
-          ))}
-        </div>
-
-        {activities.length > 0 && (
-          <div className="stack gap-3" style={{ marginTop: 'clamp(50px, 8vw, 96px)' }}>
-            <div className="stack gap-1">
-              <span className="eyebrow">Events</span>
-              <h2 className="display d3">{isZh ? '近期活動' : 'Upcoming events'}</h2>
-            </div>
-            <Reveal variant="up" stagger={80} className="grid auto-fit-lg">
-              {activities.map((item, index) => (
-                <ActivityCard key={index} item={item} />
-              ))}
-            </Reveal>
+      {news.department.length > 0 && (
+        <Section id="highlights" tight>
+          <ArchiveSectionHead eyebrow="Highlights" title={copy.highlightsTitle} />
+          <div className="stack" style={{ gap: 0 }}>
+            {news.department.map((item, index) => (
+              <AnnouncementRow key={`${item.title}-${index}`} item={item} />
+            ))}
           </div>
+        </Section>
+      )}
+
+      <Section id="archive" tight>
+        <ArchiveSectionHead id={ARCHIVE_HEADING_ID} eyebrow="Archive" title={copy.archiveTitle} />
+        {posts.length === 0 ? (
+          <EmptyNote>{copy.archiveEmpty}</EmptyNote>
+        ) : (
+          <PostListing
+            posts={posts}
+            categories={categories}
+            pageSize={PAGE_SIZE}
+            listId={ARCHIVE_HEADING_ID}
+            label={copy.archiveTitle}
+          />
         )}
       </Section>
-    </div>
+
+      {activities.length > 0 && (
+        <Section id="events" tight>
+          <ArchiveSectionHead eyebrow="Events" title={copy.eventsTitle} />
+          <Reveal variant="up" stagger={80} className="grid auto-fit-lg">
+            {activities.map((item, index) => (
+              <ActivityCard key={index} item={item} />
+            ))}
+          </Reveal>
+        </Section>
+      )}
+    </>
   );
 }
