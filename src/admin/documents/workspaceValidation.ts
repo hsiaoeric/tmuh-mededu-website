@@ -16,9 +16,11 @@ const PUBLISHED_MEDIA_PLACEHOLDER = {
 } as const;
 
 export function withPublishableMediaReferences(value: Json): Json {
-  if (DraftMediaReferenceSchema.safeParse(value).success) return PUBLISHED_MEDIA_PLACEHOLDER;
   if (Array.isArray(value)) return value.map(withPublishableMediaReferences);
   if (value === null || typeof value !== 'object') return value;
+  // Only an object tagged `kind: "draft"` can be a draft reference. Checking the tag first keeps a
+  // failed schema parse, which is costly, off every other node of a large payload.
+  if (value.kind === 'draft' && DraftMediaReferenceSchema.safeParse(value).success) return PUBLISHED_MEDIA_PLACEHOLDER;
   return Object.fromEntries(
     Object.entries(value).map(([key, child]) => [
       key,
