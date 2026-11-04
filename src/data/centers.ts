@@ -265,7 +265,6 @@ export const CENTERS: Center[] = [
     contactZh: '張家銘、賴哲民',
     contactEn: 'Chia-Ming Chang · Che-Min Lai',
     ext: '3772',
-    externalUrl: 'https://tmuh-education.tmuh.org.tw/center/about/clinical/abt02',
     people: [
       person('吳人傑', 'Jen-Chieh Wu', 'director', '西醫 · 助理教授', 'Physician · Asst. Prof.', 'jen-chieh-wu', 'jen-chieh-wu'),
       person('蔡鴻維', 'Hung-Wei Tsai', 'deputy', '西醫 · 講師', 'Physician · Lecturer', 'hung-wei-tsai', 'hung-wei-tsai'),
