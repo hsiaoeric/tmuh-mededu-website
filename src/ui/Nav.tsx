@@ -1,37 +1,57 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useId, useState, type ReactNode } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { publicCenterById, publicCenterExternalUrl, usePublicCenters } from '@/app/publicCenters';
 import { useSite } from '@/app/site';
 import { useGoToSection } from '@/app/navigation';
-import { ANNOUNCEMENTS_PATH, CENTER_ORDER, DIGITAL_MATERIALS_PATH, HONORS_PATH, centerPath } from '@/app/routes';
+import {
+  ANNOUNCEMENTS_PATH,
+  CENTER_ORDER,
+  DEPARTMENT_PATH,
+  DIGITAL_MATERIALS_PATH,
+  EPORTFOLIO_URL,
+  GALLERY_PATH,
+  HONORS_PATH,
+  RESOURCES_PATH,
+  TRAINEES_PATH,
+  VIDEOS_PATH,
+  centerPath,
+  programPath,
+} from '@/app/routes';
+import { usePublicContentDocument } from '@/content';
 import { setScrollLocked } from '@/motion/smoothScroll';
 import { assetUrl } from '@/utils/asset';
+import { fallbackLangProps } from './content/Localized';
 import { CenterLink } from './CenterLink';
 import { NavCentersMenu } from './NavCentersMenu';
+import { NavMenu, NavMenuItemBody } from './NavMenu';
+import { currentProps, isWithin } from './navActive';
+import { useNavCopy } from './navCopy';
 import { Icon } from './Icon';
 import { useMediaQuery } from './useMediaQuery';
 
-interface SectionItem {
-  readonly id: string;
-  readonly label: string;
-  readonly path?: string;
+/** Pages gathered under 更多 ▾; the trigger lights up on any of them. */
+const MORE_SECTIONS = [GALLERY_PATH, VIDEOS_PATH, RESOURCES_PATH] as const;
+
+function SheetGroup({ label, children }: { readonly label: string; readonly children: ReactNode }) {
+  const labelId = useId();
+  return (
+    <div className="sheet-group" role="group" aria-labelledby={labelId}>
+      <div id={labelId} className="eyebrow sheet-label">{label}</div>
+      {children}
+    </div>
+  );
 }
 
 export function Nav() {
   const { isZh, lang, t, theme, toggleLang, toggleTheme } = useSite();
+  const copy = useNavCopy();
   const centers = usePublicCenters(lang);
+  const programs = usePublicContentDocument('department_info', 'directory', lang).value.programs;
   const goToSection = useGoToSection();
   const { pathname } = useLocation();
   const narrow = useMediaQuery('(max-width: 780px)');
   const [scrolled, setScrolled] = useState(false);
   const [sheet, setSheet] = useState(false);
-  const sections: readonly SectionItem[] = [
-    { id: 'about', label: t.navAbout },
-    { id: 'organisation', label: t.navOrg },
-    { id: 'news', label: t.navNews, path: ANNOUNCEMENTS_PATH },
-    { id: 'honors', label: isZh ? '榮譽' : 'Honors', path: HONORS_PATH },
-    { id: 'contact', label: t.navContact },
-  ];
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -49,10 +69,18 @@ export function Nav() {
     setSheet(false);
   }, [pathname]);
 
+  // The sheet only exists in the narrow layout; widening the window closes it.
+  useEffect(() => {
+    if (!narrow) setSheet(false);
+  }, [narrow]);
+
+  const closeSheet = () => setSheet(false);
   const jump = (id: string) => {
     setSheet(false);
     goToSection(id);
   };
+  const moreActive = MORE_SECTIONS.some((section) => isWithin(pathname, section));
+  const external = `${copy.eportfolio} ${copy.opensInNewTab}`;
 
   return (
     <>
@@ -62,7 +90,7 @@ export function Nav() {
             <img className="brand-mark" src={assetUrl('assets/tmuh-logo.svg')} alt="" />
             <span className="brand-text">
               <span className="brand-zh">
-              <span className="brand-full">{t.brand1}</span>
+                <span className="brand-full">{t.brand1}</span>
                 <span className="brand-short">{isZh ? '北醫附醫' : 'TMU Hospital'}</span>
               </span>
               <span className="brand-en">
@@ -71,31 +99,56 @@ export function Nav() {
             </span>
           </Link>
 
-          {!narrow && <nav className="nav-links" aria-label={isZh ? '主選單' : 'Main menu'}>
-            {sections.slice(0, 2).map((s) => (
-              <button key={s.id} className="nav-link" onClick={() => jump(s.id)}>
-                {s.label}
-              </button>
-            ))}
-              <NavCentersMenu centers={centers} onNavigate={() => setSheet(false)} />
-            <Link
-              className="nav-link"
-              to={DIGITAL_MATERIALS_PATH}
-              data-active={pathname === DIGITAL_MATERIALS_PATH}
-            >
-              {isZh ? '數位教材室' : 'Digital Materials'}
+          {!narrow && <nav className="nav-links" aria-label={copy.mainMenu}>
+            <Link className="nav-link" to={DEPARTMENT_PATH} {...currentProps(pathname, DEPARTMENT_PATH)}>
+              {copy.department}
             </Link>
-            {sections.slice(2).map((s) =>
-              s.path ? (
-                <Link key={s.id} className="nav-link" to={s.path} data-active={pathname === s.path}>
-                  {s.label}
-                </Link>
-              ) : (
-                <button key={s.id} className="nav-link" onClick={() => jump(s.id)}>
-                  {s.label}
-                </button>
-              ),
-            )}
+            <NavCentersMenu centers={centers} onNavigate={closeSheet} />
+            <Link className="nav-link" to={ANNOUNCEMENTS_PATH} {...currentProps(pathname, ANNOUNCEMENTS_PATH)}>
+              {t.navNews}
+            </Link>
+            <Link className="nav-link" to={TRAINEES_PATH} {...currentProps(pathname, TRAINEES_PATH)}>
+              {copy.trainees}
+            </Link>
+            {/* Below the collapse breakpoint (base.css) this link hides and its twin in 更多 shows. */}
+            <Link className="nav-link nav-link-honors" to={HONORS_PATH} {...currentProps(pathname, HONORS_PATH)}>
+              {copy.honors}
+            </Link>
+            <NavMenu
+              label={copy.more}
+              active={moreActive}
+              panelClassName="nav-menu-panel-more"
+              onNavigate={closeSheet}
+            >
+              <Link
+                className="nav-menu-item nav-menu-item-honors"
+                to={HONORS_PATH}
+                {...currentProps(pathname, HONORS_PATH)}
+              >
+                <NavMenuItemBody title={copy.honors} sub={copy.honorsAlt} />
+              </Link>
+              <Link className="nav-menu-item" to={GALLERY_PATH} {...currentProps(pathname, GALLERY_PATH)}>
+                <NavMenuItemBody title={copy.gallery} sub={copy.galleryAlt} />
+              </Link>
+              <Link className="nav-menu-item" to={VIDEOS_PATH} {...currentProps(pathname, VIDEOS_PATH)}>
+                <NavMenuItemBody title={copy.videos} sub={copy.videosAlt} />
+              </Link>
+              <Link className="nav-menu-item" to={RESOURCES_PATH} {...currentProps(pathname, RESOURCES_PATH)}>
+                <NavMenuItemBody title={copy.resources} sub={copy.resourcesAlt} />
+              </Link>
+              <a
+                className="nav-menu-item"
+                href={EPORTFOLIO_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={external}
+              >
+                <NavMenuItemBody title={copy.eportfolio} sub={copy.eportfolioAlt} external />
+              </a>
+              <button type="button" className="nav-menu-item nav-menu-item-divided" onClick={() => jump('contact')}>
+                <NavMenuItemBody title={t.navContact} sub={copy.contactAlt} />
+              </button>
+            </NavMenu>
           </nav>}
 
           <div className="nav-tools">
@@ -125,7 +178,7 @@ export function Nav() {
               className="pill nav-burger"
               onClick={() => setSheet((s) => !s)}
               aria-expanded={sheet}
-              aria-label={isZh ? '選單' : 'Menu'}
+              aria-label={copy.menu}
             >
               <Icon name={sheet ? 'close' : 'menu'} />
             </button>}
@@ -145,75 +198,123 @@ export function Nav() {
             data-lenis-prevent
             data-lenis-prevent-touch
           >
-            <div className="nav-sheet-inner">
-              {sections.slice(0, 2).map((s) => (
-                <a
-                  key={s.id}
+            <nav className="nav-sheet-inner" aria-label={copy.siteMenu}>
+              <SheetGroup label={copy.department}>
+                <Link
                   className="sheet-main"
-                  href={`/#${s.id}`}
+                  to={DEPARTMENT_PATH}
+                  {...currentProps(pathname, DEPARTMENT_PATH)}
+                  onClick={closeSheet}
+                >
+                  {copy.departmentIntro}
+                </Link>
+              </SheetGroup>
+
+              <SheetGroup label={copy.centers}>
+                {CENTER_ORDER.map((id) => {
+                  const c = publicCenterById(centers, id);
+                  const externalUrl = publicCenterExternalUrl(c, isZh);
+                  return (
+                    <CenterLink
+                      key={id}
+                      id={id}
+                      externalUrl={externalUrl}
+                      className="sheet-sub"
+                      {...(externalUrl === undefined ? currentProps(pathname, centerPath(id)) : {})}
+                      onClick={closeSheet}
+                    >
+                      <span className="dot" style={{ ['--tone' as string]: c.color }} aria-hidden="true" />
+                      {isZh ? c.zh : c.en}
+                      {externalUrl && ' ↗'}
+                    </CenterLink>
+                  );
+                })}
+                <Link
+                  className="sheet-sub"
+                  to={DIGITAL_MATERIALS_PATH}
+                  {...currentProps(pathname, DIGITAL_MATERIALS_PATH)}
+                  onClick={closeSheet}
+                >
+                  <span className="dot" aria-hidden="true" />
+                  {copy.digitalMaterials}
+                </Link>
+              </SheetGroup>
+
+              <SheetGroup label={copy.newsAndHonors}>
+                <Link
+                  className="sheet-main"
+                  to={ANNOUNCEMENTS_PATH}
+                  {...currentProps(pathname, ANNOUNCEMENTS_PATH)}
+                  onClick={closeSheet}
+                >
+                  {copy.announcementsFull}
+                </Link>
+                <Link
+                  className="sheet-main"
+                  to={HONORS_PATH}
+                  {...currentProps(pathname, HONORS_PATH)}
+                  onClick={closeSheet}
+                >
+                  {copy.honors}
+                </Link>
+              </SheetGroup>
+
+              <SheetGroup label={copy.trainees}>
+                <Link
+                  className="sheet-main"
+                  to={TRAINEES_PATH}
+                  aria-current={pathname === TRAINEES_PATH ? 'page' : undefined}
+                  data-active={pathname === TRAINEES_PATH}
+                  onClick={closeSheet}
+                >
+                  {copy.traineesHub}
+                </Link>
+                {programs.map((program) => (
+                  <Link
+                    key={program.id}
+                    className="sheet-sub"
+                    to={programPath(program.id)}
+                    {...currentProps(pathname, programPath(program.id))}
+                    {...fallbackLangProps(program.title)}
+                    onClick={closeSheet}
+                  >
+                    {program.title.text}
+                  </Link>
+                ))}
+              </SheetGroup>
+
+              <SheetGroup label={copy.more}>
+                <Link className="sheet-sub" to={GALLERY_PATH} {...currentProps(pathname, GALLERY_PATH)} onClick={closeSheet}>
+                  {copy.gallery}
+                </Link>
+                <Link className="sheet-sub" to={VIDEOS_PATH} {...currentProps(pathname, VIDEOS_PATH)} onClick={closeSheet}>
+                  {copy.videos}
+                </Link>
+                <Link className="sheet-sub" to={RESOURCES_PATH} {...currentProps(pathname, RESOURCES_PATH)} onClick={closeSheet}>
+                  {copy.resources}
+                </Link>
+                <a
+                  className="sheet-sub"
+                  href={EPORTFOLIO_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={external}
+                  onClick={closeSheet}
+                >
+                  {copy.eportfolio} ↗
+                </a>
+                <Link
+                  className="sheet-sub"
+                  to="/#contact"
                   onClick={(e) => {
                     e.preventDefault();
-                    jump(s.id);
+                    jump('contact');
                   }}
                 >
-                  {s.label}
-                </a>
-              ))}
-
-              <div className="eyebrow sheet-label">{isZh ? '五大中心' : 'The Five Centers'}</div>
-              {CENTER_ORDER.map((id) => {
-                const c = publicCenterById(centers, id);
-                const externalUrl = publicCenterExternalUrl(c, isZh);
-                return (
-                  <CenterLink
-                    key={id}
-                    id={id}
-                    externalUrl={externalUrl}
-                    className="sheet-sub"
-                    data-active={pathname === centerPath(id)}
-                    onClick={() => setSheet(false)}
-                  >
-                    {isZh ? c.zh : c.en}
-                    {externalUrl && ' ↗'}
-                  </CenterLink>
-                );
-              })}
-
-              <Link
-                className="sheet-main"
-                to={DIGITAL_MATERIALS_PATH}
-                data-active={pathname === DIGITAL_MATERIALS_PATH}
-                onClick={() => setSheet(false)}
-              >
-                {isZh ? '數位教材室' : 'Digital Materials'}
-              </Link>
-
-              {sections.slice(2).map((s) =>
-                s.path ? (
-                  <Link
-                    key={s.id}
-                    className="sheet-main"
-                    to={s.path}
-                    data-active={pathname === s.path}
-                    onClick={() => setSheet(false)}
-                  >
-                    {s.label}
-                  </Link>
-                ) : (
-                  <a
-                    key={s.id}
-                    className="sheet-main"
-                    href={`/#${s.id}`}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      jump(s.id);
-                    }}
-                  >
-                    {s.label}
-                  </a>
-                ),
-              )}
-            </div>
+                  {t.navContact}
+                </Link>
+              </SheetGroup>
+            </nav>
           </div>
         </div>
       )}

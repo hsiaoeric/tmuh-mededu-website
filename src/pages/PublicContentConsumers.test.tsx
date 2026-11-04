@@ -186,7 +186,7 @@ describe('remote public documents', () => {
     cleanup();
 
     const nav = renderPublic(<Nav />, remote);
-    fireEvent.click(nav.getByRole('button', { name: '五大中心' }));
+    fireEvent.click(nav.getByRole('button', { name: '中心' }));
     expect((await nav.findAllByText('遠端臨床技能中心')).length).toBeGreaterThan(0);
     cleanup();
 

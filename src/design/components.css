@@ -193,10 +193,6 @@
   border-top: 1px solid var(--line-soft);
 }
 
-.nav-burger {
-  display: none;
-}
-
 .nav-sheet {
   position: fixed;
   inset: var(--nav-h) 0 0;
@@ -266,15 +262,143 @@
   margin-bottom: 2px;
 }
 
-/* The bar carries seven items at the larger type size; below this it would
-   start crowding the brand, so the sheet takes over. */
-@media (max-width: 1120px) {
-  .nav-links {
-    display: none;
+/* Sheet groups: an eyebrow label, then the group's links. */
+.sheet-group {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.nav-sheet .sheet-group:first-child .sheet-label {
+  margin-top: 0;
+}
+.nav-sheet a.sheet-sub {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+/* Centred on the first line, so a long English name that wraps keeps its dot. */
+.nav-sheet a.sheet-sub .dot {
+  margin-top: calc(0.65em - 3.5px);
+}
+
+/* Dropdowns (NavMenu): 中心 ▾ and 更多 ▾. The panel stays mounted and is
+   `hidden` while closed, so `aria-controls` always resolves. */
+.nav-menu {
+  position: relative;
+}
+.nav-menu-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.nav-menu-trigger svg {
+  transition: transform 0.3s ease;
+}
+.nav-menu[data-open='true'] .nav-menu-trigger {
+  color: var(--ink);
+}
+.nav-menu[data-open='true'] .nav-menu-trigger svg {
+  transform: rotate(180deg);
+}
+.nav-menu-panel {
+  position: absolute;
+  top: calc(100% + 14px);
+  left: 50%;
+  translate: -50% 0;
+  z-index: 1;
+  width: 340px;
+  max-width: calc(100vw - 2 * var(--edge));
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--line);
+  background: color-mix(in srgb, var(--surface) 94%, transparent);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: var(--shadow-lg);
+  animation: nav-menu-in 0.42s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.nav-menu-panel[hidden] {
+  display: none;
+}
+/* Bridges the gap under the trigger so the pointer can reach the panel. */
+.nav-menu-panel::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 100%;
+  height: 15px;
+}
+.nav-menu-panel-centers {
+  width: 420px;
+}
+/* The last menu sits near the tools, so it hangs from its right edge. */
+.nav-menu-panel-more {
+  left: auto;
+  right: 0;
+  translate: none;
+}
+@keyframes nav-menu-in {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
   }
-  .nav-burger {
-    display: inline-flex;
-  }
+}
+.nav-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 11px 12px;
+  border-radius: var(--radius);
+  text-align: start;
+  color: var(--ink);
+  transition: background 0.25s ease;
+}
+.nav-menu-item:hover,
+.nav-menu-item:focus-visible,
+.nav-menu-item[data-active='true'] {
+  background: var(--accent-veil);
+}
+.nav-menu-item[data-active='true'] .nav-menu-item-title {
+  color: var(--accent);
+}
+.nav-menu-item-divided {
+  position: relative;
+  margin-top: 9px;
+}
+.nav-menu-item-divided::before {
+  content: '';
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  top: -6px;
+  height: 1px;
+  background: var(--line-soft);
+}
+.nav-menu-item-text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.nav-menu-item-title {
+  font-family: 'Noto Sans TC', sans-serif;
+  font-size: 0.86rem;
+  font-weight: 500;
+  line-height: 1.45;
+  color: var(--ink);
+}
+.nav-menu-item-sub {
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  color: var(--faint);
+}
+/* 榮譽榜's twin inside 更多; base.css swaps the two below the collapse width. */
+.nav-menu-item-honors {
+  display: none;
 }
 
 @media (max-width: 520px) {
@@ -980,6 +1104,35 @@
   user-select: none;
   white-space: nowrap;
   overflow: hidden;
+}
+
+/* Link columns: navigation, centers, announcements, trainees, resources,
+   external systems. */
+.footer-cols {
+  gap: 32px;
+  align-content: start;
+}
+.footer-col {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+}
+.footer-col-links {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+.footer-link {
+  font-size: 0.86rem;
+  line-height: 1.5;
+  color: var(--body);
+  text-align: start;
+  transition: color 0.25s ease;
+}
+.footer-link:hover {
+  color: var(--tone, var(--accent));
 }
 
 /* ---------------------------------------------------------------- *
