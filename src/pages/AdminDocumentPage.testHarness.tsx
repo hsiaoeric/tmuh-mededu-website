@@ -13,7 +13,10 @@ import type { Json } from '@/content/database.types';
 import { AdminMediaOwnershipProvider, AdminMediaRuntimeProvider } from '@/admin/media';
 import type { DraftMediaClient } from '@/admin/media/types';
 import { document, type FakeDocumentRepository, revision } from '@/admin/workflows/testHarness';
-import type { PageEditorKind } from '@/admin/editors/pages';
+import type { PageEditorKind as AnyPageEditorKind } from '@/admin/editors/pages';
+
+/** Page kinds with a dedicated structured editor; archive kinds still open the interim JSON editor. */
+type PageEditorKind = Exclude<AnyPageEditorKind, 'posts' | 'department_info' | 'gallery'>;
 import snapshot from '@/content/generated/cms-snapshot.json';
 import { AdminDocumentPage } from './AdminDocumentPage';
 

@@ -24,6 +24,9 @@ const GeneralSourceDocumentSchema = z.discriminatedUnion('kind', [
   sourceSchema('ebm', 'page', CMS_PAYLOAD_REGISTRY.ebm.schema),
   sourceSchema('holistic', 'page', CMS_PAYLOAD_REGISTRY.holistic.schema),
   sourceSchema('holistic_research', 'registry', CMS_PAYLOAD_REGISTRY.holistic_research.schema),
+  sourceSchema('posts', 'archive', CMS_PAYLOAD_REGISTRY.posts.schema),
+  sourceSchema('department_info', 'directory', CMS_PAYLOAD_REGISTRY.department_info.schema),
+  sourceSchema('gallery', 'library', CMS_PAYLOAD_REGISTRY.gallery.schema),
 ]);
 
 const PublishedSourceDocumentSchema = z.discriminatedUnion('kind', [
@@ -39,6 +42,9 @@ const PublishedSourceDocumentSchema = z.discriminatedUnion('kind', [
   sourceSchema('ebm', 'page', CMS_PAYLOAD_REGISTRY.ebm.publishedSchema),
   sourceSchema('holistic', 'page', CMS_PAYLOAD_REGISTRY.holistic.publishedSchema),
   sourceSchema('holistic_research', 'registry', CMS_PAYLOAD_REGISTRY.holistic_research.publishedSchema),
+  sourceSchema('posts', 'archive', CMS_PAYLOAD_REGISTRY.posts.publishedSchema),
+  sourceSchema('department_info', 'directory', CMS_PAYLOAD_REGISTRY.department_info.publishedSchema),
+  sourceSchema('gallery', 'library', CMS_PAYLOAD_REGISTRY.gallery.publishedSchema),
 ]);
 
 const GeneralSourceDocumentsSchema = z.array(GeneralSourceDocumentSchema).check((context) => {

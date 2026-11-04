@@ -27,7 +27,10 @@ type ExpectedRequest =
   | readonly ['facdev', 'page', 'zh' | 'en']
   | readonly ['ebm', 'page', 'zh' | 'en']
   | readonly ['holistic', 'page', 'zh' | 'en']
-  | readonly ['holistic_research', 'registry', 'zh' | 'en'];
+  | readonly ['holistic_research', 'registry', 'zh' | 'en']
+  | readonly ['posts', 'archive', 'zh' | 'en']
+  | readonly ['department_info', 'directory', 'zh' | 'en']
+  | readonly ['gallery', 'library', 'zh' | 'en'];
 
 function useInferredDocuments() {
   return [
@@ -43,6 +46,9 @@ function useInferredDocuments() {
     usePublicContentDocument('ebm', 'page', 'zh'),
     usePublicContentDocument('holistic', 'page', 'zh'),
     usePublicContentDocument('holistic_research', 'registry', 'zh'),
+    usePublicContentDocument('posts', 'archive', 'zh'),
+    usePublicContentDocument('department_info', 'directory', 'zh'),
+    usePublicContentDocument('gallery', 'library', 'zh'),
   ] as const;
 }
 
@@ -61,6 +67,9 @@ type HookReturnsAreExact = Assert<Equal<
     PublicAdapterResultFor<'ebm'>,
     PublicAdapterResultFor<'holistic'>,
     PublicAdapterResultFor<'holistic_research'>,
+    PublicAdapterResultFor<'posts'>,
+    PublicAdapterResultFor<'department_info'>,
+    PublicAdapterResultFor<'gallery'>,
   ]
 >>;
 type RequestUnionIsComplete = Assert<Equal<PublicContentDocumentRequest, ExpectedRequest>>;

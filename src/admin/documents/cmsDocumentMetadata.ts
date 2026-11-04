@@ -33,10 +33,10 @@ export const CMS_DOCUMENT_METADATA = {
     },
   },
   news: {
-    label: { zh: '公告', en: 'News' },
+    label: { zh: '首頁精選公告', en: 'Highlights' },
     description: {
-      zh: '管理公告分類、置頂順序與雙語公告內容。',
-      en: 'Manage categories, pinned order, and bilingual announcements.',
+      zh: '管理首頁精選公告的分類、置頂順序與雙語內容。',
+      en: 'Manage categories, pinned order, and bilingual highlight announcements.',
     },
   },
   activities: {
@@ -95,6 +95,27 @@ export const CMS_DOCUMENT_METADATA = {
       en: 'Manage hospital-wide holistic care publications and index data.',
     },
   },
+  posts: {
+    label: { zh: '公告與文章', en: 'Posts archive' },
+    description: {
+      zh: '管理公告、榮譽榜與各中心文章的分類、日期與內文。',
+      en: 'Manage dated announcements, honors board posts, and center articles.',
+    },
+  },
+  department_info: {
+    label: { zh: '教學部資料', en: 'Department information' },
+    description: {
+      zh: '管理教學部頁面、學員專區計畫、相關連結與下載資源。',
+      en: 'Manage department pages, trainee programs, related links, and downloads.',
+    },
+  },
+  gallery: {
+    label: { zh: '活動花絮與影音', en: 'Photos and videos' },
+    description: {
+      zh: '管理活動相簿照片與影音看板的 YouTube 影片。',
+      en: 'Manage event photo albums and the YouTube video board.',
+    },
+  },
 } as const satisfies Readonly<Record<CmsDocumentKind, CmsDocumentMetadata>>;
 
 export type CmsDocumentGroup = {
@@ -104,11 +125,12 @@ export type CmsDocumentGroup = {
 };
 
 /**
- * Navigation groups for the 12 documents, in the order editors reach for them.
+ * Navigation groups for the 15 documents, in the order editors reach for them.
  * Every kind appears exactly once (checked by a test).
  */
 export const CMS_DOCUMENT_GROUPS: readonly CmsDocumentGroup[] = [
   { id: 'updates', label: { zh: '公告與活動', en: 'News & activities' }, kinds: ['news', 'activities'] },
+  { id: 'archive', label: { zh: '公告與資料庫', en: 'Archive & library' }, kinds: ['posts', 'department_info', 'gallery'] },
   { id: 'people', label: { zh: '人員與中心', en: 'People & centers' }, kinds: ['people', 'centers'] },
   { id: 'department', label: { zh: '教學部', en: 'Department' }, kinds: ['kpis', 'honors', 'site_copy'] },
   { id: 'pages', label: { zh: '中心專頁', en: 'Center pages' }, kinds: ['facdev', 'ebm', 'holistic', 'holistic_research', 'digital_materials'] },

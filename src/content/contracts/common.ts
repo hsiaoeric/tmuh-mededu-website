@@ -118,6 +118,23 @@ export function addLocaleParityIssue(
   }
 }
 
+/** Reports when `values` is not exactly the canonical `expected` set, each value once. */
+export function addExactIdentitySetIssue(
+  check: {
+    readonly values: readonly string[];
+    readonly expected: readonly string[];
+    readonly path: readonly (string | number)[];
+    readonly message: string;
+  },
+  context: { readonly value: unknown; readonly issues: z.core.$ZodRawIssue[] },
+): void {
+  const exact = check.values.length === check.expected.length
+    && new Set(check.values).size === check.values.length
+    && check.values.every((value) => check.expected.includes(value));
+  if (exact) return;
+  context.issues.push({ code: 'custom', message: check.message, path: [...check.path], input: context.value });
+}
+
 export function addLocaleLengthParityIssue(
   zh: readonly unknown[],
   en: readonly unknown[],

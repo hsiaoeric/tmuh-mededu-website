@@ -188,6 +188,9 @@ export function AdminWorkspaceEditorRegion({
       case 'ebm':
       case 'holistic':
       case 'holistic_research':
+      case 'posts':
+      case 'department_info':
+      case 'gallery':
         return <PageDocumentEditor kind={kind} workspace={workspace} onChange={onChange} />;
       default:
         return assertNever(kind, 'CMS document kind');

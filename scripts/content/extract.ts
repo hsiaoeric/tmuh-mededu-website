@@ -13,6 +13,7 @@ import {
   buildPeopleSource,
 } from './coreSources';
 import { SITE_INLINE_COPY } from './inlineCopy';
+import { buildDepartmentInfoSource, buildGallerySource, buildPostsSource } from './legacySources';
 import { toJsonObject } from './json';
 import {
   buildDigitalMaterialsSource,
@@ -34,6 +35,15 @@ function sourceDocument(kind: CmsDocumentKind, source: BilingualSource) {
     kind,
     stableKey: CMS_DOCUMENT_STABLE_KEYS[kind],
     payload: toJsonObject(source),
+  };
+}
+
+/** For archive kinds, whose payload is a `localized-fields-v1` object rather than a `{ zh, en }` tree. */
+function sourceDocumentRaw(kind: CmsDocumentKind, payload: unknown) {
+  return {
+    kind,
+    stableKey: CMS_DOCUMENT_STABLE_KEYS[kind],
+    payload: toJsonObject(payload),
   };
 }
 
@@ -66,6 +76,9 @@ export function buildSourceDocuments(): readonly SourceDocument[] {
       zh: buildHolisticResearchSource('zh'),
       en: buildHolisticResearchSource('en'),
     }),
+    sourceDocumentRaw('posts', buildPostsSource()),
+    sourceDocumentRaw('department_info', buildDepartmentInfoSource()),
+    sourceDocumentRaw('gallery', buildGallerySource()),
   ];
 
   return parseCmsSourceDocuments(documents);

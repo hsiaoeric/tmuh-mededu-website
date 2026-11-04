@@ -1,6 +1,7 @@
 import { CMS_DOCUMENT_STABLE_KEYS, type CmsDocumentKind, type CmsStableKey } from '@/content/contracts/kinds';
 import type { PublishedContent } from '@/content/domain';
 import type { Lang } from '@/i18n';
+import { adaptDepartmentInfo, adaptGalleryLibrary, adaptPostsArchive } from './archive';
 import type { PublicMediaLocation } from './media';
 import {
   adaptActivitiesCalendar,
@@ -34,6 +35,9 @@ type PublicAdapterValueByKind = {
   readonly ebm: ReturnType<typeof adaptEbmPage>;
   readonly holistic: ReturnType<typeof adaptHolisticPage>;
   readonly holistic_research: ReturnType<typeof adaptHolisticResearchRegistry>;
+  readonly posts: ReturnType<typeof adaptPostsArchive>;
+  readonly department_info: ReturnType<typeof adaptDepartmentInfo>;
+  readonly gallery: ReturnType<typeof adaptGalleryLibrary>;
 };
 
 export type PublicAdapterResult = {
@@ -71,6 +75,9 @@ export function adaptPublishedContent(
     case 'ebm': return { kind: document.kind, stableKey: document.stableKey, value: adaptEbmPage(document.payload, lang) };
     case 'holistic': return { kind: document.kind, stableKey: document.stableKey, value: adaptHolisticPage(document.payload, lang) };
     case 'holistic_research': return { kind: document.kind, stableKey: document.stableKey, value: adaptHolisticResearchRegistry(document.payload, lang) };
+    case 'posts': return { kind: document.kind, stableKey: document.stableKey, value: adaptPostsArchive(document.payload, lang, media) };
+    case 'department_info': return { kind: document.kind, stableKey: document.stableKey, value: adaptDepartmentInfo(document.payload, lang, media) };
+    case 'gallery': return { kind: document.kind, stableKey: document.stableKey, value: adaptGalleryLibrary(document.payload, lang, media) };
     default: return assertNever(document);
   }
 }

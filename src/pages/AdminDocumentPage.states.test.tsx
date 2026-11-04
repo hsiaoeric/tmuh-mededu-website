@@ -79,7 +79,7 @@ describe('AdminDocumentPage states', () => {
     const view = renderDocumentRoute(repository);
 
     // Then
-    expect(view.getByRole('heading', { name: '正在載入公告內容' })).toBeTruthy();
+    expect(view.getByRole('heading', { name: '正在載入首頁精選公告內容' })).toBeTruthy();
   });
 
   it('shows missing when the canonical backing document does not exist', async () => {
@@ -91,7 +91,7 @@ describe('AdminDocumentPage states', () => {
     const view = renderDocumentRoute(repository);
 
     // Then
-    expect(await view.findByRole('heading', { name: '尚未建立公告文件' })).toBeTruthy();
+    expect(await view.findByRole('heading', { name: '尚未建立首頁精選公告文件' })).toBeTruthy();
   });
 
   it('shows a retry action after a workflow load error', async () => {
@@ -106,7 +106,7 @@ describe('AdminDocumentPage states', () => {
     const view = renderDocumentRoute(repository);
 
     // Then
-    expect(await view.findByRole('heading', { name: '無法載入公告內容' })).toBeTruthy();
+    expect(await view.findByRole('heading', { name: '無法載入首頁精選公告內容' })).toBeTruthy();
     expect(view.getByRole('button', { name: '重試' })).toBeTruthy();
   });
 

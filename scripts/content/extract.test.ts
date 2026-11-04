@@ -55,9 +55,13 @@ describe('buildSourceDocuments', () => {
 
     // Then
     expect(documents.map(({ kind }) => kind)).toEqual(expectedKinds);
-    expect(new Set(documents.map(({ kind, stableKey }) => `${kind}/${stableKey}`)).size).toBe(12);
+    expect(new Set(documents.map(({ kind, stableKey }) => `${kind}/${stableKey}`)).size).toBe(15);
     for (const document of documents) {
       expect(document.stableKey).toBe(CMS_DOCUMENT_STABLE_KEYS[document.kind]);
+      if ('contentModel' in document.payload) {
+        expect(document.payload.contentModel).toBe('localized-fields-v1');
+        continue;
+      }
       expect(Object.keys(document.payload.zh).length).toBeGreaterThan(0);
       expect(Object.keys(document.payload.en).length).toBeGreaterThan(0);
     }
@@ -151,7 +155,7 @@ describe('buildArtifacts', () => {
     // Then
     expect(second).toEqual(first);
     expect(first.sql).toContain("'published'");
-    expect(first.snapshot.match(/\"document_id\":/g)).toHaveLength(12);
+    expect(first.snapshot.match(/\"document_id\":/g)).toHaveLength(15);
   });
 });
 

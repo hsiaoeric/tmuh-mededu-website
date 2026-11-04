@@ -208,7 +208,7 @@ describe('administrator route topology', () => {
     );
 
     // Then
-    expect(await view.findByRole('heading', { name: '公告 JSON 工作區' }, { timeout: 10_000 })).toBeTruthy();
+    expect(await view.findByRole('heading', { name: '首頁精選公告 JSON 工作區' }, { timeout: 10_000 })).toBeTruthy();
     expect(view.getByTestId('route-location').textContent).toBe('/admin/content/news?draft=1#translation');
   });
 
@@ -240,7 +240,7 @@ describe('administrator route topology', () => {
     // Then
     expect(loginLocation).toBe('/admin/login');
     expect(loginState).toBe('{"returnTo":"/admin/content/news?draft=1#translation"}');
-    expect(await view.findByRole('heading', { name: '公告 JSON 工作區' })).toBeTruthy();
+    expect(await view.findByRole('heading', { name: '首頁精選公告 JSON 工作區' })).toBeTruthy();
     expect(view.getByTestId('route-location').textContent).toBe('/admin/content/news?draft=1#translation');
     expect(view.queryByRole('heading', { name: '內容管理總覽' })).toBeNull();
 
@@ -259,7 +259,7 @@ describe('administrator route topology', () => {
     // Then
     expect(await view.findByRole('heading', { name: '內容管理總覽' })).toBeTruthy();
     expect(view.getByTestId('route-location').textContent).toBe('/admin');
-    expect(view.queryByRole('heading', { name: '公告 JSON 工作區' })).toBeNull();
+    expect(view.queryByRole('heading', { name: '首頁精選公告 JSON 工作區' })).toBeNull();
   });
 
   it.each([
@@ -314,7 +314,7 @@ describe('administrator route topology', () => {
     );
 
     // Then
-    expect(await view.findByRole('heading', { name: 'News JSON workspace' })).toBeTruthy();
+    expect(await view.findByRole('heading', { name: 'Highlights JSON workspace' })).toBeTruthy();
     expect(view.queryByRole('form')).toBeNull();
     expect(view.queryByRole('button', { name: /save|publish|edit/i })).toBeNull();
   });
@@ -328,16 +328,16 @@ describe('administrator route topology', () => {
     await view.findByRole('heading', { name: '內容管理總覽' });
 
     // When
-    fireEvent.click(view.getByRole('link', { name: '公告' }));
+    fireEvent.click(view.getByRole('link', { name: '首頁精選公告' }));
 
     // Then
-    const destination = await view.findByRole('heading', { name: '公告 JSON 工作區' });
+    const destination = await view.findByRole('heading', { name: '首頁精選公告 JSON 工作區' });
     await waitFor(() => expect(document.activeElement).toBe(destination));
   });
 
   it.each([
     { path: '/admin', heading: '內容管理總覽' },
-    { path: '/admin/content/news', heading: '公告 JSON 工作區' },
+    { path: '/admin/content/news', heading: '首頁精選公告 JSON 工作區' },
   ])('exposes the localized sign-out action on $path', async ({ path, heading }) => {
     // Given / When
     const { view } = renderRoute(

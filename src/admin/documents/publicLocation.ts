@@ -24,6 +24,9 @@ export const CMS_DOCUMENT_PUBLIC_PATH: Readonly<Record<CmsDocumentKind, string>>
   ebm: centerPath('ebm'),
   holistic: centerPath('holistic'),
   holistic_research: centerPath('holistic'),
+  posts: ANNOUNCEMENTS_PATH,
+  department_info: '/department',
+  gallery: '/gallery',
 };
 
 /** Resolves a public path against the deployed base, e.g. the Pages sub-path. */

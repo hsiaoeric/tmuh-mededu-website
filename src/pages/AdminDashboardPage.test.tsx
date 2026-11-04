@@ -73,7 +73,7 @@ describe('AdminDashboardPage', () => {
 
     // When
     const view = renderDashboard(repository);
-    const newsCard = await view.findByRole('link', { name: '開啟公告' });
+    const newsCard = await view.findByRole('link', { name: '開啟首頁精選公告' });
 
     // Then
     expect(await within(newsCard).findByText('已發布 · 版本 4')).toBeTruthy();

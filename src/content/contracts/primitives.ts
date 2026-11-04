@@ -29,6 +29,7 @@ export type CmsDocumentId = z.infer<typeof CmsDocumentIdSchema>;
 export type CmsRevisionId = z.infer<typeof CmsRevisionIdSchema>;
 
 const CREDENTIAL_FREE_HTTPS_URL_PATTERN = /^https:\/\/([A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?(?:\.[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?)*)(?::([0-9]{1,5}))?(?:[/?#][^\s\u0000-\u001f\u007f]*)?$/i;
+const CREDENTIAL_FREE_HTTP_URL_PATTERN = /^http:\/\/([A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?(?:\.[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?)*)(?::([0-9]{1,5}))?(?:[/?#][^\s\u0000-\u001f\u007f]*)?$/i;
 const MAX_DNS_HOST_LENGTH = 253;
 const MAX_TCP_PORT = 65_535;
 
@@ -101,12 +102,26 @@ export const EnglishActivityDateSchema = z.string().check((context) => {
   );
 });
 
-export const HttpsUrlSchema = z.string().check((context) => {
-  const match = CREDENTIAL_FREE_HTTPS_URL_PATTERN.exec(context.value);
+function isCredentialFreeUrl(value: string, pattern: RegExp): boolean {
+  const match = pattern.exec(value);
   const hostname = match?.[1];
   const port = match?.[2];
   const validPort = port === undefined || Number(port) >= 1 && Number(port) <= MAX_TCP_PORT;
-  if (hostname === undefined || hostname.length > MAX_DNS_HOST_LENGTH || !validPort) {
+  return hostname !== undefined && hostname.length <= MAX_DNS_HOST_LENGTH && validPort;
+}
+
+/** A credential-free `https://` URL with a DNS host and a valid port. */
+export function isCredentialFreeHttpsUrl(value: string): boolean {
+  return isCredentialFreeUrl(value, CREDENTIAL_FREE_HTTPS_URL_PATTERN);
+}
+
+/** The same rule over plain `http://`; only ever valid as an anchor target, never for media. */
+export function isCredentialFreeHttpUrl(value: string): boolean {
+  return isCredentialFreeUrl(value, CREDENTIAL_FREE_HTTP_URL_PATTERN);
+}
+
+export const HttpsUrlSchema = z.string().check((context) => {
+  if (!isCredentialFreeHttpsUrl(context.value)) {
     context.issues.push({
       code: 'custom',
       message: 'External URL must use HTTPS with a DNS host, no credentials or whitespace, and a valid port',

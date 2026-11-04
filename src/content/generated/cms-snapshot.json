@@ -4741,5 +4741,234 @@
     "revision_id": "105ad3b7-5ff8-58d9-9deb-48ac43a1b146",
     "stable_key": "registry",
     "version": 1
+  },
+  {
+    "document_id": "9ebfef6f-3078-5fc4-8eb3-d640b69df9a7",
+    "kind": "posts",
+    "payload": {
+      "categories": [
+        {
+          "channel": "news",
+          "id": "hospital-courses",
+          "label": {
+            "en": "Hospital-wide courses",
+            "zh": "全院性課程"
+          },
+          "order": 0
+        },
+        {
+          "channel": "news",
+          "id": "recruitment",
+          "label": {
+            "en": "Recruitment",
+            "zh": "招募相關"
+          },
+          "order": 1
+        },
+        {
+          "channel": "news",
+          "id": "further-training",
+          "label": {
+            "en": "Further training",
+            "zh": "進修相關"
+          },
+          "order": 2
+        },
+        {
+          "channel": "news",
+          "id": "faculty",
+          "label": {
+            "en": "For faculty",
+            "zh": "教師相關專區"
+          },
+          "order": 3
+        },
+        {
+          "channel": "news",
+          "id": "center-notices",
+          "label": {
+            "en": "Center notices",
+            "zh": "其他中心重要訊息"
+          },
+          "order": 4
+        },
+        {
+          "channel": "news",
+          "id": "trainee-notices",
+          "label": {
+            "en": "Trainee notices",
+            "zh": "學員專區重要訊息"
+          },
+          "order": 5
+        },
+        {
+          "channel": "news",
+          "id": "hospital-events",
+          "label": {
+            "en": "Hospital events",
+            "zh": "本院重要活動"
+          },
+          "order": 6
+        },
+        {
+          "channel": "news",
+          "id": "external-events",
+          "label": {
+            "en": "External events",
+            "zh": "院外活動宣傳"
+          },
+          "order": 7
+        },
+        {
+          "channel": "honors",
+          "id": "teaching-recognition",
+          "label": {
+            "en": "Teaching recognition",
+            "zh": "教學肯定"
+          },
+          "order": 8
+        },
+        {
+          "channel": "honors",
+          "id": "competitions-awards",
+          "label": {
+            "en": "Competitions and awards",
+            "zh": "參賽與獲獎"
+          },
+          "order": 9
+        },
+        {
+          "channel": "honors",
+          "id": "publications-training",
+          "label": {
+            "en": "Presentations and study abroad",
+            "zh": "國內外發表與進修"
+          },
+          "order": 10
+        },
+        {
+          "channel": "honors",
+          "id": "faculty-certification",
+          "label": {
+            "en": "Faculty certification",
+            "zh": "師資認證"
+          },
+          "order": 11
+        },
+        {
+          "channel": "center",
+          "id": "center-about",
+          "label": {
+            "en": "About the center",
+            "zh": "中心簡介"
+          },
+          "order": 12
+        },
+        {
+          "channel": "center",
+          "id": "center-events",
+          "label": {
+            "en": "Center events",
+            "zh": "中心活動"
+          },
+          "order": 13
+        }
+      ],
+      "contentModel": "localized-fields-v1",
+      "posts": []
+    },
+    "published_at": "2026-08-14T00:00:00.000Z",
+    "revision_id": "41251127-a9fd-5e45-9495-b4a983f1e00f",
+    "stable_key": "archive",
+    "version": 1
+  },
+  {
+    "document_id": "2ac9e6c5-104d-5e0d-89ba-289ec7328551",
+    "kind": "department_info",
+    "payload": {
+      "contentModel": "localized-fields-v1",
+      "downloads": [],
+      "linkGroups": [],
+      "pages": [],
+      "programs": [
+        {
+          "id": "residents",
+          "order": 0,
+          "summary": {
+            "en": "Training plans and schedules, outcomes, photos, and resources for residents.",
+            "zh": "住院醫師的訓練計畫與排程、訓練成果、活動花絮與常用資訊。"
+          },
+          "title": {
+            "en": "Residents",
+            "zh": "住院醫師"
+          }
+        },
+        {
+          "id": "pgy",
+          "order": 1,
+          "summary": {
+            "en": "Training plans and schedules, outcomes, photos, and resources for post-graduate year (PGY) trainees.",
+            "zh": "畢業後一般醫學訓練（PGY）的訓練計畫與排程、訓練成果、活動花絮與常用資訊。"
+          },
+          "title": {
+            "en": "Post-graduate year training",
+            "zh": "畢業後一般醫學訓練"
+          }
+        },
+        {
+          "id": "medical-students",
+          "order": 2,
+          "summary": {
+            "en": "Clerkship and internship plans, outcomes, photos, and resources for medical students.",
+            "zh": "醫學生見實習的訓練計畫與排程、訓練成果、活動花絮與常用資訊。"
+          },
+          "title": {
+            "en": "Medical students",
+            "zh": "醫學生"
+          }
+        },
+        {
+          "id": "allied-health-trainees",
+          "order": 3,
+          "summary": {
+            "en": "Training plans and schedules, outcomes, photos, and resources for allied health students.",
+            "zh": "各醫事職類見實習學生的訓練計畫與排程、訓練成果、活動花絮與常用資訊。"
+          },
+          "title": {
+            "en": "Allied health trainees",
+            "zh": "醫事見實習"
+          }
+        },
+        {
+          "id": "joint-training",
+          "order": 4,
+          "summary": {
+            "en": "Training plans and schedules, outcomes, photos, and resources for commissioned and joint trainees.",
+            "zh": "代訓與聯合訓練學員的訓練計畫與排程、訓練成果、活動花絮與常用資訊。"
+          },
+          "title": {
+            "en": "Commissioned and joint training",
+            "zh": "代訓／聯合訓練"
+          }
+        }
+      ]
+    },
+    "published_at": "2026-08-14T00:00:00.000Z",
+    "revision_id": "32f549d0-2fd6-5419-9618-db23dc79c7a6",
+    "stable_key": "directory",
+    "version": 1
+  },
+  {
+    "document_id": "bc725bab-82b6-57f7-80a9-4c8d9d94cc82",
+    "kind": "gallery",
+    "payload": {
+      "albums": [],
+      "contentModel": "localized-fields-v1",
+      "videos": []
+    },
+    "published_at": "2026-08-14T00:00:00.000Z",
+    "revision_id": "c2611966-d226-5b84-9725-e553bf2223e2",
+    "stable_key": "library",
+    "version": 1
   }
 ]

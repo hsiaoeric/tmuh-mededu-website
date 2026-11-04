@@ -1,4 +1,15 @@
 export {
+  adaptDepartmentInfo,
+  adaptGalleryLibrary,
+  adaptPostsArchive,
+  pickLocalized,
+  pickLocalizedBlocks,
+  resolveFileHref,
+  type LocalizedBlocksPick,
+  type LocalizedPick,
+  type ResolvedHref,
+} from './archive';
+export {
   adaptActivitiesCalendar,
   adaptCentersDirectory,
   adaptDepartmentHonors,

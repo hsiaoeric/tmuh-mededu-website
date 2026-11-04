@@ -17,7 +17,7 @@ describe('legacy public content builders', () => {
     }));
 
     // Then
-    expect(parity).toHaveLength(12);
+    expect(parity).toHaveLength(15);
     parity.forEach(({ kind, legacy, committed }) => {
       expect(legacy, `${kind}: legacy payload`).toBeDefined();
       expect(committed, `${kind}: committed payload`).toBeDefined();

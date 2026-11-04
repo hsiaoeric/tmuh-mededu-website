@@ -61,6 +61,9 @@ function identityFrom(input: unknown): ContentIdentity | null {
     case 'ebm': return { kind: result.data.kind, stableKey: CMS_DOCUMENT_STABLE_KEYS.ebm };
     case 'holistic': return { kind: result.data.kind, stableKey: CMS_DOCUMENT_STABLE_KEYS.holistic };
     case 'holistic_research': return { kind: result.data.kind, stableKey: CMS_DOCUMENT_STABLE_KEYS.holistic_research };
+    case 'posts': return { kind: result.data.kind, stableKey: CMS_DOCUMENT_STABLE_KEYS.posts };
+    case 'department_info': return { kind: result.data.kind, stableKey: CMS_DOCUMENT_STABLE_KEYS.department_info };
+    case 'gallery': return { kind: result.data.kind, stableKey: CMS_DOCUMENT_STABLE_KEYS.gallery };
     default: return assertNever(result.data.kind);
   }
 }

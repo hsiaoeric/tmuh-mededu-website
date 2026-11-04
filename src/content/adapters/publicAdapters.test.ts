@@ -57,6 +57,10 @@ function expectedValue(document: CmsSourceDocument, lang: Lang): unknown {
         authors: paper.authors.map((author) => resolveAuthorName(author, lang)),
       })),
     };
+    case 'posts':
+    case 'department_info':
+    case 'gallery':
+      return undefined;
     default: return document satisfies never;
   }
 }
@@ -80,22 +84,24 @@ describe('public CMS adapter registry', () => {
     }));
 
     // Then
-    expect(adapted).toHaveLength(12);
+    expect(adapted).toHaveLength(15);
     adapted.forEach((result) => {
       const legacy = legacyDocuments.find((document) => document.kind === result.kind);
       if (legacy === undefined) throw new TypeError(`Missing legacy ${result.kind} document`);
       expect(result.stableKey).toBe(CMS_DOCUMENT_STABLE_KEYS[result.kind]);
       if (result.kind === 'people' || result.kind === 'facdev') return;
+      // Archive kinds have no pre-CMS projection to match; archiveAdapters.test.ts covers them.
+      if (result.kind === 'posts' || result.kind === 'department_info' || result.kind === 'gallery') return;
       expect(result.value, `${result.kind}:${lang}`).toEqual(expectedValue(legacy, lang));
     });
   });
 
-  it('covers all 12 kinds with their stable keys', () => {
+  it('covers all 15 kinds with their stable keys', () => {
     // Given / When
     const entries = Object.entries(PUBLIC_ADAPTER_STABLE_KEYS);
 
     // Then
-    expect(entries).toHaveLength(12);
+    expect(entries).toHaveLength(15);
     expect(Object.keys(PUBLIC_ADAPTER_STABLE_KEYS)).toEqual(CMS_DOCUMENT_KINDS);
     expect(PUBLIC_ADAPTER_STABLE_KEYS).toEqual(CMS_DOCUMENT_STABLE_KEYS);
   });
