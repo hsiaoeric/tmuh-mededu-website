@@ -46,6 +46,6 @@ export default defineConfig(({ command }) => ({
     },
   },
   test: {
-    exclude: [...configDefaults.exclude, '**/.omo/**'],
+    exclude: [...configDefaults.exclude, '**/.omo/**', '**/.claude/**'],
   },
 }));

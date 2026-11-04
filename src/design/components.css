@@ -1468,3 +1468,687 @@
     background: color-mix(in srgb, var(--tone, var(--accent)) 12%, transparent);
   }
 }
+
+/* ================================================================== *
+ *  Archive content — rich-text bodies, posts, filters, pagination,
+ *  photo grid, lightbox, and video facade (src/ui/content/).
+ *  Layouts are intrinsic (flex-wrap, auto-fill), so this section needs
+ *  no breakpoints of its own.
+ * ================================================================== */
+
+/* "Chinese only" — shown in the English UI beside content that fell back. */
+.content-zh-only {
+  display: inline-flex;
+  align-items: center;
+  padding: 1px 8px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface-2);
+  color: var(--muted);
+  font-family: 'IBM Plex Mono', 'Noto Sans TC', ui-monospace, monospace;
+  font-size: 0.64rem;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  line-height: 1.6;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+
+/* ---- Rich-text body ---------------------------------------------- */
+
+.content-blocks {
+  max-width: 70ch;
+  font-size: 1rem;
+  line-height: 1.85;
+  color: var(--body);
+}
+.content-blocks:lang(zh-Hant) {
+  max-width: 40em;
+}
+.content-blocks > * + * {
+  margin-top: 1.05em;
+}
+.content-p,
+.content-list li {
+  white-space: pre-line;
+  overflow-wrap: break-word;
+}
+.content-blocks strong {
+  font-weight: 600;
+  color: var(--ink);
+}
+.content-link {
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.22em;
+  transition: color 0.25s ease;
+}
+.content-link:hover {
+  color: var(--accent-bright);
+}
+.content-link-external {
+  display: inline-block;
+  margin-left: 0.15em;
+  vertical-align: -0.04em;
+}
+
+.content-blocks > .content-heading {
+  margin-top: 1.9em;
+}
+.content-blocks > .content-heading:first-child {
+  margin-top: 0;
+}
+.content-heading {
+  color: var(--ink);
+  text-wrap: balance;
+}
+.content-heading-2 {
+  font-family: 'Instrument Serif', 'Noto Serif TC', Georgia, serif;
+  font-weight: 400;
+  font-size: clamp(1.45rem, 2.4vw, 2rem);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+.content-heading-2:lang(zh-Hant) {
+  font-weight: 700;
+  font-size: clamp(1.15rem, 1.7vw, 1.45rem);
+  line-height: 1.42;
+  letter-spacing: 0.01em;
+}
+.content-heading-3 {
+  font-size: 1.08rem;
+  font-weight: 600;
+  line-height: 1.5;
+}
+.content-heading-3:lang(zh-Hant) {
+  font-size: 1.02rem;
+  font-weight: 700;
+}
+
+.content-list {
+  padding-inline-start: 1.35em;
+  list-style: disc;
+}
+.content-list-ordered {
+  list-style: decimal;
+}
+.content-list li + li {
+  margin-top: 0.4em;
+}
+.content-list li::marker {
+  color: var(--tone, var(--accent));
+}
+
+.content-figure {
+  margin-inline: 0;
+}
+.content-image {
+  height: auto;
+  border-radius: var(--radius-lg);
+  background: var(--surface-sunk);
+}
+.content-caption {
+  margin-top: 10px;
+  font-size: 0.82rem;
+  line-height: 1.6;
+  color: var(--muted);
+}
+/* Stands in for a picture that is missing or fails to load. */
+.content-image-missing {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 160px;
+  padding: 20px;
+  border: 1px dashed var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--surface-sunk);
+  color: var(--faint);
+  text-align: center;
+}
+
+.content-table-scroll {
+  padding-bottom: 6px;
+  border-radius: var(--radius);
+  scrollbar-width: thin;
+  scrollbar-color: var(--line) transparent;
+}
+.content-table th,
+.content-table td {
+  min-width: 7em;
+}
+.content-table th:lang(zh-Hant) {
+  font-size: 0.76rem;
+  letter-spacing: 0.06em;
+}
+
+.content-blocks > .content-divider {
+  margin-block: 2em;
+}
+.content-divider {
+  height: 1px;
+  border: 0;
+  background: var(--line);
+}
+
+.content-video {
+  max-width: 100%;
+}
+
+/* ---- Video facade ------------------------------------------------- */
+
+.video-facade {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius-lg);
+  background: var(--surface-sunk);
+}
+.video-facade-button,
+.video-facade-frame {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+.video-facade-button {
+  display: block;
+  padding: 0;
+}
+.video-facade-button:focus-visible {
+  outline-offset: -4px;
+}
+.video-facade-thumb {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.video-facade-button:hover .video-facade-thumb {
+  transform: scale(1.03);
+}
+.video-facade-play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  margin: -32px 0 0 -32px;
+  padding-left: 3px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--on-accent);
+  box-shadow: var(--shadow-md);
+  transition: background 0.3s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.video-facade-button:hover .video-facade-play {
+  background: var(--accent-bright);
+  transform: scale(1.06);
+}
+
+/* ---- Post card and index row -------------------------------------- */
+
+.post-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 10px;
+}
+.post-meta .tag {
+  /* Long English category names may wrap; a fixed radius keeps a two-line
+     tag from turning into a lozenge while one line still reads as a pill. */
+  white-space: normal;
+  border-radius: 14px;
+  /* Center tones are mid-luminance; pulling the label toward the ink keeps
+     small text at 4.5:1 in both themes (ink is dark in light, light in dark). */
+  color: color-mix(in srgb, var(--tone, var(--accent)) 60%, var(--ink));
+}
+.post-date {
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
+.post-pinned {
+  --tone: var(--amber);
+}
+.post-summary {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+}
+
+/* The title link covers its whole card or row, so the item is one target. */
+.post-stretched-link::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: inherit;
+}
+.post-stretched-link:focus-visible {
+  outline: none;
+}
+.post-stretched-link:focus-visible::after {
+  outline: 2px solid var(--accent-bright);
+  outline-offset: 3px;
+  border-radius: var(--radius-lg);
+}
+
+.post-card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.post-card-cover {
+  margin: calc(-1 * clamp(22px, 2.6vw, 34px)) calc(-1 * clamp(22px, 2.6vw, 34px)) 4px;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  background: var(--surface-sunk);
+}
+.post-card-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.post-card:hover .post-card-cover img {
+  transform: scale(1.03);
+}
+.post-card-title {
+  font-family: 'Instrument Serif', 'Noto Serif TC', Georgia, serif;
+  font-weight: 400;
+  font-size: clamp(1.25rem, 1.8vw, 1.55rem);
+  line-height: 1.22;
+  color: var(--ink);
+  text-wrap: pretty;
+  transition: color 0.4s ease;
+}
+.post-card-title:lang(zh-Hant) {
+  font-weight: 700;
+  font-size: clamp(1.02rem, 1.35vw, 1.2rem);
+  line-height: 1.5;
+}
+.post-card:hover .post-card-title {
+  color: var(--tone, var(--accent));
+}
+
+.post-row {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: clamp(14px, 3vw, 40px);
+  padding: clamp(20px, 2.4vw, 30px) 0;
+  border-top: 1px solid var(--line-soft);
+}
+.post-row:last-child {
+  border-bottom: 1px solid var(--line-soft);
+}
+/* Meta and title sit side by side and wrap to a stack when the row is narrow. */
+.post-row-body {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 10px clamp(18px, 3vw, 48px);
+}
+.post-row-body > .post-meta {
+  flex: 0 1 14rem;
+}
+.post-row-main {
+  flex: 1 1 20rem;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.post-row-title {
+  font-family: 'Instrument Serif', 'Noto Serif TC', Georgia, serif;
+  font-weight: 400;
+  font-size: clamp(1.25rem, 2.2vw, 1.75rem);
+  line-height: 1.22;
+  color: var(--ink);
+  text-wrap: pretty;
+  transition: color 0.4s ease;
+}
+.post-row-title:lang(zh-Hant) {
+  font-weight: 700;
+  font-size: clamp(1.02rem, 1.6vw, 1.32rem);
+  line-height: 1.5;
+}
+/* Colour only: a transform here would become the stretched link's containing
+   block on hover and shrink the row's click target to the title. */
+.post-row:hover .post-row-title {
+  color: var(--tone, var(--accent));
+}
+.post-row-go {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 42px;
+  height: 42px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  color: var(--muted);
+  transition: border-color 0.4s ease, color 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.post-row-go svg {
+  width: 15px;
+  height: 15px;
+}
+.post-row:hover .post-row-go {
+  border-color: var(--tone, var(--accent));
+  color: var(--tone, var(--accent));
+  transform: rotate(-45deg);
+}
+
+/* ---- Archive filters ---------------------------------------------- */
+
+.archive-filters {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  margin-bottom: clamp(26px, 4vw, 48px);
+}
+.archive-filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.archive-filter-label {
+  font-family: 'IBM Plex Mono', 'Noto Sans TC', ui-monospace, monospace;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+.archive-filter-fields {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 14px 18px;
+}
+.archive-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: min(11rem, 100%);
+}
+.archive-field-grow {
+  flex: 1 1 16rem;
+  max-width: 30rem;
+}
+.archive-control {
+  width: 100%;
+  height: 44px;
+  padding: 0 14px;
+  border: 1px solid var(--control-line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--ink);
+  font-size: 0.88rem;
+  transition: border-color 0.25s ease;
+}
+.archive-control:hover {
+  border-color: var(--accent);
+}
+.archive-control::placeholder {
+  color: var(--faint);
+}
+.archive-search {
+  position: relative;
+  display: block;
+}
+.archive-search .archive-control {
+  padding-left: 40px;
+}
+.archive-search-icon {
+  position: absolute;
+  top: 50%;
+  left: 14px;
+  color: var(--muted);
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+.archive-clear {
+  height: 44px;
+}
+.archive-count {
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+}
+.archive-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  padding: clamp(26px, 4vw, 44px);
+  border: 1px dashed var(--line);
+  border-radius: var(--radius-lg);
+}
+
+/* ---- Pagination ---------------------------------------------------- */
+
+.pagination {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 10px 14px;
+  margin-top: clamp(32px, 5vw, 56px);
+}
+.pagination-pages {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px;
+}
+.pagination-page {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  height: 44px;
+  padding-inline: 10px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: 0.78rem;
+  color: var(--body);
+  transition: color 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+}
+.pagination-page:hover {
+  border-color: var(--accent);
+  background: var(--accent-veil);
+  color: var(--ink);
+}
+.pagination-page[aria-current='page'] {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: var(--on-accent);
+}
+.pagination-step {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 44px;
+  padding-inline: 12px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--accent);
+}
+.pagination-step[data-disabled='true'] {
+  color: var(--faint);
+  cursor: default;
+}
+.pagination-gap {
+  align-self: center;
+  padding-inline: 4px;
+  color: var(--faint);
+}
+
+/* ---- Photo grid ---------------------------------------------------- */
+
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(clamp(140px, 18vw, 240px), 1fr));
+  gap: clamp(8px, 1.2vw, 16px);
+}
+.photo-grid-button {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  padding: 0;
+  overflow: hidden;
+  border-radius: var(--radius);
+  background: var(--surface-sunk);
+}
+.photo-grid-button img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.photo-grid-button:hover img {
+  transform: scale(1.04);
+}
+.photo-grid-missing {
+  height: 100%;
+  min-height: 0;
+  border: 0;
+  border-radius: 0;
+}
+
+/* ---- Lightbox ------------------------------------------------------ */
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 85;
+  display: grid;
+  /* minmax(0, …) on both axes, or a large photo's intrinsic size widens the
+     dialog past a phone viewport. */
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  gap: 12px;
+  padding: clamp(12px, 2.4vw, 28px);
+  background: color-mix(in srgb, var(--bg-deep) 95%, transparent);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  color: var(--ink);
+}
+.lightbox:focus {
+  outline: none;
+}
+.lightbox[data-motion='on'] {
+  animation: lightbox-in 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.lightbox[data-motion='on'] .lightbox-image {
+  animation: lightbox-image-in 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+@keyframes lightbox-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes lightbox-image-in {
+  from {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.lightbox-bar {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.lightbox-title {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--ink);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.lightbox-position {
+  font-size: 0.72rem;
+  color: var(--muted);
+  white-space: nowrap;
+}
+.lightbox-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--control-line);
+  border-radius: 50%;
+  background: var(--surface);
+  color: var(--ink);
+  transition: color 0.25s ease, border-color 0.25s ease;
+}
+.lightbox-button:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.lightbox-stage {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: minmax(0, 1fr) auto;
+  justify-items: center;
+  align-items: center;
+  gap: 12px;
+  min-height: 0;
+  margin: 0;
+}
+.lightbox-image {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
+}
+.lightbox-missing {
+  width: min(480px, 100%);
+  aspect-ratio: 4 / 3;
+}
+.lightbox-caption {
+  max-width: 60ch;
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: var(--body);
+  text-align: center;
+}
+.lightbox-caption:lang(zh-Hant) {
+  max-width: 36em;
+}
+.lightbox-steps {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+}

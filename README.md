@@ -13,7 +13,7 @@
 - **Vercel**：使用根路徑 build，`main` push 由 Vercel 專案自動建置，`vercel.json` 提供 SPA rewrite。
 - **GitHub Pages**：目前從 `gh-pages` 分支提供，以 `npm run deploy` 發佈 repository base-path build。
 
-目前狀態是 `offline implementation verified; production Supabase integration blocked`。這表示離線測試、內容檢查與兩種 base build 已驗證，不代表正式 Supabase 的 migration、Auth、Storage、Edge Function 或 checkpoint 已執行成功。
+目前狀態是 `offline implementation verified; hosted Supabase partially deployed (site not connected; Auth and checkpoint unverified)`。離線測試、內容檢查與兩種 base build 已驗證；hosted Supabase 已有 migrations、`cms-publish` 與 12 組文件，但正式網站尚未連線，Auth 管理員與 checkpoint 也尚未驗證。詳見 [docs/cms-operations.md](docs/cms-operations.md)。
 
 ---
 

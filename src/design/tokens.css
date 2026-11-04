@@ -35,6 +35,8 @@
   /* On-accent text */
   --on-accent: #f7fbf9;
   --admin-control-line: color-mix(in srgb, var(--body) 60%, var(--line));
+  /* Public form controls (archive filters, lightbox buttons): a 3:1 boundary. */
+  --control-line: color-mix(in srgb, var(--body) 55%, var(--line));
   --admin-warning-ink: color-mix(in srgb, var(--amber) 70%, var(--ink));
 
   /* Depth */
@@ -94,6 +96,8 @@
 
   --on-accent: #05100c;
   --admin-control-line: color-mix(in srgb, var(--body) 60%, var(--line));
+  /* Public form controls (archive filters, lightbox buttons): a 3:1 boundary. */
+  --control-line: color-mix(in srgb, var(--body) 55%, var(--line));
   --admin-warning-ink: color-mix(in srgb, var(--amber) 70%, var(--ink));
 
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.5);
