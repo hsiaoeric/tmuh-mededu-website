@@ -111,14 +111,14 @@ describe('AdminDocumentPage editor integration', () => {
     expectWorkspaceChrome(view);
   });
 
-  it.each(ARCHIVE_KINDS)('opens %s in the interim JSON editor inside the structured frame', async (kind) => {
+  it.each(ARCHIVE_KINDS)('opens %s in its structured archive editor with the JSON editor one click away', async (kind) => {
     // Given / When
     const view = await readyDocument(kind);
 
     // Then
     await waitFor(() => expect(view.container.querySelector(`[data-archive-editor="${kind}"]`)).toBeTruthy());
-    expect(view.getByText('結構化編輯器準備中')).toBeTruthy();
-    expect(view.container.querySelector('textarea.mono')).toBeTruthy();
+    expect(view.container.querySelector('textarea.mono')).toBeNull();
+    expect(view.getByRole('button', { name: '進階 JSON' })).toBeTruthy();
     expectWorkspaceChrome(view);
   });
 });

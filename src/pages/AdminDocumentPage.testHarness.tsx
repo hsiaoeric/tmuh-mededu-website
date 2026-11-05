@@ -15,7 +15,7 @@ import type { DraftMediaClient } from '@/admin/media/types';
 import { document, type FakeDocumentRepository, revision } from '@/admin/workflows/testHarness';
 import type { PageEditorKind as AnyPageEditorKind } from '@/admin/editors/pages';
 
-/** Page kinds with a dedicated structured editor; archive kinds still open the interim JSON editor. */
+/** Page kinds covered by the page lifecycle harness; the archive kinds have their own tests under src/admin/editors/archive. */
 type PageEditorKind = Exclude<AnyPageEditorKind, 'posts' | 'department_info' | 'gallery'>;
 import snapshot from '@/content/generated/cms-snapshot.json';
 import { AdminDocumentPage } from './AdminDocumentPage';

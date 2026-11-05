@@ -1,12 +1,38 @@
 import { useSite } from '@/app/site';
 import { AdminIconButton } from './AdminButton';
+import { EDITOR_REVEAL_EVENT } from './editors/global/ui/EditorDensity';
 import { jumpToEditorElement } from './editorOutline';
 
 const CONTROL = 'input:not([type="hidden"]), textarea, select';
+const CHANGED_FIELD = '.admin-field[data-changed]';
+/** A closed archive row whose fields are not rendered but hold changes; opening it renders them. */
+const CHANGED_CLOSED_ROW = '[data-changed-collapsed]';
+const OPEN_FRAMES = 12;
 
 function changedFields(): HTMLElement[] {
   const editor = document.querySelector('.admin-workspace-editor');
-  return editor === null ? [] : [...editor.querySelectorAll<HTMLElement>('.admin-field[data-changed]')];
+  return editor === null ? [] : [...editor.querySelectorAll<HTMLElement>(`${CHANGED_FIELD}, ${CHANGED_CLOSED_ROW}`)];
+}
+
+/** Goes to a changed field, first opening the closed row it is in when its fields are not rendered. */
+function goTo(target: HTMLElement): void {
+  if (!target.matches(CHANGED_CLOSED_ROW)) {
+    jumpToEditorElement(target.querySelector<HTMLElement>(CONTROL) ?? target);
+    return;
+  }
+  target.dispatchEvent(new CustomEvent(EDITOR_REVEAL_EVENT, { bubbles: true }));
+  let frames = 0;
+  const settle = () => {
+    const field = target.querySelector<HTMLElement>(CHANGED_FIELD);
+    if (field !== null) {
+      jumpToEditorElement(field.querySelector<HTMLElement>(CONTROL) ?? field);
+      return;
+    }
+    frames += 1;
+    if (frames < OPEN_FRAMES) window.requestAnimationFrame(settle);
+    else jumpToEditorElement(target);
+  };
+  window.requestAnimationFrame(settle);
 }
 
 /** Index of the changed field to go to next (or previous) from the focused field or the scroll position. */
@@ -36,8 +62,7 @@ export function ChangedFieldNavigator({ count }: { readonly count: number }) {
   const go = (direction: 1 | -1) => {
     const fields = changedFields();
     if (fields.length === 0) return;
-    const field = fields[targetIndex(fields, direction)]!;
-    jumpToEditorElement(field.querySelector<HTMLElement>(CONTROL) ?? field);
+    goTo(fields[targetIndex(fields, direction)]!);
   };
   return (
     <div className="admin-changed-nav" role="group" aria-label={isZh ? '與已發布版本的差異' : 'Differences from the published version'}>
