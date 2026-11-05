@@ -1,5 +1,6 @@
 import { fieldIdForStructuredEditorIssuePath } from '@/admin/editors/shared';
 import type { Json } from '@/content/database.types';
+import { parseEditorJson } from './editorTextCache';
 import { diffPayloads } from './payloadDiff';
 
 /**
@@ -9,13 +10,9 @@ import { diffPayloads } from './payloadDiff';
  */
 export function changedFieldIds(published: Json | null, editorText: string): readonly string[] {
   if (published === null) return [];
-  let current: Json;
-  try {
-    current = JSON.parse(editorText) as Json;
-  } catch {
-    return [];
-  }
-  return diffPayloads(published, current).map((change) => fieldIdForStructuredEditorIssuePath(change.path));
+  const json = parseEditorJson(editorText);
+  if (!json.ok) return [];
+  return diffPayloads(published, json.value as Json).map((change) => fieldIdForStructuredEditorIssuePath(change.path));
 }
 
 export function isFieldChanged(changed: readonly string[], fieldId: string): boolean {
