@@ -21,6 +21,39 @@ const CUSTOM_ZH_MESSAGES: Readonly<Record<string, string>> = {
   'External URL must use HTTPS with a DNS host, no credentials or whitespace, and a valid port': '外部連結必須使用 HTTPS、有效網域與通訊埠，且不可包含帳號密碼或空白。',
 };
 
+type MessagePair = { readonly zh: string; readonly en: string };
+
+/** Messages of the archive (localized-fields) contracts, which build their own issues. */
+const ARCHIVE_MESSAGES: Readonly<Record<string, MessagePair>> = {
+  'Text must not be empty': { zh: '此欄位為必填，請輸入內容。', en: 'This field is required.' },
+  'Text must not contain control characters': { zh: '文字不可包含控制字元，請重新輸入或貼上純文字。', en: 'Text must not contain control characters. Retype it or paste plain text.' },
+  'Text must be a single line': { zh: '此欄位只能有一行，請移除換行。', en: 'This field must be a single line. Remove the line breaks.' },
+  'Text must not start or end with whitespace': { zh: '開頭與結尾不可有空白，請刪除多餘空白。', en: 'Remove the spaces at the start or end.' },
+  'Text must not be blank': { zh: '此欄位不可只有空白。', en: 'This field cannot be only spaces.' },
+  'Link must be an https, http, site path, mailto, or tel address': { zh: '連結必須是 https:// 或 http:// 網址、站內路徑（/ 開頭）、mailto: 或 tel:。', en: 'Links must be an https:// or http:// URL, a site path starting with /, mailto:, or tel:.' },
+  'File link must be a safe link or a files/legacy/ path': { zh: '檔案連結必須是安全的網址，或 files/legacy/ 下的檔案路徑。', en: 'File links must be a safe URL or a path under files/legacy/.' },
+  'Post categories must contain every canonical category exactly once': { zh: '文章分類必須剛好包含全部 14 個固定分類，請在進階 JSON 中修復。', en: 'Post categories must contain every fixed category exactly once. Repair them in the advanced JSON editor.' },
+  'Post channel must match its category channel': { zh: '文章頻道必須與分類所屬頻道一致。', en: 'The post’s channel must match its category’s channel.' },
+  'Center posts must belong to a center': { zh: '中心文章的所屬單位必須是中心。', en: 'A center article must belong to a center.' },
+  'Programs must contain every canonical program exactly once': { zh: '學員專區必須剛好包含五個固定計畫，請在進階 JSON 中修復。', en: 'There must be exactly the five fixed trainee programs. Repair them in the advanced JSON editor.' },
+};
+
+function archiveMessage(message: string, isZh: boolean): string | undefined {
+  const fixed = ARCHIVE_MESSAGES[message];
+  if (fixed !== undefined) return isZh ? fixed.zh : fixed.en;
+  const maximum = message.match(/^Text must be at most (\d+) characters$/u)?.[1];
+  if (maximum !== undefined) return isZh ? `文字最多 ${maximum} 個字元。` : `Use at most ${maximum} characters.`;
+  const category = message.match(/^Category (\S+) belongs to the (\S+) channel$/u);
+  if (category !== null) return isZh ? `分類 ${category[1]} 屬於 ${category[2]} 頻道。` : message;
+  const unknown = message.match(/^Unknown post category: (.+)$/u)?.[1];
+  if (unknown !== undefined) return isZh ? `找不到分類「${unknown}」。` : `Unknown category “${unknown}”.`;
+  const programPage = message.match(/^Program (\S+) \S+ must name a program page owned by that program$/u)?.[1];
+  if (programPage !== undefined) {
+    return isZh ? `計畫 ${programPage} 只能選擇類別為「學員專區計畫」且屬於該計畫的頁面。` : `Program ${programPage} can only use a trainee program page that belongs to it.`;
+  }
+  return undefined;
+}
+
 function invalidTypeMessage(message: string, isZh: boolean): string {
   if (message.includes('received undefined')) {
     return isZh ? '此欄位為必填，請輸入內容。' : 'This field is required.';
@@ -78,6 +111,8 @@ export function displayStructuredEditorIssue(
   if (issue.message === 'Expected a JSON object') {
     return isZh ? '最外層內容必須是 JSON 物件。' : 'The top-level value must be a JSON object.';
   }
+  const archive = archiveMessage(issue.message, isZh);
+  if (archive !== undefined) return archive;
   const customZh = CUSTOM_ZH_MESSAGES[issue.message];
   if (customZh !== undefined) return isZh ? customZh : issue.message;
   const duplicate = issue.message.match(/^Duplicate identifier: (.+)$/)?.[1];
@@ -101,11 +136,20 @@ export function displayStructuredEditorIssue(
   return issue.message;
 }
 
+// Path segments are payload keys, so the set is small; every field renders its id, and long
+// archives render thousands of fields and rows, so each key is encoded once.
+const ENCODED_SEGMENTS = new Map<string, string>();
+const MAX_CACHED_SEGMENTS = 2048;
+
 function encodeString(value: string): string {
   if (value.length === 0) return 'empty';
-  return Array.from(value, (character) => (
+  const cached = ENCODED_SEGMENTS.get(value);
+  if (cached !== undefined) return cached;
+  const encoded = Array.from(value, (character) => (
     (character.codePointAt(0) ?? 0).toString(16)
   )).join('_');
+  if (ENCODED_SEGMENTS.size < MAX_CACHED_SEGMENTS) ENCODED_SEGMENTS.set(value, encoded);
+  return encoded;
 }
 
 function encodePathSegment(segment: PropertyKey): string {

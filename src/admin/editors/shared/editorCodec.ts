@@ -1,4 +1,5 @@
 import { assertNever } from '@/admin/documents/assertNever';
+import { generalSchemaResult, parseEditorJson } from '@/admin/documents/editorTextCache';
 import type { CmsDocumentKind } from '@/content/contracts/kinds';
 import type {
   CmsPayloadByKind,
@@ -15,13 +16,6 @@ import type {
 
 function isJsonObject(value: unknown): value is Record<string, unknown> {
   return typeof value === 'object' && value !== null && !Array.isArray(value);
-}
-
-function isPayloadForKind<K extends CmsDocumentKind>(
-  kind: K,
-  value: unknown,
-): value is CmsPayloadByKind[K] {
-  return safeParseContractPayload(CMS_PAYLOAD_REGISTRY[kind].schema, value).success;
 }
 
 function isEditablePayloadForKind<K extends CmsDocumentKind>(
@@ -47,11 +41,9 @@ export function parseStructuredEditorText<K extends CmsDocumentKind>(
   kind: K,
   editorText: string,
 ): StructuredEditorParseResult<K> {
-  let parsed: unknown;
-  try {
-    parsed = JSON.parse(editorText);
-  } catch (error: unknown) {
-    if (error instanceof SyntaxError) {
+  const json = parseEditorJson(editorText);
+  if (!json.ok) {
+    if (json.error instanceof SyntaxError) {
       return {
         status: 'malformed-json',
         kind,
@@ -59,8 +51,9 @@ export function parseStructuredEditorText<K extends CmsDocumentKind>(
         issues: [{ path: [], message: 'Malformed JSON', code: 'invalid_json' }],
       };
     }
-    throw error;
+    throw json.error;
   }
+  const parsed = json.value;
 
   if (!isJsonObject(parsed)) {
     return {
@@ -71,8 +64,10 @@ export function parseStructuredEditorText<K extends CmsDocumentKind>(
     };
   }
 
-  if (isPayloadForKind(kind, parsed)) {
-    return { status: 'valid', kind, payload: parsed };
+  // Shared with the save and publish checks, which validate the same text on the same keystroke.
+  const general = generalSchemaResult(kind, editorText, parsed);
+  if (general.success) {
+    return { status: 'valid', kind, payload: parsed as CmsPayloadByKind[K] };
   }
 
   if (isEditablePayloadForKind(kind, parsed)) {
@@ -81,7 +76,7 @@ export function parseStructuredEditorText<K extends CmsDocumentKind>(
       kind,
       editorText,
       payload: parsed,
-      issues: issuesFor(CMS_PAYLOAD_REGISTRY[kind].schema, parsed),
+      issues: general.error.issues.map((issue) => ({ path: issue.path, message: issue.message, code: issue.code })),
     };
   }
 

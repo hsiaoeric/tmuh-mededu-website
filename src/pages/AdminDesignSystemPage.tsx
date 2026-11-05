@@ -2,6 +2,7 @@ import { useSite, usePageTitle } from '@/app/site';
 import { Link } from 'react-router-dom';
 import { AdminAppShell, AdminPageHeader } from '@/admin/AdminShell';
 import { NarrowCopy, ZhAtom, ZhCopy, ZhPhrase } from '@/admin/AdminText';
+import { ShowcaseArchiveEditors } from '@/admin/showcase/ShowcaseArchiveEditors';
 import { ShowcaseControls } from '@/admin/showcase/ShowcaseControls';
 import { ShowcaseData } from '@/admin/showcase/ShowcaseData';
 import { ShowcaseOverlays } from '@/admin/showcase/ShowcaseOverlays';
@@ -25,6 +26,7 @@ export function AdminDesignSystemPage() {
         <ShowcaseStates />
         <ShowcaseData />
         <ShowcaseOverlays />
+        <ShowcaseArchiveEditors />
       </div>
     </AdminAppShell>
   );

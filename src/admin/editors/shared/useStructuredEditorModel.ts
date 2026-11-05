@@ -72,6 +72,10 @@ export function useStructuredEditorModel<K extends CmsDocumentKind>(
   }), [options.editorText, options.kind]);
   const synchronizedSource = useRef<SourceRevision | null>(null);
   const synchronizedOnChange = useRef(options.onEditorTextChange);
+  // The text this hook last emitted. When the editor text is still that text, re-emitting its
+  // parsed payload would reproduce it exactly (JSON.parse keeps key order), so it is reused rather
+  // than serialised again on every keystroke.
+  const lastEmitted = useRef<string | null>(null);
   const parsed = useMemo(
     () => parseStructuredEditorText(options.kind, options.editorText),
     [options.editorText, options.kind],
@@ -99,9 +103,13 @@ export function useStructuredEditorModel<K extends CmsDocumentKind>(
             return { status: 'stale' };
           }
           const nextEditorText = emitStructuredEditorText(options.kind, payload);
-          if (nextEditorText === emitStructuredEditorText(options.kind, parsed.payload)) {
+          const currentText = lastEmitted.current === options.editorText
+            ? options.editorText
+            : emitStructuredEditorText(options.kind, parsed.payload);
+          if (nextEditorText === currentText) {
             return { status: 'unchanged' };
           }
+          lastEmitted.current = nextEditorText;
           synchronizedOnChange.current(nextEditorText);
           return { status: 'emitted' };
         },

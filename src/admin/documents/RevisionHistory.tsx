@@ -75,6 +75,9 @@ export function RevisionHistoryDialog({ open, workspace, triggerRef, onClose, co
     if (open) setView(compareWith === undefined ? 'timeline' : 'compare');
   }, [compareWith, open]);
   const tabId = useId();
+  // Closed, the dialog renders nothing, so skip parsing and diffing every revision on each keystroke.
+  // The same AdminDialog element stays mounted, so closing still returns focus to the trigger.
+  if (!open) return <AdminDialog open={false} triggerRef={triggerRef} title="" description="" onClose={onClose}>{null}</AdminDialog>;
   const dirty = workspace.actionableRevision !== null && isWorkspaceDirty(workspace);
   const baseline = dirty ? parseJson(workspace.baselineText) : undefined;
   const editing = dirty ? parseJson(workspace.editorText) : undefined;
